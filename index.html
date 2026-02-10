@@ -1030,6 +1030,8 @@ setTheme(savedTheme);
 // Section type tabs
 document.querySelectorAll('.section-tab').forEach(tab=>{
   tab.addEventListener('click',()=>{
+    // Clear search when switching sections
+    if(searchInput.value.trim()){ searchInput.value=''; }
     document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
     tab.classList.add('active');
     activeSectionType=tab.dataset.section;
@@ -1140,6 +1142,10 @@ function renderCard(s,catName,catType){
 }
 
 function setFilter(id){
+  // Clear search when switching categories so the new category shows immediately
+  if(searchInput.value.trim()){
+    searchInput.value='';
+  }
   activeFilter=id;
   document.querySelectorAll('.nav-btn').forEach(b=>{
     b.classList.toggle('active',b.dataset.filter===id);
@@ -1232,12 +1238,10 @@ window.addEventListener('scroll',()=>{
     window.requestAnimationFrame(()=>{
       const currentY=window.scrollY;
       const delta=currentY-lastScrollY;
-      // Only auto-hide/show if user hasn't manually toggled recently
+      // Only auto-hide on scroll down — no scroll-up auto-expand (user toggles manually)
       if(!userManualToggle){
         if(delta>15 && currentY>300 && !navWrap.classList.contains('collapsed')){
           collapseNav();
-        } else if(delta<-15 && navWrap.classList.contains('collapsed') && !searchInput.value.trim()){
-          expandNav();
         }
       }
       lastScrollY=currentY;
