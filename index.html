@@ -6,6 +6,11 @@
 <title>Powerful Free Websites Library</title>
 <style>
   *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#e53e3e;border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#c53030}
+  *{scrollbar-width:thin;scrollbar-color:#e53e3e transparent}
 
   /* ===== THEME VARIABLES ===== */
   :root{
@@ -275,6 +280,8 @@
   .badge-labs-exp{background:rgba(52,168,83,.1);color:#34a853}
 
   .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px}
+  .card-name-wrap{display:flex;align-items:center;gap:8px;min-width:0}
+  .card-favicon{width:20px;height:20px;border-radius:4px;flex-shrink:0;object-fit:contain}
   .card-name{font-size:1.05rem;font-weight:700;color:var(--text)}
   .card-tag{
     flex-shrink:0;padding:3px 10px;border-radius:50px;font-size:.65rem;
@@ -347,39 +354,44 @@
     .hero-stat .num{font-size:1.6rem}
     .main{padding:24px 16px 60px}
     .card-grid{grid-template-columns:1fr}
-    .nav-inner{padding:0 12px;gap:6px}
-    .nav-btn{padding:6px 12px;font-size:.72rem}
+    .nav-inner{padding:0 12px;gap:6px;justify-content:center}
+    .nav-btn{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
     .cat-header{flex-wrap:wrap}
     .cat-count{margin-left:0}
     .theme-toggle{top:14px;right:14px}
-    .section-tabs{gap:8px}
-    .section-tab{padding:6px 16px;font-size:.78rem}
+    .section-tabs{gap:6px;flex-wrap:wrap;justify-content:center}
+    .section-tab{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
     /* Collapsible nav on mobile */
     .nav-wrap{
-      transition:max-height .35s cubic-bezier(.4,0,.2,1),opacity .3s ease,padding .35s ease;
+      transition:max-height .4s cubic-bezier(.4,0,.2,1),opacity .35s ease,padding .4s ease;
       overflow:hidden;
     }
     .nav-wrap.collapsed{
-      max-height:0!important;opacity:0;padding:0;border-bottom-color:transparent;
+      max-height:0!important;opacity:0;padding:0;border-bottom-color:transparent;pointer-events:none;
     }
     .nav-wrap:not(.collapsed){
-      max-height:400px;opacity:1;
+      max-height:500px;opacity:1;pointer-events:auto;
     }
     .mobile-nav-toggle{
-      display:flex;align-items:center;gap:6px;
+      display:flex;align-items:center;gap:8px;
       position:sticky;top:0;z-index:101;
-      width:100%;padding:10px 16px;
+      width:100%;padding:12px 16px;
       background:var(--nav-bg);backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
       border:none;border-bottom:1px solid var(--border);
-      color:var(--text);font-size:.82rem;font-weight:600;
-      cursor:pointer;transition:background var(--transition-theme),color var(--transition-theme);
-      justify-content:center;
+      color:var(--text);font-size:.84rem;font-weight:600;letter-spacing:.2px;
+      cursor:pointer;transition:all var(--transition-theme);
+      justify-content:center;-webkit-tap-highlight-color:transparent;touch-action:manipulation;
     }
+    .mobile-nav-toggle:active{background:var(--accent-glow)}
     .mobile-nav-toggle svg{
-      width:16px;height:16px;transition:transform .3s ease;
+      width:18px;height:18px;transition:transform .35s cubic-bezier(.4,0,.2,1);
     }
     .mobile-nav-toggle.open svg{
       transform:rotate(180deg);
+    }
+    .mobile-nav-toggle .active-cat-label{
+      display:inline;padding:2px 8px;border-radius:50px;font-size:.7rem;
+      background:var(--accent);color:#fff;margin-left:4px;
     }
   }
   @media(max-width:480px){
@@ -437,7 +449,7 @@
       <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
       <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (20)</button>
       <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20)</button>
-      <button class="section-tab" data-section="piracy">🏴‍☠️ (50)</button>
+      <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
     </div>
   </div>
@@ -999,14 +1011,25 @@ function init(){
   });
 }
 
+function getFaviconUrl(url){
+  try{
+    const domain=new URL(url).hostname;
+    return `https://www.google.com/s2/favicons?domain=${domain}&sz=32`;
+  }catch(e){return '';}
+}
+
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
   const cardClass=catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':'';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
+  const faviconSrc=getFaviconUrl(s.u);
   return `
     <div class="card ${cardClass}" data-search="${(s.n+' '+s.d+' '+catName+' '+s.s+' '+s.u).toLowerCase()}">
       <div class="card-top">
-        <span class="card-name">${s.n}</span>
+        <div class="card-name-wrap">
+          ${faviconSrc?`<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
+          <span class="card-name">${s.n}</span>
+        </div>
         <span class="card-tag">${catName}</span>
       </div>
       <p class="card-desc">${s.d}</p>
@@ -1103,15 +1126,21 @@ const navWrap=document.getElementById('navWrap');
 const mobileNavToggle=document.getElementById('mobileNavToggle');
 const mobileNavLabel=document.getElementById('mobileNavLabel');
 
+function getActiveFilterName(){
+  const activeBtn=document.querySelector('.nav-btn.active');
+  if(activeBtn)return activeBtn.textContent.trim();
+  return 'All Categories';
+}
 function collapseNavMobile(){
   navWrap.classList.add('collapsed');
   mobileNavToggle.classList.remove('open');
-  mobileNavLabel.textContent='Show Categories';
+  const name=getActiveFilterName();
+  mobileNavLabel.innerHTML=`<span>Show Categories</span><span class="active-cat-label">${name}</span>`;
 }
 function expandNavMobile(){
   navWrap.classList.remove('collapsed');
   mobileNavToggle.classList.add('open');
-  mobileNavLabel.textContent='Hide Categories';
+  mobileNavLabel.innerHTML='<span>Hide Categories</span>';
 }
 mobileNavToggle.addEventListener('click',()=>{
   if(navWrap.classList.contains('collapsed')){
