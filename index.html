@@ -452,7 +452,7 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>375+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfullwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfullwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
+    <p>375+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="num" id="totalCount">375</div><div class="label">Websites</div></div>
       <div class="hero-stat"><div class="num">18</div><div class="label">Categories</div></div>
@@ -510,7 +510,7 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>Curated with care. Sources include <a href="https://bsky.app/profile/powerfullwebsites.bsky.social" target="_blank">@powerfullwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, and deep web research.</p>
+  <p>Curated with care. Sources include <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, and deep web research.</p>
   <p style="margin-top:8px;">All free-tool sites verified for no-signup access. 🏴‍☠️ & sports sites sourced from community recommendations. Last updated February 2026.</p>
 </footer>
 
@@ -1199,12 +1199,7 @@ function applyFilters(){
   searchCount.textContent=q?totalVisible+' result'+(totalVisible!==1?'s':'')+' found':'';
 }
 
-// Back to top
-window.addEventListener('scroll',()=>{
-  backTop.classList.toggle('visible',window.scrollY>400);
-});
-
-// Mobile nav collapse logic
+// Nav collapse logic (must be before scroll listener)
 const navWrap=document.getElementById('navWrap');
 const mobileNavToggle=document.getElementById('mobileNavToggle');
 const mobileNavLabel=document.getElementById('mobileNavLabel');
@@ -1225,7 +1220,37 @@ function expandNav(){
   mobileNavToggle.classList.add('open');
   mobileNavLabel.innerHTML='<span>Hide Categories</span>';
 }
+
+// Back to top + auto-hide nav on scroll (both desktop & mobile)
+let lastScrollY=window.scrollY;
+let scrollTicking=false;
+let userManualToggle=false;
+let manualToggleTimer=null;
+window.addEventListener('scroll',()=>{
+  backTop.classList.toggle('visible',window.scrollY>400);
+  if(!scrollTicking){
+    window.requestAnimationFrame(()=>{
+      const currentY=window.scrollY;
+      const delta=currentY-lastScrollY;
+      // Only auto-hide/show if user hasn't manually toggled recently
+      if(!userManualToggle){
+        if(delta>15 && currentY>300 && !navWrap.classList.contains('collapsed')){
+          collapseNav();
+        } else if(delta<-15 && navWrap.classList.contains('collapsed') && !searchInput.value.trim()){
+          expandNav();
+        }
+      }
+      lastScrollY=currentY;
+      scrollTicking=false;
+    });
+    scrollTicking=true;
+  }
+});
 mobileNavToggle.addEventListener('click',()=>{
+  // Set manual override so scroll doesn't immediately undo the user's action
+  userManualToggle=true;
+  clearTimeout(manualToggleTimer);
+  manualToggleTimer=setTimeout(()=>{userManualToggle=false;},3000);
   if(navWrap.classList.contains('collapsed')){
     expandNav();
   } else {
