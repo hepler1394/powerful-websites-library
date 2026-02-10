@@ -17,18 +17,18 @@
     --transition-theme: .4s cubic-bezier(.4,0,.2,1);
   }
   [data-theme="dark"]{
-    --bg:#07070d;--bg2:#0c0c14;--surface:#111119;--card:#16161f;--card-hover:#1d1d2a;
-    --border:rgba(255,255,255,.06);--border-hover:rgba(108,92,231,.4);
-    --text:#e8e8f0;--text-muted:#7a7a95;--text-dim:#55556a;
-    --accent:#7c6cf0;--accent-glow:rgba(124,108,240,.2);
-    --accent2:#00d4c8;--accent3:#ff6b9d;
+    --bg:#0a0a0a;--bg2:#0e0e0e;--surface:#141414;--card:#1a1a1a;--card-hover:#222;
+    --border:rgba(255,255,255,.06);--border-hover:rgba(220,38,38,.4);
+    --text:#e8e8f0;--text-muted:#8a8a9a;--text-dim:#55556a;
+    --accent:#dc2626;--accent-glow:rgba(220,38,38,.2);
+    --accent2:#ff4444;--accent3:#ff6b9d;
     --green:#00c9a7;--red:#ff6b6b;--yellow:#ffd93d;--orange:#ff9f43;
     --radius:16px;--radius-sm:10px;--radius-xs:6px;
-    --glass:rgba(17,17,25,.7);--glass-border:rgba(255,255,255,.06);
-    --shadow:0 8px 32px rgba(0,0,0,.4);
-    --hero-bg:linear-gradient(135deg,#07070d 0%,#150a2e 35%,#0a1a2e 65%,#07070d 100%);
-    --nav-bg:rgba(7,7,13,.88);
-    --card-gradient:linear-gradient(135deg,rgba(124,108,240,.06),rgba(0,212,200,.04));
+    --glass:rgba(10,10,10,.7);--glass-border:rgba(255,255,255,.06);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+    --hero-bg:linear-gradient(135deg,#0a0a0a 0%,#1a0505 35%,#0a0a0a 65%,#120808 100%);
+    --nav-bg:rgba(10,10,10,.92);
+    --card-gradient:linear-gradient(135deg,rgba(220,38,38,.05),rgba(255,68,68,.03));
     --piracy-accent:#ff6b9d;--piracy-glow:rgba(255,107,157,.15);
     --sports-accent:#ffd93d;--sports-glow:rgba(255,217,61,.15);
     --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.2);
@@ -38,18 +38,18 @@
     --logo-text:#fff;
   }
   [data-theme="light"]{
-    --bg:#f5f5fa;--bg2:#eeeef5;--surface:#ffffff;--card:#ffffff;--card-hover:#f8f8ff;
-    --border:rgba(0,0,0,.08);--border-hover:rgba(108,92,231,.3);
+    --bg:#faf5f5;--bg2:#f5eeee;--surface:#ffffff;--card:#ffffff;--card-hover:#fff5f5;
+    --border:rgba(0,0,0,.08);--border-hover:rgba(220,38,38,.3);
     --text:#1a1a2e;--text-muted:#5a5a7a;--text-dim:#8888a0;
-    --accent:#6c5ce7;--accent-glow:rgba(108,92,231,.15);
-    --accent2:#00b4a6;--accent3:#e84393;
+    --accent:#c0392b;--accent-glow:rgba(192,57,43,.15);
+    --accent2:#e74c3c;--accent3:#e84393;
     --green:#00a884;--red:#e74c3c;--yellow:#f39c12;--orange:#e67e22;
     --radius:16px;--radius-sm:10px;--radius-xs:6px;
     --glass:rgba(255,255,255,.85);--glass-border:rgba(0,0,0,.08);
     --shadow:0 4px 24px rgba(0,0,0,.08);
-    --hero-bg:linear-gradient(135deg,#f0f0ff 0%,#e8e0ff 35%,#e0f0ff 65%,#f0f0ff 100%);
-    --nav-bg:rgba(245,245,250,.92);
-    --card-gradient:linear-gradient(135deg,rgba(108,92,231,.04),rgba(0,180,166,.03));
+    --hero-bg:linear-gradient(135deg,#faf5f5 0%,#ffe8e8 35%,#fff0f0 65%,#faf5f5 100%);
+    --nav-bg:rgba(250,245,245,.92);
+    --card-gradient:linear-gradient(135deg,rgba(220,38,38,.04),rgba(255,68,68,.03));
     --piracy-accent:#e84393;--piracy-glow:rgba(232,67,147,.1);
     --sports-accent:#f39c12;--sports-glow:rgba(243,156,18,.1);
     --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.12);
@@ -69,15 +69,16 @@
   ::-webkit-scrollbar-track{background:var(--bg)}
   ::-webkit-scrollbar-thumb{background:#e74c3c;border-radius:4px}
   ::-webkit-scrollbar-thumb:hover{background:#c0392b}
-  a{color:var(--accent2);text-decoration:none;transition:color .2s}
-  a:hover{color:var(--green)}
+  a{color:#ff4444;text-decoration:none;transition:color .2s}
+  a:hover{color:#ff6b6b}
 
   /* ===== THEME TOGGLE ===== */
   .theme-toggle{
     position:fixed;top:16px;right:16px;z-index:200;
-    padding:10px 16px;border-radius:50px;border:none;cursor:pointer;
+    padding:10px;border-radius:50%;border:none;cursor:pointer;
     background:var(--surface);border:1px solid var(--border);
-    transition:all .3s;display:flex;align-items:center;gap:8px;
+    transition:all .3s;display:flex;align-items:center;justify-content:center;
+    width:42px;height:42px;
     box-shadow:0 2px 12px rgba(0,0,0,.15);
     color:var(--text);font-size:.82rem;font-weight:600;
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
@@ -85,7 +86,7 @@
   .theme-toggle:hover{border-color:var(--accent);box-shadow:0 2px 16px var(--accent-glow)}
   .theme-toggle:active{transform:scale(.95)}
   .theme-toggle svg{width:18px;height:18px;flex-shrink:0}
-  .theme-toggle .theme-label{display:inline}
+  .theme-toggle .theme-label{display:none}
 
   /* ===== HERO ===== */
   .hero{
@@ -95,8 +96,8 @@
   }
   .hero::before{
     content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-    background:radial-gradient(circle at 30% 50%,rgba(124,108,240,.08) 0%,transparent 50%),
-               radial-gradient(circle at 70% 50%,rgba(0,212,200,.06) 0%,transparent 50%);
+    background:radial-gradient(circle at 30% 50%,rgba(220,38,38,.1) 0%,transparent 50%),
+               radial-gradient(circle at 70% 50%,rgba(255,68,68,.06) 0%,transparent 50%);
     animation:heroFloat 20s ease-in-out infinite;
   }
   .hero::after{
@@ -109,7 +110,7 @@
   .hero-badge{
     display:inline-block;padding:6px 20px;border-radius:50px;font-size:.72rem;
     font-weight:700;letter-spacing:2px;text-transform:uppercase;
-    background:rgba(124,108,240,.12);color:var(--accent);border:1px solid rgba(124,108,240,.25);
+    background:rgba(220,38,38,.12);color:var(--accent);border:1px solid rgba(220,38,38,.25);
     margin-bottom:28px;backdrop-filter:blur(10px);
   }
   .hero h1{
@@ -129,14 +130,14 @@
   .hero-stat{text-align:center}
   .hero-stat .num{
     font-size:2.2rem;font-weight:900;
-    background:linear-gradient(135deg,var(--accent2),var(--accent));
+    background:linear-gradient(135deg,#ff4444,#dc2626);
     -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
   }
   .hero-stat .label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
 
   /* ===== SEARCH ===== */
   @keyframes glowRing{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
-  .search-wrap{max-width:580px;margin:36px auto 0;position:relative;padding:3px;border-radius:53px;background:linear-gradient(270deg,#7c3aed,#ec4899,#f59e0b,#10b981,#3b82f6,#7c3aed);background-size:600% 600%;animation:glowRing 4s ease infinite;box-shadow:0 0 20px rgba(124,58,237,.3),0 0 40px rgba(236,72,153,.15)}
+  .search-wrap{max-width:580px;margin:36px auto 0;position:relative;padding:3px;border-radius:53px;background:linear-gradient(270deg,#7c3aed,#ec4899,#f59e0b,#10b981,#3b82f6,#7c3aed);background-size:600% 600%;animation:glowRing 4s ease infinite;box-shadow:0 0 20px rgba(124,58,237,.35),0 0 40px rgba(236,72,153,.15)}
   .search-wrap input{
     width:100%;padding:16px 20px 16px 52px;border-radius:50px;
     border:none;background:var(--card);
@@ -162,8 +163,10 @@
     cursor:pointer;transition:all .25s;letter-spacing:.3px;
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
   }
-  .section-tab:hover{border-color:var(--accent);color:var(--text);background:rgba(124,108,240,.08)}
+  .section-tab:hover{border-color:var(--accent);color:var(--text);background:rgba(220,38,38,.08)}
   .section-tab.active{color:#fff}
+  .section-tab[data-section="top"].active{background:linear-gradient(135deg,#dc2626,#ff4444);border-color:#dc2626;box-shadow:0 2px 12px rgba(220,38,38,.3)}
+  .section-tab[data-section="all"].active{background:linear-gradient(135deg,#dc2626,#b91c1c);border-color:#dc2626;box-shadow:0 2px 12px rgba(220,38,38,.3)}
   .section-tab[data-section="free"].active{background:var(--accent);border-color:var(--accent);box-shadow:0 2px 12px var(--accent-glow)}
   .section-tab[data-section="piracy"].active{background:var(--piracy-accent);border-color:var(--piracy-accent);box-shadow:0 2px 12px var(--piracy-glow)}
   .section-tab[data-section="sports"].active{background:var(--sports-accent);border-color:var(--sports-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--sports-glow)}
@@ -211,6 +214,14 @@
   .card.vpn-card:hover::before{opacity:1}
   .card.vpn-card .card-tag{background:var(--vpn-glow);color:var(--vpn-accent)}
   .card.vpn-card .btn-visit{background:linear-gradient(135deg,var(--vpn-accent),#059669)}
+  .card.top-card::before{background:linear-gradient(90deg,#dc2626,#ff4444,#ffd700);height:3px;opacity:.9}
+  .card.top-card{border-color:rgba(220,38,38,.2)}
+  .card.top-card:hover{border-color:rgba(220,38,38,.4);box-shadow:0 8px 32px rgba(220,38,38,.15)}
+  .card.top-card .card-tag{background:rgba(220,38,38,.12);color:#dc2626}
+  .card.top-card .badge-verified{background:rgba(220,38,38,.1);color:#dc2626}
+  .card.top-card .btn-visit{background:linear-gradient(135deg,#dc2626,#ff4444)}
+  .top-count{background:rgba(220,38,38,.12);color:#dc2626}
+  .nav-btn.top-btn.active{background:linear-gradient(135deg,#dc2626,#ff4444)!important;border-color:#dc2626!important;color:#fff!important;box-shadow:0 2px 12px rgba(220,38,38,.3)!important}
   .card.vpn-card .badge-verified{background:rgba(16,185,129,.1);color:var(--vpn-accent)}
   .vpn-count{background:var(--vpn-glow);color:var(--vpn-accent)}
 
@@ -323,7 +334,7 @@
   .btn-visit{
     flex:1;display:inline-flex;justify-content:center;align-items:center;gap:6px;
     padding:10px 18px;border-radius:var(--radius-sm);font-size:.84rem;font-weight:600;
-    background:linear-gradient(135deg,var(--accent),#5a4bd1);color:#fff;
+    background:linear-gradient(135deg,var(--accent),#b91c1c);color:#fff;
     border:none;cursor:pointer;transition:all .25s;text-decoration:none;
   }
   .btn-visit:hover{transform:translateY(-1px);box-shadow:0 4px 16px var(--accent-glow);color:#fff}
@@ -341,18 +352,18 @@
     color:var(--text-muted);font-size:.85rem;
     transition:border-color var(--transition-theme);
   }
-  .footer a{color:var(--accent)}
+  .footer a{color:#ff4444}
 
   /* ===== BACK TO TOP ===== */
   .back-top{
     position:fixed;bottom:24px;right:24px;width:48px;height:48px;
-    border-radius:50%;background:var(--accent);color:#fff;border:none;
+    border-radius:50%;background:#dc2626;color:#fff;border:none;
     cursor:pointer;display:flex;align-items:center;justify-content:center;
     opacity:0;transform:translateY(20px);transition:all .3s;z-index:99;
-    box-shadow:0 4px 16px var(--accent-glow);
+    box-shadow:0 4px 16px rgba(220,38,38,.3);
   }
   .back-top.visible{opacity:1;transform:translateY(0)}
-  .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px var(--accent-glow)}
+  .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
   .back-top svg{width:20px;height:20px}
 
   /* ===== RESPONSIVE ===== */
@@ -376,7 +387,7 @@
   }
   .mobile-nav-toggle .active-cat-label{
     display:inline;padding:2px 10px;border-radius:50px;font-size:.75rem;
-    background:var(--accent);color:#fff;margin-left:6px;
+    background:#dc2626;color:#fff;margin-left:6px;
   }
   /* Collapsible nav on all screen sizes */
   .nav-wrap{
@@ -399,7 +410,7 @@
     .nav-btn{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
     .cat-header{flex-wrap:wrap}
     .cat-count{margin-left:0}
-    .theme-toggle{top:12px;right:12px;padding:8px 12px;font-size:.75rem}
+    .theme-toggle{top:12px;right:12px;padding:8px;width:36px;height:36px}
     .theme-toggle svg{width:16px;height:16px}
     .section-tabs{gap:6px;flex-wrap:wrap;justify-content:center}
     .section-tab{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -441,28 +452,29 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>357 websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
+    <p>375+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfullwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfullwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" id="totalCount">357</div><div class="label">Websites</div></div>
-      <div class="hero-stat"><div class="num">17</div><div class="label">Categories</div></div>
+      <div class="hero-stat"><div class="num" id="totalCount">375</div><div class="label">Websites</div></div>
+      <div class="hero-stat"><div class="num">18</div><div class="label">Categories</div></div>
       <div class="hero-stat"><div class="num">0</div><div class="label">Signups Needed</div></div>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 357 websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 375+ websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (357)</button>
+      <button class="section-tab active" data-section="all">All (377+)</button>
+      <button class="section-tab" data-section="top">⭐ Top Picks</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
       <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
       <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (23)</button>
       <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20)</button>
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
-      <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (20)</button>
+      <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
     </div>
   </div>
 </header>
@@ -498,7 +510,7 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>Curated with care. Sources include <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, Matty McTech, and deep web research.</p>
+  <p>Curated with care. Sources include <a href="https://bsky.app/profile/powerfullwebsites.bsky.social" target="_blank">@powerfullwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, and deep web research.</p>
   <p style="margin-top:8px;">All free-tool sites verified for no-signup access. 🏴‍☠️ & sports sites sourced from community recommendations. Last updated February 2026.</p>
 </footer>
 
@@ -509,6 +521,29 @@
 
 <script>
 const DATA=[
+  {id:"top-picks",name:"Top Picks",icon:"⭐",type:"top",
+    desc:"The absolute best website from each category — if you only bookmark a few, make it these.",
+    sites:[
+      {n:"TinyWow",u:"https://tinywow.com",d:"Best AI Tool — 200+ free tools for PDFs, images, video, and AI writing. Does everything.",l:"reCaptcha to download; files deleted after 1 hour",s:"Top pick: AI Tools"},
+      {n:"RetroGames.cc",u:"https://www.retrogames.cc",d:"Best Retro Gaming — Thousands of NES, SNES, Genesis, GBA, N64, and arcade games. Instant play.",l:"None",s:"Top pick: Gaming"},
+      {n:"Cineby",u:"https://cineby.app",d:"Best Movie Streaming — Netflix-like UI, auto-next episodes, built-in subtitles, zero pop-up ads.",l:"Use adblocker recommended",s:"Top pick: Movies & TV"},
+      {n:"Photopea",u:"https://photopea.com",d:"Best Design Tool — Full Photoshop clone in your browser. Opens PSD, AI, XD, Sketch files.",l:"Has ads; Premium for ad-free",s:"Top pick: Design"},
+      {n:"iLovePDF",u:"https://ilovepdf.com",d:"Best PDF Tool — Merge, split, compress, convert, watermark, unlock PDFs. All free.",l:"Daily limits on free tier",s:"Top pick: PDF Tools"},
+      {n:"Khan Academy",u:"https://khanacademy.org",d:"Best Learning — World-class education in math, science, computing, and more. Completely free.",l:"None",s:"Top pick: Education"},
+      {n:"Manus",u:"https://manus.im",d:"Best AI Assistant — Autonomous general AI agent that executes tasks, automates workflows, and delivers real results.",l:"Free tier available",s:"Top pick: LLMs & AI"},
+      {n:"Buffstream",u:"https://ms.buffstream.io",d:"Best Sports Streaming — NFL, NBA, MLB, NHL, MMA, boxing. Reliable streams, minimal ads.",l:"Use adblocker; pop-up ads",s:"Top pick: Sports"},
+      {n:"Private Internet Access",u:"https://www.privateinternetaccess.com",d:"Best VPN — 35,000+ servers, 91 countries, open-source, no-logs proven in court twice.",l:"Paid: $2.03/mo. 30-day guarantee.",s:"Top pick: VPN"},
+      {n:"NotebookLM",u:"https://notebooklm.google.com",d:"Best Google Lab — Upload docs, get AI summaries, audio overviews, mind maps, and flashcards.",l:"Plus tier for more",s:"Top pick: Google Labs"},
+      {n:"FlowithOS",u:"https://flowith.net",d:"Best Agentic Browser — AI canvas workspace with parallel browsing agents. Think + browse + create.",l:"Free tier with limits",s:"Top pick: Agentic Browsers"},
+      {n:"FitGirl Repacks",u:"https://fitgirl-repacks.site",d:"Best Game Downloads — Smallest game repacks on the internet. Verified, safe, pre-cracked.",l:"Slow install due to compression",s:"Top pick: Games & Software"},
+      {n:"Hemingway Editor",u:"https://hemingwayapp.com",d:"Best Productivity — Makes your writing bold and clear. Highlights complex sentences and passive voice.",l:"None for web editor",s:"Top pick: Productivity"},
+      {n:"Have I Been Pwned",u:"https://haveibeenpwned.com",d:"Best Privacy Tool — Check if your email or phone has been in a data breach. Essential security check.",l:"None",s:"Top pick: Privacy"},
+      {n:"Neal.fun",u:"https://neal.fun",d:"Best Hidden Gem — Spend Bill Gates\' money, visualize the universe, draw a perfect circle. Pure fun.",l:"None",s:"Top pick: Hidden Gems"},
+      {n:"Tubi",u:"https://tubitv.com",d:"Best Legal Streaming — Thousands of free movies and TV shows. No signup needed. Ad-supported.",l:"Has ads; no newest releases",s:"Top pick: Streaming"},
+      {n:"CodePen",u:"https://codepen.io",d:"Best Dev Tool — Online code editor for HTML/CSS/JS. Build, test, and share front-end code instantly.",l:"Pro for private pens",s:"Top pick: Developer Tools"},
+      {n:"Proton VPN",u:"https://protonvpn.com/free-vpn",d:"Best Free VPN — Unlimited data, no ads, no logs. Swiss-based privacy. Actually free.",l:"Free: 5 countries, 1 device",s:"Top pick: Free VPN"}
+    ]
+  },
   {id:"ai-tools",name:"AI-Powered Tools",icon:"🤖",type:"free",
     desc:"AI tools for writing, image generation, search, and productivity — no signup needed.",
     sites:[
@@ -904,6 +939,7 @@ const DATA=[
   {id:"vpn-services",name:"VPN Services",icon:"🛡",type:"vpn",
     desc:"Free VPN services to protect your privacy, bypass restrictions, and stay anonymous online.",
     sites:[
+      {n:"Private Internet Access",u:"https://www.privateinternetaccess.com",d:"Industry-leading VPN with 35,000+ servers in 91 countries. Open-source, no-logs proven in court twice. WireGuard + split tunneling.",l:"Paid: starts at $2.03/mo. 30-day money-back guarantee.",s:"Top VPN pick"},
       {n:"Proton VPN",u:"https://protonvpn.com/free-vpn",d:"Best free VPN — unlimited data, no ads, no logs. Swiss-based privacy with open-source apps.",l:"Free: 5 countries, 1 device. Plus for more.",s:"PCMag + CNET top pick"},
       {n:"Windscribe",u:"https://windscribe.com",d:"10GB/month free with browser extension — no email needed. Strong privacy and ad blocker built in.",l:"10GB/month; Pro for unlimited",s:"Reddit r/VPN recommended"},
       {n:"Cloudflare WARP",u:"https://1.1.1.1",d:"Free VPN + DNS from Cloudflare — blazing fast, private, works on mobile and desktop.",l:"Free tier; WARP+ for faster routing",s:"Found via research"},
@@ -1004,6 +1040,8 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     // Show disclaimer for piracy/sports
     disclaimer.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports'||activeSectionType==='vpn');
     labsDisclaimer.classList.toggle('visible',activeSectionType==='labs'||activeSectionType==='agent'||activeSectionType==='llm');
+    // Top picks shows all disclaimers hidden
+    if(activeSectionType==='top'){disclaimer.classList.remove('visible');labsDisclaimer.classList.remove('visible');}
   });
 });
 
@@ -1023,6 +1061,7 @@ function init(){
   DATA.forEach(cat=>{
     const btn=document.createElement('button');
     btn.className='nav-btn';
+    if(cat.type==='top')btn.classList.add('top-btn');
     if(cat.type==='piracy')btn.classList.add('piracy-btn');
     if(cat.type==='sports')btn.classList.add('sports-btn');
     if(cat.type==='labs')btn.classList.add('labs-btn');
@@ -1041,7 +1080,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':'free-count';
+    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -1064,7 +1103,7 @@ function getFaviconUrl(url){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':'';
+  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':'';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   const faviconSrc=getFaviconUrl(s.u);
   return `
@@ -1081,7 +1120,7 @@ function renderCard(s,catName,catType){
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':'No signup verified'}
+          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -1092,7 +1131,7 @@ function renderCard(s,catName,catType){
       </div>
       <div class="card-actions">
         <a href="${s.u}" target="_blank" rel="noopener" class="btn-visit">
-          ${catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':'Visit Site'}
+          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
