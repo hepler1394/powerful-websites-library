@@ -135,19 +135,20 @@
   .hero-stat .label{font-size:.75rem;color:var(--text-muted);text-transform:uppercase;letter-spacing:1.5px;margin-top:4px}
 
   /* ===== SEARCH ===== */
-  .search-wrap{max-width:580px;margin:36px auto 0;position:relative}
+  @keyframes glowRing{0%{background-position:0% 50%}50%{background-position:100% 50%}100%{background-position:0% 50%}}
+  .search-wrap{max-width:580px;margin:36px auto 0;position:relative;padding:3px;border-radius:53px;background:linear-gradient(270deg,#7c3aed,#ec4899,#f59e0b,#10b981,#3b82f6,#7c3aed);background-size:600% 600%;animation:glowRing 4s ease infinite;box-shadow:0 0 20px rgba(124,58,237,.3),0 0 40px rgba(236,72,153,.15)}
   .search-wrap input{
     width:100%;padding:16px 20px 16px 52px;border-radius:50px;
-    border:1px solid var(--border);background:var(--glass);
+    border:none;background:var(--card);
     backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);
     color:var(--text);font-size:1rem;outline:none;
     transition:all .3s;
   }
-  .search-wrap input:focus{border-color:var(--accent);box-shadow:0 0 0 4px var(--accent-glow)}
+  .search-wrap input:focus{box-shadow:0 0 0 4px var(--accent-glow)}
   .search-wrap input::placeholder{color:var(--text-dim)}
   .search-wrap svg{
-    position:absolute;left:18px;top:50%;transform:translateY(-50%);
-    width:20px;height:20px;color:var(--text-dim);pointer-events:none;
+    position:absolute;left:21px;top:50%;transform:translateY(-50%);
+    width:20px;height:20px;color:var(--text-dim);pointer-events:none;z-index:1;
   }
   .search-count{text-align:center;margin-top:12px;font-size:.85rem;color:var(--text-muted);min-height:1.3em}
 
@@ -441,7 +442,7 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>357 websites that feel illegal to know — free tools, agentic browsers, LLMs, Google Labs experiments, and sports streams. Sourced from <strong>@setupsai</strong>, <strong>Google Labs</strong>, and deep web research.</p>
+    <p>357 websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
     <div class="hero-stats">
       <div class="hero-stat"><div class="num" id="totalCount">357</div><div class="label">Websites</div></div>
       <div class="hero-stat"><div class="num">17</div><div class="label">Categories</div></div>
@@ -456,9 +457,9 @@
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
       <button class="section-tab active" data-section="all">All (357)</button>
-      <button class="section-tab" data-section="free">&#x2728; Free Tools (207)</button>
+      <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
       <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
-      <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (20)</button>
+      <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (23)</button>
       <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20)</button>
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
@@ -498,8 +499,8 @@
 
 <!-- FOOTER -->
 <footer class="footer">
-  <p>Curated with care. Sources include <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, <a href="https://labs.google" target="_blank">Google Labs</a>, community megathreads, Matty McTech, and deep web research.</p>
-  <p style="margin-top:8px;">All free-tool sites verified for no-signup access. Google Labs tools sourced from labs.google. 🏴‍☠️ & sports sites sourced from community recommendations. Last updated February 2026.</p>
+  <p>Curated with care. Sources include <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, Matty McTech, and deep web research.</p>
+  <p style="margin-top:8px;">All free-tool sites verified for no-signup access. 🏴‍☠️ & sports sites sourced from community recommendations. Last updated February 2026.</p>
 </footer>
 
 <!-- BACK TO TOP -->
@@ -531,10 +532,7 @@ const DATA=[
       {n:"Squoosh",u:"https://squoosh.app",d:"Google's free image compressor — optimize images without losing quality.",l:"None",s:"Found via research"},
       {n:"BlackBox AI",u:"https://blackbox.ai",d:"AI code assistant — highlight code anywhere and get instant explanations.",l:"None",s:"Found via research"},
       {n:"Skybox AI",u:"https://skybox.blockadelabs.com",d:"Generate immersive 360-degree 3D worlds from text prompts and sketches.",l:"Free tier with limits",s:"Seen on @setupsai"},
-      {n:"MathGPT",u:"https://mathgpt.ai",d:"Free STEM education platform — solve math problems with AI step-by-step explanations.",l:"Free tier",s:"Seen on @setupsai"},
-      {n:"ChatGPT",u:"https://chat.openai.com",d:"OpenAI's flagship AI chatbot — write, code, analyze, and create with GPT-4o for free.",l:"Free tier limited; Plus for GPT-4o unlimited & o1",s:"Found via research"},
-      {n:"Claude",u:"https://claude.ai",d:"Anthropic's AI assistant — excels at long documents, coding, and nuanced reasoning.",l:"Free tier with daily limits; Pro for more usage",s:"Found via research"},
-      {n:"Gemini",u:"https://gemini.google.com",d:"Google's AI chatbot powered by Gemini 2.0 — multimodal, real-time search, and Deep Research.",l:"Free tier; Advanced for Gemini Ultra",s:"Found via research"}
+      {n:"MathGPT",u:"https://mathgpt.ai",d:"Free STEM education platform — solve math problems with AI step-by-step explanations.",l:"Free tier",s:"Seen on @setupsai"}
     ]
   },
   {id:"gaming",name:"Gaming & Retro Arcade",icon:"🎮",type:"free",
@@ -880,6 +878,9 @@ const DATA=[
     desc:"The best AI chatbots and assistants — from autonomous agents to open-source models. Manus leads the pack.",
     sites:[
       {n:"Manus",u:"https://manus.im",d:"\u2b50 THE GOAT. Autonomous general AI agent that executes tasks, automates workflows, and delivers real results — not just answers.",l:"Free tier; Pro for heavy usage",s:"Your bestie"},
+      {n:"ChatGPT",u:"https://chat.openai.com",d:"OpenAI's flagship chatbot — GPT-4o for free. Write, code, analyze images, browse the web, and create.",l:"Free tier limited; Plus for GPT-4o unlimited & o1",s:"Found via research"},
+      {n:"Claude",u:"https://claude.ai",d:"Anthropic's AI — best-in-class for long documents (200K context), coding, and nuanced reasoning.",l:"Free tier with daily limits; Pro for more usage",s:"Found via research"},
+      {n:"Gemini",u:"https://gemini.google.com",d:"Google's AI chatbot — Gemini 2.0 with multimodal input, real-time search, and Deep Research mode.",l:"Free tier; Advanced for Gemini Ultra",s:"Found via research"},
       {n:"DeepSeek",u:"https://chat.deepseek.com",d:"China's powerhouse open-source LLM. Excellent reasoning and coding. Free to use, no signup for basic chat.",l:"Free",s:"Found via research"},
       {n:"Perplexity AI",u:"https://perplexity.ai",d:"AI search engine with real-time cited answers. Best for research — shows its sources every time.",l:"Free tier; Pro for unlimited",s:"Found via research"},
       {n:"Grok",u:"https://grok.com",d:"xAI's witty, unfiltered AI with real-time X/Twitter data access. Great for current events and humor.",l:"Free tier",s:"Found via research"},
