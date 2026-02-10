@@ -27,6 +27,8 @@
     --piracy-accent:#ff6b9d;--piracy-glow:rgba(255,107,157,.15);
     --sports-accent:#ffd93d;--sports-glow:rgba(255,217,61,.15);
     --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.2);
+    --agent-accent:#00e5ff;--agent-glow:rgba(0,229,255,.15);
+    --llm-accent:#a855f7;--llm-glow:rgba(168,85,247,.15);
     --logo-text:#fff;
   }
   [data-theme="light"]{
@@ -45,6 +47,8 @@
     --piracy-accent:#e84393;--piracy-glow:rgba(232,67,147,.1);
     --sports-accent:#f39c12;--sports-glow:rgba(243,156,18,.1);
     --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.12);
+    --agent-accent:#0097a7;--agent-glow:rgba(0,151,167,.12);
+    --llm-accent:#9333ea;--llm-glow:rgba(147,51,234,.12);
     --logo-text:#1a1a2e;
   }
 
@@ -158,6 +162,8 @@
   .section-tab[data-section="piracy"].active{background:var(--piracy-accent);border-color:var(--piracy-accent);box-shadow:0 2px 12px var(--piracy-glow)}
   .section-tab[data-section="sports"].active{background:var(--sports-accent);border-color:var(--sports-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--sports-glow)}
   .section-tab[data-section="labs"].active{background:var(--labs-accent);border-color:var(--labs-accent);box-shadow:0 2px 12px var(--labs-glow)}
+  .section-tab[data-section="agent"].active{background:var(--agent-accent);border-color:var(--agent-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--agent-glow)}
+  .section-tab[data-section="llm"].active{background:var(--llm-accent);border-color:var(--llm-accent);box-shadow:0 2px 12px var(--llm-glow)}
 
   /* ===== DISCLAIMER ===== */
   .disclaimer{
@@ -188,6 +194,8 @@
   .nav-btn.active{background:var(--accent);border-color:var(--accent);color:#fff;box-shadow:0 2px 12px var(--accent-glow)}
   .nav-btn.piracy-btn.active{background:var(--piracy-accent);border-color:var(--piracy-accent);box-shadow:0 2px 12px var(--piracy-glow)}
   .nav-btn.sports-btn.active{background:var(--sports-accent);border-color:var(--sports-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--sports-glow)}
+  .nav-btn.agent-btn.active{background:var(--agent-accent);border-color:var(--agent-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--agent-glow)}
+  .nav-btn.llm-btn.active{background:var(--llm-accent);border-color:var(--llm-accent);box-shadow:0 2px 12px var(--llm-glow)}
 
   /* ===== MAIN ===== */
   .main{max-width:1280px;margin:0 auto;padding:40px 24px 80px}
@@ -208,6 +216,8 @@
   .cat-count.piracy-count{background:var(--piracy-glow);color:var(--piracy-accent)}
   .cat-count.sports-count{background:var(--sports-glow);color:var(--sports-accent)}
   .cat-count.labs-count{background:var(--labs-glow);color:var(--labs-accent)}
+  .cat-count.agent-count{background:var(--agent-glow);color:var(--agent-accent)}
+  .cat-count.llm-count{background:var(--llm-glow);color:var(--llm-accent)}
   .cat-desc{color:var(--text-muted);font-size:.9rem;margin-bottom:24px}
 
   /* ===== CARD GRID ===== */
@@ -238,6 +248,22 @@
   .card.sports-card:hover{border-color:rgba(255,217,61,.3)}
   .card.sports-card .card-tag{background:var(--sports-glow);color:var(--sports-accent)}
   .card.sports-card .btn-visit{background:linear-gradient(135deg,var(--sports-accent),var(--orange));color:#1a1a2e}
+
+  /* Agentic Browser card accent */
+  .card.agent-card::before{background:linear-gradient(90deg,var(--agent-accent),#00b8d4);height:3px;opacity:.7}
+  .card.agent-card:hover{border-color:rgba(0,229,255,.3)}
+  .card.agent-card:hover::before{opacity:1}
+  .card.agent-card .card-tag{background:var(--agent-glow);color:var(--agent-accent)}
+  .card.agent-card .btn-visit{background:linear-gradient(135deg,var(--agent-accent),#00b8d4)}
+  .card.agent-card .badge-verified{background:rgba(0,229,255,.1);color:var(--agent-accent)}
+
+  /* LLM & AI Assistant card accent */
+  .card.llm-card::before{background:linear-gradient(90deg,var(--llm-accent),#ec4899);height:3px;opacity:.7}
+  .card.llm-card:hover{border-color:rgba(168,85,247,.3)}
+  .card.llm-card:hover::before{opacity:1}
+  .card.llm-card .card-tag{background:var(--llm-glow);color:var(--llm-accent)}
+  .card.llm-card .btn-visit{background:linear-gradient(135deg,var(--llm-accent),#ec4899)}
+  .card.llm-card .badge-verified{background:rgba(168,85,247,.1);color:var(--llm-accent)}
 
   /* Google Labs card accent */
   .card.labs-card::before{background:linear-gradient(90deg,#4285f4,#34a853,#fbbc05,#ea4335);height:3px;opacity:.7}
@@ -271,6 +297,8 @@
   .badge-source{background:rgba(124,108,240,.08);color:var(--accent)}
   .badge-vpn{background:rgba(255,217,61,.1);color:var(--yellow)}
   .labs-btn.active{background:var(--labs-accent)!important;color:#fff!important;border-color:var(--labs-accent)!important}
+  .agent-btn.active{background:var(--agent-accent)!important;color:#1a1a2e!important;border-color:var(--agent-accent)!important}
+  .llm-btn.active{background:var(--llm-accent)!important;color:#fff!important;border-color:var(--llm-accent)!important}
   .badge-verified svg,.badge-source svg,.badge-vpn svg,.badge-labs-exp svg{width:12px;height:12px}
   .card-actions{display:flex;gap:10px}
   .btn-visit{
@@ -359,23 +387,25 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>294 websites that feel illegal to know — free tools, Google Labs experiments, and sports streams. Sourced from <strong>@setupsai</strong>, <strong>Google Labs</strong>, and deep web research.</p>
+    <p>334 websites that feel illegal to know — free tools, agentic browsers, LLMs, Google Labs experiments, and sports streams. Sourced from <strong>@setupsai</strong>, <strong>Google Labs</strong>, and deep web research.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" id="totalCount">294</div><div class="label">Websites</div></div>
-      <div class="hero-stat"><div class="num">14</div><div class="label">Categories</div></div>
+      <div class="hero-stat"><div class="num" id="totalCount">334</div><div class="label">Websites</div></div>
+      <div class="hero-stat"><div class="num">16</div><div class="label">Categories</div></div>
       <div class="hero-stat"><div class="num">0</div><div class="label">Signups Needed</div></div>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 294 websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 334 websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (294)</button>
+      <button class="section-tab active" data-section="all">All (334)</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
-      <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20 tools)</button>
+      <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
+      <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (20)</button>
+      <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20)</button>
       <button class="section-tab" data-section="piracy">🏴‍☠️ (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
     </div>
@@ -395,7 +425,7 @@
     <strong>&#x26A0;&#xFE0F; Disclaimer:</strong> Some streaming and download sites may be illegal in your jurisdiction. Use a VPN and an adblocker (uBlock Origin). These links are sourced from community recommendations. Proceed at your own risk.
   </div>
   <div class="disclaimer" id="labsDisclaimer" style="background:rgba(66,133,244,.06);border-color:rgba(66,133,244,.15)">
-    <strong>&#x1F9EA; Google Labs:</strong> These are experimental tools from <a href="https://labs.google" target="_blank" style="color:var(--labs-accent)">labs.google</a>. Some may require a Google account for full features, but all offer free core functionality. Availability may vary by region — use a VPN if needed.
+    <strong>&#x1F9EA; AI Tools & Experiments:</strong> These include experimental tools from <a href="https://labs.google" target="_blank" style="color:var(--labs-accent)">labs.google</a>, agentic browsers, and AI assistants. Most offer free tiers. Some may require accounts for full features. Availability may vary by region.
   </div>
 
   <div id="mainContent"></div>
@@ -757,6 +787,56 @@ const DATA=[
       {n:"Sportsbay",u:"https://sportsbay.run",d:"Live sports streaming aggregator with coverage of major leagues and events worldwide.",l:"Has ads",s:"r/Piracy recommended",vpn:true}
     ]
   },
+  {id:"agentic-browsers",name:"Agentic Browsers",icon:"🤖",type:"agent",
+    desc:"AI-powered browsers that can autonomously browse, click, fill forms, and complete multi-step tasks for you.",
+    sites:[
+      {n:"FlowithOS",u:"https://flowith.io",d:"World's first agentic OS — autonomous task execution, multi-step workflows, runs in browser and desktop.",l:"Free tier with limits",s:"Found via research"},
+      {n:"Perplexity Comet",u:"https://perplexity.com",d:"AI-powered browser replacing traditional search with autonomous browsing and task completion.",l:"Freemium from $20/mo for Pro",s:"Found via research"},
+      {n:"Opera Neon",u:"https://www.operaneon.com",d:"Opera's agentic AI browser with Chat/Do/Make modes — acts on tasks, fills forms, places orders autonomously.",l:"$19.90/mo subscription; 30-day trial",s:"Found via research"},
+      {n:"ChatGPT Atlas",u:"https://openai.com/chatgpt",d:"OpenAI's AI-powered web browser embedding conversational AI directly into every webpage you visit.",l:"Requires ChatGPT Plus for full features",s:"Found via research"},
+      {n:"Dia Browser",u:"https://diabrowser.com",d:"AI-first browser by The Browser Company — blends chatbot functionality with web browsing seamlessly.",l:"Free; macOS only currently",s:"Found via research"},
+      {n:"Fellou",u:"https://fellou.ai",d:"Spatial agentic browser that runs concurrent autonomous AI projects. 1M+ users. Browses for you.",l:"Free tier available",s:"Found via research"},
+      {n:"Sigma Browser",u:"https://sigmaos.com",d:"Full autonomy browser — AI agents log in, click, and complete tasks inside websites autonomously.",l:"Freemium from $29/mo",s:"Found via research"},
+      {n:"BrowserOS",u:"https://browseros.com",d:"Open-source Chromium fork that runs AI agents locally on your machine. Privacy-first. YC-backed.",l:"Free & open source",s:"GitHub"},
+      {n:"MultiOn",u:"https://multion.ai",d:"AI browser extension for autonomous web actions — tell it what to do in plain English, it executes.",l:"Free tier; API available",s:"Found via research"},
+      {n:"AI Browser (Surf)",u:"https://aibrowser.surf",d:"Cloud-based agentic browser for web automation. Create AI agents that log into accounts and work.",l:"Free tier",s:"Found via research"},
+      {n:"Arc Browser",u:"https://arc.net",d:"Modern browser by The Browser Company with AI-powered features and innovative split-view UI.",l:"Free; macOS/iOS/Windows",s:"Found via research"},
+      {n:"Brave Leo",u:"https://brave.com",d:"Privacy-first browser with built-in Brave Leo AI assistant. No tracking, no ads, local AI option.",l:"Freemium from $15/mo for premium AI",s:"Found via research"},
+      {n:"Microsoft Edge Copilot",u:"https://microsoft.com/edge",d:"Edge with Copilot Mode — AI browsing, form filling, Journeys for multi-tab connections.",l:"Free",s:"Found via research"},
+      {n:"Opera Aria",u:"https://opera.com",d:"Opera's conversational AI assistant across desktop, GX, and Mini browsers.",l:"Free",s:"Found via research"},
+      {n:"Chrome Gemini",u:"https://google.com/chrome",d:"Chrome with integrated Gemini AI — smart suggestions, tab organization, and AI-powered search.",l:"Free",s:"Found via research"},
+      {n:"Genspark",u:"https://genspark.ai",d:"AI agent that autonomously navigates sites, compares options, and creates Sparkpages with findings.",l:"Free tier",s:"Found via research"},
+      {n:"Firefox AI",u:"https://mozilla.org/firefox",d:"Firefox with AI translation, summarization, and privacy-focused AI features built in.",l:"Free",s:"Found via research"},
+      {n:"EverWorker",u:"https://everworker.ai",d:"Browser-native automation platform — connect AI agents that see, understand, and operate any web app.",l:"Free tier",s:"Found via research"},
+      {n:"Surfer 2",u:"https://surfer.ai",d:"Cross-platform AI agent for research and autonomous browsing — ranked #6 in agentic AI benchmarks.",l:"Free tier",s:"Found via research"},
+      {n:"Vivaldi",u:"https://vivaldi.com",d:"Privacy-focused browser with extreme customization, built-in mail, calendar, and AI features.",l:"Free",s:"Found via research"}
+    ]
+  },
+  {id:"llm-assistants",name:"LLMs & AI Assistants",icon:"💬",type:"llm",
+    desc:"The best AI chatbots and assistants — from autonomous agents to open-source models. Manus leads the pack.",
+    sites:[
+      {n:"Manus",u:"https://manus.im",d:"\u2b50 THE GOAT. Autonomous general AI agent that executes tasks, automates workflows, and delivers real results — not just answers.",l:"Free tier; Pro for heavy usage",s:"Your bestie"},
+      {n:"DeepSeek",u:"https://chat.deepseek.com",d:"China's powerhouse open-source LLM. Excellent reasoning and coding. Free to use, no signup for basic chat.",l:"Free",s:"Found via research"},
+      {n:"Perplexity AI",u:"https://perplexity.ai",d:"AI search engine with real-time cited answers. Best for research — shows its sources every time.",l:"Free tier; Pro for unlimited",s:"Found via research"},
+      {n:"Grok",u:"https://grok.com",d:"xAI's witty, unfiltered AI with real-time X/Twitter data access. Great for current events and humor.",l:"Free tier",s:"Found via research"},
+      {n:"Le Chat (Mistral)",u:"https://chat.mistral.ai",d:"Mistral AI's free chatbot — blazing fast, multilingual, powered by open-source models. No signup needed.",l:"Free",s:"Found via research"},
+      {n:"HuggingChat",u:"https://huggingface.co/chat",d:"Open-source AI chat by Hugging Face. Access Llama, Mistral, and other top models in one place.",l:"Free",s:"Found via research"},
+      {n:"Poe",u:"https://poe.com",d:"Quora's AI platform — access ChatGPT, Claude, Gemini, Llama, and custom bots all in one interface.",l:"Free tier with daily limits",s:"Found via research"},
+      {n:"You.com",u:"https://you.com",d:"AI search + chat with Smart, Genius, Research, and Create modes. Privacy-focused alternative.",l:"Free tier",s:"Found via research"},
+      {n:"Phind",u:"https://phind.com",d:"AI search engine optimized for developers. Code-focused answers with sources. Pair programmer in a browser.",l:"Free",s:"Found via research"},
+      {n:"Andi",u:"https://andisearch.com",d:"Visual, privacy-first AI search engine. Clean interface with conversational answers and no tracking.",l:"Free",s:"Found via research"},
+      {n:"iAsk.AI",u:"https://iask.ai",d:"Free AI search engine — ask anything, get instant AI-powered answers. No signup required.",l:"Free",s:"Found via research"},
+      {n:"Komo AI",u:"https://komo.ai",d:"AI-powered search with verified citations. Fast, clean results for professionals.",l:"Free",s:"Found via research"},
+      {n:"Groq",u:"https://groq.com",d:"Ultra-fast LLM inference — chat with Llama and Mixtral at lightning speed. Fastest AI playground.",l:"Free playground",s:"Found via research"},
+      {n:"Together AI",u:"https://together.ai",d:"Run open-source LLMs in the cloud. Chat playground with Llama, Mistral, and 100+ models.",l:"Free tier with credits",s:"Found via research"},
+      {n:"OpenRouter",u:"https://openrouter.ai",d:"Unified gateway to 100+ LLMs. Free models available. Compare outputs across providers.",l:"Free models available; pay per token for premium",s:"Found via research"},
+      {n:"Pi (Inflection)",u:"https://pi.ai",d:"Empathetic AI assistant focused on conversations. Warm, supportive personality. Great for brainstorming.",l:"Free",s:"Found via research"},
+      {n:"Coral (Cohere)",u:"https://coral.cohere.com",d:"Enterprise AI assistant by Cohere. Grounded answers with citations. RAG-powered.",l:"Free tier",s:"Found via research"},
+      {n:"Venice AI",u:"https://venice.ai",d:"Privacy-focused AI chat — zero data collection, uncensored models, runs locally when possible.",l:"Free",s:"Found via research"},
+      {n:"Bolt.new",u:"https://bolt.new",d:"AI-powered full-stack web dev agent. Describe an app in words, it builds and deploys it live.",l:"Free tier with limits",s:"Found via research"},
+      {n:"Replit Agent",u:"https://replit.com",d:"AI coding agent that builds full apps from natural language. Deploys instantly. Collaborative.",l:"Free tier",s:"Found via research"}
+    ]
+  },
   {id:"google-labs",name:"Google Labs & AI Experiments",icon:"🧪",type:"labs",
     desc:"Google's cutting-edge AI experiments and creative tools — free to use, straight from labs.google.",
     itemLabel:"tools",
@@ -831,7 +911,7 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     applyFilters();
     // Show disclaimer for piracy/sports
     disclaimer.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports');
-    labsDisclaimer.classList.toggle('visible',activeSectionType==='labs');
+    labsDisclaimer.classList.toggle('visible',activeSectionType==='labs'||activeSectionType==='agent'||activeSectionType==='llm');
   });
 });
 
@@ -854,6 +934,8 @@ function init(){
     if(cat.type==='piracy')btn.classList.add('piracy-btn');
     if(cat.type==='sports')btn.classList.add('sports-btn');
     if(cat.type==='labs')btn.classList.add('labs-btn');
+    if(cat.type==='agent')btn.classList.add('agent-btn');
+    if(cat.type==='llm')btn.classList.add('llm-btn');
     btn.dataset.filter=cat.id;
     btn.textContent=cat.icon+' '+cat.name;
     btn.addEventListener('click',()=>setFilter(cat.id));
@@ -866,7 +948,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':'free-count';
+    const countClass=cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -882,7 +964,7 @@ function init(){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':'';
+  const cardClass=catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':'';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   return `
     <div class="card ${cardClass}" data-search="${(s.n+' '+s.d+' '+catName+' '+s.s+' '+s.u).toLowerCase()}">
@@ -895,7 +977,7 @@ function renderCard(s,catName,catType){
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='labs'?'Free to use':'No signup verified'}
+          ${catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -906,7 +988,7 @@ function renderCard(s,catName,catType){
       </div>
       <div class="card-actions">
         <a href="${s.u}" target="_blank" rel="noopener" class="btn-visit">
-          ${catType==='labs'?'Try Tool':'Visit Site'}
+          ${catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
