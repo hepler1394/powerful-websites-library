@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Powerful Free Websites Library</title>
+<style>
+  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+  ::-webkit-scrollbar{width:8px;height:8px}
+  ::-webkit-scrollbar-track{background:transparent}
+  ::-webkit-scrollbar-thumb{background:#e53e3e;border-radius:4px}
+  ::-webkit-scrollbar-thumb:hover{background:#c53030}
+  *{scrollbar-width:thin;scrollbar-color:#e53e3e transparent}
+
+  :root{--transition-theme:.4s cubic-bezier(.4,0,.2,1)}
+  [data-theme="dark"]{
+    --bg:#0a0a0a;--bg2:#0e0e0e;--surface:#141414;--card:#1a1a1a;--card-hover:#222;
+    --border:rgba(255,255,255,.06);--border-hover:rgba(220,38,38,.4);
+    --text:#e8e8f0;--text-muted:#8a8a9a;--text-dim:#55556a;
+    --accent:#dc2626;--accent-glow:rgba(220,38,38,.2);
+    --accent2:#ff4444;--accent3:#ff6b9d;
+    --radius:16px;--radius-sm:10px;--radius-xs:6px;
+    --glass:rgba(10,10,10,.7);--glass-border:rgba(255,255,255,.06);
+    --shadow:0 8px 32px rgba(0,0,0,.5);
+    --hero-bg:linear-gradient(135deg,#0a0a0a 0%,#1a0505 35%,#0a0a0a 65%,#120808 100%);
+  }
+  [data-theme="light"]{
+    --bg:#faf5f5;--bg2:#f5eeee;--surface:#ffffff;--card:#ffffff;--card-hover:#fff5f5;
+    --border:rgba(0,0,0,.08);--border-hover:rgba(220,38,38,.3);
+    --text:#1a1a2e;--text-muted:#5a5a7a;--text-dim:#8888a0;
+    --accent:#c0392b;--accent-glow:rgba(192,57,43,.15);
+    --accent2:#e74c3c;--accent3:#e84393;
+    --radius:16px;--radius-sm:10px;--radius-xs:6px;
+    --glass:rgba(255,255,255,.85);--glass-border:rgba(0,0,0,.08);
+    --shadow:0 4px 24px rgba(0,0,0,.08);
+    --hero-bg:linear-gradient(135deg,#faf5f5 0%,#ffe8e8 35%,#fff0f0 65%,#faf5f5 100%);
+  }
+
+  html{scroll-behavior:smooth;font-size:16px}
+  body{
+    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
+    background:var(--bg);color:var(--text);line-height:1.6;
+    overflow-x:hidden;transition:background var(--transition-theme),color var(--transition-theme);
+    padding-bottom:80px;
+  }
+  a{color:var(--accent2);text-decoration:none;transition:color .2s}
+  a:hover{color:#ff6b6b}
+
+  /* Theme toggle */
+  .theme-toggle{
+    position:fixed;top:16px;right:16px;z-index:200;
+    padding:10px;border-radius:50%;border:none;cursor:pointer;
+    background:var(--surface);border:1px solid var(--border);
+    transition:all .3s;display:flex;align-items:center;justify-content:center;
+    width:42px;height:42px;box-shadow:0 2px 12px rgba(0,0,0,.15);
+    color:var(--text);-webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .theme-toggle:hover{border-color:var(--accent);box-shadow:0 2px 16px var(--accent-glow)}
+  .theme-toggle:active{transform:scale(.95)}
+  .theme-toggle svg{width:18px;height:18px;flex-shrink:0}
+
+  /* Hero */
+  .hero{
+    position:relative;text-align:center;padding:90px 24px 50px;
+    background:var(--hero-bg);overflow:hidden;
+    transition:background var(--transition-theme);
+  }
+  .hero::before{
+    content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
+    background:radial-gradient(circle at 30% 50%,rgba(220,38,38,.1) 0%,transparent 50%),
+               radial-gradient(circle at 70% 50%,rgba(255,68,68,.06) 0%,transparent 50%);
+    animation:heroFloat 20s ease-in-out infinite;
+  }
+  .hero::after{
+    content:'';position:absolute;bottom:0;left:0;right:0;height:120px;
+    background:linear-gradient(transparent,var(--bg));pointer-events:none;
+    transition:background var(--transition-theme);
+  }
+  @keyframes heroFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-2%,2%) rotate(1deg)}}
+  .hero-content{position:relative;z-index:1;max-width:860px;margin:0 auto}
+  .hero-badge{
+    display:inline-block;padding:6px 20px;border-radius:50px;font-size:.72rem;
+    font-weight:700;letter-spacing:2px;text-transform:uppercase;
+    background:rgba(220,38,38,.12);color:var(--accent);border:1px solid rgba(220,38,38,.25);
+    margin-bottom:28px;backdrop-filter:blur(10px);
+  }
+  .hero h1{
+    font-size:clamp(2rem,5vw,3.2rem);font-weight:900;
+    background:linear-gradient(135deg,var(--text) 0%,var(--accent) 50%,var(--accent2) 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;line-height:1.15;margin-bottom:16px;padding-bottom:4px;
+    letter-spacing:-1px;
+  }
+  .hero p{
+    font-size:clamp(.9rem,2vw,1.05rem);color:var(--text-muted);
+    max-width:600px;margin:0 auto;
+  }
+
+  /* FAQ Container */
+  .faq-container{
+    max-width:800px;margin:0 auto;padding:40px 24px 60px;
+  }
+  .faq-item{
+    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
+    margin-bottom:12px;overflow:hidden;transition:all .3s;
+  }
+  .faq-item:hover{border-color:var(--border-hover)}
+  .faq-question{
+    display:flex;align-items:center;justify-content:space-between;gap:16px;
+    padding:18px 24px;cursor:pointer;font-weight:700;font-size:.95rem;
+    color:var(--text);transition:all .2s;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+    user-select:none;
+  }
+  .faq-question:hover{color:var(--accent)}
+  .faq-question svg{
+    width:20px;height:20px;flex-shrink:0;transition:transform .3s;color:var(--text-muted);
+  }
+  .faq-item.open .faq-question svg{transform:rotate(180deg);color:var(--accent)}
+  .faq-item.open .faq-question{color:var(--accent)}
+  .faq-answer{
+    max-height:0;overflow:hidden;transition:max-height .4s cubic-bezier(.4,0,.2,1),padding .3s;
+    padding:0 24px;
+  }
+  .faq-item.open .faq-answer{
+    max-height:600px;padding:0 24px 20px;
+  }
+  .faq-answer p{
+    color:var(--text-muted);font-size:.9rem;line-height:1.7;margin-bottom:10px;
+  }
+  .faq-answer p:last-child{margin-bottom:0}
+  .faq-answer a{color:var(--accent2);font-weight:600}
+  .faq-answer code{
+    background:rgba(220,38,38,.08);color:var(--accent);padding:2px 8px;
+    border-radius:4px;font-size:.85rem;font-family:'SF Mono',monospace;
+  }
+  .faq-answer ul{
+    color:var(--text-muted);font-size:.9rem;line-height:1.7;
+    padding-left:20px;margin-bottom:10px;
+  }
+  .faq-answer li{margin-bottom:4px}
+  .faq-num{
+    display:inline-flex;align-items:center;justify-content:center;
+    width:26px;height:26px;border-radius:50%;font-size:.72rem;font-weight:800;
+    background:rgba(220,38,38,.1);color:var(--accent);flex-shrink:0;margin-right:12px;
+  }
+  .faq-q-text{flex:1}
+
+  /* Footer */
+  .footer{
+    text-align:center;padding:48px 24px;border-top:1px solid var(--border);
+    color:var(--text-muted);font-size:.85rem;
+    transition:border-color var(--transition-theme);
+  }
+  .footer a{color:#ff4444}
+
+  /* Bottom Nav */
+  .bottom-nav{
+    position:fixed;bottom:0;left:0;right:0;z-index:200;
+    background:var(--surface);border-top:1px solid var(--border);
+    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    display:flex;justify-content:center;align-items:stretch;
+    padding:0;height:60px;
+    box-shadow:0 -2px 20px rgba(0,0,0,.15);
+    transition:background var(--transition-theme),border-color var(--transition-theme);
+  }
+  .bottom-nav-inner{
+    display:flex;justify-content:space-around;align-items:stretch;
+    max-width:480px;width:100%;
+  }
+  .bottom-nav a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    flex:1;text-decoration:none;color:var(--text-muted);
+    font-size:.65rem;font-weight:600;letter-spacing:.3px;
+    transition:color .2s;gap:3px;padding:6px 0;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .bottom-nav a:hover,.bottom-nav a.active{color:var(--accent)}
+  .bottom-nav a svg{width:22px;height:22px;stroke-width:2}
+  .bottom-nav a.active svg{stroke:var(--accent)}
+
+  /* Back to top */
+  .back-top{
+    position:fixed;bottom:80px;right:24px;width:48px;height:48px;
+    border-radius:50%;background:#dc2626;color:#fff;border:none;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    opacity:0;transform:translateY(20px);transition:all .3s;z-index:99;
+    box-shadow:0 4px 16px rgba(220,38,38,.3);
+  }
+  .back-top.visible{opacity:1;transform:translateY(0)}
+  .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
+  .back-top svg{width:20px;height:20px}
+
+  @media(max-width:768px){
+    .hero{padding:70px 16px 40px}
+    .faq-container{padding:24px 16px 60px}
+    .faq-question{padding:16px 18px;font-size:.88rem}
+    .faq-answer{padding:0 18px}
+    .faq-item.open .faq-answer{padding:0 18px 16px}
+    .theme-toggle{top:12px;right:12px;width:36px;height:36px}
+    .theme-toggle svg{width:16px;height:16px}
+  }
+  @media(max-width:480px){
+    .hero h1{font-size:1.7rem}
+    .faq-question{font-size:.84rem;gap:10px}
+    .faq-num{width:22px;height:22px;font-size:.65rem;margin-right:8px}
+  }
+  @media(min-width:769px){
+    .bottom-nav{height:56px}
+    .bottom-nav a{font-size:.7rem}
+  }
+
+  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
+  .faq-item{animation:fadeUp .4s ease both}
+  .faq-item:nth-child(2){animation-delay:.03s}
+  .faq-item:nth-child(3){animation-delay:.06s}
+  .faq-item:nth-child(4){animation-delay:.09s}
+  .faq-item:nth-child(5){animation-delay:.12s}
+  .faq-item:nth-child(6){animation-delay:.15s}
+  .faq-item:nth-child(7){animation-delay:.18s}
+</style>
+</head>
+<body>
+
+<!-- THEME TOGGLE -->
+<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+  <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+  <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+</button>
+
+<!-- HERO -->
+<header class="hero">
+  <div class="hero-content">
+    <div class="hero-badge">Help Center &bull; 2026</div>
+    <h1>Frequently Asked Questions</h1>
+    <p>Everything you need to know about using the Powerful Free Websites Library — pop-ups, safety, ad blocking, and more.</p>
+  </div>
+</header>
+
+<!-- FAQ CONTENT -->
+<div class="faq-container">
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">1</span><span class="faq-q-text">Why do I get pop-ups every time I click a link?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Many free streaming and download sites use aggressive pop-up ads to make money. This is normal for these types of sites. <strong>The fix is simple:</strong></p>
+      <ul>
+        <li>Switch to <a href="https://brave.com" target="_blank">Brave Browser</a> — it blocks pop-ups and ads by default</li>
+        <li>Install <a href="https://ublockorigin.com" target="_blank">uBlock Origin</a> on Firefox — the most powerful free ad blocker</li>
+        <li>Use both together for maximum protection</li>
+      </ul>
+      <p>With Brave + uBlock Origin, you'll never see another pop-up on any of these sites.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">2</span><span class="faq-q-text">Are these websites safe to use?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>The free tools section (AI tools, design, productivity, etc.) are all legitimate, well-known websites that are completely safe. For streaming and piracy sections, use common sense:</p>
+      <ul>
+        <li>Always use an ad blocker (uBlock Origin or Brave)</li>
+        <li>Never download anything a site asks you to — just stream</li>
+        <li>Use a VPN for privacy on streaming/piracy sites</li>
+        <li>Don't enter personal information on sketchy sites</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">3</span><span class="faq-q-text">Do I really not need to sign up for these sites?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Every site in the "Free Tools" section has been verified to work without creating an account. Some sites offer optional accounts for saving work or unlocking extra features, but the core functionality is always free and signup-free. Streaming and piracy sites never require accounts — if a site asks you to register, it's likely a scam ad.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">4</span><span class="faq-q-text">What's the best ad blocker to use?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p><strong>For Firefox:</strong> <a href="https://ublockorigin.com" target="_blank">uBlock Origin</a> — scores 100/100 on ad blocking tests. It's free, open-source, and the gold standard.</p>
+      <p><strong>For Chrome:</strong> <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank">uBlock Origin Lite</a> — a lighter version that works with Chrome's Manifest V3. Or just switch to Brave.</p>
+      <p><strong>For mobile:</strong> Use <a href="https://brave.com" target="_blank">Brave Browser</a> on both Android and iOS. It blocks ads natively without extensions.</p>
+      <p><strong>For your whole network:</strong> Set up <a href="https://pi-hole.net" target="_blank">Pi-hole</a> or use <a href="https://nextdns.io" target="_blank">NextDNS</a> to block ads on every device in your home.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">5</span><span class="faq-q-text">Is it legal to use streaming and piracy sites?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Legality varies by country. In many places, <strong>streaming</strong> content falls into a legal gray area — you're not downloading or distributing anything. <strong>Downloading</strong> copyrighted content is illegal in most countries. We list these sites because they exist and people use them. Always use a VPN, and understand the laws in your jurisdiction. This site does not encourage illegal activity.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">6</span><span class="faq-q-text">Do I need a VPN? Which one should I use?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>A VPN is <strong>highly recommended</strong> for streaming and piracy sites. It hides your IP address and encrypts your traffic so your ISP can't see what you're doing.</p>
+      <p><strong>Best free VPN:</strong> <a href="https://protonvpn.com/free-vpn" target="_blank">Proton VPN</a> — unlimited data, no ads, no logs, Swiss-based.</p>
+      <p><strong>Best paid VPN:</strong> <a href="https://www.privateinternetaccess.com" target="_blank">Private Internet Access</a> — $2/mo, 35,000+ servers, proven no-logs in court.</p>
+      <p>For regular free tools (Photopea, TinyWow, etc.), you don't need a VPN at all.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">7</span><span class="faq-q-text">Why do some sites have a "limitations" warning?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>We believe in full transparency. The yellow warning badge tells you about any catches — daily limits, file size restrictions, watermarks, or features that require payment. If a site says "None" for limitations, it's truly 100% free with no strings attached.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">8</span><span class="faq-q-text">A site isn't working or has been taken down. What do I do?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Free sites — especially streaming and piracy ones — change domains or go offline frequently. If a site isn't working:</p>
+      <ul>
+        <li>Try a different site in the same category — we list 20+ alternatives for each</li>
+        <li>Check if the site moved to a new domain (Google the site name)</li>
+        <li>Clear your browser cache and try again</li>
+        <li>Make sure your ad blocker isn't blocking the site itself</li>
+      </ul>
+      <p>We update this directory regularly to remove dead links and add new sites.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">9</span><span class="faq-q-text">What browser should I use for the best experience?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>We strongly recommend <strong>not using Chrome</strong>. Chrome is reducing ad blocker effectiveness with Manifest V3 and has extensive tracking. Instead, use:</p>
+      <ul>
+        <li><a href="https://brave.com" target="_blank">Brave</a> — Best all-around. Built-in ad blocking, fast, Chromium-based so all your Chrome extensions work</li>
+        <li><a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a> — Best for privacy customization. Supports full uBlock Origin</li>
+        <li><a href="https://librewolf.net" target="_blank">LibreWolf</a> — Firefox with all tracking removed and uBlock Origin pre-installed</li>
+      </ul>
+      <p>Check our <strong>Privacy Browsers</strong> category for 20 more options.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">10</span><span class="faq-q-text">How do I block YouTube ads?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p><strong>On desktop:</strong> Use Firefox + uBlock Origin, or Brave Browser. Both block all YouTube ads.</p>
+      <p><strong>On Android phone:</strong> Use <a href="https://brave.com" target="_blank">Brave Browser</a> or install <a href="https://libretube.dev" target="_blank">LibreTube</a> from F-Droid.</p>
+      <p><strong>On Android TV / Fire Stick:</strong> Install <a href="https://smarttubeapp.github.io" target="_blank">SmartTube</a> — it's the best ad-free YouTube app for TVs.</p>
+      <p><strong>On iPhone:</strong> Use Brave Browser or <a href="https://apps.apple.com/us/app/vinegar-tube-cleaner/id1591303229" target="_blank">Vinegar</a> ($2) with Safari.</p>
+      <p><strong>Bonus:</strong> Install <a href="https://sponsor.ajay.app" target="_blank">SponsorBlock</a> to also skip sponsor segments, intros, and outros.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">11</span><span class="faq-q-text">What does "feels illegal to know" mean?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>It's a popular internet phrase meaning "so useful it's hard to believe it's free." Most of the sites here are completely legal — free Photoshop alternatives, AI tools, learning platforms, and productivity apps. The phrase just captures how surprisingly powerful these free tools are. The streaming and piracy sections are the only ones in a legal gray area.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">12</span><span class="faq-q-text">How do I use this site on my phone?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>This site is fully optimized for mobile. Use the bottom navigation bar to switch between Home and FAQ. On the home page:</p>
+      <ul>
+        <li>Use the <strong>section tabs</strong> at the top to filter by category type (Free Tools, Piracy, Sports, etc.)</li>
+        <li>Use the <strong>search bar</strong> to find any website instantly</li>
+        <li>Tap <strong>"Show Categories"</strong> to browse by specific category</li>
+        <li>Tap the <strong>Top</strong> button in the bottom nav to scroll back up quickly</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">13</span><span class="faq-q-text">Can I suggest a website to be added?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Yes! Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a> on Bluesky and send a suggestion. We review every submission and add quality sites that meet our criteria: free, useful, and ideally no signup required.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">14</span><span class="faq-q-text">What are "Agentic Browsers" and "LLMs"?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p><strong>Agentic Browsers</strong> are AI-powered browsers that can browse the web, complete tasks, and do research for you autonomously. Think of them as AI assistants that can actually click buttons and fill forms on websites.</p>
+      <p><strong>LLMs (Large Language Models)</strong> are AI chatbots like ChatGPT, Claude, and Gemini. They can answer questions, write code, create content, and help with almost any text-based task. Our LLMs category lists free options you can use without paying.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">15</span><span class="faq-q-text">Why is there no Chrome in the Privacy Browsers section?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Chrome is made by Google, the world's largest advertising company. It tracks your browsing habits, sends telemetry data to Google, and is actively weakening ad blockers through Manifest V3. Chrome is the <strong>opposite</strong> of a privacy browser. Every browser in our Privacy Browsers section is a better choice for your privacy than Chrome.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">16</span><span class="faq-q-text">What's the difference between dark mode and light mode?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Just a visual preference! Tap the moon/sun icon in the top-right corner to switch. Your choice is saved automatically so it'll remember next time you visit. Dark mode is easier on the eyes at night, light mode is better in bright environments.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">17</span><span class="faq-q-text">How often is this directory updated?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>We update regularly — adding new sites, removing dead links, and expanding categories. The directory currently has 435+ websites across 21 categories and continues to grow. Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a> for update announcements.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">18</span><span class="faq-q-text">Can I use these tools for school or work?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Absolutely! The free tools sections are perfect for school and work. <a href="https://photopea.com" target="_blank">Photopea</a> replaces Photoshop, <a href="https://gamma.app" target="_blank">Gamma</a> creates presentations, <a href="https://tinywow.com" target="_blank">TinyWow</a> handles file conversions, and <a href="https://rxresu.me" target="_blank">Reactive Resume</a> builds professional resumes. The Tools for Educators section is specifically curated for teachers and students.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">19</span><span class="faq-q-text">What's the difference between a VPN and an ad blocker?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p><strong>A VPN</strong> hides your identity online by encrypting your internet traffic and masking your IP address. It protects you from your ISP seeing what sites you visit. Use it for privacy and accessing geo-blocked content.</p>
+      <p><strong>An ad blocker</strong> removes ads, pop-ups, and trackers from websites. It makes browsing faster, cleaner, and safer by blocking malicious scripts. Use it on every site, every day.</p>
+      <p><strong>Use both together</strong> for maximum protection, especially on streaming and piracy sites.</p>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">20</span><span class="faq-q-text">Why do some streaming sites buffer or load slowly?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Free streaming sites don't have the server infrastructure of Netflix or Disney+. Buffering is common, especially during peak hours. Tips to improve it:</p>
+      <ul>
+        <li>Try a different server/source within the streaming player (most have multiple)</li>
+        <li>Lower the video quality if available</li>
+        <li>Try a different site from the same category — we list 30+ streaming options</li>
+        <li>If using a VPN, try connecting to a server closer to you</li>
+        <li>Clear your browser cache and disable unnecessary extensions</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="faq-item">
+    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+      <div style="display:flex;align-items:center"><span class="faq-num">21</span><span class="faq-q-text">How is this directory different from other "free tools" lists?</span></div>
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
+    </div>
+    <div class="faq-answer">
+      <p>Most lists give you 10-20 sites with copy-pasted descriptions. We have <strong>435+ hand-curated websites</strong> across 21 categories, each with a unique description, verified limitations, and source attribution. We also cover categories others won't touch — piracy, sports streaming, privacy browsers, and ad blockers. Every site is researched from multiple sources including Reddit, GitHub, Bluesky, and community megathreads. And the whole thing works beautifully on your phone.</p>
+    </div>
+  </div>
+
+</div>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <p>Part of the <a href="index.html">Powerful Free Websites Library</a>. Curated with care.</p>
+  <p style="margin-top:8px;">Last updated February 2026.</p>
+</footer>
+
+<!-- BACK TO TOP -->
+<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
+</button>
+
+<!-- BOTTOM NAV BAR -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" title="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="faq.html" class="active" title="FAQ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>FAQ</span>
+    </a>
+    <a href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 15l-6-6-6 6"/></svg>
+      <span>Top</span>
+    </a>
+  </div>
+</nav>
+
+<script>
+// Theme toggle
+const themeToggle=document.getElementById('themeToggle');
+function setTheme(theme){
+  document.documentElement.setAttribute('data-theme',theme);
+  localStorage.setItem('theme',theme);
+  const moonIcon=themeToggle.querySelector('.moon-icon');
+  const sunIcon=themeToggle.querySelector('.sun-icon');
+  if(theme==='dark'){
+    moonIcon.style.display='inline';sunIcon.style.display='none';
+  } else {
+    moonIcon.style.display='none';sunIcon.style.display='inline';
+  }
+}
+themeToggle.addEventListener('click',()=>{
+  const current=document.documentElement.getAttribute('data-theme');
+  setTheme(current==='dark'?'light':'dark');
+});
+const savedTheme=localStorage.getItem('theme')||'dark';
+setTheme(savedTheme);
+
+// Back to top
+const backTop=document.getElementById('backTop');
+window.addEventListener('scroll',()=>{
+  backTop.classList.toggle('visible',window.scrollY>400);
+});
+
+// Open first FAQ by default
+document.querySelector('.faq-item').classList.add('open');
+</script>
+</body>
+</html>

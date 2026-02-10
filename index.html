@@ -35,6 +35,9 @@
     --agent-accent:#00e5ff;--agent-glow:rgba(0,229,255,.15);
     --vpn-accent:#10b981;--vpn-glow:rgba(16,185,129,.15);
     --llm-accent:#a855f7;--llm-glow:rgba(168,85,247,.15);
+    --edu-accent:#f59e0b;--edu-glow:rgba(245,158,11,.15);
+    --privacy-accent:#06b6d4;--privacy-glow:rgba(6,182,212,.15);
+    --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.15);
     --logo-text:#fff;
   }
   [data-theme="light"]{
@@ -56,6 +59,9 @@
     --agent-accent:#00b8d4;--agent-glow:rgba(0,184,212,.1);
     --vpn-accent:#10b981;--vpn-glow:rgba(16,185,129,.1);
     --llm-accent:#9333ea;--llm-glow:rgba(147,51,234,.12);
+    --edu-accent:#d97706;--edu-glow:rgba(217,119,6,.1);
+    --privacy-accent:#0891b2;--privacy-glow:rgba(8,145,178,.1);
+    --adblock-accent:#dc2626;--adblock-glow:rgba(220,38,38,.1);
     --logo-text:#1a1a2e;
   }
 
@@ -174,6 +180,9 @@
   .section-tab[data-section="agent"].active{background:var(--agent-accent);border-color:var(--agent-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--agent-glow)}
   .section-tab[data-section="llm"].active{background:var(--llm-accent);border-color:var(--llm-accent);box-shadow:0 2px 12px var(--llm-glow)}
   .section-tab[data-section="vpn"].active{background:var(--vpn-accent);border-color:var(--vpn-accent);color:#fff;box-shadow:0 2px 12px var(--vpn-glow)}
+  .section-tab[data-section="edu"].active{background:var(--edu-accent);border-color:var(--edu-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--edu-glow)}
+  .section-tab[data-section="privacy"].active{background:var(--privacy-accent);border-color:var(--privacy-accent);color:#fff;box-shadow:0 2px 12px var(--privacy-glow)}
+  .section-tab[data-section="adblock"].active{background:var(--adblock-accent);border-color:var(--adblock-accent);color:#fff;box-shadow:0 2px 12px var(--adblock-glow)}
 
   /* ===== DISCLAIMER ===== */
   .disclaimer{
@@ -208,6 +217,9 @@
   .nav-btn.agent-btn.active{background:var(--agent-accent);border-color:var(--agent-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--agent-glow)}
   .nav-btn.llm-btn.active{background:var(--llm-accent);border-color:var(--llm-accent);box-shadow:0 2px 12px var(--llm-glow)}
   .nav-btn.vpn-btn.active{background:var(--vpn-accent);border-color:var(--vpn-accent);color:#fff;box-shadow:0 2px 12px var(--vpn-glow)}
+  .nav-btn.edu-btn.active{background:var(--edu-accent)!important;border-color:var(--edu-accent)!important;color:#1a1a2e!important;box-shadow:0 2px 12px var(--edu-glow)!important}
+  .nav-btn.privacy-btn.active{background:var(--privacy-accent)!important;border-color:var(--privacy-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--privacy-glow)!important}
+  .nav-btn.adblock-btn.active{background:var(--adblock-accent)!important;border-color:var(--adblock-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--adblock-glow)!important}
   /* VPN card accent */
   .card.vpn-card::before{background:linear-gradient(90deg,var(--vpn-accent),#059669);height:3px;opacity:.7}
   .card.vpn-card:hover{border-color:rgba(16,185,129,.3)}
@@ -224,9 +236,36 @@
   .nav-btn.top-btn.active{background:linear-gradient(135deg,#dc2626,#ff4444)!important;border-color:#dc2626!important;color:#fff!important;box-shadow:0 2px 12px rgba(220,38,38,.3)!important}
   .card.vpn-card .badge-verified{background:rgba(16,185,129,.1);color:var(--vpn-accent)}
   .vpn-count{background:var(--vpn-glow);color:var(--vpn-accent)}
+  .edu-count{background:var(--edu-glow);color:var(--edu-accent)}
+  .privacy-count{background:var(--privacy-glow);color:var(--privacy-accent)}
+  .adblock-count{background:var(--adblock-glow);color:var(--adblock-accent)}
+
+  /* Educator card accent */
+  .card.edu-card::before{background:linear-gradient(90deg,var(--edu-accent),#d97706);height:3px;opacity:.7}
+  .card.edu-card:hover{border-color:rgba(245,158,11,.3)}
+  .card.edu-card:hover::before{opacity:1}
+  .card.edu-card .card-tag{background:var(--edu-glow);color:var(--edu-accent)}
+  .card.edu-card .btn-visit{background:linear-gradient(135deg,var(--edu-accent),#d97706)}
+  .card.edu-card .badge-verified{background:rgba(245,158,11,.1);color:var(--edu-accent)}
+
+  /* Privacy Browser card accent */
+  .card.privacy-card::before{background:linear-gradient(90deg,var(--privacy-accent),#0891b2);height:3px;opacity:.7}
+  .card.privacy-card:hover{border-color:rgba(6,182,212,.3)}
+  .card.privacy-card:hover::before{opacity:1}
+  .card.privacy-card .card-tag{background:var(--privacy-glow);color:var(--privacy-accent)}
+  .card.privacy-card .btn-visit{background:linear-gradient(135deg,var(--privacy-accent),#0891b2)}
+  .card.privacy-card .badge-verified{background:rgba(6,182,212,.1);color:var(--privacy-accent)}
+
+  /* Ad Blocker card accent */
+  .card.adblock-card::before{background:linear-gradient(90deg,var(--adblock-accent),#b91c1c);height:3px;opacity:.7}
+  .card.adblock-card:hover{border-color:rgba(239,68,68,.3)}
+  .card.adblock-card:hover::before{opacity:1}
+  .card.adblock-card .card-tag{background:var(--adblock-glow);color:var(--adblock-accent)}
+  .card.adblock-card .btn-visit{background:linear-gradient(135deg,var(--adblock-accent),#b91c1c)}
+  .card.adblock-card .badge-verified{background:rgba(239,68,68,.1);color:var(--adblock-accent)}
 
   /* ===== MAIN ===== */
-  .main{max-width:1280px;margin:0 auto;padding:40px 24px 80px}
+  .main{max-width:1280px;margin:0 auto;padding:40px 24px 100px}
 
   /* ===== CATEGORY SECTIONS ===== */
   .category-section{margin-bottom:64px;display:none}
@@ -356,7 +395,7 @@
 
   /* ===== BACK TO TOP ===== */
   .back-top{
-    position:fixed;bottom:24px;right:24px;width:48px;height:48px;
+    position:fixed;bottom:80px;right:24px;width:48px;height:48px;
     border-radius:50%;background:#dc2626;color:#fff;border:none;
     cursor:pointer;display:flex;align-items:center;justify-content:center;
     opacity:0;transform:translateY(20px);transition:all .3s;z-index:99;
@@ -365,6 +404,35 @@
   .back-top.visible{opacity:1;transform:translateY(0)}
   .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
   .back-top svg{width:20px;height:20px}
+
+  /* ===== BOTTOM NAV BAR ===== */
+  .bottom-nav{
+    position:fixed;bottom:0;left:0;right:0;z-index:200;
+    background:var(--surface);border-top:1px solid var(--border);
+    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
+    display:flex;justify-content:center;align-items:stretch;
+    padding:0;height:60px;
+    box-shadow:0 -2px 20px rgba(0,0,0,.15);
+    transition:background var(--transition-theme),border-color var(--transition-theme);
+  }
+  .bottom-nav-inner{
+    display:flex;justify-content:space-around;align-items:stretch;
+    max-width:480px;width:100%;
+  }
+  .bottom-nav a{
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    flex:1;text-decoration:none;color:var(--text-muted);
+    font-size:.65rem;font-weight:600;letter-spacing:.3px;
+    transition:color .2s;gap:3px;padding:6px 0;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .bottom-nav a:hover,.bottom-nav a.active{color:var(--accent)}
+  .bottom-nav a svg{width:22px;height:22px;stroke-width:2}
+  .bottom-nav a.active svg{stroke:var(--accent)}
+  @media(min-width:769px){
+    .bottom-nav{height:56px}
+    .bottom-nav a{font-size:.7rem}
+  }
 
   /* ===== RESPONSIVE ===== */
   /* Nav toggle button - visible on all screen sizes */
@@ -452,26 +520,29 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>375+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
+    <p>435+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" id="totalCount">375</div><div class="label">Websites</div></div>
-      <div class="hero-stat"><div class="num">18</div><div class="label">Categories</div></div>
+      <div class="hero-stat"><div class="num" id="totalCount">435</div><div class="label">Websites</div></div>
+      <div class="hero-stat"><div class="num">21</div><div class="label">Categories</div></div>
       <div class="hero-stat"><div class="num">0</div><div class="label">Signups Needed</div></div>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 375+ websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 435+ websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (377+)</button>
+      <button class="section-tab active" data-section="all">All (435+)</button>
       <button class="section-tab" data-section="top">⭐ Top Picks</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
       <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
       <button class="section-tab" data-section="llm">&#x1F4AC; LLMs & AI (23)</button>
       <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20)</button>
+      <button class="section-tab" data-section="edu">&#x1F393; Educators (20)</button>
+      <button class="section-tab" data-section="privacy">&#x1F50F; Privacy Browsers (20)</button>
+      <button class="section-tab" data-section="adblock">&#x1F6AB; Ad Blockers (20)</button>
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
       <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
@@ -518,6 +589,24 @@
 <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
   <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
 </button>
+
+<!-- BOTTOM NAV BAR -->
+<nav class="bottom-nav">
+  <div class="bottom-nav-inner">
+    <a href="index.html" class="active" title="Home">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
+      <span>Home</span>
+    </a>
+    <a href="faq.html" title="FAQ">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+      <span>FAQ</span>
+    </a>
+    <a href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 15l-6-6-6 6"/></svg>
+      <span>Top</span>
+    </a>
+  </div>
+</nav>
 
 <script>
 const DATA=[
@@ -987,6 +1076,81 @@ const DATA=[
       {n:"Disco",u:"https://labs.google/experiments/disco",d:"AI browser that turns your messy tabs into organized visual dashboards.",l:"macOS only; experimental",s:"Google Labs"},
       {n:"AISOMA Choreography",u:"https://labs.google/experiments/aisoma",d:"Generate original AI dance phrases rooted in choreography archives — Google Arts & Culture.",l:"None — experimental",s:"Google Labs"}
     ]
+  },
+  {id:"educator-tools",name:"Tools for Educators",icon:"🎓",type:"edu",
+    desc:"Free tools for teachers — lesson planning, interactive quizzes, open textbooks, AI grading, and classroom management.",
+    sites:[
+      {n:"Khan Academy",u:"https://khanacademy.org",d:"World-class free education in math, science, computing, economics, and history. Full courses with exercises.",l:"None",s:"Top pick: Education"},
+      {n:"OpenStax",u:"https://openstax.org",d:"Free peer-reviewed textbooks for 60+ college and AP courses from Rice University. PDF, web, and app.",l:"None",s:"Open Education Resource"},
+      {n:"MIT OpenCourseWare",u:"https://ocw.mit.edu",d:"Free course materials from 2,500+ MIT courses — lecture notes, exams, videos, and assignments.",l:"None",s:"Open Education Resource"},
+      {n:"Quizizz",u:"https://quizizz.com",d:"Gamified quizzes, lessons, and interactive presentations. Students play on any device in real time.",l:"Free for basic; Super plan for advanced",s:"EdTech community"},
+      {n:"Blooket",u:"https://blooket.com",d:"Game-based learning platform with unique review games — students compete while studying content.",l:"Free for basic; Plus for more game modes",s:"EdTech community"},
+      {n:"Edpuzzle",u:"https://edpuzzle.com",d:"Turn any video into an interactive lesson with embedded questions, audio notes, and tracking.",l:"Free for 20 videos; Pro for unlimited",s:"EdTech community"},
+      {n:"Padlet",u:"https://padlet.com",d:"Collaborative digital boards for brainstorming, projects, and discussions. Multimedia-rich and real-time.",l:"Free for 3 boards; upgrade for more",s:"EdTech community"},
+      {n:"Mentimeter",u:"https://mentimeter.com",d:"Live polls, word clouds, quizzes, and Q&A for interactive presentations and classroom engagement.",l:"Free for 2 question slides; Pro for unlimited",s:"EdTech community"},
+      {n:"Canva for Education",u:"https://canva.com/education",d:"100% free design tool for K-12 teachers — templates, presentations, worksheets, and video editing.",l:"None for verified educators",s:"EdTech community"},
+      {n:"MagicSchool AI",u:"https://magicschool.ai",d:"AI-powered lesson planning, worksheet generation, rubric creation, and IEP drafting for teachers.",l:"Free tier with limits; Plus for more",s:"AI for Education"},
+      {n:"Brisk Teaching",u:"https://briskteaching.com",d:"AI Chrome extension that creates lessons, gives feedback, and adapts content — works inside Google Docs.",l:"Free for teachers",s:"AI for Education"},
+      {n:"Eduaide.AI",u:"https://eduaide.ai",d:"AI teaching assistant for lesson plans, graphic organizers, educational games, and instructional materials.",l:"Free tier available",s:"AI for Education"},
+      {n:"Pear Deck",u:"https://peardeck.com",d:"Interactive presentations that sync with Google Slides and PowerPoint — real-time student responses.",l:"Free for basic; Premium for full features",s:"EdTech community"},
+      {n:"Anna's Archive",u:"https://annas-archive.org",d:"Largest open library search engine — find any book, textbook, or paper across multiple sources.",l:"None",s:"r/Piracy megathread"},
+      {n:"Library Genesis",u:"https://libgen.is",d:"Free access to millions of research papers, textbooks, fiction, and non-fiction books.",l:"Mirror links change; use adblocker",s:"r/Piracy megathread"},
+      {n:"Sci-Hub",u:"https://sci-hub.se",d:"Free access to millions of research papers — bypasses journal paywalls with a DOI or URL.",l:"Domain changes frequently; legality varies",s:"r/Piracy megathread"},
+      {n:"Quizlet",u:"https://quizlet.com",d:"Flashcards, study sets, practice tests, and AI-powered study tools for any subject or language.",l:"Free tier; Plus for AI features",s:"EdTech community"},
+      {n:"GCFGlobal",u:"https://edu.gcfglobal.org",d:"Free learning on technology, math, reading, and career skills from the Goodwill Foundation.",l:"None",s:"Open Education Resource"},
+      {n:"PhET Simulations",u:"https://phet.colorado.edu",d:"Free interactive math and science simulations from CU Boulder — physics, chemistry, biology, and more.",l:"None",s:"Open Education Resource"},
+      {n:"ClassDojo",u:"https://classdojo.com",d:"Classroom management, parent communication, behavior tracking, and student portfolios — all free.",l:"Free for teachers; Beyond for extras",s:"EdTech community"}
+    ]
+  },
+  {id:"privacy-browsers",name:"Privacy Browsers",icon:"🔏",type:"privacy",
+    desc:"Privacy-focused browsers with built-in ad blocking, tracker protection, and anti-fingerprinting. No Chrome here.",
+    sites:[
+      {n:"Brave",u:"https://brave.com",d:"Built-in Shields block ads and trackers by default. Fast Chromium-based engine with optional crypto rewards.",l:"None",s:"Privacy Guides recommended"},
+      {n:"Firefox",u:"https://www.mozilla.org/firefox",d:"Open-source browser with Enhanced Tracking Protection, customizable privacy settings, and huge extension library.",l:"None",s:"Privacy Guides recommended"},
+      {n:"Tor Browser",u:"https://www.torproject.org",d:"Route all traffic through the Tor network for maximum anonymity. The gold standard for private browsing.",l:"Slower speeds due to onion routing",s:"Privacy Guides recommended"},
+      {n:"Mullvad Browser",u:"https://mullvadbrowser.net",d:"Tor Browser without the Tor network — best anti-fingerprinting out of the box. Built by Tor Project + Mullvad.",l:"None",s:"Privacy Guides recommended"},
+      {n:"LibreWolf",u:"https://librewolf.net",d:"Firefox fork with all telemetry removed, uBlock Origin built-in, and privacy hardened by default.",l:"None",s:"Privacy Guides recommended"},
+      {n:"Vivaldi",u:"https://vivaldi.com",d:"Highly customizable browser with built-in ad/tracker blocker, mail client, calendar, and no user tracking.",l:"None",s:"r/browsers recommended"},
+      {n:"Waterfox",u:"https://www.waterfox.net",d:"Firefox fork focused on privacy with Oblivious DNS support and no telemetry. Supports legacy extensions.",l:"None",s:"r/browsers recommended"},
+      {n:"DuckDuckGo Browser",u:"https://duckduckgo.com/app",d:"Privacy browser with built-in tracker blocking, cookie pop-up handling, and email protection.",l:"None",s:"Privacy community"},
+      {n:"Zen Browser",u:"https://zen-browser.app",d:"Beautiful Firefox fork with split views, workspaces, vertical tabs, and strong privacy defaults.",l:"None",s:"r/browsers recommended"},
+      {n:"Floorp",u:"https://floorp.app",d:"Feature-rich Firefox fork with vertical tabs, workspaces, and strong privacy defaults. Made in Japan.",l:"None",s:"r/browsers recommended"},
+      {n:"Orion Browser",u:"https://browser.kagi.com",d:"WebKit-based browser with zero telemetry that supports both Chrome and Firefox extensions natively.",l:"macOS and iOS only",s:"Privacy community"},
+      {n:"Pale Moon",u:"https://www.palemoon.org",d:"Independent browser focused on efficiency and customization. Supports classic extension architecture.",l:"None",s:"r/browsers recommended"},
+      {n:"Ungoogled Chromium",u:"https://github.com/ungoogled-software/ungoogled-chromium",d:"Chromium with all Google services and tracking completely removed. Pure open-source browsing.",l:"Manual updates required",s:"Privacy Guides"},
+      {n:"Basilisk",u:"https://www.basilisk-browser.org",d:"XUL-based browser maintaining classic extension support and a familiar interface without modern telemetry.",l:"None",s:"r/browsers recommended"},
+      {n:"GNOME Web",u:"https://apps.gnome.org/Epiphany",d:"Clean, minimal Linux browser with built-in ad blocker and intelligent tracking prevention.",l:"Linux only",s:"Privacy community"},
+      {n:"Ladybird",u:"https://ladybird.org",d:"Brand new independent browser engine built from scratch — no Google or Mozilla code. Privacy-first by design.",l:"Alpha stage; not daily-driver ready",s:"Hacker News"},
+      {n:"Firefox Focus",u:"https://www.mozilla.org/firefox/browsers/mobile/focus",d:"Mobile privacy browser that blocks trackers and auto-erases browsing history after every session.",l:"Mobile only (iOS/Android)",s:"Privacy Guides recommended"},
+      {n:"Bromite",u:"https://www.bromite.org",d:"Chromium fork for Android with built-in ad blocking, enhanced privacy, and no Google tracking.",l:"Android only",s:"Privacy community"},
+      {n:"Mull",u:"https://f-droid.org/packages/us.spotco.fennec_dos",d:"Privacy-hardened Firefox fork for Android via F-Droid — telemetry stripped, security enhanced.",l:"Android only; via F-Droid",s:"Privacy Guides"},
+      {n:"Tails Browser",u:"https://tails.net",d:"Amnesic browser in Tails OS — routes through Tor, leaves zero traces on any computer. Boot from USB.",l:"Requires Tails OS on USB drive",s:"Privacy Guides recommended"}
+    ]
+  },
+  {id:"ad-blockers",name:"Ad Blockers",icon:"🚫",type:"adblock",
+    desc:"Block ads, trackers, and distractions everywhere — browser extensions, DNS filters, YouTube tools, and system-wide solutions.",
+    sites:[
+      {n:"uBlock Origin",u:"https://ublockorigin.com",d:"The best free open-source ad blocker. Scores 100/100 on blocking tests. Lightweight and powerful.",l:"Firefox only for full Manifest V2 version",s:"r/Adblock #1 pick"},
+      {n:"AdGuard",u:"https://adguard.com",d:"System-wide ad blocking for all devices — browser extension, desktop app, and mobile app.",l:"Free extension; paid for system-wide app",s:"r/Adblock recommended"},
+      {n:"Ghostery",u:"https://ghostery.com",d:"Tracker and ad blocker with a privacy dashboard showing who's tracking you on every site.",l:"Free; Plus for advanced features",s:"PCMag recommended"},
+      {n:"Privacy Badger",u:"https://privacybadger.org",d:"EFF's smart tracker blocker that automatically learns to block invisible trackers as you browse.",l:"None",s:"EFF project"},
+      {n:"Adblock Plus",u:"https://adblockplus.org",d:"Popular ad blocker with 'Acceptable Ads' option. Easy to use with whitelisting controls.",l:"Acceptable Ads enabled by default",s:"PCMag recommended"},
+      {n:"SponsorBlock",u:"https://sponsor.ajay.app",d:"Crowdsourced YouTube extension that auto-skips sponsor segments, intros, outros, and self-promotion.",l:"None",s:"r/Adblock recommended"},
+      {n:"Unhook",u:"https://unhook.app",d:"Remove YouTube recommended videos, comments, shorts, and other distractions. Focus on what you searched for.",l:"None",s:"r/Adblock recommended"},
+      {n:"NextDNS",u:"https://nextdns.io",d:"Cloud-based DNS filtering that blocks ads and trackers network-wide on all your devices.",l:"Free for 300K queries/month; Pro for unlimited",s:"r/Adblock guide"},
+      {n:"Pi-hole",u:"https://pi-hole.net",d:"Network-wide ad blocking via your own DNS server. Blocks ads on every device including smart TVs.",l:"Requires Raspberry Pi or Linux server",s:"r/Adblock guide"},
+      {n:"AdGuard DNS",u:"https://adguard-dns.io",d:"Free public DNS that blocks ads and trackers at the network level. Just change your DNS settings.",l:"None for public DNS",s:"r/Adblock guide"},
+      {n:"ControlD",u:"https://controld.com",d:"Customizable DNS filtering for ads, malware, trackers, and geo-restrictions. Fine-grained control.",l:"Free tier; paid for full customization",s:"r/Adblock guide"},
+      {n:"Blokada",u:"https://blokada.org",d:"Free open-source ad blocker for Android and iOS — blocks ads system-wide without root.",l:"Free; Plus for VPN features",s:"r/Adblock recommended"},
+      {n:"uBlock Origin Lite",u:"https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh",d:"Manifest V3 compatible version of uBlock Origin for Chrome. Less powerful but still effective.",l:"Reduced capabilities vs full uBlock Origin",s:"r/Adblock guide"},
+      {n:"SmartTube",u:"https://smarttubeapp.github.io",d:"Ad-free YouTube client for Android TV and Fire TV Stick. SponsorBlock built in, 4K support.",l:"Android TV / Fire TV only",s:"r/Adblock guide"},
+      {n:"FreeTube",u:"https://freetubeapp.io",d:"Private desktop YouTube client with zero ads, no tracking, and local subscription management.",l:"Desktop only (Windows/Mac/Linux)",s:"r/Adblock guide"},
+      {n:"Grayjay",u:"https://grayjay.app",d:"Multi-platform video client that blocks ads on YouTube, Twitch, Nebula, and more. One app for all.",l:"None",s:"r/Adblock guide"},
+      {n:"LibreTube",u:"https://libretube.dev",d:"Privacy-focused YouTube frontend for Android — no ads, no tracking, uses Piped API.",l:"Android only",s:"r/Adblock guide"},
+      {n:"Brave Shields",u:"https://brave.com/shields",d:"Brave's built-in ad and tracker blocking engine. Blocks fingerprinting, scripts, and third-party cookies.",l:"Built into Brave browser",s:"Privacy Guides"},
+      {n:"NoScript",u:"https://noscript.net",d:"Block JavaScript, Flash, and other plugins by default. Whitelist trusted sites for maximum security.",l:"Can break sites; requires manual whitelisting",s:"Privacy Guides"},
+      {n:"ClearURLs",u:"https://clearurls.xyz",d:"Automatically removes tracking elements and parameters from URLs as you browse. Set it and forget it.",l:"None",s:"Privacy Guides"}
+    ]
   }
 ];
 
@@ -1041,7 +1205,7 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     applyFilters();
     // Show disclaimer for piracy/sports
     disclaimer.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports'||activeSectionType==='vpn');
-    labsDisclaimer.classList.toggle('visible',activeSectionType==='labs'||activeSectionType==='agent'||activeSectionType==='llm');
+    labsDisclaimer.classList.toggle('visible',activeSectionType==='labs'||activeSectionType==='agent'||activeSectionType==='llm'||activeSectionType==='edu'||activeSectionType==='privacy'||activeSectionType==='adblock');
     // Top picks shows all disclaimers hidden
     if(activeSectionType==='top'){disclaimer.classList.remove('visible');labsDisclaimer.classList.remove('visible');}
   });
@@ -1070,6 +1234,9 @@ function init(){
     if(cat.type==='agent')btn.classList.add('agent-btn');
     if(cat.type==='llm')btn.classList.add('llm-btn');
     if(cat.type==='vpn')btn.classList.add('vpn-btn');
+    if(cat.type==='edu')btn.classList.add('edu-btn');
+    if(cat.type==='privacy')btn.classList.add('privacy-btn');
+    if(cat.type==='adblock')btn.classList.add('adblock-btn');
     btn.dataset.filter=cat.id;
     btn.textContent=cat.icon+' '+cat.name;
     btn.addEventListener('click',()=>setFilter(cat.id));
@@ -1082,7 +1249,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':'free-count';
+    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -1105,7 +1272,7 @@ function getFaviconUrl(url){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':'';
+  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':'';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   const faviconSrc=getFaviconUrl(s.u);
   return `
@@ -1122,7 +1289,7 @@ function renderCard(s,catName,catType){
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':'No signup verified'}
+          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -1133,7 +1300,7 @@ function renderCard(s,catName,catType){
       </div>
       <div class="card-actions">
         <a href="${s.u}" target="_blank" rel="noopener" class="btn-visit">
-          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':'Visit Site'}
+          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
