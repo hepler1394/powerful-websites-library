@@ -177,13 +177,11 @@
   }
   .nav-inner{
     max-width:1280px;margin:0 auto;padding:0 24px;
-    display:flex;gap:8px;overflow-x:auto;
-    scrollbar-width:none;-ms-overflow-style:none;
+    display:flex;gap:8px;flex-wrap:wrap;justify-content:center;
   }
-  .nav-inner::-webkit-scrollbar{display:none}
   .nav-btn{
-    flex-shrink:0;padding:8px 18px;border-radius:50px;border:1px solid var(--border);
-    background:transparent;color:var(--text-muted);font-size:.8rem;font-weight:500;
+    padding:7px 16px;border-radius:50px;border:1px solid var(--border);
+    background:transparent;color:var(--text-muted);font-size:.78rem;font-weight:500;
     cursor:pointer;transition:all .25s;white-space:nowrap;
   }
   .nav-btn:hover{border-color:var(--accent);color:var(--text)}
@@ -317,7 +315,8 @@
     .hero-stat .num{font-size:1.6rem}
     .main{padding:24px 16px 60px}
     .card-grid{grid-template-columns:1fr}
-    .nav-inner{padding:0 16px}
+    .nav-inner{padding:0 12px;gap:6px}
+    .nav-btn{padding:6px 12px;font-size:.72rem}
     .cat-header{flex-wrap:wrap}
     .cat-count{margin-left:0}
     .theme-toggle{top:14px;right:14px}
@@ -360,22 +359,22 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>280 websites that feel illegal to know — free tools, Google Labs experiments, piracy resources, and sports streams. Sourced from <strong>@setupsai</strong>, <strong>Google Labs</strong>, <strong>r/Piracy</strong>, and deep web research.</p>
+    <p>284 websites that feel illegal to know — free tools, Google Labs experiments, piracy resources, and sports streams. Sourced from <strong>@setupsai</strong>, <strong>Google Labs</strong>, <strong>r/Piracy</strong>, and deep web research.</p>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" id="totalCount">280</div><div class="label">Websites</div></div>
+      <div class="hero-stat"><div class="num" id="totalCount">284</div><div class="label">Websites</div></div>
       <div class="hero-stat"><div class="num">14</div><div class="label">Categories</div></div>
       <div class="hero-stat"><div class="num">0</div><div class="label">Signups Needed</div></div>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 280 websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 284 websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (280)</button>
-      <button class="section-tab" data-section="free">&#x2728; Free Tools (200)</button>
+      <button class="section-tab active" data-section="all">All (284)</button>
+      <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
       <button class="section-tab" data-section="labs">&#x1F9EA; Google Labs (20 tools)</button>
       <button class="section-tab" data-section="piracy">&#x1F3F4;&#x200D;&#x2620;&#xFE0F; Piracy (40)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
@@ -459,14 +458,18 @@ const DATA=[
       {n:"Slow Roads",u:"https://slowroads.io",d:"Endless procedural driving game for relaxation — just drive and zone out.",l:"None",s:"Seen on @setupsai"},
       {n:"ISS Docking Simulator",u:"https://iss-sim.spacex.com",d:"SpaceX's official simulator — dock the Dragon 2 capsule to the ISS.",l:"None",s:"Found via research"},
       {n:"Lost Gamer",u:"https://lostgamer.io",d:"GeoGuessr-style geography game set in video game worlds.",l:"Freemium model",s:"Seen on @setupsai"},
-      {n:"Hacker Typer",u:"https://hackertyper.net",d:"Type anything and look like a Hollywood hacker — fun prank simulator.",l:"None",s:"Seen on @setupsai"},
-      {n:"Busy Simulator",u:"https://busysimulator.com",d:"Play fake Slack, Teams, and iMessage notification sounds to seem busy.",l:"None",s:"Seen on @setupsai"},
-      {n:"The True Size",u:"https://www.thetruesize.com",d:"Interactive map that reveals the true size of countries by dragging them around.",l:"None",s:"Seen on @setupsai"},
-      {n:"Keyboard Simulator",u:"https://keyboardsimulator.xyz",d:"Design and customize your dream mechanical keyboard virtually.",l:"Freemium model",s:"Seen on @setupsai"},
-      {n:"Inkarnate",u:"https://inkarnate.com",d:"Create beautiful fantasy maps for D&D, RPGs, and worldbuilding.",l:"Free tier with limited assets",s:"Seen on @setupsai"},
-      {n:"Tabletop Audio",u:"https://tabletopaudio.com",d:"Ambient soundscapes and music designed for tabletop RPG sessions.",l:"Some content is Patreon-exclusive",s:"Seen on @setupsai"},
-      {n:"Melodice",u:"https://melodice.org",d:"Curated music playlists specifically designed for board game nights.",l:"None",s:"Seen on @setupsai"},
-      {n:"Sketch Animator",u:"https://sketch.metademolab.com",d:"Upload a drawing and watch AI bring it to life with animation.",l:"Freemium model",s:"Seen on @setupsai"}
+      {n:"GAM.ONL",u:"https://gam.onl",d:"Thousands of games for PlayStation, SEGA, Nintendo, Atari, Arcade, and 3DO — all in browser.",l:"Has ads",s:"Found via research"},
+      {n:"EmuBrowser",u:"https://emubrowser.com",d:"Play SNES, NES, Sega Genesis, PS1, N64, and GBA games instantly in your browser.",l:"Has ads",s:"Found via research"},
+      {n:"PS1Fun",u:"https://www.ps1fun.com",d:"Dedicated PlayStation 1 emulator — huge PSX library playable in your browser.",l:"Has ads",s:"Found via research"},
+      {n:"OldGames.games",u:"https://oldgames.games",d:"5,000+ classic games — Super Mario, Pokemon, Zelda, Sonic. SNES, N64, GBA, PS1 emulator.",l:"Has ads",s:"Found via research"},
+      {n:"ClassicGameZone",u:"https://classicgamezone.com",d:"Play NES, SNES, Genesis, Neo Geo, GB, GBA, N64, PS1, and Arcade games in browser.",l:"Has ads",s:"Found via research"},
+      {n:"WebRcade",u:"https://www.webrcade.com",d:"Responsive browser-based retro gaming powered by feeds — supports dozens of systems.",l:"None",s:"Found via research"},
+      {n:"Afterplay.io",u:"https://afterplay.io",d:"Modern retro gaming platform — play on any device, save progress, cloud sync.",l:"Freemium model",s:"Found via research"},
+      {n:"Rec0deD:88",u:"https://rec0ded88.com",d:"Premiere retro gaming site — works on mobile browsers, supports USB controllers.",l:"Has ads",s:"Found via research"},
+      {n:"WePlayRetro",u:"https://weplayretro.games",d:"Play NES, SNES, Arcade classics directly in browser — no downloads needed.",l:"Has ads",s:"Found via research"},
+      {n:"Vizzed",u:"https://www.vizzed.com/playonlinegames",d:"40,000+ classic games across 50+ retro systems — browser emulators using HTML5.",l:"Has ads; account optional",s:"Found via research"},
+      {n:"MyEmulator.onl",u:"https://myemulator.onl",d:"Multi-system online emulator — play all old console games directly in your browser.",l:"Has ads",s:"Found via research"},
+      {n:"SSega",u:"https://www.ssega.com",d:"Free Sega Genesis / Mega Drive games online — Sonic, Streets of Rage, and more.",l:"Has ads",s:"Found via research"}
     ]
   },
   {id:"streaming",name:"Streaming & Media",icon:"📺",type:"free",
