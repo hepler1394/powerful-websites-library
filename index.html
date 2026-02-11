@@ -1418,7 +1418,7 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
       const firstVisible=document.querySelector('.category-section.visible');
       if(firstVisible){
         const rect=firstVisible.getBoundingClientRect();
-        const offset=rect.top+window.scrollY-120; // 120px above so title+desc are fully visible
+        const offset=rect.top+window.scrollY-160; // 160px above so title+desc are fully visible
         window.scrollTo({top:Math.max(0,offset),behavior:'smooth'});
       }
     });
@@ -1548,7 +1548,7 @@ function setFilter(id){
     const firstVisible=document.querySelector('.category-section.visible');
     if(firstVisible){
       const rect=firstVisible.getBoundingClientRect();
-      const offset=rect.top+window.scrollY-120; // 120px above so title+desc are fully visible
+      const offset=rect.top+window.scrollY-160; // 160px above so title+desc are fully visible
       window.scrollTo({top:Math.max(0,offset),behavior:'smooth'});
     }
   });
