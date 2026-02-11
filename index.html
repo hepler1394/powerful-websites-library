@@ -716,6 +716,16 @@
     </a>
   </div>
 
+  <div id="favoritesGrid" class="category-section" style="display:none;margin-top:20px">
+    <div class="cat-header">
+      <span class="cat-icon">❤️</span>
+      <h2 class="cat-title">My Favorites</h2>
+      <span class="cat-count piracy-count" id="favGridCount">0 sites</span>
+    </div>
+    <p class="cat-desc">Your personal collection of saved tools and websites.</p>
+    <div class="card-grid" id="favGridInner"></div>
+  </div>
+
   <div id="mainContent"></div>
   <div class="no-results" id="noResults">
     <h3>No websites found</h3>
@@ -1716,35 +1726,59 @@ function syncFavButtons(){
 const _origApplyFilters=applyFilters;
 applyFilters=function(){
   const noFav=document.getElementById('noFavorites');
+  const favGrid=document.getElementById('favoritesGrid');
+  const favGridInner=document.getElementById('favGridInner');
+  const favGridCount=document.getElementById('favGridCount');
+
   if(activeSectionType==='favorites'){
     const favs=getFavs();
     const q=searchInput.value.toLowerCase().trim();
-    let totalVisible=0;
     noFav.classList.remove('visible');
     noResults.classList.remove('visible');
-    document.querySelectorAll('.category-section').forEach(section=>{
-      let sectionVisible=0;
-      section.querySelectorAll('.card').forEach(card=>{
-        const favId=card.dataset.favId;
-        const isFaved=favs.includes(favId);
+    mainEl.style.display='none';
+    favGrid.style.display='block';
+    
+    // Get unique favorited cards across all sections
+    const allCards=Array.from(document.querySelectorAll('#mainContent .card'));
+    const favCardsMap=new Map();
+    allCards.forEach(card=>{
+      if(favs.includes(card.dataset.favId)){
         const text=card.dataset.search;
-        const matchesSearch=!q||text.includes(q);
-        const show=isFaved&&matchesSearch;
-        card.style.display=show?'':'none';
-        if(show)sectionVisible++;
-      });
-      section.classList.toggle('visible',sectionVisible>0);
-      totalVisible+=sectionVisible;
+        if(!q||text.includes(q)){
+          // Use Map to ensure unique cards in the favorites grid
+          if(!favCardsMap.has(card.dataset.favId)){
+            const clone=card.cloneNode(true);
+            clone.style.display='';
+            // Re-attach favorite click listener to clone
+            const favBtn=clone.querySelector('.fav-btn');
+            favBtn.onclick=(e)=>toggleFav(favBtn,e);
+            favCardsMap.set(card.dataset.favId,clone);
+          }
+        }
+      }
     });
+
+    favGridInner.innerHTML='';
+    favCardsMap.forEach(cardNode=>favGridInner.appendChild(cardNode));
+    
+    const totalVisible=favCardsMap.size;
+    favGridCount.textContent=totalVisible+' site'+(totalVisible!==1?'s':'');
+    
     if(totalVisible===0&&favs.length===0){
+      favGrid.style.display='none';
       noFav.classList.add('visible');
     } else if(totalVisible===0){
+      favGrid.style.display='none';
       noResults.classList.add('visible');
     }
+    
     searchCount.textContent=q?totalVisible+' result'+(totalVisible!==1?'s':'')+' found':'';
     return;
   }
+  
   noFav.classList.remove('visible');
+  favGrid.style.display='none';
+  mainEl.style.display='block';
   _origApplyFilters();
 };
 
