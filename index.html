@@ -38,6 +38,8 @@
     --edu-accent:#f59e0b;--edu-glow:rgba(245,158,11,.15);
     --privacy-accent:#06b6d4;--privacy-glow:rgba(6,182,212,.15);
     --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.15);
+    --creator-accent:#ec4899;--creator-glow:rgba(236,72,153,.15);
+    --podcast-accent:#8b5cf6;--podcast-glow:rgba(139,92,246,.15);
     --logo-text:#fff;
   }
   [data-theme="light"]{
@@ -62,6 +64,8 @@
     --edu-accent:#d97706;--edu-glow:rgba(217,119,6,.1);
     --privacy-accent:#0891b2;--privacy-glow:rgba(8,145,178,.1);
     --adblock-accent:#dc2626;--adblock-glow:rgba(220,38,38,.1);
+    --creator-accent:#db2777;--creator-glow:rgba(219,39,119,.1);
+    --podcast-accent:#7c3aed;--podcast-glow:rgba(124,58,237,.1);
     --logo-text:#1a1a2e;
   }
 
@@ -183,15 +187,44 @@
   .section-tab[data-section="edu"].active{background:var(--edu-accent);border-color:var(--edu-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--edu-glow)}
   .section-tab[data-section="privacy"].active{background:var(--privacy-accent);border-color:var(--privacy-accent);color:#fff;box-shadow:0 2px 12px var(--privacy-glow)}
   .section-tab[data-section="adblock"].active{background:var(--adblock-accent);border-color:var(--adblock-accent);color:#fff;box-shadow:0 2px 12px var(--adblock-glow)}
+  .section-tab[data-section="creator"].active{background:var(--creator-accent);border-color:var(--creator-accent);color:#fff;box-shadow:0 2px 12px var(--creator-glow)}
+  .section-tab[data-section="podcast"].active{background:var(--podcast-accent);border-color:var(--podcast-accent);color:#fff;box-shadow:0 2px 12px var(--podcast-glow)}
 
   /* ===== DISCLAIMER ===== */
-  .disclaimer{
-    max-width:800px;margin:0 auto 32px;padding:16px 24px;border-radius:var(--radius);
-    background:rgba(255,107,157,.06);border:1px solid rgba(255,107,157,.15);
-    color:var(--text-muted);font-size:.85rem;text-align:center;display:none;
+  /* ===== PIRACY DISCLAIMER WITH ANIMATED RED GLOW ===== */
+  .piracy-warning{
+    max-width:800px;margin:0 auto 32px;padding:20px 28px;border-radius:var(--radius);
+    background:rgba(220,38,38,.06);position:relative;overflow:hidden;
+    color:var(--text-muted);font-size:.88rem;text-align:center;display:none;
   }
-  .disclaimer.visible{display:block}
-  .disclaimer strong{color:var(--piracy-accent)}
+  .piracy-warning.visible{display:block}
+  .piracy-warning::before{
+    content:'';position:absolute;inset:-2px;border-radius:calc(var(--radius) + 2px);
+    background:conic-gradient(from var(--glow-angle,0deg),transparent 0%,#dc2626 10%,transparent 20%,transparent 80%,#dc2626 90%,transparent 100%);
+    z-index:-1;animation:glowSpin 3s linear infinite;
+  }
+  .piracy-warning::after{
+    content:'';position:absolute;inset:2px;border-radius:calc(var(--radius) - 0px);
+    background:var(--surface);z-index:-1;
+  }
+  @property --glow-angle{syntax:'<angle>';initial-value:0deg;inherits:false}
+  @keyframes glowSpin{from{--glow-angle:0deg}to{--glow-angle:360deg}}
+  .piracy-warning .pw-title{
+    font-size:1rem;font-weight:800;color:#dc2626;margin-bottom:8px;
+    display:flex;align-items:center;justify-content:center;gap:8px;
+  }
+  .piracy-warning .pw-text{line-height:1.6;margin-bottom:14px}
+  .piracy-warning .pw-cta{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:10px 22px;border-radius:50px;text-decoration:none;
+    background:linear-gradient(135deg,#dc2626,#991b1b);color:#fff;
+    font-weight:700;font-size:.85rem;transition:all .3s;
+    box-shadow:0 4px 16px rgba(220,38,38,.3);
+  }
+  .piracy-warning .pw-cta:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
+  .piracy-warning .pw-cta svg{width:16px;height:16px;stroke:#fff;fill:none;stroke-width:2.5}
+  [data-theme="light"] .piracy-warning{background:rgba(220,38,38,.03)}
+  [data-theme="light"] .piracy-warning::after{background:var(--surface)}
 
   /* ===== NAV FILTERS ===== */
   .nav-wrap{
@@ -220,6 +253,8 @@
   .nav-btn.edu-btn.active{background:var(--edu-accent)!important;border-color:var(--edu-accent)!important;color:#1a1a2e!important;box-shadow:0 2px 12px var(--edu-glow)!important}
   .nav-btn.privacy-btn.active{background:var(--privacy-accent)!important;border-color:var(--privacy-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--privacy-glow)!important}
   .nav-btn.adblock-btn.active{background:var(--adblock-accent)!important;border-color:var(--adblock-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--adblock-glow)!important}
+  .nav-btn.creator-btn.active{background:var(--creator-accent)!important;border-color:var(--creator-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--creator-glow)!important}
+  .nav-btn.podcast-btn.active{background:var(--podcast-accent)!important;border-color:var(--podcast-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--podcast-glow)!important}
   /* VPN card accent */
   .card.vpn-card::before{background:linear-gradient(90deg,var(--vpn-accent),#059669);height:3px;opacity:.7}
   .card.vpn-card:hover{border-color:rgba(16,185,129,.3)}
@@ -239,6 +274,8 @@
   .edu-count{background:var(--edu-glow);color:var(--edu-accent)}
   .privacy-count{background:var(--privacy-glow);color:var(--privacy-accent)}
   .adblock-count{background:var(--adblock-glow);color:var(--adblock-accent)}
+  .creator-count{background:var(--creator-glow);color:var(--creator-accent)}
+  .podcast-count{background:var(--podcast-glow);color:var(--podcast-accent)}
 
   /* Educator card accent */
   .card.edu-card::before{background:linear-gradient(90deg,var(--edu-accent),#d97706);height:3px;opacity:.7}
@@ -263,6 +300,18 @@
   .card.adblock-card .card-tag{background:var(--adblock-glow);color:var(--adblock-accent)}
   .card.adblock-card .btn-visit{background:linear-gradient(135deg,var(--adblock-accent),#b91c1c)}
   .card.adblock-card .badge-verified{background:rgba(239,68,68,.1);color:var(--adblock-accent)}
+  .card.creator-card::before{background:linear-gradient(90deg,var(--creator-accent),#be185d);height:3px;opacity:.7}
+  .card.creator-card:hover{border-color:rgba(236,72,153,.3)}
+  .card.creator-card:hover::before{opacity:1}
+  .card.creator-card .card-tag{background:var(--creator-glow);color:var(--creator-accent)}
+  .card.creator-card .btn-visit{background:linear-gradient(135deg,var(--creator-accent),#be185d)}
+  .card.creator-card .badge-verified{background:rgba(236,72,153,.1);color:var(--creator-accent)}
+  .card.podcast-card::before{background:linear-gradient(90deg,var(--podcast-accent),#6d28d9);height:3px;opacity:.7}
+  .card.podcast-card:hover{border-color:rgba(139,92,246,.3)}
+  .card.podcast-card:hover::before{opacity:1}
+  .card.podcast-card .card-tag{background:var(--podcast-glow);color:var(--podcast-accent)}
+  .card.podcast-card .btn-visit{background:linear-gradient(135deg,var(--podcast-accent),#6d28d9)}
+  .card.podcast-card .badge-verified{background:rgba(139,92,246,.1);color:var(--podcast-accent)}
 
   /* ===== MAIN ===== */
   .main{max-width:1280px;margin:0 auto;padding:40px 24px 100px}
@@ -405,6 +454,81 @@
   .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
   .back-top svg{width:20px;height:20px}
 
+  /* ===== FAVORITES ===== */
+  .fav-btn{
+    position:absolute;top:14px;right:14px;width:36px;height:36px;
+    border-radius:50%;border:none;background:rgba(255,255,255,.08);
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all .25s;z-index:2;padding:0;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .fav-btn:hover{background:rgba(255,68,68,.15);transform:scale(1.15)}
+  .fav-btn svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2;transition:all .25s}
+  .fav-btn.favorited svg{fill:#ff4444;stroke:#ff4444}
+  .fav-btn.favorited{background:rgba(255,68,68,.15)}
+  @keyframes heartPop{0%{transform:scale(1)}25%{transform:scale(1.35)}50%{transform:scale(.95)}100%{transform:scale(1)}}
+  .fav-btn.pop{animation:heartPop .4s ease}
+  [data-theme="light"] .fav-btn{background:rgba(0,0,0,.05)}
+  [data-theme="light"] .fav-btn:hover{background:rgba(255,68,68,.12)}
+  [data-theme="light"] .fav-btn svg{stroke:var(--text-dim)}
+  [data-theme="light"] .fav-btn.favorited svg{fill:#dc2626;stroke:#dc2626}
+  [data-theme="light"] .fav-btn.favorited{background:rgba(220,38,38,.1)}
+
+  /* Favorites section tab */
+  .section-tab[data-section="favorites"].active{
+    background:linear-gradient(135deg,#ff4444,#dc2626);border-color:#ff4444;
+    box-shadow:0 2px 12px rgba(255,68,68,.3);
+  }
+  .fav-count-badge{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:18px;height:18px;padding:0 5px;border-radius:50px;
+    background:rgba(255,68,68,.2);color:#ff4444;font-size:.7rem;font-weight:800;
+    margin-left:4px;
+  }
+  .section-tab[data-section="favorites"].active .fav-count-badge{
+    background:rgba(255,255,255,.25);color:#fff;
+  }
+
+  /* No favorites message */
+  .no-favorites{
+    text-align:center;padding:60px 24px;display:none;
+  }
+  .no-favorites.visible{display:block}
+  .no-favorites .nf-heart{font-size:3rem;margin-bottom:16px;opacity:.4}
+  .no-favorites h3{font-size:1.3rem;margin-bottom:8px;color:var(--text)}
+  .no-favorites p{color:var(--text-muted);font-size:.9rem;max-width:400px;margin:0 auto}
+
+  /* ===== QUICK LINKS (inside hero) ===== */
+  .quick-links{
+    display:flex;gap:14px;justify-content:center;flex-wrap:wrap;
+    margin-top:24px;margin-bottom:28px;
+  }
+  .quick-link{
+    display:inline-flex;align-items:center;gap:10px;
+    padding:12px 22px;border-radius:50px;text-decoration:none;
+    background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1);
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    transition:all .3s;color:#fff;font-size:.88rem;font-weight:700;
+  }
+  .quick-link:hover{background:rgba(255,255,255,.12);border-color:rgba(255,255,255,.2);transform:translateY(-2px);color:#fff}
+  .quick-link-icon{
+    width:32px;height:32px;border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:1rem;flex-shrink:0;
+  }
+  .quick-link-text h3{font-size:.85rem;font-weight:700}
+  .quick-link-text p{display:none}
+  .ql-guide .quick-link-icon{background:rgba(16,185,129,.2)}
+  .ql-guide:hover{border-color:rgba(16,185,129,.5);box-shadow:0 4px 20px rgba(16,185,129,.15)}
+  .ql-faq .quick-link-icon{background:rgba(245,158,11,.2)}
+  .ql-faq:hover{border-color:rgba(245,158,11,.5);box-shadow:0 4px 20px rgba(245,158,11,.15)}
+  [data-theme="light"] .quick-link{background:rgba(0,0,0,.04);border-color:rgba(0,0,0,.1);color:#1a1a2e}
+  [data-theme="light"] .quick-link:hover{background:rgba(0,0,0,.08);border-color:rgba(0,0,0,.18);color:#1a1a2e}
+  @media(max-width:600px){
+    .quick-links{gap:10px;margin-top:20px;margin-bottom:24px}
+    .quick-link{padding:10px 18px;font-size:.82rem}
+    .quick-link-icon{width:28px;height:28px;font-size:.9rem}
+  }
+
   /* ===== BOTTOM NAV BAR ===== */
   .bottom-nav{
     position:fixed;bottom:0;left:0;right:0;z-index:200;
@@ -417,7 +541,7 @@
   }
   .bottom-nav-inner{
     display:flex;justify-content:space-around;align-items:stretch;
-    max-width:480px;width:100%;
+    max-width:520px;width:100%;
   }
   .bottom-nav a{
     display:flex;flex-direction:column;align-items:center;justify-content:center;
@@ -429,6 +553,10 @@
   .bottom-nav a:hover,.bottom-nav a.active{color:var(--accent)}
   .bottom-nav a svg{width:22px;height:22px;stroke-width:2}
   .bottom-nav a.active svg{stroke:var(--accent)}
+  @media(max-width:768px){
+    .bottom-nav{display:none!important}
+    .back-top{bottom:24px!important;right:20px!important;width:44px;height:44px}
+  }
   @media(min-width:769px){
     .bottom-nav{height:56px}
     .bottom-nav a{font-size:.7rem}
@@ -472,7 +600,7 @@
     .hero{padding:70px 16px 50px}
     .hero-stats{gap:28px}
     .hero-stat .num{font-size:1.6rem}
-    .main{padding:24px 16px 60px}
+    .main{padding:24px 16px 30px}
     .card-grid{grid-template-columns:1fr}
     .nav-inner{padding:0 12px;gap:6px;justify-content:center}
     .nav-btn{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
@@ -520,21 +648,32 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>435+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <strong>@setupsai</strong>, community megathreads, and deep web research.</p>
+    <p>475+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
+    <div class="quick-links">
+      <a href="best-practices.html" class="quick-link ql-guide">
+        <div class="quick-link-icon">🛡</div>
+        <div class="quick-link-text"><h3>Best Practices Guide</h3></div>
+      </a>
+      <a href="faq.html" class="quick-link ql-faq">
+        <div class="quick-link-icon">❓</div>
+        <div class="quick-link-text"><h3>FAQ &amp; Help</h3></div>
+      </a>
+    </div>
     <div class="hero-stats">
-      <div class="hero-stat"><div class="num" id="totalCount">435</div><div class="label">Websites</div></div>
-      <div class="hero-stat"><div class="num">21</div><div class="label">Categories</div></div>
-      <div class="hero-stat"><div class="num">0</div><div class="label">Signups Needed</div></div>
+      <div class="hero-stat"><a href="best-practices.html" style="text-decoration:none;color:inherit"><div class="num" style="font-size:1.6rem">🛡</div><div class="label">Best Practices</div></a></div>
+      <div class="hero-stat"><a href="faq.html" style="text-decoration:none;color:inherit"><div class="num" style="font-size:1.6rem">❓</div><div class="label">FAQ &amp; Help</div></a></div>
+      <div class="hero-stat"><a href="javascript:void(0)" id="heroFavLink" style="text-decoration:none;color:inherit"><div class="num" id="heroFavCount" style="font-size:1.6rem">❤️ 0</div><div class="label">My Favorites</div></a></div>
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 435+ websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 475+ websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (435+)</button>
+      <button class="section-tab active" data-section="all">All (475+)</button>
+      <button class="section-tab" data-section="favorites">❤️ My Favorites <span class="fav-count-badge" id="favTabCount">0</span></button>
       <button class="section-tab" data-section="top">⭐ Top Picks</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
       <button class="section-tab" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
@@ -543,6 +682,8 @@
       <button class="section-tab" data-section="edu">&#x1F393; Educators (20)</button>
       <button class="section-tab" data-section="privacy">&#x1F50F; Privacy Browsers (20)</button>
       <button class="section-tab" data-section="adblock">&#x1F6AB; Ad Blockers (20)</button>
+      <button class="section-tab" data-section="creator">&#x1F3A8; Creators (20)</button>
+      <button class="section-tab" data-section="podcast">&#x1F399; Podcasters (20)</button>
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
       <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
@@ -565,11 +706,13 @@
 
 <!-- DISCLAIMER -->
 <div class="main">
-  <div class="disclaimer" id="disclaimer">
-    <strong>&#x26A0;&#xFE0F; Disclaimer:</strong> Some streaming and download sites may be illegal in your jurisdiction. Use a VPN and an adblocker (uBlock Origin). These links are sourced from community recommendations. Proceed at your own risk.
-  </div>
-  <div class="disclaimer" id="labsDisclaimer" style="background:rgba(66,133,244,.06);border-color:rgba(66,133,244,.15)">
-    <strong>&#x1F9EA; AI Tools & Experiments:</strong> These include experimental tools from <a href="https://labs.google" target="_blank" style="color:var(--labs-accent)">labs.google</a>, agentic browsers, and AI assistants. Most offer free tiers. Some may require accounts for full features. Availability may vary by region.
+  <div class="piracy-warning" id="piracyWarning">
+    <div class="pw-title">&#x26A0;&#xFE0F; Heads Up — Read Before Streaming</div>
+    <p class="pw-text">New to streaming? These sites use pop-ups, redirects, and aggressive ads. <strong>You need a VPN and an ad blocker (Brave + uBlock Origin)</strong> before visiting any of these links. Not sure how to set that up? Check our guide first.</p>
+    <a href="best-practices.html" class="pw-cta">
+      <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      Read the Best Practices Guide
+    </a>
   </div>
 
   <div id="mainContent"></div>
@@ -577,12 +720,23 @@
     <h3>No websites found</h3>
     <p>Try a different search term or category filter.</p>
   </div>
+  <div class="no-favorites" id="noFavorites">
+    <div class="nf-heart">❤️</div>
+    <h3>No favorites yet</h3>
+    <p>Tap the heart icon on any card to save it here. Your favorites are stored on this device and persist across visits.</p>
+  </div>
 </div>
 
 <!-- FOOTER -->
 <footer class="footer">
   <p>Curated with care. Sources include <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank">@setupsai</a>, community megathreads, and deep web research.</p>
   <p style="margin-top:8px;">All free-tool sites verified for no-signup access. 🏴‍☠️ & sports sites sourced from community recommendations. Last updated February 2026.</p>
+  <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
+    <p style="font-weight:700;margin-bottom:6px;color:var(--text-muted);">Legal Disclaimer</p>
+    <p>This website does not host, store, or distribute any copyrighted content. All links provided are to third-party websites that are publicly available on the internet. This site is intended for educational and informational purposes only. We do not endorse, promote, or encourage piracy or any illegal activity. Users are solely responsible for how they use the information and links provided. We assume no liability for the content, availability, or legality of any third-party websites linked herein.</p>
+    <p style="margin-top:10px;">If you are a copyright holder and would like a link removed, or if you have any concerns, please contact us at <a href="mailto:Crimetimesnacks@gmail.com" style="color:#ff4444;font-weight:600;">Crimetimesnacks@gmail.com</a> and we will promptly address your request.</p>
+    <p style="margin-top:16px;"><a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go Home</a></p>
+  </div>
 </footer>
 
 <!-- BACK TO TOP -->
@@ -596,6 +750,10 @@
     <a href="index.html" class="active" title="Home">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
       <span>Home</span>
+    </a>
+    <a href="best-practices.html" title="Best Practices Guide">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+      <span>Best Practices Guide</span>
     </a>
     <a href="faq.html" title="FAQ">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
@@ -1151,6 +1309,56 @@ const DATA=[
       {n:"NoScript",u:"https://noscript.net",d:"Block JavaScript, Flash, and other plugins by default. Whitelist trusted sites for maximum security.",l:"Can break sites; requires manual whitelisting",s:"Privacy Guides"},
       {n:"ClearURLs",u:"https://clearurls.xyz",d:"Automatically removes tracking elements and parameters from URLs as you browse. Set it and forget it.",l:"None",s:"Privacy Guides"}
     ]
+  },
+  {id:"tools-for-creators",name:"Tools for Creators",icon:"\uD83C\uDFA8",type:"creator",
+    desc:"Free tools for content creators — video editing, thumbnails, stock media, analytics, and social media growth.",
+    sites:[
+      {n:"DaVinci Resolve",u:"https://www.blackmagicdesign.com/products/davinciresolve",d:"Hollywood-grade video editor used by professionals — color grading, VFX, audio post, all free.",l:"Studio version is paid",s:"Found via research"},
+      {n:"CapCut",u:"https://www.capcut.com",d:"Free all-in-one video editor with auto-captions, effects, templates. Perfect for TikTok, Reels, Shorts.",l:"Pro features require subscription",s:"Found via research"},
+      {n:"OBS Studio",u:"https://obsproject.com",d:"Free open-source software for live streaming and screen recording. Used by every major streamer.",l:"None",s:"Found via research"},
+      {n:"Pixabay",u:"https://pixabay.com",d:"2.8M+ free stock photos, videos, music, and sound effects. No attribution required.",l:"None",s:"Found via research"},
+      {n:"Pexels",u:"https://www.pexels.com",d:"Free stock photos and videos from talented creators. High quality, no watermarks.",l:"None",s:"Found via research"},
+      {n:"Unsplash",u:"https://unsplash.com",d:"Beautiful free images contributed by photographers worldwide. The internet's source of freely-usable images.",l:"None",s:"Found via research"},
+      {n:"FreeToUse Music",u:"https://freetouse.com/music",d:"Royalty-free background music — completely free, no signup required. Unlimited downloads.",l:"None",s:"Found via research"},
+      {n:"Bensound",u:"https://www.bensound.com",d:"Royalty-free music library for video creators. Copyright-safe tracks for YouTube, TikTok, and more.",l:"Premium tracks require license",s:"Found via research"},
+      {n:"Linktree",u:"https://linktr.ee",d:"The original link-in-bio tool. One link to share everything — social profiles, content, merch, and more.",l:"Pro features require subscription",s:"Found via research"},
+      {n:"Buffer",u:"https://buffer.com",d:"Free social media scheduling and analytics. Plan, publish, and track content across all platforms.",l:"Free for 3 channels",s:"Found via research"},
+      {n:"Clipchamp",u:"https://clipchamp.com",d:"Microsoft's free online video editor. Trim, merge, add text, transitions, and export in 1080p.",l:"4K export requires premium",s:"Found via research"},
+      {n:"Headliner",u:"https://www.headliner.app",d:"Create audiograms, video clips, and social media content from audio. Great for repurposing content.",l:"Free tier with watermark",s:"Found via research"},
+      {n:"Descript",u:"https://www.descript.com",d:"Edit video and audio by editing text. AI-powered transcription, screen recording, and clip creation.",l:"Free tier with limits",s:"Found via research"},
+      {n:"Social Blade",u:"https://socialblade.com",d:"Free YouTube, Twitch, Instagram, and TikTok analytics. Track subscriber counts, views, and growth.",l:"None",s:"Found via research"},
+      {n:"VidIQ",u:"https://vidiq.com",d:"YouTube SEO and analytics tool. Keyword research, competitor analysis, and trending topic alerts.",l:"Free tier available",s:"Found via research"},
+      {n:"TubeBuddy",u:"https://www.tubebuddy.com",d:"YouTube channel management toolkit. A/B test thumbnails, SEO tags, bulk processing, and more.",l:"Free tier available",s:"Found via research"},
+      {n:"Snappa",u:"https://snappa.com",d:"Quick graphic design for social media, ads, and blog posts. 6,000+ templates, no design skills needed.",l:"Free tier: 3 downloads/month",s:"Found via research"},
+      {n:"OpusClip",u:"https://www.opus.pro",d:"AI-powered clip maker — turns long videos into viral short clips for TikTok, Reels, and Shorts.",l:"Free tier with limits",s:"Found via research"},
+      {n:"Thumbs Up",u:"https://thumbsup.tv",d:"A/B test your YouTube thumbnails before publishing. See which one gets more clicks.",l:"Free tier available",s:"Found via research"},
+      {n:"Kapwing",u:"https://www.kapwing.com",d:"Online video, image, and GIF editor. Subtitles, memes, resizing, trimming — all in browser.",l:"Free tier with watermark",s:"Found via research"}
+    ]
+  },
+  {id:"tools-for-podcasters",name:"Tools for Podcasters",icon:"\uD83C\uDF99",type:"podcast",
+    desc:"Free tools for podcasters — recording, editing, hosting, transcription, clip making, and distribution.",
+    sites:[
+      {n:"Audacity",u:"https://www.audacityteam.org",d:"The world's most popular free audio editor. Record, edit, and mix audio with professional tools.",l:"None",s:"Found via research"},
+      {n:"Spotify for Podcasters",u:"https://podcasters.spotify.com",d:"Free podcast hosting with unlimited episodes. Distribute to Spotify, Apple Podcasts, and everywhere.",l:"None",s:"Found via research"},
+      {n:"Buzzsprout",u:"https://www.buzzsprout.com",d:"Free podcast hosting with beautiful website, transcripts, and distribution to all major platforms.",l:"Free tier: 2hrs/month",s:"Found via research"},
+      {n:"Podbean",u:"https://www.podbean.com",d:"Free podcast hosting with monetization tools. Built-in website, analytics, and distribution.",l:"Free tier: 5hrs storage",s:"Found via research"},
+      {n:"RSS.com",u:"https://rss.com",d:"Free podcast hosting with unlimited episodes. Automatic distribution to Apple, Spotify, and more.",l:"None",s:"Found via research"},
+      {n:"Riverside.fm",u:"https://riverside.fm",d:"Studio-quality remote podcast recording. Records locally for HD audio and video, even with bad internet.",l:"Free tier: 2hrs recording",s:"Found via research"},
+      {n:"Zencastr",u:"https://zencastr.com",d:"Free remote podcast recording with separate audio tracks. Crystal-clear quality for remote interviews.",l:"Free tier available",s:"Found via research"},
+      {n:"Adobe Podcast",u:"https://podcast.adobe.com",d:"Free AI-powered podcast studio. Record, edit, and enhance audio with Adobe's AI noise removal.",l:"None",s:"Found via research"},
+      {n:"GarageBand",u:"https://www.apple.com/garageband",d:"Apple's free audio workstation. Multi-track recording, editing, and built-in sound effects for Mac/iOS.",l:"Apple devices only",s:"Found via research"},
+      {n:"Otter.ai",u:"https://otter.ai",d:"AI-powered transcription with speaker identification. Transcribe meetings, interviews, and podcasts.",l:"Free tier: 300 mins/month",s:"Found via research"},
+      {n:"Podsqueeze",u:"https://podsqueeze.com",d:"AI-powered podcast toolkit — auto-generate show notes, transcripts, timestamps, and social clips.",l:"Free tier available",s:"Found via research"},
+      {n:"Cleanvoice AI",u:"https://cleanvoice.ai",d:"AI that removes filler words (um, uh), stuttering, mouth sounds, and dead air from your podcast.",l:"Free trial: 30 mins",s:"Found via research"},
+      {n:"Podcastle",u:"https://podcastle.ai",d:"AI podcast creation platform. Record, edit, transcribe, and enhance audio with one-click magic.",l:"Free tier available",s:"Found via research"},
+      {n:"Spreaker",u:"https://www.spreaker.com",d:"Free podcast hosting with live broadcasting, monetization, and distribution to all platforms.",l:"Free tier: 5hrs storage",s:"Found via research"},
+      {n:"Acast",u:"https://www.acast.com",d:"Free podcast hosting with built-in monetization. Distribute everywhere and start earning from day one.",l:"None",s:"Found via research"},
+      {n:"Soundtrap",u:"https://www.soundtrap.com",d:"Spotify's online audio studio. Collaborate in real-time, record, edit, and produce podcasts in browser.",l:"Free tier available",s:"Found via research"},
+      {n:"Wavve",u:"https://wavve.co",d:"Turn audio clips into shareable video with animated waveforms. Perfect for promoting episodes on social.",l:"Free tier: 1 min clips",s:"Found via research"},
+      {n:"Snipd",u:"https://www.snipd.com",d:"AI podcast player that creates highlights, summaries, and shareable clips from any podcast episode.",l:"None",s:"Found via research"},
+      {n:"Castbox",u:"https://castbox.fm",d:"Free podcast player and hosting platform. Discover, listen, and publish podcasts all in one place.",l:"None",s:"Found via research"},
+      {n:"Listnr",u:"https://www.listnr.tech",d:"AI text-to-speech for podcasts. Convert blog posts and articles into natural-sounding podcast episodes.",l:"Free tier: 1000 words",s:"Found via research"}
+    ]
   }
 ];
 
@@ -1161,8 +1369,7 @@ const searchInput=document.getElementById('searchInput');
 const searchCount=document.getElementById('searchCount');
 const noResults=document.getElementById('noResults');
 const backTop=document.getElementById('backTop');
-const disclaimer=document.getElementById('disclaimer');
-const labsDisclaimer=document.getElementById('labsDisclaimer');
+const piracyWarning=document.getElementById('piracyWarning');
 const themeToggle=document.getElementById('themeToggle');
 
 let activeFilter='all';
@@ -1203,22 +1410,24 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));
     updateNavButtons();
     applyFilters();
-    // Show disclaimer for piracy/sports
-    disclaimer.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports'||activeSectionType==='vpn');
-    labsDisclaimer.classList.toggle('visible',activeSectionType==='labs'||activeSectionType==='agent'||activeSectionType==='llm'||activeSectionType==='edu'||activeSectionType==='privacy'||activeSectionType==='adblock');
-    // Top picks shows all disclaimers hidden
-    if(activeSectionType==='top'){disclaimer.classList.remove('visible');labsDisclaimer.classList.remove('visible');}
+    // Show piracy warning only for piracy/sports categories
+    piracyWarning.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports');
+    // Auto-scroll to the first visible category section
+    requestAnimationFrame(()=>{
+      const firstVisible=document.querySelector('.category-section.visible');
+      if(firstVisible){
+        const rect=firstVisible.getBoundingClientRect();
+        const offset=rect.top+window.scrollY-120; // 120px above so title+desc are fully visible
+        window.scrollTo({top:Math.max(0,offset),behavior:'smooth'});
+      }
+    });
   });
 });
 
 function updateNavButtons(){
+  // Always show ALL category buttons — never filter them
   document.querySelectorAll('.nav-btn[data-filter]').forEach(btn=>{
-    const fid=btn.dataset.filter;
-    if(fid==='all'){btn.style.display='';return;}
-    const cat=DATA.find(c=>c.id===fid);
-    if(!cat){btn.style.display='none';return;}
-    if(activeSectionType==='all'){btn.style.display='';}
-    else{btn.style.display=cat.type===activeSectionType?'':'none';}
+    btn.style.display='';
   });
 }
 
@@ -1237,6 +1446,8 @@ function init(){
     if(cat.type==='edu')btn.classList.add('edu-btn');
     if(cat.type==='privacy')btn.classList.add('privacy-btn');
     if(cat.type==='adblock')btn.classList.add('adblock-btn');
+    if(cat.type==='creator')btn.classList.add('creator-btn');
+    if(cat.type==='podcast')btn.classList.add('podcast-btn');
     btn.dataset.filter=cat.id;
     btn.textContent=cat.icon+' '+cat.name;
     btn.addEventListener('click',()=>setFilter(cat.id));
@@ -1249,7 +1460,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':'free-count';
+    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':cat.type==='creator'?'creator-count':cat.type==='podcast'?'podcast-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -1272,24 +1483,28 @@ function getFaviconUrl(url){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':'';
+  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':catType==='creator'?'creator-card':catType==='podcast'?'podcast-card':'';
+  const fallbackEmoji=catType==='sports'?'\u26BD':catType==='piracy'?'\uD83C\uDFA5':catType==='labs'?'\uD83E\uDDEA':catType==='agent'?'\uD83E\uDD16':catType==='llm'?'\uD83D\uDCAC':catType==='vpn'?'\uD83D\uDEE1':catType==='edu'?'\uD83C\uDF93':catType==='privacy'?'\uD83D\uDD0F':catType==='adblock'?'\uD83D\uDEAB':catType==='creator'?'\uD83C\uDFA8':catType==='podcast'?'\uD83C\uDF99':catType==='top'?'\u2B50':'\uD83C\uDF10';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   const faviconSrc=getFaviconUrl(s.u);
   return `
-    <div class="card ${cardClass}" data-search="${(s.n+' '+s.d+' '+catName+' '+s.s+' '+s.u).toLowerCase()}">
+    <div class="card ${cardClass}" data-search="${(s.n+' '+s.d+' '+catName+' '+s.s+' '+s.u).toLowerCase()}" data-fav-id="${s.u}">
       <div class="card-top">
         <div class="card-name-wrap">
-          ${faviconSrc?`<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" onerror="this.style.display='none'">`:''}
+          ${faviconSrc?`<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">`:''}${faviconSrc?`<span class="card-favicon-fallback" style="display:none;font-size:16px;flex-shrink:0">${fallbackEmoji}</span>`:''}
           <span class="card-name">${s.n}</span>
         </div>
         <span class="card-tag">${catName}</span>
       </div>
+      <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" onclick="toggleFav(this,event)">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </button>
       <p class="card-desc">${s.d}</p>
       <div class="card-limits ${hasLimits?'has-limits':''}">${hasLimits?'\u26A0\uFE0F '+s.l:''}</div>
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':'No signup verified'}
+          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':catType==='creator'?'Free for creators':catType==='podcast'?'Free for podcasters':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -1300,7 +1515,7 @@ function renderCard(s,catName,catType){
       </div>
       <div class="card-actions">
         <a href="${s.u}" target="_blank" rel="noopener" class="btn-visit">
-          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':'Visit Site'}
+          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
@@ -1322,6 +1537,15 @@ function setFilter(id){
   if(id!=='all'){
     collapseNav();
   }
+  // Auto-scroll to the first visible category section so user sees the title + cards
+  requestAnimationFrame(()=>{
+    const firstVisible=document.querySelector('.category-section.visible');
+    if(firstVisible){
+      const rect=firstVisible.getBoundingClientRect();
+      const offset=rect.top+window.scrollY-120; // 120px above so title+desc are fully visible
+      window.scrollTo({top:Math.max(0,offset),behavior:'smooth'});
+    }
+  });
 }
 
 document.querySelector('[data-filter="all"]').addEventListener('click',()=>setFilter('all'));
@@ -1335,7 +1559,7 @@ searchInput.addEventListener('input',()=>{
       t.classList.toggle('active',t.dataset.section==='all');
     });
     updateNavButtons();
-    disclaimer.classList.remove('visible');
+    piracyWarning.classList.remove('visible');
   }
   applyFilters();
 });
@@ -1438,7 +1662,110 @@ searchInput.addEventListener('input',()=>{
   }
 });
 
+// ===== FAVORITES SYSTEM =====
+const FAVS_KEY='pwl_favorites';
+function getFavs(){try{return JSON.parse(localStorage.getItem(FAVS_KEY))||[];}catch(e){return [];}}
+function saveFavs(favs){localStorage.setItem(FAVS_KEY,JSON.stringify(favs));}
+function isFav(url){return getFavs().includes(url);}
+
+function toggleFav(btn,e){
+  e.stopPropagation();
+  e.preventDefault();
+  const url=btn.dataset.favUrl;
+  let favs=getFavs();
+  if(favs.includes(url)){
+    favs=favs.filter(f=>f!==url);
+    btn.classList.remove('favorited');
+  } else {
+    favs.push(url);
+    btn.classList.add('favorited');
+    btn.classList.remove('pop');
+    void btn.offsetWidth; // force reflow
+    btn.classList.add('pop');
+  }
+  saveFavs(favs);
+  updateFavCounts();
+  // If viewing favorites, re-apply filter to hide unfavorited cards
+  if(activeSectionType==='favorites'){
+    applyFilters();
+  }
+}
+
+function updateFavCounts(){
+  const count=getFavs().length;
+  const tabCount=document.getElementById('favTabCount');
+  const heroCount=document.getElementById('heroFavCount');
+  if(tabCount)tabCount.textContent=count;
+  if(heroCount)heroCount.textContent='\u2764\uFE0F '+count;
+}
+
+function syncFavButtons(){
+  const favs=getFavs();
+  document.querySelectorAll('.fav-btn').forEach(btn=>{
+    btn.classList.toggle('favorited',favs.includes(btn.dataset.favUrl));
+  });
+}
+
+// Patch applyFilters to handle favorites mode
+const _origApplyFilters=applyFilters;
+applyFilters=function(){
+  const noFav=document.getElementById('noFavorites');
+  if(activeSectionType==='favorites'){
+    const favs=getFavs();
+    const q=searchInput.value.toLowerCase().trim();
+    let totalVisible=0;
+    noFav.classList.remove('visible');
+    noResults.classList.remove('visible');
+    document.querySelectorAll('.category-section').forEach(section=>{
+      let sectionVisible=0;
+      section.querySelectorAll('.card').forEach(card=>{
+        const favId=card.dataset.favId;
+        const isFaved=favs.includes(favId);
+        const text=card.dataset.search;
+        const matchesSearch=!q||text.includes(q);
+        const show=isFaved&&matchesSearch;
+        card.style.display=show?'':'none';
+        if(show)sectionVisible++;
+      });
+      section.classList.toggle('visible',sectionVisible>0);
+      totalVisible+=sectionVisible;
+    });
+    if(totalVisible===0&&favs.length===0){
+      noFav.classList.add('visible');
+    } else if(totalVisible===0){
+      noResults.classList.add('visible');
+    }
+    searchCount.textContent=q?totalVisible+' result'+(totalVisible!==1?'s':'')+' found':'';
+    return;
+  }
+  noFav.classList.remove('visible');
+  _origApplyFilters();
+};
+
+// Hero favorites link clicks to favorites tab
+document.getElementById('heroFavLink').addEventListener('click',()=>{
+  document.querySelectorAll('.section-tab').forEach(t=>t.classList.remove('active'));
+  const favTab=document.querySelector('[data-section="favorites"]');
+  if(favTab)favTab.classList.add('active');
+  activeSectionType='favorites';
+  activeFilter='all';
+  document.querySelectorAll('.nav-btn').forEach(b=>b.classList.toggle('active',b.dataset.filter==='all'));
+  updateNavButtons();
+  piracyWarning.classList.remove('visible');
+  applyFilters();
+  requestAnimationFrame(()=>{
+    const firstVisible=document.querySelector('.category-section.visible');
+    if(firstVisible){
+      const rect=firstVisible.getBoundingClientRect();
+      const offset=rect.top+window.scrollY-120;
+      window.scrollTo({top:Math.max(0,offset),behavior:'smooth'});
+    }
+  });
+});
+
 init();
+syncFavButtons();
+updateFavCounts();
 
 </script>
 </body>
