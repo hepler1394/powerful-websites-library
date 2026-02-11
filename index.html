@@ -456,23 +456,23 @@
 
   /* ===== FAVORITES ===== */
   .fav-btn{
-    position:absolute;top:14px;right:14px;width:36px;height:36px;
-    border-radius:50%;border:none;background:rgba(255,255,255,.08);
+    position:absolute;top:42px;right:12px;width:28px;height:28px;
+    border-radius:0;border:none;background:transparent;
     cursor:pointer;display:flex;align-items:center;justify-content:center;
     transition:all .25s;z-index:2;padding:0;
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
   }
-  .fav-btn:hover{background:rgba(255,68,68,.15);transform:scale(1.15)}
-  .fav-btn svg{width:20px;height:20px;stroke:var(--text-muted);fill:none;stroke-width:2;transition:all .25s}
+  .fav-btn:hover{background:transparent;transform:scale(1.2)}
+  .fav-btn svg{width:20px;height:20px;stroke:#ff4444;fill:none;stroke-width:2;transition:all .25s}
   .fav-btn.favorited svg{fill:#ff4444;stroke:#ff4444}
-  .fav-btn.favorited{background:rgba(255,68,68,.15)}
+  .fav-btn.favorited{background:transparent}
   @keyframes heartPop{0%{transform:scale(1)}25%{transform:scale(1.35)}50%{transform:scale(.95)}100%{transform:scale(1)}}
   .fav-btn.pop{animation:heartPop .4s ease}
-  [data-theme="light"] .fav-btn{background:rgba(0,0,0,.05)}
-  [data-theme="light"] .fav-btn:hover{background:rgba(255,68,68,.12)}
-  [data-theme="light"] .fav-btn svg{stroke:var(--text-dim)}
+  [data-theme="light"] .fav-btn{background:transparent}
+  [data-theme="light"] .fav-btn:hover{background:transparent}
+  [data-theme="light"] .fav-btn svg{stroke:#dc2626}
   [data-theme="light"] .fav-btn.favorited svg{fill:#dc2626;stroke:#dc2626}
-  [data-theme="light"] .fav-btn.favorited{background:rgba(220,38,38,.1)}
+  [data-theme="light"] .fav-btn.favorited{background:transparent}
 
   /* Favorites section tab */
   .section-tab[data-section="favorites"].active{
@@ -1530,6 +1530,11 @@ function setFilter(id){
     searchInput.value='';
   }
   activeFilter=id;
+  // Reset section type to 'all' so the category isn't blocked by a section filter
+  activeSectionType='all';
+  document.querySelectorAll('.section-tab').forEach(t=>t.classList.toggle('active',t.dataset.section==='all'));
+  // Also hide piracy warning when switching via nav
+  piracyWarning.classList.remove('visible');
   document.querySelectorAll('.nav-btn').forEach(b=>{
     b.classList.toggle('active',b.dataset.filter===id);
   });
