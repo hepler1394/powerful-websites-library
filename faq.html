@@ -127,11 +127,13 @@
   .faq-item:hover{border-color:var(--border-hover)}
   .faq-question{
     display:flex;align-items:center;justify-content:space-between;gap:16px;
+    width:100%;border:none;background:transparent;text-align:left;
     padding:18px 24px;cursor:pointer;font-weight:700;font-size:.95rem;
     color:var(--text);transition:all .2s;
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
     user-select:none;
   }
+  .faq-question:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
   .faq-question:hover{color:var(--accent)}
   .faq-question svg{
     width:20px;height:20px;flex-shrink:0;transition:transform .3s;color:var(--text-muted);
@@ -271,15 +273,15 @@
 <div class="faq-container">
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">1</span><span class="faq-q-text">Why do I get pop-ups every time I click a link?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Many free streaming and download sites use aggressive pop-up ads to make money. This is normal for these types of sites. <strong>The fix is simple:</strong></p>
       <ul>
-        <li>Switch to <a href="https://brave.com" target="_blank">Brave Browser</a> — it blocks pop-ups and ads by default</li>
-        <li>Install <a href="https://ublockorigin.com" target="_blank">uBlock Origin</a> on Firefox — the most powerful free ad blocker</li>
+        <li>Switch to <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — it blocks pop-ups and ads by default</li>
+        <li>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a> on Firefox — the most powerful free ad blocker</li>
         <li>Use both together for maximum protection</li>
       </ul>
       <p>With Brave + uBlock Origin, you'll never see another pop-up on any of these sites.</p>
@@ -287,10 +289,10 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">2</span><span class="faq-q-text">Are these websites safe to use?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>The free tools section (AI tools, design, productivity, etc.) are all legitimate, well-known websites that are completely safe. For streaming and piracy sections, use common sense:</p>
       <ul>
@@ -303,66 +305,66 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">3</span><span class="faq-q-text">Do I really not need to sign up for these sites?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Every site in the "Free Tools" section has been verified to work without creating an account. Some sites offer optional accounts for saving work or unlocking extra features, but the core functionality is always free and signup-free. Streaming and piracy sites never require accounts — if a site asks you to register, it's likely a scam ad.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">4</span><span class="faq-q-text">What's the best ad blocker to use?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
-      <p><strong>For Firefox:</strong> <a href="https://ublockorigin.com" target="_blank">uBlock Origin</a> — scores 100/100 on ad blocking tests. It's free, open-source, and the gold standard.</p>
-      <p><strong>For Chrome:</strong> <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank">uBlock Origin Lite</a> — a lighter version that works with Chrome's Manifest V3. Or just switch to Brave.</p>
-      <p><strong>For mobile:</strong> Use <a href="https://brave.com" target="_blank">Brave Browser</a> on both Android and iOS. It blocks ads natively without extensions.</p>
-      <p><strong>For your whole network:</strong> Set up <a href="https://pi-hole.net" target="_blank">Pi-hole</a> or use <a href="https://nextdns.io" target="_blank">NextDNS</a> to block ads on every device in your home.</p>
+      <p><strong>For Firefox:</strong> <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a> — scores 100/100 on ad blocking tests. It's free, open-source, and the gold standard.</p>
+      <p><strong>For Chrome:</strong> <a href="https://chromewebstore.google.com/detail/ublock-origin-lite/ddkjiahejlhfcafbddmgiahcphecmpfh" target="_blank" rel="noopener noreferrer">uBlock Origin Lite</a> — a lighter version that works with Chrome's Manifest V3. Or just switch to Brave.</p>
+      <p><strong>For mobile:</strong> Use <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> on both Android and iOS. It blocks ads natively without extensions.</p>
+      <p><strong>For your whole network:</strong> Set up <a href="https://pi-hole.net" target="_blank" rel="noopener noreferrer">Pi-hole</a> or use <a href="https://nextdns.io" target="_blank" rel="noopener noreferrer">NextDNS</a> to block ads on every device in your home.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">5</span><span class="faq-q-text">Is it legal to use streaming and piracy sites?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Legality varies by country. In many places, <strong>streaming</strong> content falls into a legal gray area — you're not downloading or distributing anything. <strong>Downloading</strong> copyrighted content is illegal in most countries. We list these sites because they exist and people use them. Always use a VPN, and understand the laws in your jurisdiction. This site does not encourage illegal activity.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">6</span><span class="faq-q-text">Do I need a VPN? Which one should I use?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>A VPN is <strong>highly recommended</strong> for streaming and piracy sites. It hides your IP address and encrypts your traffic so your ISP can't see what you're doing.</p>
-      <p><strong>Best free VPN:</strong> <a href="https://protonvpn.com/free-vpn" target="_blank">Proton VPN</a> — unlimited data, no ads, no logs, Swiss-based.</p>
-      <p><strong>Best paid VPN:</strong> <a href="https://www.privateinternetaccess.com" target="_blank">Private Internet Access</a> — $2/mo, 35,000+ servers, proven no-logs in court.</p>
+      <p><strong>Best free VPN:</strong> <a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton VPN</a> — unlimited data, no ads, no logs, Swiss-based.</p>
+      <p><strong>Best paid VPN:</strong> <a href="https://www.privateinternetaccess.com" target="_blank" rel="noopener noreferrer">Private Internet Access</a> — $2/mo, 35,000+ servers, proven no-logs in court.</p>
       <p>For regular free tools (Photopea, TinyWow, etc.), you don't need a VPN at all.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">7</span><span class="faq-q-text">Why do some sites have a "limitations" warning?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>We believe in full transparency. The yellow warning badge tells you about any catches — daily limits, file size restrictions, watermarks, or features that require payment. If a site says "None" for limitations, it's truly 100% free with no strings attached.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">8</span><span class="faq-q-text">A site isn't working or has been taken down. What do I do?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Free sites — especially streaming and piracy ones — change domains or go offline frequently. If a site isn't working:</p>
       <ul>
@@ -376,50 +378,50 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">9</span><span class="faq-q-text">What browser should I use for the best experience?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>We strongly recommend <strong>not using Chrome</strong>. Chrome is reducing ad blocker effectiveness with Manifest V3 and has extensive tracking. Instead, use:</p>
       <ul>
-        <li><a href="https://brave.com" target="_blank">Brave</a> — Best all-around. Built-in ad blocking, fast, Chromium-based so all your Chrome extensions work</li>
-        <li><a href="https://www.mozilla.org/firefox" target="_blank">Firefox</a> — Best for privacy customization. Supports full uBlock Origin</li>
-        <li><a href="https://librewolf.net" target="_blank">LibreWolf</a> — Firefox with all tracking removed and uBlock Origin pre-installed</li>
+        <li><a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave</a> — Best all-around. Built-in ad blocking, fast, Chromium-based so all your Chrome extensions work</li>
+        <li><a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">Firefox</a> — Best for privacy customization. Supports full uBlock Origin</li>
+        <li><a href="https://librewolf.net" target="_blank" rel="noopener noreferrer">LibreWolf</a> — Firefox with all tracking removed and uBlock Origin pre-installed</li>
       </ul>
       <p>Check our <strong>Privacy Browsers</strong> category for 20 more options.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">10</span><span class="faq-q-text">How do I block YouTube ads?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p><strong>On desktop:</strong> Use Firefox + uBlock Origin, or Brave Browser. Both block all YouTube ads.</p>
-      <p><strong>On Android phone:</strong> Use <a href="https://brave.com" target="_blank">Brave Browser</a> or install <a href="https://libretube.dev" target="_blank">LibreTube</a> from F-Droid.</p>
-      <p><strong>On Android TV / Fire Stick:</strong> Install <a href="https://smarttubeapp.github.io" target="_blank">SmartTube</a> — it's the best ad-free YouTube app for TVs.</p>
-      <p><strong>On iPhone:</strong> Use Brave Browser or <a href="https://apps.apple.com/us/app/vinegar-tube-cleaner/id1591303229" target="_blank">Vinegar</a> ($2) with Safari.</p>
-      <p><strong>Bonus:</strong> Install <a href="https://sponsor.ajay.app" target="_blank">SponsorBlock</a> to also skip sponsor segments, intros, and outros.</p>
+      <p><strong>On Android phone:</strong> Use <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> or install <a href="https://libretube.dev" target="_blank" rel="noopener noreferrer">LibreTube</a> from F-Droid.</p>
+      <p><strong>On Android TV / Fire Stick:</strong> Install <a href="https://smarttubeapp.github.io" target="_blank" rel="noopener noreferrer">SmartTube</a> — it's the best ad-free YouTube app for TVs.</p>
+      <p><strong>On iPhone:</strong> Use Brave Browser or <a href="https://apps.apple.com/us/app/vinegar-tube-cleaner/id1591303229" target="_blank" rel="noopener noreferrer">Vinegar</a> ($2) with Safari.</p>
+      <p><strong>Bonus:</strong> Install <a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a> to also skip sponsor segments, intros, and outros.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">11</span><span class="faq-q-text">What does "feels illegal to know" mean?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>It's a popular internet phrase meaning "so useful it's hard to believe it's free." Most of the sites here are completely legal — free Photoshop alternatives, AI tools, learning platforms, and productivity apps. The phrase just captures how surprisingly powerful these free tools are. The streaming and piracy sections are the only ones in a legal gray area.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">12</span><span class="faq-q-text">How do I use this site on my phone?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>This site is fully optimized for mobile. Use the bottom navigation bar to switch between Home and FAQ. On the home page:</p>
       <ul>
@@ -432,20 +434,20 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">13</span><span class="faq-q-text">Can I suggest a website to be added?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
-      <p>Yes! Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a> on Bluesky and send a suggestion. We review every submission and add quality sites that meet our criteria: free, useful, and ideally no signup required.</p>
+      <p>Yes! Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer">@powerfulwebsites.bsky.social</a> on Bluesky and send a suggestion. We review every submission and add quality sites that meet our criteria: free, useful, and ideally no signup required.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">14</span><span class="faq-q-text">What are "Agentic Browsers" and "LLMs"?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p><strong>Agentic Browsers</strong> are AI-powered browsers that can browse the web, complete tasks, and do research for you autonomously. Think of them as AI assistants that can actually click buttons and fill forms on websites.</p>
       <p><strong>LLMs (Large Language Models)</strong> are AI chatbots like ChatGPT, Claude, and Gemini. They can answer questions, write code, create content, and help with almost any text-based task. Our LLMs category lists free options you can use without paying.</p>
@@ -453,50 +455,50 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">15</span><span class="faq-q-text">Why is there no Chrome in the Privacy Browsers section?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Chrome is made by Google, the world's largest advertising company. It tracks your browsing habits, sends telemetry data to Google, and is actively weakening ad blockers through Manifest V3. Chrome is the <strong>opposite</strong> of a privacy browser. Every browser in our Privacy Browsers section is a better choice for your privacy than Chrome.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">16</span><span class="faq-q-text">What's the difference between dark mode and light mode?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Just a visual preference! Tap the moon/sun icon in the top-right corner to switch. Your choice is saved automatically so it'll remember next time you visit. Dark mode is easier on the eyes at night, light mode is better in bright environments.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">17</span><span class="faq-q-text">How often is this directory updated?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
-      <p>We update regularly — adding new sites, removing dead links, and expanding categories. The directory currently has 435+ websites across 21 categories and continues to grow. Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank">@powerfulwebsites.bsky.social</a> for update announcements.</p>
+      <p>We update regularly — adding new sites, removing dead links, and expanding categories. The directory currently has 475+ websites across 21 categories and continues to grow. Follow <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer">@powerfulwebsites.bsky.social</a> for update announcements.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">18</span><span class="faq-q-text">Can I use these tools for school or work?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
-      <p>Absolutely! The free tools sections are perfect for school and work. <a href="https://photopea.com" target="_blank">Photopea</a> replaces Photoshop, <a href="https://gamma.app" target="_blank">Gamma</a> creates presentations, <a href="https://tinywow.com" target="_blank">TinyWow</a> handles file conversions, and <a href="https://rxresu.me" target="_blank">Reactive Resume</a> builds professional resumes. The Tools for Educators section is specifically curated for teachers and students.</p>
+      <p>Absolutely! The free tools sections are perfect for school and work. <a href="https://photopea.com" target="_blank" rel="noopener noreferrer">Photopea</a> replaces Photoshop, <a href="https://gamma.app" target="_blank" rel="noopener noreferrer">Gamma</a> creates presentations, <a href="https://tinywow.com" target="_blank" rel="noopener noreferrer">TinyWow</a> handles file conversions, and <a href="https://rxresu.me" target="_blank" rel="noopener noreferrer">Reactive Resume</a> builds professional resumes. The Tools for Educators section is specifically curated for teachers and students.</p>
     </div>
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">19</span><span class="faq-q-text">What's the difference between a VPN and an ad blocker?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p><strong>A VPN</strong> hides your identity online by encrypting your internet traffic and masking your IP address. It protects you from your ISP seeing what sites you visit. Use it for privacy and accessing geo-blocked content.</p>
       <p><strong>An ad blocker</strong> removes ads, pop-ups, and trackers from websites. It makes browsing faster, cleaner, and safer by blocking malicious scripts. Use it on every site, every day.</p>
@@ -505,10 +507,10 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">20</span><span class="faq-q-text">Why do some streaming sites buffer or load slowly?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
       <p>Free streaming sites don't have the server infrastructure of Netflix or Disney+. Buffering is common, especially during peak hours. Tips to improve it:</p>
       <ul>
@@ -522,12 +524,12 @@
   </div>
 
   <div class="faq-item">
-    <div class="faq-question" onclick="this.parentElement.classList.toggle('open')">
+    <button class="faq-question" type="button" aria-expanded="false">
       <div style="display:flex;align-items:center"><span class="faq-num">21</span><span class="faq-q-text">How is this directory different from other "free tools" lists?</span></div>
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M6 9l6 6 6-6"/></svg>
-    </div>
+    </button>
     <div class="faq-answer">
-      <p>Most lists give you 10-20 sites with copy-pasted descriptions. We have <strong>435+ hand-curated websites</strong> across 21 categories, each with a unique description, verified limitations, and source attribution. We also cover categories others won't touch — piracy, sports streaming, privacy browsers, and ad blockers. Every site is researched from multiple sources including Reddit, GitHub, Bluesky, and community megathreads. And the whole thing works beautifully on your phone.</p>
+      <p>Most lists give you 10-20 sites with copy-pasted descriptions. We have <strong>475+ hand-curated websites</strong> across 21 categories, each with a unique description, verified limitations, and source attribution. We also cover categories others won't touch — piracy, sports streaming, privacy browsers, and ad blockers. Every site is researched from multiple sources including Reddit, GitHub, Bluesky, and community megathreads. And the whole thing works beautifully on your phone.</p>
     </div>
   </div>
 
@@ -599,8 +601,23 @@ window.addEventListener('scroll',()=>{
   backTop.classList.toggle('visible',window.scrollY>400);
 });
 
+// FAQ toggle + accessibility
+const faqItems=document.querySelectorAll('.faq-item');
+faqItems.forEach((item)=>{
+  const btn=item.querySelector('.faq-question');
+  btn.addEventListener('click',()=>{
+    item.classList.toggle('open');
+    btn.setAttribute('aria-expanded',item.classList.contains('open')?'true':'false');
+  });
+});
+
 // Open first FAQ by default
-document.querySelector('.faq-item').classList.add('open');
+const firstFaq=document.querySelector('.faq-item');
+if(firstFaq){
+  firstFaq.classList.add('open');
+  const firstBtn=firstFaq.querySelector('.faq-question');
+  if(firstBtn) firstBtn.setAttribute('aria-expanded','true');
+}
 </script>
 </body>
 </html>
