@@ -529,7 +529,7 @@
     font-size:1.15rem;font-weight:800;color:#fff;
     text-decoration:none;padding:12px 28px;border-radius:50px;
     background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
-    transition:all .3s;margin-top:18px;
+    transition:all .3s;margin-top:10px;margin-bottom:24px;
     box-shadow:0 4px 20px rgba(253,29,29,.3);
     -webkit-tap-highlight-color:transparent;touch-action:manipulation;
   }
@@ -1145,9 +1145,118 @@
     content:'';display:block;height:1px;margin:8px 0 28px;
     background:linear-gradient(90deg,transparent,var(--border),rgba(220,38,38,.15),var(--border),transparent);
   }
+
+  /* ===== ROUND 2 FEATURE 1: ANIMATED HERO BOTTOM BORDER ===== */
+  .hero::after{
+    background:linear-gradient(90deg,transparent,rgba(220,38,38,.3),rgba(255,68,68,.5),rgba(220,38,38,.3),transparent)!important;
+    height:2px!important;
+  }
+
+  /* ===== ROUND 2 FEATURE 2: CARD SKELETON SHIMMER (loading feel) ===== */
+  @keyframes shimmer{
+    0%{background-position:-200% 0}
+    100%{background-position:200% 0}
+  }
+  .card-favicon[src=""],.card-favicon:not([src]){
+    background:linear-gradient(90deg,var(--surface) 25%,var(--border) 50%,var(--surface) 75%);
+    background-size:200% 100%;
+    animation:shimmer 1.5s infinite;
+    border-radius:4px;
+  }
+
+  /* ===== ROUND 2 FEATURE 3: ENHANCED BACK-TO-TOP BUTTON ===== */
+  .back-top{
+    background:linear-gradient(135deg,#dc2626,#ff4444)!important;
+    box-shadow:0 4px 20px rgba(220,38,38,.4)!important;
+    border:none!important;
+  }
+  .back-top:hover{
+    box-shadow:0 6px 28px rgba(220,38,38,.6)!important;
+    transform:translateY(-2px)!important;
+  }
+  @keyframes backTopPulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,.4)}50%{box-shadow:0 4px 30px rgba(220,38,38,.6),0 0 20px rgba(255,68,68,.2)}}
+  .back-top.visible{animation:backTopPulse 2s ease-in-out infinite}
+
+  /* ===== ROUND 2 FEATURE 4: CATEGORY COUNT BADGE ANIMATION ===== */
+  @keyframes countPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
+  .cat-count{transition:all .3s}
+  .cat-count:hover{animation:countPop .4s ease}
+
+  /* ===== ROUND 2 FEATURE 5: SEARCH FOCUS ENHANCED GLOW ===== */
+  .search-wrap input:focus{
+    box-shadow:0 0 0 4px var(--accent-glow),0 0 30px rgba(220,38,38,.1)!important;
+  }
+  .search-wrap:has(input:focus){
+    box-shadow:0 0 30px rgba(124,58,237,.5),0 0 60px rgba(236,72,153,.25)!important;
+  }
+
+  /* ===== ROUND 2 FEATURE 6: FLOATING PARTICLES BACKGROUND ===== */
+  .particles-bg{
+    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;
+  }
+  .particle{
+    position:absolute;border-radius:50%;opacity:0;
+    animation:particleFloat linear infinite;
+  }
+  @keyframes particleFloat{
+    0%{opacity:0;transform:translateY(100vh) scale(0)}
+    10%{opacity:.3}
+    90%{opacity:.3}
+    100%{opacity:0;transform:translateY(-10vh) scale(1)}
+  }
+
+  /* ===== ROUND 2 FEATURE 7: CARD VISITED STATE ===== */
+  .card.visited-card{
+    position:relative;
+  }
+  .card.visited-card::after{
+    content:'\2713 Visited';position:absolute;top:12px;left:12px;
+    font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
+    color:var(--green);opacity:.6;
+    padding:2px 8px;border-radius:50px;
+    background:rgba(0,201,167,.08);border:1px solid rgba(0,201,167,.15);
+  }
+
+  /* ===== ROUND 2 FEATURE 8: SMOOTH NAV BUTTON RIPPLE ===== */
+  .nav-btn{position:relative;overflow:hidden}
+  .nav-btn .ripple{
+    position:absolute;border-radius:50%;background:rgba(220,38,38,.3);
+    transform:scale(0);animation:rippleAnim .6s ease-out;
+    pointer-events:none;
+  }
+  @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
+
+  /* ===== ROUND 2 FEATURE 9: HERO TITLE GRADIENT ANIMATION ===== */
+  @keyframes titleGradient{
+    0%{background-position:0% 50%}
+    50%{background-position:100% 50%}
+    100%{background-position:0% 50%}
+  }
+  .hero h1{
+    background:linear-gradient(270deg,var(--text),var(--accent),var(--accent2),var(--accent3),var(--accent),var(--text))!important;
+    background-size:300% 100%!important;
+    -webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;
+    background-clip:text!important;
+    animation:titleGradient 8s ease infinite!important;
+  }
+
+  /* ===== ROUND 2 FEATURE 10: LAST UPDATED TIMESTAMP ===== */
+  .last-updated{
+    display:inline-flex;align-items:center;gap:6px;
+    font-size:.7rem;color:var(--text-dim);margin-top:8px;
+    padding:4px 12px;border-radius:50px;
+    background:rgba(255,255,255,.03);border:1px solid var(--border);
+  }
+  .last-updated svg{width:12px;height:12px}
+  @media(max-width:480px){
+    .instagram-link{font-size:1rem;padding:10px 24px;margin-top:8px;margin-bottom:20px}
+  }
 </style>
 </head>
 <body>
+
+<!-- FLOATING PARTICLES BACKGROUND -->
+<div class="particles-bg" id="particlesBg"></div>
 
 <!-- SCROLL PROGRESS BAR -->
 <div class="scroll-progress" id="scrollProgress"></div>
@@ -1171,6 +1280,7 @@
     </a>
     <p>600+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
     <p style="font-size:.72rem;font-style:italic;opacity:.35;margin-top:10px;letter-spacing:.3px;">Proudly built with source data, deep research &amp; <a href="https://manus.ai" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;opacity:.7">Manus.AI</a> — Yours truly, CH</p>
+    <div class="last-updated"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Last updated: February 2026</div>
     <div class="quick-links">
       <a href="best-practices.html" class="quick-link ql-guide">
         <div class="quick-link-icon">🛡</div>
@@ -2754,6 +2864,47 @@ document.querySelectorAll('.card').forEach(card=>{
     const y=((e.clientY-rect.top)/rect.height*100).toFixed(1);
     card.style.setProperty('--mouse-x',x+'%');
     card.style.setProperty('--mouse-y',y+'%');
+  });
+});
+
+// ===== ROUND 2 FEATURE 6: FLOATING PARTICLES =====
+(function initParticles(){
+  const container=document.getElementById('particlesBg');
+  if(!container)return;
+  const colors=['rgba(220,38,38,.15)','rgba(255,68,68,.1)','rgba(124,58,237,.1)','rgba(236,72,153,.08)','rgba(255,159,67,.08)'];
+  for(let i=0;i<15;i++){
+    const p=document.createElement('div');
+    p.className='particle';
+    const size=Math.random()*4+2;
+    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
+    container.appendChild(p);
+  }
+})();
+
+// ===== ROUND 2 FEATURE 7: MARK VISITED CARDS =====
+(function initVisitedCards(){
+  const recent=JSON.parse(localStorage.getItem('pwl_recent')||'[]');
+  const recentUrls=recent.map(r=>r.url);
+  document.querySelectorAll('.card').forEach(card=>{
+    const link=card.querySelector('.btn-visit');
+    if(link&&recentUrls.includes(link.href)){
+      card.classList.add('visited-card');
+    }
+  });
+})();
+
+// ===== ROUND 2 FEATURE 8: NAV BUTTON RIPPLE EFFECT =====
+document.querySelectorAll('.nav-btn').forEach(btn=>{
+  btn.addEventListener('click',(e)=>{
+    const ripple=document.createElement('span');
+    ripple.className='ripple';
+    const rect=btn.getBoundingClientRect();
+    const size=Math.max(rect.width,rect.height);
+    ripple.style.width=ripple.style.height=size+'px';
+    ripple.style.left=(e.clientX-rect.left-size/2)+'px';
+    ripple.style.top=(e.clientY-rect.top-size/2)+'px';
+    btn.appendChild(ripple);
+    setTimeout(()=>ripple.remove(),600);
   });
 });
 
