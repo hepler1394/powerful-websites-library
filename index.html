@@ -1149,7 +1149,8 @@
     pointer-events:none;z-index:0;
   }
   .card:hover::before{opacity:1}
-  .card>*{position:relative;z-index:1}
+  .card>*:not(.card-actions-top){position:relative;z-index:1}
+  .card>.card-actions-top{position:absolute;top:10px;right:10px;z-index:3}
 
   /* ===== 10X MOBILE: INSTAGRAM LINK PULSE ===== */
   @keyframes igPulse{0%,100%{box-shadow:0 4px 20px rgba(225,48,108,.3)}50%{box-shadow:0 4px 30px rgba(225,48,108,.5),0 0 40px rgba(131,58,180,.2)}}
