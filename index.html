@@ -40,6 +40,14 @@
     --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.15);
     --creator-accent:#ec4899;--creator-glow:rgba(236,72,153,.15);
     --podcast-accent:#8b5cf6;--podcast-glow:rgba(139,92,246,.15);
+    --firestick-accent:#ff6b35;--firestick-glow:rgba(255,107,53,.15);
+    --ios-accent:#007aff;--ios-glow:rgba(0,122,255,.15);
+    --android-accent:#3ddc84;--android-glow:rgba(61,220,132,.15);
+    --windows-accent:#00a4ef;--windows-glow:rgba(0,164,239,.15);
+    --powershell-accent:#5391fe;--powershell-glow:rgba(83,145,254,.15);
+    --github-accent:#f0f6fc;--github-glow:rgba(240,246,252,.1);
+    --emulator-accent:#7b68ee;--emulator-glow:rgba(123,104,238,.15);
+    --rainmeter-accent:#00bcd4;--rainmeter-glow:rgba(0,188,212,.15);
     --logo-text:#fff;
   }
   [data-theme="light"]{
@@ -66,8 +74,107 @@
     --adblock-accent:#dc2626;--adblock-glow:rgba(220,38,38,.1);
     --creator-accent:#db2777;--creator-glow:rgba(219,39,119,.1);
     --podcast-accent:#7c3aed;--podcast-glow:rgba(124,58,237,.1);
+    --firestick-accent:#e55a2b;--firestick-glow:rgba(229,90,43,.1);
+    --ios-accent:#0066cc;--ios-glow:rgba(0,102,204,.1);
+    --android-accent:#2ea85a;--android-glow:rgba(46,168,90,.1);
+    --windows-accent:#0078d4;--windows-glow:rgba(0,120,212,.1);
+    --powershell-accent:#3a6fd8;--powershell-glow:rgba(58,111,216,.1);
+    --github-accent:#24292f;--github-glow:rgba(36,41,47,.1);
+    --emulator-accent:#6a5acd;--emulator-glow:rgba(106,90,205,.1);
+    --rainmeter-accent:#0097a7;--rainmeter-glow:rgba(0,151,167,.1);
     --logo-text:#1a1a2e;
   }
+
+  /* ===== LIQUID GLASS THEME (iOS-inspired) ===== */
+  [data-theme="glass"]{
+    --bg:#0c0c14;--bg2:#10101a;--surface:rgba(20,20,35,.55);--card:rgba(255,255,255,.06);--card-hover:rgba(255,255,255,.1);
+    --border:rgba(255,255,255,.1);--border-hover:rgba(220,38,38,.35);
+    --text:#f0f0ff;--text-muted:#a0a0c0;--text-dim:#606080;
+    --accent:#dc2626;--accent-glow:rgba(220,38,38,.25);
+    --accent2:#ff4444;--accent3:#ff6b9d;
+    --green:#00c9a7;--red:#ff6b6b;--yellow:#ffd93d;--orange:#ff9f43;
+    --radius:20px;--radius-sm:12px;--radius-xs:8px;
+    --glass:rgba(255,255,255,.05);--glass-border:rgba(255,255,255,.12);
+    --shadow:0 8px 32px rgba(0,0,0,.4);
+    --hero-bg:linear-gradient(135deg,#0c0c14 0%,#1a0510 35%,#0c0c14 65%,#140810 100%);
+    --nav-bg:rgba(12,12,20,.75);
+    --card-gradient:linear-gradient(135deg,rgba(220,38,38,.04),rgba(255,68,68,.02));
+    --piracy-accent:#ff6b9d;--piracy-glow:rgba(255,107,157,.12);
+    --sports-accent:#ffd93d;--sports-glow:rgba(255,217,61,.12);
+    --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.15);
+    --agent-accent:#00e5ff;--agent-glow:rgba(0,229,255,.12);
+    --vpn-accent:#10b981;--vpn-glow:rgba(16,185,129,.12);
+    --llm-accent:#a855f7;--llm-glow:rgba(168,85,247,.12);
+    --edu-accent:#f59e0b;--edu-glow:rgba(245,158,11,.12);
+    --privacy-accent:#06b6d4;--privacy-glow:rgba(6,182,212,.12);
+    --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.12);
+    --creator-accent:#ec4899;--creator-glow:rgba(236,72,153,.12);
+    --podcast-accent:#8b5cf6;--podcast-glow:rgba(139,92,246,.12);
+    --firestick-accent:#ff6b35;--firestick-glow:rgba(255,107,53,.15);
+    --ios-accent:#007aff;--ios-glow:rgba(0,122,255,.15);
+    --android-accent:#3ddc84;--android-glow:rgba(61,220,132,.15);
+    --windows-accent:#00a4ef;--windows-glow:rgba(0,164,239,.15);
+    --powershell-accent:#012456;--powershell-glow:rgba(1,36,86,.15);
+    --github-accent:#f0f6fc;--github-glow:rgba(240,246,252,.1);
+    --emulator-accent:#7b68ee;--emulator-glow:rgba(123,104,238,.15);
+    --rainmeter-accent:#00bcd4;--rainmeter-glow:rgba(0,188,212,.15);
+    --logo-text:#fff;
+  }
+  /* Glass theme specific overrides */
+  [data-theme="glass"] .card{
+    backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
+    border:1px solid rgba(255,255,255,.12);
+    box-shadow:0 4px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08);
+  }
+  [data-theme="glass"] .card:hover{
+    backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);
+    border-color:rgba(220,38,38,.3);
+    box-shadow:0 8px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12);
+  }
+  [data-theme="glass"] .hero::before{opacity:.6}
+  [data-theme="glass"] .nav-wrap{
+    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
+    border-bottom:1px solid rgba(255,255,255,.08);
+  }
+  [data-theme="glass"] .mobile-nav-toggle{
+    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
+  }
+  [data-theme="glass"] .bottom-nav{
+    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
+    background:rgba(12,12,20,.65);
+    border-top:1px solid rgba(255,255,255,.08);
+  }
+  [data-theme="glass"] .search-wrap input{
+    backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+  }
+  [data-theme="glass"] .section-tab{
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  [data-theme="glass"] .nav-btn{
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.04);
+    border:1px solid rgba(255,255,255,.08);
+  }
+  [data-theme="glass"] .quick-link{
+    backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+  }
+  [data-theme="glass"] .piracy-warning{
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    background:rgba(220,38,38,.04);
+  }
+  [data-theme="glass"] .theme-toggle{
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    background:rgba(255,255,255,.06);
+    border:1px solid rgba(255,255,255,.1);
+  }
+  [data-theme="glass"] .fav-btn svg{stroke:#ff4444}
+  [data-theme="glass"] .fav-btn.favorited svg{fill:#ff4444;stroke:#ff4444}
 
   html{scroll-behavior:smooth;font-size:16px}
   body{
@@ -324,6 +431,112 @@
   .card.podcast-card .card-tag{background:var(--podcast-glow);color:var(--podcast-accent)}
   .card.podcast-card .btn-visit{background:linear-gradient(135deg,var(--podcast-accent),#6d28d9)}
   .card.podcast-card .badge-verified{background:rgba(139,92,246,.1);color:var(--podcast-accent)}
+
+  /* Fire Stick card accent */
+  .card.firestick-card::before{background:linear-gradient(90deg,var(--firestick-accent),#ff9f43);height:3px;opacity:.7}
+  .card.firestick-card:hover{border-color:rgba(255,107,53,.3)}
+  .card.firestick-card:hover::before{opacity:1}
+  .card.firestick-card .card-tag{background:var(--firestick-glow);color:var(--firestick-accent)}
+  .card.firestick-card .btn-visit{background:linear-gradient(135deg,var(--firestick-accent),#ff9f43)}
+  .card.firestick-card .badge-verified{background:rgba(255,107,53,.1);color:var(--firestick-accent)}
+  .firestick-count{background:var(--firestick-glow);color:var(--firestick-accent)}
+  .nav-btn.firestick-btn.active{background:var(--firestick-accent)!important;border-color:var(--firestick-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--firestick-glow)!important}
+  .section-tab[data-section="firestick"].active{background:var(--firestick-accent);border-color:var(--firestick-accent);color:#fff;box-shadow:0 2px 12px var(--firestick-glow)}
+
+  /* iOS Modding card accent */
+  .card.ios-card::before{background:linear-gradient(90deg,var(--ios-accent),#5ac8fa);height:3px;opacity:.7}
+  .card.ios-card:hover{border-color:rgba(0,122,255,.3)}
+  .card.ios-card:hover::before{opacity:1}
+  .card.ios-card .card-tag{background:var(--ios-glow);color:var(--ios-accent)}
+  .card.ios-card .btn-visit{background:linear-gradient(135deg,var(--ios-accent),#5ac8fa)}
+  .card.ios-card .badge-verified{background:rgba(0,122,255,.1);color:var(--ios-accent)}
+  .ios-count{background:var(--ios-glow);color:var(--ios-accent)}
+  .nav-btn.ios-btn.active{background:var(--ios-accent)!important;border-color:var(--ios-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--ios-glow)!important}
+  .section-tab[data-section="ios"].active{background:var(--ios-accent);border-color:var(--ios-accent);color:#fff;box-shadow:0 2px 12px var(--ios-glow)}
+
+  /* Android Hacking card accent */
+  .card.android-card::before{background:linear-gradient(90deg,var(--android-accent),#00c853);height:3px;opacity:.7}
+  .card.android-card:hover{border-color:rgba(61,220,132,.3)}
+  .card.android-card:hover::before{opacity:1}
+  .card.android-card .card-tag{background:var(--android-glow);color:var(--android-accent)}
+  .card.android-card .btn-visit{background:linear-gradient(135deg,var(--android-accent),#00c853)}
+  .card.android-card .badge-verified{background:rgba(61,220,132,.1);color:var(--android-accent)}
+  .android-count{background:var(--android-glow);color:var(--android-accent)}
+  .nav-btn.android-btn.active{background:var(--android-accent)!important;border-color:var(--android-accent)!important;color:#1a1a2e!important;box-shadow:0 2px 12px var(--android-glow)!important}
+  .section-tab[data-section="android"].active{background:var(--android-accent);border-color:var(--android-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--android-glow)}
+
+  /* Windows Power Tools card accent */
+  .card.windows-card::before{background:linear-gradient(90deg,var(--windows-accent),#00bcf2);height:3px;opacity:.7}
+  .card.windows-card:hover{border-color:rgba(0,164,239,.3)}
+  .card.windows-card:hover::before{opacity:1}
+  .card.windows-card .card-tag{background:var(--windows-glow);color:var(--windows-accent)}
+  .card.windows-card .btn-visit{background:linear-gradient(135deg,var(--windows-accent),#00bcf2)}
+  .card.windows-card .badge-verified{background:rgba(0,164,239,.1);color:var(--windows-accent)}
+  .windows-count{background:var(--windows-glow);color:var(--windows-accent)}
+  .nav-btn.windows-btn.active{background:var(--windows-accent)!important;border-color:var(--windows-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--windows-glow)!important}
+  .section-tab[data-section="windows"].active{background:var(--windows-accent);border-color:var(--windows-accent);color:#fff;box-shadow:0 2px 12px var(--windows-glow)}
+
+  /* PowerShell card accent */
+  .card.powershell-card::before{background:linear-gradient(90deg,var(--powershell-accent),#40a0ff);height:3px;opacity:.7}
+  .card.powershell-card:hover{border-color:rgba(83,145,254,.3)}
+  .card.powershell-card:hover::before{opacity:1}
+  .card.powershell-card .card-tag{background:var(--powershell-glow);color:var(--powershell-accent)}
+  .card.powershell-card .btn-visit{background:linear-gradient(135deg,var(--powershell-accent),#40a0ff)}
+  .card.powershell-card .badge-verified{background:rgba(83,145,254,.1);color:var(--powershell-accent)}
+  .powershell-count{background:var(--powershell-glow);color:var(--powershell-accent)}
+  .nav-btn.powershell-btn.active{background:var(--powershell-accent)!important;border-color:var(--powershell-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--powershell-glow)!important}
+  .section-tab[data-section="powershell"].active{background:var(--powershell-accent);border-color:var(--powershell-accent);color:#fff;box-shadow:0 2px 12px var(--powershell-glow)}
+
+  /* GitHub Tools card accent */
+  .card.github-card::before{background:linear-gradient(90deg,#f0f6fc,#8b949e);height:3px;opacity:.7}
+  .card.github-card:hover{border-color:rgba(240,246,252,.3)}
+  .card.github-card:hover::before{opacity:1}
+  .card.github-card .card-tag{background:var(--github-glow);color:var(--github-accent)}
+  .card.github-card .btn-visit{background:linear-gradient(135deg,#333,#555)}
+  .card.github-card .badge-verified{background:rgba(240,246,252,.08);color:var(--github-accent)}
+  .github-count{background:var(--github-glow);color:var(--github-accent)}
+  .nav-btn.github-btn.active{background:#333!important;border-color:#555!important;color:#f0f6fc!important;box-shadow:0 2px 12px rgba(0,0,0,.3)!important}
+  .section-tab[data-section="github"].active{background:#333;border-color:#555;color:#f0f6fc;box-shadow:0 2px 12px rgba(0,0,0,.3)}
+  [data-theme="light"] .card.github-card .card-tag{color:#24292f}
+  [data-theme="light"] .card.github-card .badge-verified{color:#24292f}
+  [data-theme="light"] .github-count{color:#24292f}
+
+  /* Emulators card accent */
+  .card.emulator-card::before{background:linear-gradient(90deg,var(--emulator-accent),#9370db);height:3px;opacity:.7}
+  .card.emulator-card:hover{border-color:rgba(123,104,238,.3)}
+  .card.emulator-card:hover::before{opacity:1}
+  .card.emulator-card .card-tag{background:var(--emulator-glow);color:var(--emulator-accent)}
+  .card.emulator-card .btn-visit{background:linear-gradient(135deg,var(--emulator-accent),#9370db)}
+  .card.emulator-card .badge-verified{background:rgba(123,104,238,.1);color:var(--emulator-accent)}
+  .emulator-count{background:var(--emulator-glow);color:var(--emulator-accent)}
+  .nav-btn.emulator-btn.active{background:var(--emulator-accent)!important;border-color:var(--emulator-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--emulator-glow)!important}
+  .section-tab[data-section="emulator"].active{background:var(--emulator-accent);border-color:var(--emulator-accent);color:#fff;box-shadow:0 2px 12px var(--emulator-glow)}
+
+  /* Rainmeter card accent */
+  .card.rainmeter-card::before{background:linear-gradient(90deg,var(--rainmeter-accent),#26c6da);height:3px;opacity:.7}
+  .card.rainmeter-card:hover{border-color:rgba(0,188,212,.3)}
+  .card.rainmeter-card:hover::before{opacity:1}
+  .card.rainmeter-card .card-tag{background:var(--rainmeter-glow);color:var(--rainmeter-accent)}
+  .card.rainmeter-card .btn-visit{background:linear-gradient(135deg,var(--rainmeter-accent),#26c6da)}
+  .card.rainmeter-card .badge-verified{background:rgba(0,188,212,.1);color:var(--rainmeter-accent)}
+  .rainmeter-count{background:var(--rainmeter-glow);color:var(--rainmeter-accent)}
+  .nav-btn.rainmeter-btn.active{background:var(--rainmeter-accent)!important;border-color:var(--rainmeter-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--rainmeter-glow)!important}
+  .section-tab[data-section="rainmeter"].active{background:var(--rainmeter-accent);border-color:var(--rainmeter-accent);color:#fff;box-shadow:0 2px 12px var(--rainmeter-glow)}
+
+  /* Instagram link in hero */
+  .instagram-link{
+    display:inline-flex;align-items:center;gap:10px;
+    font-size:1.15rem;font-weight:800;color:#fff;
+    text-decoration:none;padding:12px 28px;border-radius:50px;
+    background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
+    transition:all .3s;margin-top:18px;
+    box-shadow:0 4px 20px rgba(253,29,29,.3);
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .instagram-link:hover{transform:translateY(-3px);box-shadow:0 6px 28px rgba(253,29,29,.4);color:#fff}
+  .instagram-link:active{transform:scale(.97)}
+  .instagram-link svg{width:22px;height:22px;fill:#fff}
+  [data-theme="light"] .instagram-link{color:#fff}
 
   /* ===== MAIN ===== */
   .main{max-width:1280px;margin:0 auto;padding:40px 24px 100px}
@@ -649,9 +862,10 @@
 <body>
 
 <!-- THEME TOGGLE -->
-<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+<button class="theme-toggle" id="themeToggle" title="Toggle theme">
   <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
   <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
+  <svg class="glass-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><rect x="2" y="3" width="20" height="18" rx="4"/><path d="M2 8h20" opacity=".5"/><circle cx="12" cy="15" r="3" opacity=".4"/></svg>
   <span class="theme-label" id="themeLabel">Light</span>
 </button>
 
@@ -660,7 +874,11 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <p>475+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
+    <a href="https://instagram.com/coryhepla" target="_blank" rel="noopener noreferrer" class="instagram-link">
+      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+      @coryhepla
+    </a>
+    <p>600+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
     <p style="font-size:.72rem;font-style:italic;opacity:.35;margin-top:10px;letter-spacing:.3px;">Proudly built with source data, deep research &amp; <a href="https://manus.ai" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;opacity:.7">Manus.AI</a> — Yours truly, CH</p>
     <div class="quick-links">
       <a href="best-practices.html" class="quick-link ql-guide">
@@ -679,13 +897,13 @@
     </div>
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 475+ websites, categories, or descriptions...">
+      <input type="text" id="searchInput" placeholder="Search 600+ websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (475+)</button>
+      <button class="section-tab active" data-section="all">All (600+)</button>
       <button class="section-tab" data-section="favorites">❤️ My Favorites <span class="fav-count-badge" id="favTabCount">0</span></button>
       <button class="section-tab" data-section="top">⭐ Top Picks</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
@@ -700,6 +918,14 @@
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
       <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
+      <button class="section-tab" data-section="firestick">&#x1F525; Fire Stick (15)</button>
+      <button class="section-tab" data-section="ios">&#x1F4F1; iOS Modding (15)</button>
+      <button class="section-tab" data-section="android">&#x1F916; Android Hacking (15)</button>
+      <button class="section-tab" data-section="windows">&#x1F5A5; Windows Tools (15)</button>
+      <button class="section-tab" data-section="powershell">&#x2328; PowerShell (10)</button>
+      <button class="section-tab" data-section="github">&#x1F419; GitHub Tools (15)</button>
+      <button class="section-tab" data-section="emulator">&#x1F3AE; Emulators (15)</button>
+      <button class="section-tab" data-section="rainmeter">&#x1F3A8; Rainmeter (10)</button>
     </div>
   </div>
 </header>
@@ -1382,6 +1608,156 @@ const DATA=[
       {n:"Castbox",u:"https://castbox.fm",d:"Free podcast player and hosting platform. Discover, listen, and publish podcasts all in one place.",l:"None",s:"Found via research"},
       {n:"Listnr",u:"https://www.listnr.tech",d:"AI text-to-speech for podcasts. Convert blog posts and articles into natural-sounding podcast episodes.",l:"Free tier: 1000 words",s:"Found via research"}
     ]
+  },
+  {id:"firestick-hacking",name:"Fire Stick Hacking",icon:"\uD83D\uDD25",type:"firestick",
+    desc:"Sideload apps, install secret codes, and unlock your Amazon Fire Stick for free streaming, ad-free YouTube, and custom launchers.",
+    sites:[
+      {n:"Downloader App",u:"https://troypoint.com/downloader",d:"The #1 sideloading app for Fire Stick. Enter codes to install any APK. Code 250931 for TROYPOINT Toolbox.",l:"None",s:"TroyPoint"},
+      {n:"Unlinked",u:"https://unlinked.link",d:"App store alternative for Fire Stick — enter secret codes to access curated app libraries. Codes: 96960000, 67664537.",l:"None",s:"Fire Stick community"},
+      {n:"FileSynced",u:"https://filesynced.com",d:"Replacement for Filelinked — enter codes to download curated app bundles. Codes: 98766969, 55555555.",l:"None",s:"Fire Stick community"},
+      {n:"SmartTube",u:"https://smarttubeapp.github.io",d:"Ad-free YouTube for Fire TV and Android TV. SponsorBlock built in, 4K HDR, no Google account needed.",l:"Fire TV / Android TV only",s:"r/Adblock + Fire Stick community"},
+      {n:"Wolf Launcher",u:"https://techdoctoruk.com/wolf-launcher",d:"Replace the default Fire Stick home screen with a clean, ad-free custom launcher.",l:"Requires sideloading",s:"TechDoctorUK"},
+      {n:"Stremio (Fire Stick)",u:"https://www.stremio.com",d:"Stream movies and TV via torrent add-ons. Install via Downloader code 71893. Best with Torrentio addon.",l:"Needs VPN for torrenting",s:"r/Piracy + Fire Stick community",vpn:true},
+      {n:"Kodi",u:"https://kodi.tv",d:"The ultimate media center — install via Downloader code 483927. Add repos for live TV, movies, and sports.",l:"Requires add-on setup",s:"r/Piracy + Kodi community"},
+      {n:"Cinema HD",u:"https://cinemahdapkapp.com",d:"Free streaming app for Fire Stick — movies and TV with Real-Debrid support. Downloader code 5726169.",l:"Has ads; Real-Debrid recommended",s:"Fire Stick community",vpn:true},
+      {n:"TiviMate",u:"https://tivimate.com",d:"Best IPTV player for Fire Stick — EPG guide, favorites, recording. Downloader code 549628.",l:"Premium for full features",s:"Fire Stick community"},
+      {n:"SportsFire",u:"https://sportstv.me",d:"Live sports streaming app for Fire Stick. NFL, NBA, UFC, soccer. Downloader code 119368.",l:"Has ads",s:"Fire Stick community",vpn:true},
+      {n:"TechDoctorUK",u:"https://techdoctoruk.com",d:"The go-to resource for Fire Stick tutorials, APK downloads, and sideloading guides.",l:"None",s:"YouTube + community"},
+      {n:"TroyPoint",u:"https://troypoint.com",d:"Fire Stick tutorials, best APK lists, VPN guides, and the famous Rapid App Installer.",l:"None",s:"YouTube + community"},
+      {n:"Fire Stick Tricks",u:"https://www.firesticktricks.com",d:"Comprehensive guides for Fire Stick jailbreaking, app installation, and troubleshooting.",l:"None",s:"Community resource"},
+      {n:"APKTime",u:"https://apktime.com",d:"Third-party app store for Fire Stick with categorized APKs for streaming, tools, and games.",l:"Has ads",s:"Fire Stick community"},
+      {n:"Mouse Toggle",u:"https://play.google.com/store/apps/details?id=com.fluxii.android.mousetoggleforfiretv",d:"Adds mouse cursor to Fire Stick — essential for apps not designed for TV remote navigation.",l:"None",s:"Fire Stick community"}
+    ]
+  },
+  {id:"ios-modding",name:"iOS Modding & Sideloading",icon:"\uD83D\uDCF1",type:"ios",
+    desc:"Sideload apps, install tweaks, and mod your iPhone without jailbreaking — app stores, signing services, and exploit tools.",
+    sites:[
+      {n:"AltStore",u:"https://altstore.io",d:"Sideload apps to your iPhone using your Apple ID. Supports 3 active apps. Refresh every 7 days via Wi-Fi.",l:"Requires computer for initial setup; 3 app limit",s:"iOS community"},
+      {n:"SideStore",u:"https://sidestore.io",d:"Fork of AltStore that refreshes apps over Wi-Fi without a computer using WireGuard VPN trick.",l:"Requires initial computer setup",s:"iOS community"},
+      {n:"TrollStore 2",u:"https://github.com/opa334/TrollStore",d:"Permanently install any IPA without signing limits — exploits CoreTrust bug. Works on iOS 14-17.0.",l:"Only works on specific iOS versions",s:"iOS community"},
+      {n:"FlekSt0re",u:"https://flekstore.com",d:"No-PC sideloading — install tweaked and modded apps directly from Safari. No computer needed.",l:"Apps may get revoked",s:"iOS community"},
+      {n:"Scarlet",u:"https://usescarlet.com",d:"IPA installer and app signer for iOS — install any app without jailbreak or computer.",l:"Certificate may get revoked",s:"iOS community"},
+      {n:"AppDB",u:"https://appdb.to",d:"Independent iOS app marketplace — install apps, tweaks, and games. Supports device linking.",l:"Some features require PRO",s:"iOS community"},
+      {n:"LiveContainer",u:"https://github.com/khanhduytran0/LiveContainer",d:"Run unlimited sideloaded apps within a single app slot — bypass the 3-app limit entirely.",l:"Requires AltStore or TrollStore",s:"GitHub + iOS community"},
+      {n:"Signulous",u:"https://www.signulous.com",d:"Premium signing service — install any IPA with enterprise certificate. $19.99/year.",l:"Paid: $19.99/year",s:"iOS community"},
+      {n:"iOSGods",u:"https://iosgods.com",d:"Game cheats, modded apps, and hacked IPAs for iOS. Huge community with request system.",l:"Some mods require jailbreak",s:"iOS community"},
+      {n:"TweakBox",u:"https://www.tweakboxapp.com",d:"Third-party app store for iOS — modded apps, emulators, and tweaked social media apps.",l:"Certificate revocations common",s:"iOS community"},
+      {n:"AltStore PAL",u:"https://altstore.io/pal",d:"EU-only alternative marketplace for iOS — install apps outside the App Store legally under DMA.",l:"EU only; requires iOS 17.4+",s:"iOS community"},
+      {n:"Sideloadly",u:"https://sideloadly.io",d:"Desktop tool to sideload IPAs to your iPhone/iPad. Supports Windows and macOS.",l:"Requires computer; 7-day refresh",s:"iOS community"},
+      {n:"uYou+",u:"https://github.com/qnblackcat/uYouPlus",d:"Ad-free YouTube for iOS with download, background play, SponsorBlock, and more.",l:"Requires sideloading via AltStore/TrollStore",s:"iOS community"},
+      {n:"Santander",u:"https://github.com/NSAntoine/Santander",d:"iOS file manager with root access — browse system files without jailbreak on supported versions.",l:"Limited iOS version support",s:"GitHub + iOS community"},
+      {n:"Cowabunga",u:"https://github.com/leminlimez/Cowabunga",d:"iOS customization toolbox — change icons, fonts, status bar, and UI elements without jailbreak.",l:"iOS 15-16.1.2 only",s:"GitHub + iOS community"}
+    ]
+  },
+  {id:"android-hacking",name:"Android Hacking & Modding",icon:"\uD83E\uDD16",type:"android",
+    desc:"Root your Android, install modded apps, remove ads, and unlock hidden features — the ultimate Android power user toolkit.",
+    sites:[
+      {n:"Magisk",u:"https://github.com/topjohnwu/Magisk",d:"The #1 Android root solution — systemless root with MagiskHide to pass SafetyNet. Module support.",l:"Requires unlocked bootloader",s:"Android community"},
+      {n:"KernelSU",u:"https://kernelsu.org",d:"Kernel-based root solution — more stealthy than Magisk. Works at kernel level for better hiding.",l:"Requires custom kernel or GKI device",s:"Android community"},
+      {n:"APatch",u:"https://apatch.dev",d:"New root tool that patches Android kernel — combines best of Magisk and KernelSU approaches.",l:"Requires unlocked bootloader",s:"Android community"},
+      {n:"ReVanced",u:"https://revanced.app",d:"Patch YouTube, Reddit, Twitter, and more to remove ads and add features. Successor to Vanced.",l:"Requires ReVanced Manager app",s:"r/revancedapp"},
+      {n:"Lucky Patcher",u:"https://www.luckypatchers.com",d:"Remove ads, bypass license verification, and modify app permissions. The Swiss army knife of Android.",l:"Root recommended for full features",s:"Android community"},
+      {n:"LSPosed",u:"https://github.com/LSPosed/LSPosed",d:"Xposed framework for Android 8.1+ — install modules to modify any app behavior systemlessly.",l:"Requires Magisk or KernelSU",s:"Android community"},
+      {n:"Shizuku",u:"https://shizuku.rikka.app",d:"Use ADB-level permissions without root — enable powerful apps without unlocking bootloader.",l:"Requires ADB setup or wireless debugging",s:"Android community"},
+      {n:"F-Droid",u:"https://f-droid.org",d:"Free and open-source Android app store — privacy-respecting alternatives to everything.",l:"None",s:"Privacy community"},
+      {n:"Aurora Store",u:"https://auroraoss.com",d:"Open-source Google Play Store client — download apps anonymously without Google account.",l:"None",s:"Privacy community"},
+      {n:"Obtainium",u:"https://github.com/ImranR98/Obtainium",d:"Get app updates directly from GitHub releases, F-Droid, and other sources. Cut out the middleman.",l:"None",s:"Android community"},
+      {n:"Termux",u:"https://termux.dev",d:"Full Linux terminal emulator for Android — run Python, Node.js, and Linux tools on your phone.",l:"None",s:"Android community"},
+      {n:"AdAway",u:"https://adaway.org",d:"System-wide ad blocker for Android using hosts file. Root for system-wide, VPN mode without root.",l:"Root recommended",s:"Android community"},
+      {n:"Tasker",u:"https://tasker.joaoapps.com",d:"The ultimate Android automation app — automate anything with triggers, conditions, and actions.",l:"Paid: $3.49",s:"Android community"},
+      {n:"Shelter",u:"https://gitea.angry.im/PeterCxy/Shelter",d:"Isolate apps in Android Work Profile — run dual instances and freeze apps to save battery.",l:"None",s:"Privacy community"},
+      {n:"NetGuard",u:"https://netguard.me",d:"No-root firewall for Android — block internet access per app. Control which apps can phone home.",l:"Pro features require payment",s:"Privacy community"}
+    ]
+  },
+  {id:"windows-power-tools",name:"Windows Power Tools",icon:"\uD83D\uDDA5",type:"windows",
+    desc:"Unlock hidden Windows features, optimize performance, and supercharge your PC with power user tools and utilities.",
+    sites:[
+      {n:"Microsoft PowerToys",u:"https://github.com/microsoft/PowerToys",d:"28 free utilities from Microsoft — FancyZones, Color Picker, File Locksmith, Text Extractor, and more.",l:"None",s:"Microsoft official"},
+      {n:"Chris Titus Tech WinUtil",u:"https://christitus.com/windows-tool",d:"The ultimate Windows utility — debloat, optimize, install apps, and tweak settings with one script.",l:"Run via PowerShell: irm christitus.com/win | iex",s:"Chris Titus Tech"},
+      {n:"O&O ShutUp10++",u:"https://www.oo-software.com/en/shutup10",d:"Free privacy tool — disable Windows telemetry, Cortana, and tracking with one click.",l:"None",s:"Privacy community"},
+      {n:"Winaero Tweaker",u:"https://winaero.com/winaero-tweaker",d:"All-in-one Windows customization tool — hidden settings, appearance tweaks, and behavior changes.",l:"None",s:"Windows community"},
+      {n:"Everything Search",u:"https://www.voidtools.com",d:"Instant file search for Windows — indexes your entire drive and finds any file in milliseconds.",l:"None",s:"Windows community"},
+      {n:"Bulk Crap Uninstaller",u:"https://www.bcuninstaller.com",d:"Remove bloatware, leftover files, and stubborn programs that Windows can't uninstall.",l:"None",s:"Windows community"},
+      {n:"Windows God Mode",u:"https://www.howtogeek.com/402458/enable-god-mode-in-windows",d:"Access all 200+ Windows settings in one folder. Create folder named: {ED7BA470-8E54-465E-825C-99712043E01C}",l:"None — built into Windows",s:"Windows community"},
+      {n:"Autoruns",u:"https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns",d:"See everything that runs at Windows startup — disable unwanted programs for faster boot times.",l:"None",s:"Microsoft Sysinternals"},
+      {n:"Process Explorer",u:"https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer",d:"Advanced Task Manager replacement — see exactly what processes are doing, DLLs loaded, and handles.",l:"None",s:"Microsoft Sysinternals"},
+      {n:"WizTree",u:"https://diskanalyzer.com",d:"Fastest disk space analyzer — see what's eating your storage in seconds. Faster than WinDirStat.",l:"None for personal use",s:"Windows community"},
+      {n:"Ninite",u:"https://ninite.com",d:"Install and update multiple programs at once — select apps, download one installer, done.",l:"None",s:"Windows community"},
+      {n:"QuickLook",u:"https://github.com/QL-Win/QuickLook",d:"macOS-style quick preview for Windows — press Space to preview any file without opening it.",l:"None",s:"GitHub"},
+      {n:"ShareX",u:"https://getsharex.com",d:"The ultimate screenshot and screen recording tool — annotate, GIF capture, OCR, and auto-upload.",l:"None",s:"Windows community"},
+      {n:"Files App",u:"https://files.community",d:"Beautiful modern file manager for Windows — tabs, dual pane, tags, and cloud integration.",l:"None",s:"Microsoft Store"},
+      {n:"Windhawk",u:"https://windhawk.net",d:"Mod Windows UI and behavior with community mods — taskbar tweaks, window management, and more.",l:"None",s:"Windows community"}
+    ]
+  },
+  {id:"powershell-commands",name:"PowerShell Scripts & Commands",icon:"\u2328",type:"powershell",
+    desc:"Essential PowerShell commands, scripts, and modules for system administration, automation, and troubleshooting.",
+    sites:[
+      {n:"PSReadLine",u:"https://github.com/PowerShell/PSReadLine",d:"Enhanced command line editing — syntax highlighting, history search, and predictive IntelliSense.",l:"None",s:"Microsoft official"},
+      {n:"Oh My Posh",u:"https://ohmyposh.dev",d:"Beautiful PowerShell prompt themes — customize your terminal with icons, git status, and colors.",l:"None",s:"PowerShell community"},
+      {n:"Terminal-Icons",u:"https://github.com/devblackops/Terminal-Icons",d:"Add file and folder icons to your PowerShell terminal — makes directory listings beautiful.",l:"Requires Nerd Font",s:"PowerShell community"},
+      {n:"PowerShell Gallery",u:"https://www.powershellgallery.com",d:"Official repository for PowerShell modules and scripts — Install-Module from thousands of packages.",l:"None",s:"Microsoft official"},
+      {n:"WinGet (via PS)",u:"https://github.com/microsoft/winget-cli",d:"Windows Package Manager — install any app from PowerShell: winget install <app>. Like apt for Windows.",l:"Windows 10/11 only",s:"Microsoft official"},
+      {n:"Scoop",u:"https://scoop.sh",d:"Command-line installer for Windows — install dev tools, fonts, and apps without admin rights.",l:"None",s:"Developer community"},
+      {n:"Chocolatey",u:"https://chocolatey.org",d:"The original Windows package manager — automate software installation and updates via PowerShell.",l:"Free for personal use",s:"Developer community"},
+      {n:"dbatools",u:"https://dbatools.io",d:"500+ PowerShell commands for SQL Server — migrate, backup, manage databases from the command line.",l:"None",s:"DBA community"},
+      {n:"PoshGUI",u:"https://poshgui.com",d:"Visual PowerShell script editor — drag and drop GUI builder for PowerShell forms and scripts.",l:"Free tier available",s:"PowerShell community"},
+      {n:"SS64 PowerShell Reference",u:"https://ss64.com/ps",d:"Complete A-Z reference of every PowerShell command with syntax, examples, and explanations.",l:"None",s:"Community resource"}
+    ]
+  },
+  {id:"github-tools",name:"GitHub Open Source Tools",icon:"\uD83D\uDC19",type:"github",
+    desc:"The best open-source tools on GitHub — downloaders, automation, privacy tools, and developer utilities.",
+    sites:[
+      {n:"yt-dlp",u:"https://github.com/yt-dlp/yt-dlp",d:"Download videos from YouTube and 1000+ sites. Fork of youtube-dl with more features and active updates.",l:"Command line tool",s:"r/Piracy + GitHub"},
+      {n:"gallery-dl",u:"https://github.com/mikf/gallery-dl",d:"Download image galleries from Instagram, Twitter, Reddit, DeviantArt, and 100+ sites.",l:"Command line tool",s:"GitHub"},
+      {n:"Stremio Addons",u:"https://stremio-addons.netlify.app",d:"Community addon catalog for Stremio — Torrentio, Cyberflix, and more for free streaming.",l:"Requires Stremio app",s:"r/StremioAddons"},
+      {n:"Cobalt",u:"https://cobalt.tools",d:"Download videos and audio from YouTube, Twitter, TikTok, Instagram — clean UI, no ads, no tracking.",l:"None",s:"GitHub + r/Piracy"},
+      {n:"Stirling PDF",u:"https://stirlingpdf.io",d:"Self-hosted PDF toolkit — merge, split, convert, compress, OCR, and more. All processing done locally.",l:"Self-hosted or use demo",s:"GitHub"},
+      {n:"Upscayl",u:"https://upscayl.org",d:"Free AI image upscaler — enhance and upscale images up to 4x using AI. Runs locally on your GPU.",l:"Requires decent GPU",s:"GitHub"},
+      {n:"LocalSend",u:"https://localsend.org",d:"Free AirDrop alternative — share files between any device on your local network. Cross-platform.",l:"None",s:"GitHub"},
+      {n:"Spotube",u:"https://spotube.krtirtho.dev",d:"Open-source Spotify client — free music streaming without ads or premium. Uses YouTube as backend.",l:"None",s:"GitHub"},
+      {n:"Seal",u:"https://github.com/JunkFood02/Seal",d:"Android video/audio downloader powered by yt-dlp — Material You design, simple and beautiful.",l:"Android only",s:"GitHub"},
+      {n:"Piped",u:"https://piped.video",d:"Privacy-friendly YouTube frontend — no ads, no tracking, SponsorBlock built in. Self-hostable.",l:"None",s:"GitHub + Privacy community"},
+      {n:"Invidious",u:"https://invidious.io",d:"Open-source YouTube frontend — watch without ads or tracking. Multiple public instances available.",l:"None",s:"GitHub + Privacy community"},
+      {n:"Nitter",u:"https://nitter.net",d:"Privacy-focused Twitter/X frontend — browse tweets without an account or tracking.",l:"Instances may go down",s:"GitHub + Privacy community"},
+      {n:"Redlib",u:"https://github.com/redlib-org/redlib",d:"Privacy-focused Reddit frontend — browse Reddit without tracking, ads, or JavaScript.",l:"None",s:"GitHub + Privacy community"},
+      {n:"Bitwarden",u:"https://bitwarden.com",d:"Open-source password manager — free for personal use. Cross-platform sync, 2FA, and secure sharing.",l:"Free for personal; Premium $10/year",s:"GitHub + Security community"},
+      {n:"Syncthing",u:"https://syncthing.net",d:"Free peer-to-peer file sync — replace Dropbox with direct device-to-device encrypted sync.",l:"None",s:"GitHub"}
+    ]
+  },
+  {id:"emulators-keys",name:"Emulators & Console Keys",icon:"\uD83C\uDFAE",type:"emulator",
+    desc:"Play console games on PC — Nintendo Switch, PS3, PS2, Wii, 3DS, and more. Includes firmware and key sources.",
+    sites:[
+      {n:"Ryujinx",u:"https://github.com/ryujinx-mirror/ryujinx",d:"Nintendo Switch emulator with excellent compatibility — play Zelda, Mario, Pokemon on PC.",l:"Requires Switch firmware + prod.keys",s:"Emulation community"},
+      {n:"Citron",u:"https://citron-emu.org",d:"Switch emulator fork continuing Yuzu development — active updates and improving compatibility.",l:"Requires Switch firmware + prod.keys",s:"Emulation community"},
+      {n:"RPCS3",u:"https://rpcs3.net",d:"PlayStation 3 emulator — play PS3 exclusives like The Last of Us, Uncharted, and Persona 5 on PC.",l:"Requires PS3 firmware",s:"Emulation community"},
+      {n:"PCSX2",u:"https://pcsx2.net",d:"PlayStation 2 emulator with near-perfect compatibility — upscale PS2 games to 4K resolution.",l:"Requires PS2 BIOS",s:"Emulation community"},
+      {n:"Dolphin",u:"https://dolphin-emu.org",d:"Wii and GameCube emulator — play Smash Bros, Mario Kart, Zelda with HD graphics and netplay.",l:"None",s:"Emulation community"},
+      {n:"Lime3DS",u:"https://github.com/Lime3DS/Lime3DS",d:"Nintendo 3DS emulator — fork of Citra with continued development. Play Pokemon, Fire Emblem, and more.",l:"Requires 3DS system files for some games",s:"Emulation community"},
+      {n:"melonDS",u:"https://melonds.kuribo64.net",d:"Nintendo DS emulator with accurate emulation — Wi-Fi support, DSi mode, and local multiplayer.",l:"Requires DS BIOS/firmware for DSi mode",s:"Emulation community"},
+      {n:"mGBA",u:"https://mgba.io",d:"Game Boy Advance emulator — also plays GB and GBC games. Fast, accurate, and feature-rich.",l:"None",s:"Emulation community"},
+      {n:"PPSSPP",u:"https://www.ppsspp.org",d:"PlayStation Portable emulator — play PSP games in HD on any platform. Excellent compatibility.",l:"None",s:"Emulation community"},
+      {n:"DuckStation",u:"https://www.duckstation.org",d:"PlayStation 1 emulator with modern features — upscaling, widescreen hacks, and texture replacement.",l:"Requires PS1 BIOS",s:"Emulation community"},
+      {n:"RetroArch",u:"https://www.retroarch.com",d:"All-in-one emulation frontend — run 50+ emulator cores from one app. NES to PS2 and everything between.",l:"None",s:"Emulation community"},
+      {n:"SwitchKeys",u:"https://switchkeys.net",d:"Nintendo Switch prod.keys and title.keys — required for Switch emulators to decrypt and run games.",l:"Legal grey area",s:"Emulation community"},
+      {n:"Vimm's Lair",u:"https://vimm.net",d:"ROM archive for classic consoles — NES, SNES, N64, GameCube, Wii, PS1, PS2, and more.",l:"Slow downloads; one at a time",s:"r/Roms"},
+      {n:"r/Roms Megathread",u:"https://r-roms.github.io",d:"Community-maintained ROM megathread with links to every console's game library.",l:"Links may change",s:"r/Roms"},
+      {n:"CDRomance",u:"https://cdromance.org",d:"ROM and ISO archive with fan translations, hacks, and homebrew for retro and modern consoles.",l:"Has ads",s:"Emulation community"}
+    ]
+  },
+  {id:"rainmeter-skins",name:"Rainmeter Desktop Skins",icon:"\uD83C\uDFA8",type:"rainmeter",
+    desc:"Customize your Windows desktop with Rainmeter — beautiful skins, widgets, system monitors, and visualizers.",
+    sites:[
+      {n:"Rainmeter",u:"https://www.rainmeter.net",d:"The official Rainmeter app — free desktop customization platform for Windows. Download and install first.",l:"Windows only",s:"Official"},
+      {n:"DeviantArt Rainmeter",u:"https://www.deviantart.com/tag/rainmeter",d:"Largest collection of Rainmeter skins — thousands of free themes, widgets, and visualizers.",l:"None",s:"DeviantArt community"},
+      {n:"VisualSkins",u:"https://visualskins.com",d:"Curated Rainmeter skin gallery with previews, ratings, and easy download links.",l:"None",s:"Rainmeter community"},
+      {n:"vsthemes Rainmeter",u:"https://vsthemes.org/en/skins/rainmeter",d:"Large database of Rainmeter skins organized by category — clocks, system monitors, music players.",l:"None",s:"Rainmeter community"},
+      {n:"Dracula Rainmeter",u:"https://github.com/dracula/rainmeter",d:"Dracula dark theme for Rainmeter — the popular dev color scheme as a desktop skin.",l:"None",s:"GitHub"},
+      {n:"Mond",u:"https://www.deviantart.com/apexxx-senkan/art/Mond-762455575",d:"Minimalist Rainmeter skin with clean clock, weather, system stats, and music controls.",l:"None",s:"DeviantArt"},
+      {n:"SUSPENDED",u:"https://www.deviantart.com/crashtech/art/SUSPENDED-Rainmeter-skin-921498498",d:"Futuristic floating widgets with glassmorphism effects — CPU, RAM, clock, and weather.",l:"None",s:"DeviantArt"},
+      {n:"Robik",u:"https://www.deviantart.com/apexxx-senkan/art/Robik-771914763",d:"Modern minimal Rainmeter suite — date, time, weather, system info with clean typography.",l:"None",s:"DeviantArt"},
+      {n:"Fountain of Colors",u:"https://www.deviantart.com/alatsombath/art/Fountain-of-Colors-desktop-music-visualizer-518894563",d:"Beautiful audio visualizer for your desktop — reacts to music with customizable color bars.",l:"None",s:"DeviantArt"},
+      {n:"r/Rainmeter",u:"https://www.reddit.com/r/Rainmeter",d:"Rainmeter community subreddit — share setups, find skins, get help, and get inspired by others.",l:"None",s:"Reddit community"}
+    ]
   }
 ];
 
@@ -1398,27 +1774,35 @@ const themeToggle=document.getElementById('themeToggle');
 let activeFilter='all';
 let activeSectionType='all';
 
-// Theme toggle
+// Theme toggle — 3-way: Dark → Light → Glass
 const themeLabel=document.getElementById('themeLabel');
 function setTheme(theme){
   document.documentElement.setAttribute('data-theme',theme);
   localStorage.setItem('theme',theme);
   const moonIcon=themeToggle.querySelector('.moon-icon');
   const sunIcon=themeToggle.querySelector('.sun-icon');
+  const glassIcon=themeToggle.querySelector('.glass-icon');
+  moonIcon.style.display='none';sunIcon.style.display='none';glassIcon.style.display='none';
   if(theme==='dark'){
-    moonIcon.style.display='inline';sunIcon.style.display='none';
+    moonIcon.style.display='inline';
     themeLabel.textContent='Light';
+  } else if(theme==='light'){
+    sunIcon.style.display='inline';
+    themeLabel.textContent='Glass';
   } else {
-    moonIcon.style.display='none';sunIcon.style.display='inline';
+    glassIcon.style.display='inline';
     themeLabel.textContent='Dark';
   }
 }
 themeToggle.addEventListener('click',()=>{
   const current=document.documentElement.getAttribute('data-theme');
-  setTheme(current==='dark'?'light':'dark');
+  if(current==='dark') setTheme('light');
+  else if(current==='light') setTheme('glass');
+  else setTheme('dark');
 });
-// Load saved theme
-const savedTheme=localStorage.getItem('theme')||'dark';
+// Load saved theme — auto-detect iOS Safari for Glass default on first visit
+const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&'ontouchend' in document);
+const savedTheme=localStorage.getItem('theme')||(isIOS?'glass':'dark');
 setTheme(savedTheme);
 
 // Section type tabs
@@ -1434,7 +1818,7 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     updateNavButtons();
     applyFilters();
     // Show piracy warning only for piracy/sports categories
-    piracyWarning.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports');
+    piracyWarning.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports'||activeSectionType==='firestick'||activeSectionType==='emulator');
     // Auto-scroll to the first visible category section
     requestAnimationFrame(()=>{
       const firstVisible=document.querySelector('.category-section.visible');
@@ -1471,6 +1855,14 @@ function init(){
     if(cat.type==='adblock')btn.classList.add('adblock-btn');
     if(cat.type==='creator')btn.classList.add('creator-btn');
     if(cat.type==='podcast')btn.classList.add('podcast-btn');
+    if(cat.type==='firestick')btn.classList.add('firestick-btn');
+    if(cat.type==='ios')btn.classList.add('ios-btn');
+    if(cat.type==='android')btn.classList.add('android-btn');
+    if(cat.type==='windows')btn.classList.add('windows-btn');
+    if(cat.type==='powershell')btn.classList.add('powershell-btn');
+    if(cat.type==='github')btn.classList.add('github-btn');
+    if(cat.type==='emulator')btn.classList.add('emulator-btn');
+    if(cat.type==='rainmeter')btn.classList.add('rainmeter-btn');
     btn.dataset.filter=cat.id;
     btn.textContent=cat.icon+' '+cat.name;
     btn.addEventListener('click',()=>setFilter(cat.id));
@@ -1483,7 +1875,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':cat.type==='creator'?'creator-count':cat.type==='podcast'?'podcast-count':'free-count';
+    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':cat.type==='creator'?'creator-count':cat.type==='podcast'?'podcast-count':cat.type==='firestick'?'firestick-count':cat.type==='ios'?'ios-count':cat.type==='android'?'android-count':cat.type==='windows'?'windows-count':cat.type==='powershell'?'powershell-count':cat.type==='github'?'github-count':cat.type==='emulator'?'emulator-count':cat.type==='rainmeter'?'rainmeter-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -1506,8 +1898,8 @@ function getFaviconUrl(url){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':catType==='creator'?'creator-card':catType==='podcast'?'podcast-card':'';
-  const fallbackEmoji=catType==='sports'?'\u26BD':catType==='piracy'?'\uD83C\uDFA5':catType==='labs'?'\uD83E\uDDEA':catType==='agent'?'\uD83E\uDD16':catType==='llm'?'\uD83D\uDCAC':catType==='vpn'?'\uD83D\uDEE1':catType==='edu'?'\uD83C\uDF93':catType==='privacy'?'\uD83D\uDD0F':catType==='adblock'?'\uD83D\uDEAB':catType==='creator'?'\uD83C\uDFA8':catType==='podcast'?'\uD83C\uDF99':catType==='top'?'\u2B50':'\uD83C\uDF10';
+  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':catType==='creator'?'creator-card':catType==='podcast'?'podcast-card':catType==='firestick'?'firestick-card':catType==='ios'?'ios-card':catType==='android'?'android-card':catType==='windows'?'windows-card':catType==='powershell'?'powershell-card':catType==='github'?'github-card':catType==='emulator'?'emulator-card':catType==='rainmeter'?'rainmeter-card':'';
+  const fallbackEmoji=catType==='sports'?'\u26BD':catType==='piracy'?'\uD83C\uDFA5':catType==='labs'?'\uD83E\uDDEA':catType==='agent'?'\uD83E\uDD16':catType==='llm'?'\uD83D\uDCAC':catType==='vpn'?'\uD83D\uDEE1':catType==='edu'?'\uD83C\uDF93':catType==='privacy'?'\uD83D\uDD0F':catType==='adblock'?'\uD83D\uDEAB':catType==='creator'?'\uD83C\uDFA8':catType==='podcast'?'\uD83C\uDF99':catType==='top'?'\u2B50':catType==='firestick'?'\uD83D\uDD25':catType==='ios'?'\uD83D\uDCF1':catType==='android'?'\uD83E\uDD16':catType==='windows'?'\uD83D\uDDA5':catType==='powershell'?'\u2328':catType==='github'?'\uD83D\uDC19':catType==='emulator'?'\uD83C\uDFAE':catType==='rainmeter'?'\uD83C\uDFA8':'\uD83C\uDF10';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   const faviconSrc=getFaviconUrl(s.u);
   return `
@@ -1527,7 +1919,7 @@ function renderCard(s,catName,catType){
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':catType==='creator'?'Free for creators':catType==='podcast'?'Free for podcasters':'No signup verified'}
+          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':catType==='creator'?'Free for creators':catType==='podcast'?'Free for podcasters':catType==='firestick'?'Sideload ready':catType==='ios'?'iOS compatible':catType==='android'?'Android tool':catType==='windows'?'Windows tool':catType==='powershell'?'PowerShell module':catType==='github'?'Open source':catType==='emulator'?'Free emulator':catType==='rainmeter'?'Free skin':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -1538,7 +1930,7 @@ function renderCard(s,catName,catType){
       </div>
       <div class="card-actions">
         <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit">
-          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':'Visit Site'}
+          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':catType==='firestick'?'Get App':catType==='ios'?'Get Tool':catType==='android'?'Get App':catType==='windows'?'Get Tool':catType==='powershell'?'Get Module':catType==='github'?'View Repo':catType==='emulator'?'Download':catType==='rainmeter'?'Get Skin':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
