@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Site Tools — Powerful Free Websites Library</title>
+<meta name="description" content="Free browser-based tools: QR Code Generator, Password Generator, Color Picker, Text Counter, Base64 Encoder, and more.">
+<meta name="theme-color" content="#0a0a0a">
+<link rel="icon" href="https://fav.farm/🔧">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{
+    --bg:#0a0a0a;--surface:#141414;--card:#1a1a1a;--border:#2a2a2a;
+    --text:#f5f5f5;--text-dim:#a3a3a3;--text-muted:#737373;
+    --accent:#dc2626;--accent-hover:#ef4444;--accent-glow:rgba(220,38,38,.3);
+  }
+  body{
+    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
+    background:var(--bg);color:var(--text);min-height:100vh;
+    padding-bottom:env(safe-area-inset-bottom,0);
+  }
+  a{color:var(--accent);text-decoration:none}
+  a:hover{text-decoration:underline}
+
+  /* Header */
+  .header{
+    text-align:center;padding:40px 20px 30px;
+    background:linear-gradient(180deg,rgba(220,38,38,.08) 0%,transparent 100%);
+  }
+  .header h1{
+    font-size:2.2rem;font-weight:800;margin-bottom:8px;
+    background:linear-gradient(135deg,#fff 30%,#dc2626 100%);
+    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
+    background-clip:text;
+  }
+  .header p{color:var(--text-dim);font-size:1rem;margin-bottom:20px}
+  .home-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 28px;border-radius:50px;font-weight:600;font-size:.95rem;
+    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
+    text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(220,38,38,.3);
+  }
+  .home-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(220,38,38,.4);text-decoration:none}
+
+  /* Tools Grid */
+  .tools-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
+    gap:24px;padding:0 24px 60px;max-width:1200px;margin:0 auto;
+  }
+  @media(max-width:400px){.tools-grid{grid-template-columns:1fr;padding:0 16px 60px}}
+
+  /* Tool Card */
+  .tool-card{
+    background:var(--card);border:1px solid var(--border);border-radius:20px;
+    padding:28px;transition:all .3s;position:relative;overflow:hidden;
+  }
+  .tool-card:hover{border-color:rgba(220,38,38,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
+  .tool-card::before{
+    content:'';position:absolute;top:0;left:0;right:0;height:3px;
+    background:linear-gradient(90deg,#dc2626,#f59e0b,#10b981,#3b82f6,#8b5cf6);
+    opacity:0;transition:opacity .3s;
+  }
+  .tool-card:hover::before{opacity:1}
+  .tool-icon{font-size:2rem;margin-bottom:12px}
+  .tool-card h2{font-size:1.2rem;font-weight:700;margin-bottom:8px}
+  .tool-card .tool-desc{color:var(--text-dim);font-size:.85rem;margin-bottom:16px;line-height:1.5}
+
+  /* Form Elements */
+  .tool-input{
+    width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text);font-size:.95rem;
+    outline:none;transition:border-color .2s;font-family:inherit;
+  }
+  .tool-input:focus{border-color:var(--accent)}
+  textarea.tool-input{resize:vertical;min-height:80px}
+  .tool-btn{
+    width:100%;padding:12px;border-radius:12px;border:none;
+    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
+    font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;
+    margin-top:12px;
+  }
+  .tool-btn:hover{opacity:.9;transform:translateY(-1px)}
+  .tool-btn:active{transform:scale(.98)}
+  .tool-btn.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text)}
+  .tool-btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .tool-output{
+    margin-top:12px;padding:14px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--border);
+    font-family:'SF Mono',Monaco,Consolas,monospace;font-size:.85rem;
+    color:var(--text);word-break:break-all;min-height:44px;
+    display:none;position:relative;
+  }
+  .tool-output.show{display:block}
+  .tool-output .copy-out{
+    position:absolute;top:8px;right:8px;background:var(--card);
+    border:1px solid var(--border);border-radius:8px;padding:4px 10px;
+    color:var(--text-dim);font-size:.75rem;cursor:pointer;transition:all .2s;
+  }
+  .tool-output .copy-out:hover{color:var(--accent);border-color:var(--accent)}
+  .tool-row{display:flex;gap:10px;margin-top:12px}
+  .tool-row>*{flex:1}
+  .slider-row{display:flex;align-items:center;gap:12px;margin-top:12px}
+  .slider-row input[type=range]{flex:1;accent-color:var(--accent)}
+  .slider-row span{color:var(--text-dim);font-size:.85rem;min-width:30px}
+  .checkbox-row{display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--text-dim);font-size:.85rem}
+  .checkbox-row input{accent-color:var(--accent)}
+
+  /* QR Code */
+  #qrOutput{text-align:center}
+  #qrOutput canvas{border-radius:12px;max-width:100%}
+
+  /* Color Picker */
+  .color-preview{
+    width:100%;height:80px;border-radius:12px;border:1px solid var(--border);
+    margin-top:12px;transition:background .2s;
+  }
+  .color-values{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
+  .color-val{
+    padding:8px 12px;border-radius:8px;background:var(--surface);
+    border:1px solid var(--border);font-family:monospace;font-size:.8rem;
+    color:var(--text-dim);text-align:center;
+  }
+
+  /* Word Counter */
+  .count-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
+  .count-stat{
+    text-align:center;padding:12px 8px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--border);
+  }
+  .count-stat .num{font-size:1.5rem;font-weight:700;color:var(--accent)}
+  .count-stat .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:4px}
+
+  /* JSON Formatter */
+  .json-output{
+    max-height:300px;overflow:auto;white-space:pre-wrap;
+    scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);
+  }
+
+  /* Timer */
+  .timer-display{
+    font-size:3rem;font-weight:700;text-align:center;
+    font-family:'SF Mono',Monaco,Consolas,monospace;
+    color:var(--accent);margin:16px 0;letter-spacing:2px;
+  }
+  .timer-btns{display:flex;gap:10px}
+  .timer-btns .tool-btn{flex:1}
+
+  /* Footer */
+  .footer{
+    text-align:center;padding:30px 20px;color:var(--text-muted);font-size:.8rem;
+    border-top:1px solid var(--border);
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>🔧 Site Tools</h1>
+  <p>Free browser-based utilities — no signup, no tracking, works offline.</p>
+  <a href="/" class="home-btn">🏠 Back to Library</a>
+</div>
+
+<div class="tools-grid">
+
+  <!-- QR Code Generator -->
+  <div class="tool-card">
+    <div class="tool-icon">📱</div>
+    <h2>QR Code Generator</h2>
+    <p class="tool-desc">Generate QR codes for any URL, text, or contact info. Download as PNG.</p>
+    <input type="text" class="tool-input" id="qrInput" placeholder="Enter URL or text...">
+    <button class="tool-btn" onclick="generateQR()">Generate QR Code</button>
+    <div class="tool-output" id="qrOutput"></div>
+    <button class="tool-btn secondary" id="qrDownload" style="display:none" onclick="downloadQR()">⬇ Download QR Code</button>
+  </div>
+
+  <!-- Password Generator -->
+  <div class="tool-card">
+    <div class="tool-icon">🔐</div>
+    <h2>Password Generator</h2>
+    <p class="tool-desc">Generate strong, random passwords with customizable length and character types.</p>
+    <div class="slider-row">
+      <span>Length:</span>
+      <input type="range" id="pwLen" min="8" max="64" value="16" oninput="document.getElementById('pwLenVal').textContent=this.value">
+      <span id="pwLenVal">16</span>
+    </div>
+    <div class="checkbox-row"><input type="checkbox" id="pwUpper" checked><label for="pwUpper">Uppercase (A-Z)</label></div>
+    <div class="checkbox-row"><input type="checkbox" id="pwLower" checked><label for="pwLower">Lowercase (a-z)</label></div>
+    <div class="checkbox-row"><input type="checkbox" id="pwNumbers" checked><label for="pwNumbers">Numbers (0-9)</label></div>
+    <div class="checkbox-row"><input type="checkbox" id="pwSymbols" checked><label for="pwSymbols">Symbols (!@#$%)</label></div>
+    <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
+    <div class="tool-output" id="pwOutput"><span class="copy-out" onclick="copyOutput('pwOutput')">Copy</span></div>
+  </div>
+
+  <!-- Color Picker -->
+  <div class="tool-card">
+    <div class="tool-icon">🎨</div>
+    <h2>Color Picker & Converter</h2>
+    <p class="tool-desc">Pick any color and get HEX, RGB, and HSL values instantly.</p>
+    <input type="color" class="tool-input" id="colorInput" value="#dc2626" style="height:50px;padding:4px;cursor:pointer" oninput="updateColor(this.value)">
+    <div class="color-preview" id="colorPreview" style="background:#dc2626"></div>
+    <div class="color-values">
+      <div class="color-val" id="colorHex">#dc2626</div>
+      <div class="color-val" id="colorRgb">rgb(220, 38, 38)</div>
+      <div class="color-val" id="colorHsl">hsl(0, 72%, 51%)</div>
+      <div class="color-val" id="colorRgba">rgba(220, 38, 38, 1)</div>
+    </div>
+  </div>
+
+  <!-- Word & Character Counter -->
+  <div class="tool-card">
+    <div class="tool-icon">📝</div>
+    <h2>Word & Character Counter</h2>
+    <p class="tool-desc">Count words, characters, sentences, and paragraphs. Estimate reading time.</p>
+    <textarea class="tool-input" id="wcInput" placeholder="Paste or type your text here..." oninput="countWords()"></textarea>
+    <div class="count-stats">
+      <div class="count-stat"><div class="num" id="wcWords">0</div><div class="label">Words</div></div>
+      <div class="count-stat"><div class="num" id="wcChars">0</div><div class="label">Characters</div></div>
+      <div class="count-stat"><div class="num" id="wcSentences">0</div><div class="label">Sentences</div></div>
+    </div>
+    <div class="count-stats" style="margin-top:8px">
+      <div class="count-stat"><div class="num" id="wcParas">0</div><div class="label">Paragraphs</div></div>
+      <div class="count-stat"><div class="num" id="wcReadTime">0m</div><div class="label">Read Time</div></div>
+      <div class="count-stat"><div class="num" id="wcSpeakTime">0m</div><div class="label">Speak Time</div></div>
+    </div>
+  </div>
+
+  <!-- Base64 Encoder/Decoder -->
+  <div class="tool-card">
+    <div class="tool-icon">🔄</div>
+    <h2>Base64 Encoder / Decoder</h2>
+    <p class="tool-desc">Encode text to Base64 or decode Base64 back to text.</p>
+    <textarea class="tool-input" id="b64Input" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+    <div class="tool-row">
+      <button class="tool-btn" onclick="b64Encode()">Encode</button>
+      <button class="tool-btn secondary" onclick="b64Decode()">Decode</button>
+    </div>
+    <div class="tool-output" id="b64Output"><span class="copy-out" onclick="copyOutput('b64Output')">Copy</span></div>
+  </div>
+
+  <!-- JSON Formatter -->
+  <div class="tool-card">
+    <div class="tool-icon">📋</div>
+    <h2>JSON Formatter & Validator</h2>
+    <p class="tool-desc">Paste messy JSON and get it beautifully formatted. Validates syntax too.</p>
+    <textarea class="tool-input" id="jsonInput" placeholder='Paste JSON here... e.g. {"name":"Cory","cool":true}'></textarea>
+    <button class="tool-btn" onclick="formatJSON()">Format & Validate</button>
+    <div class="tool-output json-output" id="jsonOutput"><span class="copy-out" onclick="copyOutput('jsonOutput')">Copy</span></div>
+  </div>
+
+  <!-- Lorem Ipsum Generator -->
+  <div class="tool-card">
+    <div class="tool-icon">📄</div>
+    <h2>Lorem Ipsum Generator</h2>
+    <p class="tool-desc">Generate placeholder text for your designs and mockups.</p>
+    <div class="slider-row">
+      <span>Paragraphs:</span>
+      <input type="range" id="loremCount" min="1" max="10" value="3" oninput="document.getElementById('loremCountVal').textContent=this.value">
+      <span id="loremCountVal">3</span>
+    </div>
+    <button class="tool-btn" onclick="generateLorem()">Generate Text</button>
+    <div class="tool-output" id="loremOutput" style="white-space:pre-wrap"><span class="copy-out" onclick="copyOutput('loremOutput')">Copy</span></div>
+  </div>
+
+  <!-- Stopwatch / Timer -->
+  <div class="tool-card">
+    <div class="tool-icon">⏱</div>
+    <h2>Stopwatch & Timer</h2>
+    <p class="tool-desc">A simple stopwatch with lap tracking. Works even when you switch tabs.</p>
+    <div class="timer-display" id="timerDisplay">00:00:00.0</div>
+    <div class="timer-btns">
+      <button class="tool-btn" id="timerStartBtn" onclick="timerToggle()">▶ Start</button>
+      <button class="tool-btn secondary" onclick="timerLap()">🏁 Lap</button>
+      <button class="tool-btn secondary" onclick="timerReset()">↺ Reset</button>
+    </div>
+    <div class="tool-output" id="timerLaps" style="white-space:pre-wrap;font-size:.8rem"></div>
+  </div>
+
+  <!-- URL Shortener Helper -->
+  <div class="tool-card">
+    <div class="tool-icon">🔗</div>
+    <h2>URL Encoder / Decoder</h2>
+    <p class="tool-desc">Encode special characters in URLs or decode encoded URLs back to readable form.</p>
+    <textarea class="tool-input" id="urlInput" placeholder="Enter URL to encode or decode..."></textarea>
+    <div class="tool-row">
+      <button class="tool-btn" onclick="urlEncode()">Encode</button>
+      <button class="tool-btn secondary" onclick="urlDecode()">Decode</button>
+    </div>
+    <div class="tool-output" id="urlOutput"><span class="copy-out" onclick="copyOutput('urlOutput')">Copy</span></div>
+  </div>
+
+  <!-- Hash Generator -->
+  <div class="tool-card">
+    <div class="tool-icon">🛡</div>
+    <h2>Hash Generator (SHA-256)</h2>
+    <p class="tool-desc">Generate SHA-256 hashes for any text. Useful for verifying file integrity.</p>
+    <input type="text" class="tool-input" id="hashInput" placeholder="Enter text to hash...">
+    <button class="tool-btn" onclick="generateHash()">Generate Hash</button>
+    <div class="tool-output" id="hashOutput"><span class="copy-out" onclick="copyOutput('hashOutput')">Copy</span></div>
+  </div>
+
+  <!-- Case Converter -->
+  <div class="tool-card">
+    <div class="tool-icon">🔠</div>
+    <h2>Text Case Converter</h2>
+    <p class="tool-desc">Convert text between UPPERCASE, lowercase, Title Case, and more.</p>
+    <textarea class="tool-input" id="caseInput" placeholder="Type or paste text here..."></textarea>
+    <div class="tool-row">
+      <button class="tool-btn" onclick="convertCase('upper')">UPPER</button>
+      <button class="tool-btn secondary" onclick="convertCase('lower')">lower</button>
+    </div>
+    <div class="tool-row">
+      <button class="tool-btn secondary" onclick="convertCase('title')">Title Case</button>
+      <button class="tool-btn secondary" onclick="convertCase('sentence')">Sentence case</button>
+    </div>
+    <div class="tool-output" id="caseOutput"><span class="copy-out" onclick="copyOutput('caseOutput')">Copy</span></div>
+  </div>
+
+  <!-- Markdown Preview -->
+  <div class="tool-card">
+    <div class="tool-icon">📑</div>
+    <h2>Markdown Previewer</h2>
+    <p class="tool-desc">Write Markdown on the left, see rendered HTML on the right. Instant preview.</p>
+    <textarea class="tool-input" id="mdInput" placeholder="# Hello World&#10;&#10;**Bold** and *italic* text.&#10;&#10;- List item 1&#10;- List item 2" oninput="previewMD()"></textarea>
+    <div class="tool-output show" id="mdOutput" style="color:var(--text);line-height:1.6"></div>
+  </div>
+
+</div>
+
+<div class="footer">
+  <p>Part of the <a href="/">Powerful Free Websites Library</a> — All tools run 100% in your browser. No data is sent anywhere.</p>
+</div>
+
+<!-- QR Code Library -->
+<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
+
+<script>
+// ===== QR CODE =====
+function generateQR(){
+  const text=document.getElementById('qrInput').value.trim();
+  if(!text)return;
+  const out=document.getElementById('qrOutput');
+  out.innerHTML='';out.classList.add('show');
+  const canvas=document.createElement('canvas');
+  QRCode.toCanvas(canvas,text,{width:280,margin:2,color:{dark:'#ffffff',light:'#1a1a1a'}},function(err){
+    if(err){out.textContent='Error: '+err.message;return}
+    out.appendChild(canvas);
+    document.getElementById('qrDownload').style.display='block';
+  });
+}
+function downloadQR(){
+  const canvas=document.querySelector('#qrOutput canvas');
+  if(!canvas)return;
+  const a=document.createElement('a');
+  a.download='qr-code.png';a.href=canvas.toDataURL();a.click();
+}
+
+// ===== PASSWORD =====
+function generatePassword(){
+  const len=parseInt(document.getElementById('pwLen').value);
+  let chars='';
+  if(document.getElementById('pwUpper').checked)chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if(document.getElementById('pwLower').checked)chars+='abcdefghijklmnopqrstuvwxyz';
+  if(document.getElementById('pwNumbers').checked)chars+='0123456789';
+  if(document.getElementById('pwSymbols').checked)chars+='!@#$%^&*()_+-=[]{}|;:,.<>?';
+  if(!chars){alert('Select at least one character type');return}
+  let pw='';const arr=new Uint32Array(len);crypto.getRandomValues(arr);
+  for(let i=0;i<len;i++)pw+=chars[arr[i]%chars.length];
+  const out=document.getElementById('pwOutput');
+  out.childNodes[0]?out.childNodes[0].textContent=pw:out.insertBefore(document.createTextNode(pw),out.firstChild);
+  out.classList.add('show');
+}
+
+// ===== COLOR PICKER =====
+function updateColor(hex){
+  document.getElementById('colorPreview').style.background=hex;
+  document.getElementById('colorHex').textContent=hex;
+  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
+  document.getElementById('colorRgb').textContent=`rgb(${r}, ${g}, ${b})`;
+  document.getElementById('colorRgba').textContent=`rgba(${r}, ${g}, ${b}, 1)`;
+  const rr=r/255,gg=g/255,bb=b/255;
+  const max=Math.max(rr,gg,bb),min=Math.min(rr,gg,bb);
+  let h,s,l=(max+min)/2;
+  if(max===min){h=s=0}else{
+    const d=max-min;s=l>.5?d/(2-max-min):d/(max+min);
+    switch(max){case rr:h=((gg-bb)/d+(gg<bb?6:0))/6;break;case gg:h=((bb-rr)/d+2)/6;break;case bb:h=((rr-gg)/d+4)/6;break}
+  }
+  document.getElementById('colorHsl').textContent=`hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+}
+
+// ===== WORD COUNTER =====
+function countWords(){
+  const text=document.getElementById('wcInput').value;
+  const words=text.trim()?text.trim().split(/\s+/).length:0;
+  const chars=text.length;
+  const sentences=text.split(/[.!?]+/).filter(s=>s.trim()).length;
+  const paras=text.split(/\n\n+/).filter(p=>p.trim()).length;
+  document.getElementById('wcWords').textContent=words;
+  document.getElementById('wcChars').textContent=chars;
+  document.getElementById('wcSentences').textContent=sentences;
+  document.getElementById('wcParas').textContent=paras;
+  document.getElementById('wcReadTime').textContent=Math.max(1,Math.ceil(words/200))+'m';
+  document.getElementById('wcSpeakTime').textContent=Math.max(1,Math.ceil(words/130))+'m';
+}
+
+// ===== BASE64 =====
+function b64Encode(){
+  const text=document.getElementById('b64Input').value;
+  const out=document.getElementById('b64Output');
+  try{out.childNodes[0].textContent=btoa(unescape(encodeURIComponent(text)));out.classList.add('show')}
+  catch(e){out.childNodes[0].textContent='Error: '+e.message;out.classList.add('show')}
+}
+function b64Decode(){
+  const text=document.getElementById('b64Input').value;
+  const out=document.getElementById('b64Output');
+  try{out.childNodes[0].textContent=decodeURIComponent(escape(atob(text)));out.classList.add('show')}
+  catch(e){out.childNodes[0].textContent='Error: Invalid Base64 string';out.classList.add('show')}
+}
+
+// ===== JSON FORMATTER =====
+function formatJSON(){
+  const text=document.getElementById('jsonInput').value;
+  const out=document.getElementById('jsonOutput');
+  try{
+    const obj=JSON.parse(text);
+    out.childNodes[0].textContent=JSON.stringify(obj,null,2);
+    out.classList.add('show');
+  }catch(e){
+    out.childNodes[0].textContent='❌ Invalid JSON: '+e.message;
+    out.classList.add('show');
+  }
+}
+
+// ===== LOREM IPSUM =====
+function generateLorem(){
+  const count=parseInt(document.getElementById('loremCount').value);
+  const paras=["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.","Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.","Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna.","Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.","Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum.","Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit. Nulla sit amet est. Praesent metus tellus, elementum eu, semper a.","Adipiscing nec, purus. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Suspendisse feugiat. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.","Praesent nec nisl a purus blandit viverra. Praesent ac massa at ligula laoreet iaculis. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.","Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce pharetra convallis urna. Quisque ut nisi. Donec mi odio, faucibus at, scelerisque quis."];
+  let result=[];
+  for(let i=0;i<count;i++)result.push(paras[i%paras.length]);
+  const out=document.getElementById('loremOutput');
+  out.childNodes[0].textContent=result.join('\n\n');
+  out.classList.add('show');
+}
+
+// ===== STOPWATCH =====
+let timerRunning=false,timerStart=0,timerElapsed=0,timerInterval=null,lapCount=0;
+function timerToggle(){
+  if(timerRunning){
+    clearInterval(timerInterval);timerRunning=false;
+    timerElapsed+=Date.now()-timerStart;
+    document.getElementById('timerStartBtn').textContent='▶ Start';
+  }else{
+    timerStart=Date.now();timerRunning=true;
+    document.getElementById('timerStartBtn').textContent='⏸ Pause';
+    timerInterval=setInterval(()=>{
+      const ms=timerElapsed+(Date.now()-timerStart);
+      document.getElementById('timerDisplay').textContent=formatTime(ms);
+    },100);
+  }
+}
+function timerLap(){
+  if(!timerRunning)return;
+  lapCount++;
+  const ms=timerElapsed+(Date.now()-timerStart);
+  const out=document.getElementById('timerLaps');
+  out.classList.add('show');
+  out.textContent=(out.textContent?out.textContent+'\n':'')+'Lap '+lapCount+': '+formatTime(ms);
+}
+function timerReset(){
+  clearInterval(timerInterval);timerRunning=false;timerElapsed=0;lapCount=0;
+  document.getElementById('timerDisplay').textContent='00:00:00.0';
+  document.getElementById('timerStartBtn').textContent='▶ Start';
+  document.getElementById('timerLaps').textContent='';
+  document.getElementById('timerLaps').classList.remove('show');
+}
+function formatTime(ms){
+  const s=Math.floor(ms/1000),m=Math.floor(s/60),h=Math.floor(m/60);
+  return String(h).padStart(2,'0')+':'+String(m%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+Math.floor((ms%1000)/100);
+}
+
+// ===== URL ENCODE/DECODE =====
+function urlEncode(){
+  const out=document.getElementById('urlOutput');
+  out.childNodes[0].textContent=encodeURIComponent(document.getElementById('urlInput').value);
+  out.classList.add('show');
+}
+function urlDecode(){
+  const out=document.getElementById('urlOutput');
+  try{out.childNodes[0].textContent=decodeURIComponent(document.getElementById('urlInput').value)}
+  catch(e){out.childNodes[0].textContent='Error: Invalid encoded URL'}
+  out.classList.add('show');
+}
+
+// ===== HASH GENERATOR =====
+async function generateHash(){
+  const text=document.getElementById('hashInput').value;
+  const encoder=new TextEncoder();
+  const data=encoder.encode(text);
+  const hash=await crypto.subtle.digest('SHA-256',data);
+  const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
+  const out=document.getElementById('hashOutput');
+  out.childNodes[0].textContent=hex;
+  out.classList.add('show');
+}
+
+// ===== CASE CONVERTER =====
+function convertCase(type){
+  const text=document.getElementById('caseInput').value;
+  let result='';
+  switch(type){
+    case 'upper':result=text.toUpperCase();break;
+    case 'lower':result=text.toLowerCase();break;
+    case 'title':result=text.replace(/\w\S*/g,t=>t.charAt(0).toUpperCase()+t.substr(1).toLowerCase());break;
+    case 'sentence':result=text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,c=>c.toUpperCase());break;
+  }
+  const out=document.getElementById('caseOutput');
+  out.childNodes[0].textContent=result;
+  out.classList.add('show');
+}
+
+// ===== MARKDOWN PREVIEW =====
+function previewMD(){
+  const text=document.getElementById('mdInput').value;
+  let html=text
+    .replace(/^### (.*$)/gm,'<h3>$1</h3>')
+    .replace(/^## (.*$)/gm,'<h2>$1</h2>')
+    .replace(/^# (.*$)/gm,'<h1>$1</h1>')
+    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g,'<em>$1</em>')
+    .replace(/`(.*?)`/g,'<code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.85em">$1</code>')
+    .replace(/^- (.*$)/gm,'<li>$1</li>')
+    .replace(/\n\n/g,'<br><br>')
+    .replace(/\n/g,'<br>');
+  document.getElementById('mdOutput').innerHTML=html;
+}
+
+// ===== COPY OUTPUT =====
+function copyOutput(id){
+  const el=document.getElementById(id);
+  const text=el.childNodes[0]?el.childNodes[0].textContent:el.textContent;
+  navigator.clipboard.writeText(text).then(()=>{
+    const btn=el.querySelector('.copy-out');
+    if(btn){btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500)}
+  });
+}
+</script>
+</body>
+</html>
