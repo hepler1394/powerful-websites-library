@@ -146,8 +146,8 @@
   }
   [data-theme="glass"] .search-wrap input{
     backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.1);
+    background:rgba(10,10,15,.92);
+    border:none;
   }
   [data-theme="glass"] .section-tab{
     backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
@@ -960,7 +960,7 @@
     background:var(--surface);color:var(--text-muted);
     font-family:inherit;font-size:.7rem;font-weight:600;
   }
-  .search-wrap{position:relative}
+  /* kbd-hint positioning uses the existing search-wrap which already has position:relative from padding trick */
   .search-wrap input:focus ~ .kbd-hint{opacity:0}
   @media(max-width:768px){.kbd-hint{display:none}}
 
@@ -1013,9 +1013,144 @@
     backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
     background:rgba(220,38,38,.7);
   }
+
+  /* ===== 10X MOBILE UPGRADE: SCROLL PROGRESS BAR ===== */
+  .scroll-progress{
+    position:fixed;top:0;left:0;height:3px;z-index:9999;
+    background:linear-gradient(90deg,#dc2626,#ff4444,#ff6b9d,#ff4444,#dc2626);
+    background-size:200% 100%;
+    animation:progressShimmer 2s linear infinite;
+    width:0%;transition:width .1s linear;
+    box-shadow:0 0 8px rgba(220,38,38,.6);
+  }
+  @keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
+
+  /* ===== 10X MOBILE: CARD SCROLL REVEAL ===== */
+  .card.reveal-hidden{
+    opacity:0;transform:translateY(30px) scale(.97);
+    transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);
+  }
+  .card.reveal-visible{
+    opacity:1;transform:translateY(0) scale(1);
+  }
+
+  /* ===== 10X MOBILE: TOUCH PRESS FEEDBACK ===== */
+  @media(hover:none) and (pointer:coarse){
+    .nav-btn:active,.section-tab:active,.quick-link:active,.surprise-btn:active,.recent-chip:active{
+      transform:scale(.95)!important;transition:transform .1s!important;
+    }
+    .card:active{
+      transform:scale(.98)!important;transition:transform .15s!important;
+    }
+    .btn-visit:active{
+      transform:scale(.96)!important;opacity:.85!important;
+    }
+  }
+
+  /* ===== 10X MOBILE: SECTION TABS SMOOTH SCROLL ===== */
+  .section-tabs{
+    scroll-snap-type:x mandatory;
+    -webkit-overflow-scrolling:touch;
+  }
+  .section-tab{
+    scroll-snap-align:center;
+  }
+
+  /* ===== 10X MOBILE: BETTER CARD SPACING ===== */
+  @media(max-width:480px){
+    .card-grid{gap:14px}
+    .category-section{margin-bottom:32px}
+    .cat-header{margin-bottom:8px}
+    .cat-desc{margin-bottom:14px;font-size:.85rem;line-height:1.5}
+    .card{padding:20px;border-radius:18px}
+    .card-name{font-size:.95rem}
+    .card-desc{font-size:.84rem;line-height:1.55}
+    .btn-visit{padding:12px 20px;font-size:.85rem;border-radius:14px}
+    .badge{font-size:.68rem;padding:4px 10px}
+  }
+
+  /* ===== 10X MOBILE: ENHANCED GLASS THEME ===== */
+  [data-theme="glass"] .hero{
+    background:linear-gradient(135deg,rgba(12,12,20,.95) 0%,rgba(30,8,18,.9) 35%,rgba(12,12,20,.95) 65%,rgba(20,10,16,.9) 100%);
+  }
+  [data-theme="glass"] .card{
+    background:rgba(255,255,255,.03);
+    border:1px solid rgba(255,255,255,.1);
+    box-shadow:
+      0 4px 24px rgba(0,0,0,.25),
+      inset 0 1px 0 rgba(255,255,255,.1),
+      inset 0 -1px 0 rgba(255,255,255,.02);
+    backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);
+  }
+  [data-theme="glass"] .card:hover{
+    background:rgba(255,255,255,.05);
+    border-color:rgba(220,38,38,.25);
+    box-shadow:
+      0 8px 40px rgba(0,0,0,.3),
+      0 0 30px rgba(220,38,38,.08),
+      inset 0 1px 0 rgba(255,255,255,.15),
+      inset 0 -1px 0 rgba(255,255,255,.03);
+  }
+  [data-theme="glass"] .hero-badge{
+    backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
+    background:rgba(220,38,38,.08);
+    border:1px solid rgba(220,38,38,.2);
+    box-shadow:0 0 20px rgba(220,38,38,.1);
+  }
+  [data-theme="glass"] .btn-visit{
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    box-shadow:0 4px 16px rgba(220,38,38,.25),inset 0 1px 0 rgba(255,255,255,.1);
+  }
+  [data-theme="glass"] .cat-header .cat-icon{
+    text-shadow:0 0 16px rgba(220,38,38,.3);
+  }
+  [data-theme="glass"] .cat-title{
+    text-shadow:0 0 20px rgba(255,255,255,.05);
+  }
+  [data-theme="glass"] .fav-btn svg{
+    filter:drop-shadow(0 0 4px rgba(255,68,68,.3));
+  }
+  [data-theme="glass"] .instagram-link{
+    backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);
+    box-shadow:0 4px 24px rgba(225,48,108,.3),inset 0 1px 0 rgba(255,255,255,.15);
+  }
+  [data-theme="glass"] .search-wrap{
+    box-shadow:0 0 30px rgba(124,58,237,.25),0 0 60px rgba(236,72,153,.1);
+  }
+  [data-theme="glass"] .scroll-progress{
+    box-shadow:0 0 12px rgba(220,38,38,.8);
+  }
+
+  /* ===== 10X MOBILE: SMOOTH THEME TRANSITIONS ===== */
+  .card,.nav-btn,.section-tab,.hero,.hero-badge,.quick-link,.piracy-warning,.bottom-nav,.mobile-nav-toggle,.nav-wrap,.cat-header,.cat-title,.cat-desc,.badge,.btn-visit,.fav-btn,.search-wrap input,.instagram-link,.surprise-btn,.stats-row,.recent-chip,.share-btn{
+    transition:background var(--transition-theme),color var(--transition-theme),border-color var(--transition-theme),box-shadow var(--transition-theme),backdrop-filter var(--transition-theme);
+  }
+
+  /* ===== 10X MOBILE: PREMIUM CARD GLOW ON HOVER ===== */
+  .card::before{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    border-radius:inherit;opacity:0;transition:opacity .3s;
+    background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(220,38,38,.06) 0%,transparent 60%);
+    pointer-events:none;z-index:0;
+  }
+  .card:hover::before{opacity:1}
+  .card>*{position:relative;z-index:1}
+
+  /* ===== 10X MOBILE: INSTAGRAM LINK PULSE ===== */
+  @keyframes igPulse{0%,100%{box-shadow:0 4px 20px rgba(225,48,108,.3)}50%{box-shadow:0 4px 30px rgba(225,48,108,.5),0 0 40px rgba(131,58,180,.2)}}
+  .instagram-link{animation:igPulse 3s ease-in-out infinite}
+
+  /* ===== 10X MOBILE: CATEGORY SECTION DIVIDER ===== */
+  .category-section+.category-section::before{
+    content:'';display:block;height:1px;margin:8px 0 28px;
+    background:linear-gradient(90deg,transparent,var(--border),rgba(220,38,38,.15),var(--border),transparent);
+  }
 </style>
 </head>
 <body>
+
+<!-- SCROLL PROGRESS BAR -->
+<div class="scroll-progress" id="scrollProgress"></div>
 
 <!-- THEME TOGGLE -->
 <button class="theme-toggle" id="themeToggle" title="Toggle theme">
@@ -2201,6 +2336,8 @@ function applyFilters(){
 
   noResults.classList.toggle('visible',totalVisible===0);
   searchCount.textContent=q?totalVisible+' result'+(totalVisible!==1?'s':'')+' found':'';
+  // Re-trigger scroll reveal for newly visible cards
+  if(typeof refreshScrollReveal==='function')refreshScrollReveal();
 }
 
 // Nav collapse logic (must be before scroll listener)
@@ -2573,6 +2710,52 @@ if('serviceWorker' in navigator){
   DATA.forEach(cat=>total+=cat.sites.length);
   document.title=`Powerful Free Websites Library — ${total}+ Free Tools & Sites`;
 })();
+
+// ===== 10X: SCROLL PROGRESS BAR =====
+const scrollProgressEl=document.getElementById('scrollProgress');
+window.addEventListener('scroll',()=>{
+  const winHeight=document.documentElement.scrollHeight-window.innerHeight;
+  const scrolled=winHeight>0?(window.scrollY/winHeight)*100:0;
+  scrollProgressEl.style.width=scrolled+'%';
+},{passive:true});
+
+// ===== 10X: CARD SCROLL REVEAL ANIMATION =====
+const revealObserver=new IntersectionObserver((entries)=>{
+  entries.forEach(entry=>{
+    if(entry.isIntersecting){
+      const card=entry.target;
+      const grid=card.parentElement;
+      const siblings=Array.from(grid.querySelectorAll('.card.reveal-hidden'));
+      const idx=siblings.indexOf(card);
+      const delay=Math.min(idx*50,250);
+      setTimeout(()=>{
+        card.classList.remove('reveal-hidden');
+        card.classList.add('reveal-visible');
+      },delay);
+      revealObserver.unobserve(card);
+    }
+  });
+},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
+function refreshScrollReveal(){
+  document.querySelectorAll('.card').forEach(c=>{
+    if(c.style.display!=='none'&&!c.classList.contains('reveal-visible')){
+      c.classList.add('reveal-hidden');
+      revealObserver.observe(c);
+    }
+  });
+}
+refreshScrollReveal();
+
+// ===== 10X: CARD MOUSE GLOW TRACKING =====
+document.querySelectorAll('.card').forEach(card=>{
+  card.addEventListener('mousemove',(e)=>{
+    const rect=card.getBoundingClientRect();
+    const x=((e.clientX-rect.left)/rect.width*100).toFixed(1);
+    const y=((e.clientY-rect.top)/rect.height*100).toFixed(1);
+    card.style.setProperty('--mouse-x',x+'%');
+    card.style.setProperty('--mouse-y',y+'%');
+  });
+});
 
 // ===== FEATURE 10: DOUBLE-TAP FIX FOR iOS =====
 // Prevent iOS double-tap zoom on interactive elements
