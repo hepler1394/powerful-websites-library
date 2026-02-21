@@ -857,6 +857,162 @@
   .glow-orb{
     position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5;
   }
+
+  /* ===== FEATURE: SURPRISE ME BUTTON ===== */
+  .surprise-btn{
+    display:inline-flex;align-items:center;gap:8px;
+    padding:12px 28px;border-radius:50px;
+    background:linear-gradient(135deg,#dc2626,#ff4444,#ff6b9d);
+    color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.3px;
+    border:none;cursor:pointer;transition:all .3s;
+    box-shadow:0 4px 20px rgba(220,38,38,.35);
+    margin-top:16px;
+    animation:surprisePulse 3s ease-in-out infinite;
+  }
+  .surprise-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 6px 28px rgba(220,38,38,.5)}
+  .surprise-btn:active{transform:scale(.97)}
+  .surprise-btn svg{width:18px;height:18px}
+  @keyframes surprisePulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,.35)}50%{box-shadow:0 4px 30px rgba(255,68,68,.55)}}
+
+  /* ===== FEATURE: ANIMATED STATS COUNTER ===== */
+  .stats-row{
+    display:flex;gap:32px;justify-content:center;margin:20px 0 8px;
+    flex-wrap:wrap;
+  }
+  .stat-item{
+    text-align:center;
+  }
+  .stat-num{
+    font-size:1.8rem;font-weight:900;color:var(--accent);
+    font-variant-numeric:tabular-nums;
+  }
+  .stat-label{
+    font-size:.7rem;color:var(--text-muted);text-transform:uppercase;
+    letter-spacing:1px;margin-top:2px;
+  }
+  @media(max-width:480px){
+    .stats-row{gap:20px}
+    .stat-num{font-size:1.4rem}
+  }
+
+  /* ===== FEATURE: SHARE BUTTON ON CARDS ===== */
+  .share-btn{
+    position:absolute;top:42px;right:44px;width:28px;height:28px;
+    border-radius:0;border:none;background:transparent;
+    cursor:pointer;display:flex;align-items:center;justify-content:center;
+    transition:all .25s;z-index:2;padding:0;
+    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
+  }
+  .share-btn:hover{transform:scale(1.2)}
+  .share-btn svg{width:18px;height:18px;stroke:var(--text-muted);fill:none;stroke-width:2;transition:all .25s}
+  .share-btn:hover svg{stroke:var(--accent)}
+  .share-toast{
+    position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--accent);color:#fff;padding:10px 24px;border-radius:50px;
+    font-size:.85rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;
+    pointer-events:none;white-space:nowrap;
+  }
+  .share-toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
+
+  /* ===== FEATURE: RECENTLY VIEWED ===== */
+  .recent-section{
+    margin-bottom:24px;display:none;
+  }
+  .recent-section.visible{display:block}
+  .recent-header{
+    display:flex;align-items:center;gap:10px;margin-bottom:12px;
+  }
+  .recent-header h3{
+    font-size:1rem;color:var(--text);font-weight:700;
+  }
+  .recent-header .clear-recent{
+    font-size:.75rem;color:var(--text-muted);cursor:pointer;border:none;
+    background:none;text-decoration:underline;margin-left:auto;
+  }
+  .recent-chips{
+    display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;
+    -webkit-overflow-scrolling:touch;
+    scrollbar-width:none;
+  }
+  .recent-chips::-webkit-scrollbar{display:none}
+  .recent-chip{
+    display:flex;align-items:center;gap:6px;
+    padding:8px 14px;border-radius:50px;
+    background:var(--card);border:1px solid var(--border);
+    color:var(--text);font-size:.78rem;font-weight:600;
+    white-space:nowrap;cursor:pointer;transition:all .2s;
+    text-decoration:none;flex-shrink:0;
+  }
+  .recent-chip:hover{border-color:var(--accent);color:var(--accent)}
+  .recent-chip img{width:16px;height:16px;border-radius:3px}
+
+  /* ===== FEATURE: KEYBOARD SHORTCUT HINT ===== */
+  .kbd-hint{
+    position:absolute;right:16px;top:50%;transform:translateY(-50%);
+    display:flex;align-items:center;gap:4px;
+    color:var(--text-dim);font-size:.72rem;
+    pointer-events:none;transition:opacity .2s;
+  }
+  .kbd-hint kbd{
+    display:inline-flex;align-items:center;justify-content:center;
+    min-width:22px;height:22px;padding:0 6px;
+    border-radius:4px;border:1px solid var(--border);
+    background:var(--surface);color:var(--text-muted);
+    font-family:inherit;font-size:.7rem;font-weight:600;
+  }
+  .search-wrap{position:relative}
+  .search-wrap input:focus ~ .kbd-hint{opacity:0}
+  @media(max-width:768px){.kbd-hint{display:none}}
+
+  /* ===== FEATURE: EXPORT FAVORITES BUTTON ===== */
+  .export-favs-btn{
+    display:inline-flex;align-items:center;gap:6px;
+    padding:8px 16px;border-radius:50px;
+    background:transparent;border:1px solid var(--border);
+    color:var(--text-muted);font-size:.78rem;font-weight:600;
+    cursor:pointer;transition:all .2s;
+    margin-top:12px;
+  }
+  .export-favs-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .export-favs-btn svg{width:14px;height:14px}
+
+  /* ===== ENHANCED GLASS THEME ADDITIONS ===== */
+  [data-theme="glass"] body::before{
+    content:'';position:fixed;top:0;left:0;right:0;bottom:0;
+    background:
+      radial-gradient(ellipse at 20% 20%, rgba(220,38,38,.08) 0%, transparent 50%),
+      radial-gradient(ellipse at 80% 80%, rgba(168,85,247,.06) 0%, transparent 50%),
+      radial-gradient(ellipse at 50% 50%, rgba(0,122,255,.04) 0%, transparent 60%);
+    pointer-events:none;z-index:0;
+  }
+  [data-theme="glass"] .hero::after{
+    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
+    background:
+      radial-gradient(circle at 30% 40%, rgba(220,38,38,.12) 0%, transparent 40%),
+      radial-gradient(circle at 70% 60%, rgba(255,68,68,.08) 0%, transparent 40%);
+    pointer-events:none;z-index:0;
+  }
+  [data-theme="glass"] .hero>*{position:relative;z-index:1}
+  [data-theme="glass"] .surprise-btn{
+    background:rgba(220,38,38,.25);
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    border:1px solid rgba(220,38,38,.3);
+  }
+  [data-theme="glass"] .surprise-btn:hover{
+    background:rgba(220,38,38,.35);
+  }
+  [data-theme="glass"] .recent-chip{
+    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
+    background:rgba(255,255,255,.05);
+    border:1px solid rgba(255,255,255,.1);
+  }
+  [data-theme="glass"] .stats-row .stat-num{
+    text-shadow:0 0 20px rgba(220,38,38,.4);
+  }
+  [data-theme="glass"] .share-toast{
+    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+    background:rgba(220,38,38,.7);
+  }
 </style>
 </head>
 <body>
@@ -895,9 +1051,23 @@
       <div class="hero-stat"><a href="faq.html" style="text-decoration:none;color:inherit"><div class="num" style="font-size:1.6rem">❓</div><div class="label">FAQ &amp; Help</div></a></div>
       <div class="hero-stat"><a href="javascript:void(0)" id="heroFavLink" style="text-decoration:none;color:inherit"><div class="num" id="heroFavCount" style="font-size:1.6rem">❤️ 0</div><div class="label">My Favorites</div></a></div>
     </div>
+    <!-- ANIMATED STATS COUNTER -->
+    <div class="stats-row">
+      <div class="stat-item"><div class="stat-num" id="statSites">0</div><div class="stat-label">Websites</div></div>
+      <div class="stat-item"><div class="stat-num" id="statCats">0</div><div class="stat-label">Categories</div></div>
+      <div class="stat-item"><div class="stat-num" id="statSources">0</div><div class="stat-label">Sources</div></div>
+    </div>
+
+    <!-- SURPRISE ME BUTTON -->
+    <button class="surprise-btn" id="surpriseBtn" onclick="surpriseMe()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
+      Surprise Me — Random Site
+    </button>
+
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
       <input type="text" id="searchInput" placeholder="Search 600+ websites, categories, or descriptions...">
+      <div class="kbd-hint" id="kbdHint"><kbd>/</kbd> to search</div>
     </div>
     <div class="search-count" id="searchCount"></div>
 
@@ -954,6 +1124,15 @@
     </a>
   </div>
 
+  <!-- RECENTLY VIEWED -->
+  <div class="recent-section" id="recentSection">
+    <div class="recent-header">
+      <h3>🕐 Recently Viewed</h3>
+      <button class="clear-recent" onclick="clearRecent()">Clear</button>
+    </div>
+    <div class="recent-chips" id="recentChips"></div>
+  </div>
+
   <div id="favoritesGrid" class="category-section" style="display:none;margin-top:20px">
     <div class="cat-header">
       <span class="cat-icon">❤️</span>
@@ -973,8 +1152,15 @@
     <div class="nf-heart">❤️</div>
     <h3>No favorites yet</h3>
     <p>Tap the heart icon on any card to save it here. Your favorites are stored on this device and persist across visits.</p>
+    <button class="export-favs-btn" id="exportFavsBtn" onclick="exportFavorites()">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+      Export Favorites as Bookmarks
+    </button>
   </div>
 </div>
+
+<!-- SHARE TOAST -->
+<div class="share-toast" id="shareToast">Link copied!</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -1914,6 +2100,7 @@ function renderCard(s,catName,catType){
       <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" onclick="toggleFav(this,event)">
         <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
       </button>
+      <button class="share-btn" title="Share" onclick="shareCard(event,'${s.u}','${s.n.replace(/'/g,"\\'")}')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
       <p class="card-desc">${s.d}</p>
       <div class="card-limits ${hasLimits?'has-limits':''}">${hasLimits?'\u26A0\uFE0F '+s.l:''}</div>
       <div class="card-meta">
@@ -1929,7 +2116,7 @@ function renderCard(s,catName,catType){
         ${catType==='labs'?'<span class="badge badge-labs-exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v4l3 8H6l3-8V3zM5 19h14M8 22h8"/></svg>Experimental</span>':''}
       </div>
       <div class="card-actions">
-        <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit">
+        <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit" onclick="trackRecent('${s.n.replace(/'/g,"\\'")  }','${s.u}')">
           ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':catType==='firestick'?'Get App':catType==='ios'?'Get Tool':catType==='android'?'Get App':catType==='windows'?'Get Tool':catType==='powershell'?'Get Module':catType==='github'?'View Repo':catType==='emulator'?'Download':catType==='rainmeter'?'Get Skin':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
@@ -2210,6 +2397,192 @@ document.getElementById('heroFavLink').addEventListener('click',()=>{
 init();
 syncFavButtons();
 updateFavCounts();
+
+// ===== FEATURE 1: SURPRISE ME — RANDOM SITE =====
+function surpriseMe(){
+  const allSites=[];
+  DATA.forEach(cat=>cat.sites.forEach(s=>allSites.push({...s,cat:cat.name})));
+  const random=allSites[Math.floor(Math.random()*allSites.length)];
+  trackRecent(random.n,random.u);
+  window.open(random.u,'_blank');
+}
+
+// ===== FEATURE 2: ANIMATED STATS COUNTER =====
+function animateCounter(el,target,duration){
+  const start=performance.now();
+  const initial=0;
+  function update(now){
+    const elapsed=now-start;
+    const progress=Math.min(elapsed/duration,1);
+    // Ease out cubic
+    const eased=1-Math.pow(1-progress,3);
+    el.textContent=Math.round(initial+(target-initial)*eased);
+    if(progress<1)requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+(function initStats(){
+  let totalSites=0;
+  DATA.forEach(cat=>totalSites+=cat.sites.length);
+  const totalCats=DATA.length;
+  const totalSources=4; // bsky, setupsai, community, research
+  // Use IntersectionObserver to animate when visible
+  const statsRow=document.querySelector('.stats-row');
+  if(!statsRow)return;
+  const observer=new IntersectionObserver((entries)=>{
+    entries.forEach(entry=>{
+      if(entry.isIntersecting){
+        animateCounter(document.getElementById('statSites'),totalSites,1200);
+        animateCounter(document.getElementById('statCats'),totalCats,1000);
+        animateCounter(document.getElementById('statSources'),totalSources,800);
+        observer.disconnect();
+      }
+    });
+  },{threshold:0.3});
+  observer.observe(statsRow);
+})();
+
+// ===== FEATURE 3: SHARE BUTTON =====
+function shareCard(e,url,name){
+  e.stopPropagation();
+  e.preventDefault();
+  if(navigator.share){
+    navigator.share({title:name+' — Powerful Websites Library',url:url}).catch(()=>{});
+  } else {
+    navigator.clipboard.writeText(url).then(()=>{
+      const toast=document.getElementById('shareToast');
+      toast.classList.add('visible');
+      setTimeout(()=>toast.classList.remove('visible'),2000);
+    });
+  }
+}
+
+// ===== FEATURE 4: RECENTLY VIEWED =====
+const RECENT_KEY='pwl_recent';
+function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY))||[];}catch(e){return[];}}
+function saveRecent(arr){localStorage.setItem(RECENT_KEY,JSON.stringify(arr));}
+function trackRecent(name,url){
+  let recent=getRecent();
+  recent=recent.filter(r=>r.u!==url);
+  recent.unshift({n:name,u:url});
+  if(recent.length>10)recent=recent.slice(0,10);
+  saveRecent(recent);
+  renderRecent();
+}
+function clearRecent(){
+  localStorage.removeItem(RECENT_KEY);
+  renderRecent();
+}
+function renderRecent(){
+  const recent=getRecent();
+  const section=document.getElementById('recentSection');
+  const chips=document.getElementById('recentChips');
+  if(!recent.length){section.classList.remove('visible');return;}
+  section.classList.add('visible');
+  chips.innerHTML=recent.map(r=>{
+    const fav=getFaviconUrl(r.u);
+    return `<a href="${r.u}" target="_blank" rel="noopener noreferrer" class="recent-chip" onclick="trackRecent('${r.n.replace(/'/g,"\\'")}','${r.u}')">${fav?`<img src="${fav}" alt="" onerror="this.style.display='none'">`:''}<span>${r.n}</span></a>`;
+  }).join('');
+}
+renderRecent();
+
+// ===== FEATURE 5: KEYBOARD SHORTCUTS =====
+document.addEventListener('keydown',(e)=>{
+  // "/" to focus search
+  if(e.key==='/'&&document.activeElement!==searchInput){
+    e.preventDefault();
+    searchInput.focus();
+    window.scrollTo({top:0,behavior:'smooth'});
+  }
+  // Escape to clear search
+  if(e.key==='Escape'&&document.activeElement===searchInput){
+    searchInput.value='';
+    searchInput.blur();
+    applyFilters();
+    expandNav();
+  }
+});
+
+// ===== FEATURE 6: EXPORT FAVORITES AS BOOKMARKS =====
+function exportFavorites(){
+  const favs=getFavs();
+  if(!favs.length){alert('No favorites to export yet! Tap the heart icon on any card first.');return;}
+  // Build all sites lookup
+  const allSites={};
+  DATA.forEach(cat=>cat.sites.forEach(s=>{allSites[s.u]={n:s.n,u:s.u,d:s.d};}));
+  let html='<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Powerful Websites Library — My Favorites</H1>\n<DL><p>\n';
+  favs.forEach(url=>{
+    const site=allSites[url];
+    if(site)html+=`  <DT><A HREF="${site.u}">${site.n}</A>\n  <DD>${site.d}\n`;
+  });
+  html+='</DL><p>';
+  const blob=new Blob([html],{type:'text/html'});
+  const a=document.createElement('a');
+  a.href=URL.createObjectURL(blob);
+  a.download='pwl-favorites.html';
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+// ===== FEATURE 7: PWA SUPPORT =====
+// Register service worker for Add to Home Screen
+if('serviceWorker' in navigator){
+  // Create a minimal SW inline
+  const swCode=`self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>new Response('Offline')))});`;
+  const swBlob=new Blob([swCode],{type:'application/javascript'});
+  // We'll skip actual SW registration to avoid issues, but add the manifest
+}
+// Add manifest link dynamically
+(function addManifest(){
+  const manifest={
+    name:'Powerful Free Websites Library',
+    short_name:'PWL',
+    description:'600+ websites that feel illegal to know',
+    start_url:'/',
+    display:'standalone',
+    background_color:'#0a0a0a',
+    theme_color:'#dc2626',
+    icons:[{src:'https://www.google.com/s2/favicons?domain=powerful-websites-library.vercel.app&sz=192',sizes:'192x192',type:'image/png'}]
+  };
+  const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
+  const link=document.createElement('link');
+  link.rel='manifest';
+  link.href=URL.createObjectURL(blob);
+  document.head.appendChild(link);
+  // Add meta tags for iOS
+  const meta1=document.createElement('meta');
+  meta1.name='apple-mobile-web-app-capable';meta1.content='yes';
+  document.head.appendChild(meta1);
+  const meta2=document.createElement('meta');
+  meta2.name='apple-mobile-web-app-status-bar-style';meta2.content='black-translucent';
+  document.head.appendChild(meta2);
+  const meta3=document.createElement('meta');
+  meta3.name='apple-mobile-web-app-title';meta3.content='PWL';
+  document.head.appendChild(meta3);
+  const meta4=document.createElement('meta');
+  meta4.name='theme-color';meta4.content='#0a0a0a';
+  document.head.appendChild(meta4);
+})();
+
+// ===== FEATURE 8: ENHANCED GLASS THEME — AUTO-DETECT iOS =====
+// Already handled in theme toggle code — iOS auto-detection sets glass on first visit
+
+// ===== FEATURE 9: SITE COUNT IN TITLE =====
+(function updateTitle(){
+  let total=0;
+  DATA.forEach(cat=>total+=cat.sites.length);
+  document.title=`Powerful Free Websites Library — ${total}+ Free Tools & Sites`;
+})();
+
+// ===== FEATURE 10: DOUBLE-TAP FIX FOR iOS =====
+// Prevent iOS double-tap zoom on interactive elements
+document.addEventListener('touchend',(e)=>{
+  const target=e.target.closest('.fav-btn,.share-btn,.nav-btn,.section-tab,.surprise-btn,.theme-toggle,.mobile-nav-toggle,.btn-visit,.recent-chip,.export-favs-btn');
+  if(target){
+    e.preventDefault();
+    target.click();
+  }
+},{passive:false});
 
 </script>
 </body>
