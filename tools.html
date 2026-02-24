@@ -166,6 +166,65 @@
   .tool-status.success{display:block;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
   .tool-status.loading{display:block;background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)}
 
+  /* Scroll to Top Button */
+  .scroll-top-btn{
+    position:fixed;bottom:24px;right:24px;z-index:999;
+    width:52px;height:52px;border-radius:50%;border:none;
+    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
+    font-size:1.4rem;cursor:pointer;display:none;align-items:center;justify-content:center;
+    box-shadow:0 4px 20px rgba(220,38,38,.4);transition:all .3s;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  }
+  .scroll-top-btn.visible{display:flex}
+  .scroll-top-btn:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(220,38,38,.5)}
+  .scroll-top-btn:active{transform:scale(.92)}
+  @media(max-width:768px){
+    .scroll-top-btn{bottom:20px;right:16px;width:48px;height:48px;font-size:1.2rem}
+  }
+
+  /* Emoji Grid */
+  .emoji-grid{
+    display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:12px;
+    max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch;
+    scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);
+  }
+  .emoji-cell{
+    font-size:1.5rem;text-align:center;padding:8px 0;border-radius:8px;
+    cursor:pointer;transition:all .15s;touch-action:manipulation;
+    background:transparent;border:none;
+  }
+  .emoji-cell:hover{background:var(--surface)}
+  .emoji-cell:active{transform:scale(1.3);background:var(--border)}
+  @media(max-width:400px){.emoji-grid{grid-template-columns:repeat(6,1fr)}}
+
+  /* Diff output */
+  .diff-output{white-space:pre-wrap;font-size:.8rem;line-height:1.6;max-height:300px;overflow:auto;-webkit-overflow-scrolling:touch}
+  .diff-add{background:rgba(16,185,129,.15);color:#10b981}
+  .diff-del{background:rgba(220,38,38,.15);color:#ef4444;text-decoration:line-through}
+  .diff-same{color:var(--text-muted)}
+
+  /* Regex matches */
+  .regex-match{background:rgba(220,38,38,.2);color:var(--accent);padding:1px 2px;border-radius:3px}
+
+  /* Countdown */
+  .countdown-display{
+    font-size:2rem;font-weight:700;text-align:center;
+    font-family:'SF Mono',Monaco,Consolas,monospace;
+    color:var(--accent);margin:12px 0;letter-spacing:1px;
+  }
+  @media(max-width:768px){.countdown-display{font-size:1.5rem}}
+
+  /* Tip calc result */
+  .tip-result{
+    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;
+  }
+  .tip-val{
+    text-align:center;padding:12px 8px;border-radius:12px;
+    background:var(--surface);border:1px solid var(--border);
+  }
+  .tip-val .num{font-size:1.3rem;font-weight:700;color:var(--accent)}
+  .tip-val .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:4px}
+
   /* Footer */
   .footer{
     text-align:center;padding:30px 20px;color:var(--text-muted);font-size:.8rem;
@@ -358,7 +417,156 @@
     <div class="tool-output show" id="mdOutput" style="color:var(--text);line-height:1.6"></div>
   </div>
 
+  <!-- ===== NEW TOOLS ===== -->
+
+  <!-- 13. UUID Generator -->
+  <div class="tool-card">
+    <div class="tool-icon">🆔</div>
+    <h2>UUID Generator</h2>
+    <p class="tool-desc">Generate random UUIDs (v4) for database keys, API tokens, or unique identifiers.</p>
+    <button class="tool-btn" onclick="generateUUID()">Generate UUID</button>
+    <button class="tool-btn secondary" onclick="generateBulkUUID()">Generate 5 UUIDs</button>
+    <div class="tool-output" id="uuidOutput"></div>
+  </div>
+
+  <!-- 14. Emoji Picker -->
+  <div class="tool-card">
+    <div class="tool-icon">😀</div>
+    <h2>Emoji Picker & Search</h2>
+    <p class="tool-desc">Search and tap to copy any emoji. Works great on mobile — tap an emoji to copy it.</p>
+    <input type="text" class="tool-input" id="emojiSearch" placeholder="Search emojis... (e.g. fire, heart, star)" oninput="filterEmojis()">
+    <div class="emoji-grid" id="emojiGrid"></div>
+    <div id="emojiStatus" class="tool-status"></div>
+  </div>
+
+  <!-- 15. Timestamp Converter -->
+  <div class="tool-card">
+    <div class="tool-icon">🕐</div>
+    <h2>Timestamp Converter</h2>
+    <p class="tool-desc">Convert between Unix timestamps and human-readable dates. Get the current timestamp instantly.</p>
+    <button class="tool-btn" onclick="getCurrentTimestamp()">Get Current Timestamp</button>
+    <input type="text" class="tool-input" id="tsInput" placeholder="Enter Unix timestamp (e.g. 1708700000) or date..." style="margin-top:12px">
+    <div class="tool-row">
+      <button class="tool-btn" onclick="tsToDate()">Timestamp → Date</button>
+      <button class="tool-btn secondary" onclick="dateToTs()">Date → Timestamp</button>
+    </div>
+    <div class="tool-output" id="tsOutput"></div>
+  </div>
+
+  <!-- 16. Regex Tester -->
+  <div class="tool-card">
+    <div class="tool-icon">🔍</div>
+    <h2>Regex Tester</h2>
+    <p class="tool-desc">Test regular expressions against text in real-time. See matches highlighted instantly.</p>
+    <input type="text" class="tool-input" id="regexPattern" placeholder="Enter regex pattern (e.g. \d+)" oninput="testRegex()">
+    <input type="text" class="tool-input" id="regexFlags" placeholder="Flags (e.g. gi)" value="gi" style="margin-top:8px;max-width:120px" oninput="testRegex()">
+    <textarea class="tool-input" id="regexText" placeholder="Enter test text here..." style="margin-top:8px" oninput="testRegex()"></textarea>
+    <div class="tool-output show" id="regexOutput" style="color:var(--text);line-height:1.6;word-break:break-word"></div>
+    <div class="tool-output" id="regexMatches" style="font-size:.8rem"></div>
+  </div>
+
+  <!-- 17. Text Diff Checker -->
+  <div class="tool-card">
+    <div class="tool-icon">📊</div>
+    <h2>Text Diff Checker</h2>
+    <p class="tool-desc">Compare two texts and see the differences highlighted. Great for code reviews.</p>
+    <textarea class="tool-input" id="diffText1" placeholder="Original text..."></textarea>
+    <textarea class="tool-input" id="diffText2" placeholder="Modified text..." style="margin-top:8px"></textarea>
+    <button class="tool-btn" onclick="computeDiff()">Compare Texts</button>
+    <div class="tool-output diff-output" id="diffOutput"></div>
+  </div>
+
+  <!-- 18. Pixel/REM Converter -->
+  <div class="tool-card">
+    <div class="tool-icon">📐</div>
+    <h2>PX ↔ REM Converter</h2>
+    <p class="tool-desc">Convert between pixels and REM units. Set your base font size for accurate conversion.</p>
+    <div class="slider-row">
+      <span>Base:</span>
+      <input type="range" id="remBase" min="10" max="24" value="16" oninput="document.getElementById('remBaseVal').textContent=this.value+'px';convertPxRem()">
+      <span id="remBaseVal">16px</span>
+    </div>
+    <input type="number" class="tool-input" id="pxInput" placeholder="Enter pixels (e.g. 24)" style="margin-top:12px" oninput="convertPxRem()">
+    <div class="tool-output show" id="remOutput" style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
+    <input type="number" class="tool-input" id="remInput" placeholder="Enter REM (e.g. 1.5)" style="margin-top:12px" oninput="convertRemPx()">
+    <div class="tool-output show" id="pxOutput" style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
+  </div>
+
+  <!-- 19. Tip Calculator -->
+  <div class="tool-card">
+    <div class="tool-icon">💰</div>
+    <h2>Tip Calculator</h2>
+    <p class="tool-desc">Calculate tips and split bills between friends. Quick and easy.</p>
+    <input type="number" class="tool-input" id="tipBill" placeholder="Bill amount ($)" oninput="calcTip()">
+    <div class="slider-row">
+      <span>Tip:</span>
+      <input type="range" id="tipPercent" min="0" max="30" value="18" oninput="document.getElementById('tipPercentVal').textContent=this.value+'%';calcTip()">
+      <span id="tipPercentVal">18%</span>
+    </div>
+    <div class="slider-row">
+      <span>Split:</span>
+      <input type="range" id="tipSplit" min="1" max="12" value="1" oninput="document.getElementById('tipSplitVal').textContent=this.value;calcTip()">
+      <span id="tipSplitVal">1</span>
+    </div>
+    <div class="tip-result">
+      <div class="tip-val"><div class="num" id="tipAmount">$0.00</div><div class="label">Tip</div></div>
+      <div class="tip-val"><div class="num" id="tipTotal">$0.00</div><div class="label">Total</div></div>
+      <div class="tip-val"><div class="num" id="tipPerPerson">$0.00</div><div class="label">Per Person</div></div>
+      <div class="tip-val"><div class="num" id="tipTipPP">$0.00</div><div class="label">Tip/Person</div></div>
+    </div>
+  </div>
+
+  <!-- 20. BMI Calculator -->
+  <div class="tool-card">
+    <div class="tool-icon">⚖️</div>
+    <h2>BMI Calculator</h2>
+    <p class="tool-desc">Calculate your Body Mass Index. Supports both metric (kg/cm) and imperial (lbs/in).</p>
+    <div class="tool-row">
+      <button class="tool-btn" id="bmiMetricBtn" onclick="setBMIUnit('metric')" style="margin-top:0">Metric</button>
+      <button class="tool-btn secondary" id="bmiImperialBtn" onclick="setBMIUnit('imperial')" style="margin-top:0">Imperial</button>
+    </div>
+    <input type="number" class="tool-input" id="bmiWeight" placeholder="Weight (kg)" style="margin-top:12px" oninput="calcBMI()">
+    <input type="number" class="tool-input" id="bmiHeight" placeholder="Height (cm)" style="margin-top:8px" oninput="calcBMI()">
+    <div class="tool-output show" id="bmiOutput" style="text-align:center;font-size:1.1rem;color:var(--text)">Enter your weight and height</div>
+  </div>
+
+  <!-- 21. Countdown Timer -->
+  <div class="tool-card">
+    <div class="tool-icon">⏳</div>
+    <h2>Countdown Timer</h2>
+    <p class="tool-desc">Set a countdown timer with minutes and seconds. Alerts when time is up.</p>
+    <div class="tool-row">
+      <input type="number" class="tool-input" id="cdMinutes" placeholder="Min" min="0" max="999" value="5">
+      <input type="number" class="tool-input" id="cdSeconds" placeholder="Sec" min="0" max="59" value="0">
+    </div>
+    <div class="countdown-display" id="cdDisplay">05:00</div>
+    <div class="tool-row">
+      <button class="tool-btn" id="cdStartBtn" onclick="cdToggle()">▶ Start</button>
+      <button class="tool-btn secondary" onclick="cdReset()">↺ Reset</button>
+    </div>
+  </div>
+
+  <!-- 22. Whitespace / Text Cleaner -->
+  <div class="tool-card">
+    <div class="tool-icon">🧹</div>
+    <h2>Text Cleaner</h2>
+    <p class="tool-desc">Remove extra whitespace, blank lines, trailing spaces, and clean up messy text.</p>
+    <textarea class="tool-input" id="cleanInput" placeholder="Paste messy text here..."></textarea>
+    <div class="tool-row">
+      <button class="tool-btn" onclick="cleanText('spaces')">Fix Spaces</button>
+      <button class="tool-btn secondary" onclick="cleanText('lines')">Remove Blank Lines</button>
+    </div>
+    <div class="tool-row">
+      <button class="tool-btn secondary" onclick="cleanText('trim')">Trim Lines</button>
+      <button class="tool-btn secondary" onclick="cleanText('all')">Clean All</button>
+    </div>
+    <div class="tool-output" id="cleanOutput" style="white-space:pre-wrap"></div>
+  </div>
+
 </div>
+
+<!-- Scroll to Top Button -->
+<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">⬆</button>
 
 <div class="footer">
   <p>Part of the <a href="/">Powerful Free Websites Library</a> — All tools run 100% in your browser. No data is sent anywhere.</p>
@@ -740,32 +948,370 @@ function previewMD() {
 // ===== COPY OUTPUT =====
 function copyOutput(id) {
   var el = document.getElementById(id);
-  // Get text content excluding the copy button
   var text = '';
   for (var i = 0; i < el.childNodes.length; i++) {
     var node = el.childNodes[i];
-    if (node.nodeType === 3) { // Text node
-      text += node.textContent;
-    }
+    if (node.nodeType === 3) text += node.textContent;
   }
   text = text.trim();
+  clipCopy(text);
+  var btn = el.querySelector('.copy-out');
+  if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
+}
 
-  navigator.clipboard.writeText(text).then(function() {
-    var btn = el.querySelector('.copy-out');
-    if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
-  }).catch(function() {
-    // Fallback for older browsers / non-HTTPS
-    var ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    try { document.execCommand('copy'); } catch(e) {}
-    document.body.removeChild(ta);
-    var btn = el.querySelector('.copy-out');
-    if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
+// Universal clipboard helper
+function clipCopy(text) {
+  if (navigator.clipboard && navigator.clipboard.writeText) {
+    navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); });
+  } else {
+    fallbackCopy(text);
+  }
+}
+function fallbackCopy(text) {
+  var ta = document.createElement('textarea');
+  ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+  document.body.appendChild(ta); ta.select();
+  try { document.execCommand('copy'); } catch(e) {}
+  document.body.removeChild(ta);
+}
+
+// ===== SCROLL TO TOP BUTTON =====
+(function() {
+  var btn = document.getElementById('scrollTopBtn');
+  if (!btn) return;
+  window.addEventListener('scroll', function() {
+    if (window.scrollY > 400) {
+      btn.classList.add('visible');
+    } else {
+      btn.classList.remove('visible');
+    }
+  }, { passive: true });
+})();
+
+// ===== UUID GENERATOR =====
+function makeUUID() {
+  if (crypto.randomUUID) return crypto.randomUUID();
+  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
+    var r = Math.random() * 16 | 0;
+    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
   });
+}
+function generateUUID() {
+  setOutput('uuidOutput', makeUUID());
+}
+function generateBulkUUID() {
+  var uuids = [];
+  for (var i = 0; i < 5; i++) uuids.push(makeUUID());
+  setOutput('uuidOutput', uuids.join('\n'));
+  document.getElementById('uuidOutput').style.whiteSpace = 'pre-wrap';
+  document.getElementById('uuidOutput').style.wordBreak = 'break-all';
+}
+
+// ===== EMOJI PICKER =====
+var EMOJIS = [
+  {e:'😀',t:'grinning face happy smile'},{e:'😂',t:'joy laugh crying tears'},{e:'🤣',t:'rofl rolling floor laughing'},{e:'😊',t:'blush happy smile'},{e:'😍',t:'heart eyes love'},{e:'🥰',t:'love hearts face'},{e:'😘',t:'kiss blowing'},{e:'😎',t:'cool sunglasses'},{e:'🤔',t:'thinking hmm'},{e:'😏',t:'smirk'},{e:'😢',t:'cry sad tear'},{e:'😭',t:'sobbing crying loud'},{e:'😤',t:'angry huff'},{e:'🥺',t:'pleading puppy eyes'},{e:'😱',t:'scream shock'},{e:'🤯',t:'mind blown exploding'},{e:'😴',t:'sleep zzz'},{e:'🤮',t:'vomit sick'},{e:'🤡',t:'clown'},{e:'👻',t:'ghost boo'},
+  {e:'❤️',t:'red heart love'},{e:'🧡',t:'orange heart'},{e:'💛',t:'yellow heart'},{e:'💚',t:'green heart'},{e:'💙',t:'blue heart'},{e:'💜',t:'purple heart'},{e:'🖤',t:'black heart'},{e:'🤍',t:'white heart'},{e:'💔',t:'broken heart'},{e:'💕',t:'two hearts'},
+  {e:'👍',t:'thumbs up like yes'},{e:'👎',t:'thumbs down dislike no'},{e:'👏',t:'clap applause'},{e:'🙌',t:'raise hands celebration'},{e:'🤝',t:'handshake deal'},{e:'✌️',t:'peace victory'},{e:'🤞',t:'crossed fingers luck'},{e:'💪',t:'muscle strong flex'},{e:'🙏',t:'pray please thanks'},{e:'👋',t:'wave hello bye'},
+  {e:'🔥',t:'fire hot lit'},{e:'⭐',t:'star'},{e:'🌟',t:'glowing star sparkle'},{e:'💫',t:'dizzy star'},{e:'✨',t:'sparkles magic'},{e:'⚡',t:'lightning bolt zap'},{e:'💥',t:'boom explosion'},{e:'🎉',t:'party tada celebration'},{e:'🎊',t:'confetti ball'},{e:'🏆',t:'trophy winner champion'},
+  {e:'✅',t:'check mark done yes'},{e:'❌',t:'cross mark no wrong'},{e:'⚠️',t:'warning caution'},{e:'🚀',t:'rocket launch'},{e:'💡',t:'light bulb idea'},{e:'🔑',t:'key'},{e:'🔒',t:'lock locked'},{e:'🔓',t:'unlock unlocked'},{e:'📌',t:'pin pushpin'},{e:'📎',t:'paperclip'},
+  {e:'💻',t:'laptop computer'},{e:'📱',t:'phone mobile'},{e:'🖥️',t:'desktop computer monitor'},{e:'⌨️',t:'keyboard'},{e:'🖱️',t:'mouse'},{e:'💾',t:'floppy disk save'},{e:'📡',t:'satellite antenna'},{e:'🔋',t:'battery'},{e:'🌐',t:'globe internet web'},{e:'📧',t:'email mail'},
+  {e:'🐶',t:'dog puppy'},{e:'🐱',t:'cat kitty'},{e:'🐻',t:'bear'},{e:'🦊',t:'fox'},{e:'🐼',t:'panda'},{e:'🦁',t:'lion'},{e:'🐸',t:'frog'},{e:'🐙',t:'octopus'},{e:'🦋',t:'butterfly'},{e:'🐝',t:'bee honeybee'},
+  {e:'🍕',t:'pizza'},{e:'🍔',t:'burger hamburger'},{e:'🍟',t:'fries french'},{e:'🌮',t:'taco'},{e:'🍣',t:'sushi'},{e:'🍩',t:'donut doughnut'},{e:'☕',t:'coffee hot'},{e:'🍺',t:'beer'},{e:'🍷',t:'wine'},{e:'🧃',t:'juice box'}
+];
+
+function initEmojiGrid() {
+  var grid = document.getElementById('emojiGrid');
+  if (!grid) return;
+  grid.innerHTML = '';
+  EMOJIS.forEach(function(item) {
+    var btn = document.createElement('button');
+    btn.className = 'emoji-cell';
+    btn.textContent = item.e;
+    btn.setAttribute('data-tags', item.t);
+    btn.onclick = function() {
+      clipCopy(item.e);
+      setStatus('emojiStatus', 'Copied ' + item.e + ' to clipboard!', 'success');
+      setTimeout(function() {
+        var s = document.getElementById('emojiStatus');
+        if (s) { s.className = 'tool-status'; s.textContent = ''; }
+      }, 1500);
+    };
+    grid.appendChild(btn);
+  });
+}
+function filterEmojis() {
+  var q = document.getElementById('emojiSearch').value.toLowerCase().trim();
+  var cells = document.querySelectorAll('.emoji-cell');
+  cells.forEach(function(cell) {
+    var tags = cell.getAttribute('data-tags') || '';
+    var emoji = cell.textContent;
+    if (!q || tags.indexOf(q) !== -1 || emoji.indexOf(q) !== -1) {
+      cell.style.display = '';
+    } else {
+      cell.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('DOMContentLoaded', initEmojiGrid);
+
+// ===== TIMESTAMP CONVERTER =====
+function getCurrentTimestamp() {
+  var now = Math.floor(Date.now() / 1000);
+  document.getElementById('tsInput').value = now;
+  setOutput('tsOutput', 'Current Unix Timestamp: ' + now + '\n\nHuman Readable:\n' + new Date().toString() + '\n\nISO 8601:\n' + new Date().toISOString());
+  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+  document.getElementById('tsOutput').style.wordBreak = 'break-word';
+}
+function tsToDate() {
+  var val = document.getElementById('tsInput').value.trim();
+  if (!val) return;
+  var ts = parseInt(val);
+  if (isNaN(ts)) { setOutput('tsOutput', 'Error: Enter a valid Unix timestamp'); return; }
+  // Handle seconds vs milliseconds
+  if (ts < 1e12) ts *= 1000;
+  var d = new Date(ts);
+  if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Invalid timestamp'); return; }
+  setOutput('tsOutput', 'Local: ' + d.toString() + '\nUTC: ' + d.toUTCString() + '\nISO: ' + d.toISOString());
+  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+  document.getElementById('tsOutput').style.wordBreak = 'break-word';
+}
+function dateToTs() {
+  var val = document.getElementById('tsInput').value.trim();
+  if (!val) return;
+  var d = new Date(val);
+  if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Could not parse date. Try formats like:\n2025-01-15\n2025-01-15T10:30:00\nJan 15, 2025'); document.getElementById('tsOutput').style.whiteSpace='pre-wrap'; return; }
+  var ts = Math.floor(d.getTime() / 1000);
+  setOutput('tsOutput', 'Unix Timestamp: ' + ts + '\nMilliseconds: ' + d.getTime());
+  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+}
+
+// ===== REGEX TESTER =====
+function testRegex() {
+  var pattern = document.getElementById('regexPattern').value;
+  var flags = document.getElementById('regexFlags').value;
+  var text = document.getElementById('regexText').value;
+  var outEl = document.getElementById('regexOutput');
+  var matchEl = document.getElementById('regexMatches');
+
+  if (!pattern || !text) {
+    outEl.innerHTML = '<span style="color:var(--text-muted)">Enter a pattern and text to see matches</span>';
+    matchEl.classList.remove('show');
+    return;
+  }
+
+  try {
+    var regex = new RegExp(pattern, flags);
+    var matches = [];
+    var match;
+    var safeFlags = flags.indexOf('g') !== -1 ? flags : flags + 'g';
+    var gRegex = new RegExp(pattern, safeFlags);
+
+    while ((match = gRegex.exec(text)) !== null) {
+      matches.push({ text: match[0], index: match.index });
+      if (match.index === gRegex.lastIndex) gRegex.lastIndex++;
+      if (matches.length > 100) break;
+    }
+
+    // Build highlighted output
+    var html = '';
+    var lastIdx = 0;
+    matches.forEach(function(m) {
+      if (m.index > lastIdx) {
+        html += escapeHtml(text.substring(lastIdx, m.index));
+      }
+      html += '<span class="regex-match">' + escapeHtml(m.text) + '</span>';
+      lastIdx = m.index + m.text.length;
+    });
+    if (lastIdx < text.length) html += escapeHtml(text.substring(lastIdx));
+
+    outEl.innerHTML = html || '<span style="color:var(--text-muted)">No matches</span>';
+
+    // Show match count
+    setOutput('regexMatches', matches.length + ' match' + (matches.length !== 1 ? 'es' : '') + ' found');
+  } catch(e) {
+    outEl.innerHTML = '<span style="color:#ef4444">Invalid regex: ' + escapeHtml(e.message) + '</span>';
+    matchEl.classList.remove('show');
+  }
+}
+function escapeHtml(str) {
+  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+
+// ===== TEXT DIFF CHECKER =====
+function computeDiff() {
+  var text1 = document.getElementById('diffText1').value;
+  var text2 = document.getElementById('diffText2').value;
+  if (!text1 && !text2) return;
+
+  var lines1 = text1.split('\n');
+  var lines2 = text2.split('\n');
+  var maxLen = Math.max(lines1.length, lines2.length);
+  var html = '';
+
+  for (var i = 0; i < maxLen; i++) {
+    var l1 = i < lines1.length ? lines1[i] : undefined;
+    var l2 = i < lines2.length ? lines2[i] : undefined;
+
+    if (l1 === l2) {
+      html += '<div class="diff-same">  ' + escapeHtml(l1) + '</div>';
+    } else {
+      if (l1 !== undefined) html += '<div class="diff-del">- ' + escapeHtml(l1) + '</div>';
+      if (l2 !== undefined) html += '<div class="diff-add">+ ' + escapeHtml(l2) + '</div>';
+    }
+  }
+
+  var out = document.getElementById('diffOutput');
+  out.innerHTML = html || '<span style="color:var(--text-muted)">Texts are identical</span>';
+  out.classList.add('show');
+}
+
+// ===== PX/REM CONVERTER =====
+function convertPxRem() {
+  var px = parseFloat(document.getElementById('pxInput').value);
+  var base = parseInt(document.getElementById('remBase').value);
+  if (isNaN(px)) { document.getElementById('remOutput').textContent = '—'; return; }
+  var rem = (px / base).toFixed(4).replace(/\.?0+$/, '');
+  document.getElementById('remOutput').textContent = rem + ' rem';
+}
+function convertRemPx() {
+  var rem = parseFloat(document.getElementById('remInput').value);
+  var base = parseInt(document.getElementById('remBase').value);
+  if (isNaN(rem)) { document.getElementById('pxOutput').textContent = '—'; return; }
+  var px = (rem * base).toFixed(2).replace(/\.?0+$/, '');
+  document.getElementById('pxOutput').textContent = px + ' px';
+}
+
+// ===== TIP CALCULATOR =====
+function calcTip() {
+  var bill = parseFloat(document.getElementById('tipBill').value) || 0;
+  var pct = parseInt(document.getElementById('tipPercent').value) || 0;
+  var split = parseInt(document.getElementById('tipSplit').value) || 1;
+  var tip = bill * (pct / 100);
+  var total = bill + tip;
+  var perPerson = total / split;
+  var tipPP = tip / split;
+  document.getElementById('tipAmount').textContent = '$' + tip.toFixed(2);
+  document.getElementById('tipTotal').textContent = '$' + total.toFixed(2);
+  document.getElementById('tipPerPerson').textContent = '$' + perPerson.toFixed(2);
+  document.getElementById('tipTipPP').textContent = '$' + tipPP.toFixed(2);
+}
+
+// ===== BMI CALCULATOR =====
+var bmiUnit = 'metric';
+function setBMIUnit(unit) {
+  bmiUnit = unit;
+  var metBtn = document.getElementById('bmiMetricBtn');
+  var impBtn = document.getElementById('bmiImperialBtn');
+  if (unit === 'metric') {
+    metBtn.className = 'tool-btn'; impBtn.className = 'tool-btn secondary';
+    document.getElementById('bmiWeight').placeholder = 'Weight (kg)';
+    document.getElementById('bmiHeight').placeholder = 'Height (cm)';
+  } else {
+    impBtn.className = 'tool-btn'; metBtn.className = 'tool-btn secondary';
+    document.getElementById('bmiWeight').placeholder = 'Weight (lbs)';
+    document.getElementById('bmiHeight').placeholder = 'Height (inches)';
+  }
+  calcBMI();
+}
+function calcBMI() {
+  var w = parseFloat(document.getElementById('bmiWeight').value);
+  var h = parseFloat(document.getElementById('bmiHeight').value);
+  var out = document.getElementById('bmiOutput');
+  if (!w || !h || w <= 0 || h <= 0) { out.textContent = 'Enter your weight and height'; return; }
+
+  var bmi;
+  if (bmiUnit === 'metric') {
+    bmi = w / Math.pow(h / 100, 2);
+  } else {
+    bmi = (w / Math.pow(h, 2)) * 703;
+  }
+
+  var category = '';
+  var color = '';
+  if (bmi < 18.5) { category = 'Underweight'; color = '#3b82f6'; }
+  else if (bmi < 25) { category = 'Normal weight'; color = '#10b981'; }
+  else if (bmi < 30) { category = 'Overweight'; color = '#f59e0b'; }
+  else { category = 'Obese'; color = '#ef4444'; }
+
+  out.innerHTML = '<div style="font-size:2rem;font-weight:800;color:' + color + '">' + bmi.toFixed(1) + '</div>' +
+    '<div style="color:' + color + ';font-weight:600;margin-top:4px">' + category + '</div>' +
+    '<div style="color:var(--text-muted);font-size:.8rem;margin-top:8px">BMI Categories: Underweight < 18.5 | Normal 18.5–24.9 | Overweight 25–29.9 | Obese 30+</div>';
+}
+
+// ===== COUNTDOWN TIMER =====
+var cdRunning = false, cdInterval = null, cdRemaining = 300;
+function cdToggle() {
+  if (cdRunning) {
+    clearInterval(cdInterval); cdRunning = false;
+    document.getElementById('cdStartBtn').textContent = '▶ Resume';
+  } else {
+    if (cdRemaining <= 0) {
+      var m = parseInt(document.getElementById('cdMinutes').value) || 0;
+      var s = parseInt(document.getElementById('cdSeconds').value) || 0;
+      cdRemaining = m * 60 + s;
+    }
+    if (cdRemaining <= 0) return;
+    cdRunning = true;
+    document.getElementById('cdStartBtn').textContent = '⏸ Pause';
+    cdInterval = setInterval(function() {
+      cdRemaining--;
+      if (cdRemaining <= 0) {
+        cdRemaining = 0;
+        clearInterval(cdInterval); cdRunning = false;
+        document.getElementById('cdStartBtn').textContent = '▶ Start';
+        document.getElementById('cdDisplay').textContent = '00:00';
+        document.getElementById('cdDisplay').style.color = '#10b981';
+        // Alert
+        try { if (Notification.permission === 'granted') new Notification('Timer Done!', {body:'Your countdown has finished.'}); } catch(e) {}
+        alert('⏰ Time is up!');
+        return;
+      }
+      updateCdDisplay();
+    }, 1000);
+  }
+}
+function cdReset() {
+  clearInterval(cdInterval); cdRunning = false;
+  var m = parseInt(document.getElementById('cdMinutes').value) || 0;
+  var s = parseInt(document.getElementById('cdSeconds').value) || 0;
+  cdRemaining = m * 60 + s;
+  document.getElementById('cdStartBtn').textContent = '▶ Start';
+  document.getElementById('cdDisplay').style.color = 'var(--accent)';
+  updateCdDisplay();
+}
+function updateCdDisplay() {
+  var m = Math.floor(cdRemaining / 60);
+  var s = cdRemaining % 60;
+  document.getElementById('cdDisplay').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+}
+
+// ===== TEXT CLEANER =====
+function cleanText(mode) {
+  var text = document.getElementById('cleanInput').value;
+  if (!text) return;
+  var result = text;
+  switch(mode) {
+    case 'spaces':
+      result = text.replace(/[ \t]+/g, ' ');
+      break;
+    case 'lines':
+      result = text.replace(/\n{3,}/g, '\n\n').replace(/^\s*\n/gm, '');
+      break;
+    case 'trim':
+      result = text.split('\n').map(function(l) { return l.trim(); }).join('\n');
+      break;
+    case 'all':
+      result = text
+        .replace(/[ \t]+/g, ' ')
+        .split('\n').map(function(l) { return l.trim(); }).join('\n')
+        .replace(/\n{3,}/g, '\n\n')
+        .replace(/^\s*\n/gm, '')
+        .trim();
+      break;
+  }
+  setOutput('cleanOutput', result);
+  document.getElementById('cleanOutput').style.whiteSpace = 'pre-wrap';
+  document.getElementById('cleanOutput').style.wordBreak = 'break-word';
 }
 </script>
 </body>
