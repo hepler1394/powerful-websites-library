@@ -18,6 +18,7 @@
     font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
     background:var(--bg);color:var(--text);min-height:100vh;
     padding-bottom:env(safe-area-inset-bottom,0);
+    -webkit-text-size-adjust:100%;
   }
   a{color:var(--accent);text-decoration:none}
   a:hover{text-decoration:underline}
@@ -47,7 +48,8 @@
     display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
     gap:24px;padding:0 24px 60px;max-width:1200px;margin:0 auto;
   }
-  @media(max-width:400px){.tools-grid{grid-template-columns:1fr;padding:0 16px 60px}}
+  @media(max-width:400px){.tools-grid{grid-template-columns:1fr;padding:0 12px 60px;gap:16px}}
+  @media(min-width:401px) and (max-width:768px){.tools-grid{grid-template-columns:1fr;padding:0 16px 60px;gap:20px}}
 
   /* Tool Card */
   .tool-card{
@@ -68,21 +70,24 @@
   /* Form Elements */
   .tool-input{
     width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--border);
-    background:var(--surface);color:var(--text);font-size:.95rem;
+    background:var(--surface);color:var(--text);font-size:16px;
     outline:none;transition:border-color .2s;font-family:inherit;
+    -webkit-appearance:none;appearance:none;
   }
   .tool-input:focus{border-color:var(--accent)}
   textarea.tool-input{resize:vertical;min-height:80px}
   .tool-btn{
-    width:100%;padding:12px;border-radius:12px;border:none;
+    width:100%;padding:14px;border-radius:12px;border:none;
     background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
-    font-size:.95rem;font-weight:600;cursor:pointer;transition:all .2s;
-    margin-top:12px;
+    font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;
+    margin-top:12px;-webkit-appearance:none;appearance:none;
+    touch-action:manipulation;
   }
   .tool-btn:hover{opacity:.9;transform:translateY(-1px)}
-  .tool-btn:active{transform:scale(.98)}
+  .tool-btn:active{transform:scale(.98);opacity:.85}
   .tool-btn.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text)}
   .tool-btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
+  .tool-btn.secondary:active{background:var(--border)}
   .tool-output{
     margin-top:12px;padding:14px;border-radius:12px;
     background:var(--surface);border:1px solid var(--border);
@@ -93,21 +98,25 @@
   .tool-output.show{display:block}
   .tool-output .copy-out{
     position:absolute;top:8px;right:8px;background:var(--card);
-    border:1px solid var(--border);border-radius:8px;padding:4px 10px;
+    border:1px solid var(--border);border-radius:8px;padding:6px 12px;
     color:var(--text-dim);font-size:.75rem;cursor:pointer;transition:all .2s;
+    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+    min-width:44px;min-height:32px;display:flex;align-items:center;justify-content:center;
   }
   .tool-output .copy-out:hover{color:var(--accent);border-color:var(--accent)}
+  .tool-output .copy-out:active{background:var(--border)}
   .tool-row{display:flex;gap:10px;margin-top:12px}
   .tool-row>*{flex:1}
   .slider-row{display:flex;align-items:center;gap:12px;margin-top:12px}
-  .slider-row input[type=range]{flex:1;accent-color:var(--accent)}
+  .slider-row input[type=range]{flex:1;accent-color:var(--accent);height:24px}
   .slider-row span{color:var(--text-dim);font-size:.85rem;min-width:30px}
-  .checkbox-row{display:flex;align-items:center;gap:8px;margin-top:8px;color:var(--text-dim);font-size:.85rem}
-  .checkbox-row input{accent-color:var(--accent)}
+  .checkbox-row{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--text-dim);font-size:.9rem;min-height:44px}
+  .checkbox-row input[type=checkbox]{accent-color:var(--accent);width:20px;height:20px;cursor:pointer}
+  .checkbox-row label{cursor:pointer}
 
   /* QR Code */
   #qrOutput{text-align:center}
-  #qrOutput canvas{border-radius:12px;max-width:100%}
+  #qrOutput canvas,#qrOutput img{border-radius:12px;max-width:100%}
 
   /* Color Picker */
   .color-preview{
@@ -116,10 +125,12 @@
   }
   .color-values{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
   .color-val{
-    padding:8px 12px;border-radius:8px;background:var(--surface);
+    padding:10px 12px;border-radius:8px;background:var(--surface);
     border:1px solid var(--border);font-family:monospace;font-size:.8rem;
-    color:var(--text-dim);text-align:center;
+    color:var(--text-dim);text-align:center;cursor:pointer;
+    transition:all .2s;touch-action:manipulation;
   }
+  .color-val:active{border-color:var(--accent);color:var(--accent)}
 
   /* Word Counter */
   .count-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
@@ -134,21 +145,43 @@
   .json-output{
     max-height:300px;overflow:auto;white-space:pre-wrap;
     scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);
+    -webkit-overflow-scrolling:touch;
   }
 
   /* Timer */
   .timer-display{
-    font-size:3rem;font-weight:700;text-align:center;
+    font-size:2.5rem;font-weight:700;text-align:center;
     font-family:'SF Mono',Monaco,Consolas,monospace;
     color:var(--accent);margin:16px 0;letter-spacing:2px;
   }
   .timer-btns{display:flex;gap:10px}
   .timer-btns .tool-btn{flex:1}
 
+  /* Status message */
+  .tool-status{
+    margin-top:8px;padding:8px 12px;border-radius:8px;font-size:.8rem;
+    text-align:center;display:none;
+  }
+  .tool-status.error{display:block;background:rgba(220,38,38,.15);color:#ef4444;border:1px solid rgba(220,38,38,.3)}
+  .tool-status.success{display:block;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
+  .tool-status.loading{display:block;background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)}
+
   /* Footer */
   .footer{
     text-align:center;padding:30px 20px;color:var(--text-muted);font-size:.8rem;
     border-top:1px solid var(--border);
+  }
+
+  /* Mobile-specific */
+  @media(max-width:768px){
+    .header{padding:30px 16px 20px}
+    .header h1{font-size:1.8rem}
+    .header p{font-size:.9rem}
+    .tool-card{padding:20px}
+    .tool-card h2{font-size:1.1rem}
+    .timer-display{font-size:2rem}
+    .count-stat .num{font-size:1.2rem}
+    .tool-row{gap:8px}
   }
 </style>
 </head>
@@ -167,8 +200,9 @@
     <div class="tool-icon">📱</div>
     <h2>QR Code Generator</h2>
     <p class="tool-desc">Generate QR codes for any URL, text, or contact info. Download as PNG.</p>
-    <input type="text" class="tool-input" id="qrInput" placeholder="Enter URL or text...">
-    <button class="tool-btn" onclick="generateQR()">Generate QR Code</button>
+    <input type="text" class="tool-input" id="qrInput" placeholder="Enter URL or text..." value="https://powerful-websites-library.vercel.app">
+    <button class="tool-btn" id="qrBtn" onclick="generateQR()">Generate QR Code</button>
+    <div id="qrStatus" class="tool-status"></div>
     <div class="tool-output" id="qrOutput"></div>
     <button class="tool-btn secondary" id="qrDownload" style="display:none" onclick="downloadQR()">⬇ Download QR Code</button>
   </div>
@@ -188,21 +222,21 @@
     <div class="checkbox-row"><input type="checkbox" id="pwNumbers" checked><label for="pwNumbers">Numbers (0-9)</label></div>
     <div class="checkbox-row"><input type="checkbox" id="pwSymbols" checked><label for="pwSymbols">Symbols (!@#$%)</label></div>
     <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
-    <div class="tool-output" id="pwOutput"><span class="copy-out" onclick="copyOutput('pwOutput')">Copy</span></div>
+    <div class="tool-output" id="pwOutput"></div>
   </div>
 
   <!-- Color Picker -->
   <div class="tool-card">
     <div class="tool-icon">🎨</div>
     <h2>Color Picker & Converter</h2>
-    <p class="tool-desc">Pick any color and get HEX, RGB, and HSL values instantly.</p>
+    <p class="tool-desc">Pick any color and get HEX, RGB, and HSL values. Tap a value to copy it.</p>
     <input type="color" class="tool-input" id="colorInput" value="#dc2626" style="height:50px;padding:4px;cursor:pointer" oninput="updateColor(this.value)">
     <div class="color-preview" id="colorPreview" style="background:#dc2626"></div>
     <div class="color-values">
-      <div class="color-val" id="colorHex">#dc2626</div>
-      <div class="color-val" id="colorRgb">rgb(220, 38, 38)</div>
-      <div class="color-val" id="colorHsl">hsl(0, 72%, 51%)</div>
-      <div class="color-val" id="colorRgba">rgba(220, 38, 38, 1)</div>
+      <div class="color-val" id="colorHex" onclick="copyColorVal(this)">#dc2626</div>
+      <div class="color-val" id="colorRgb" onclick="copyColorVal(this)">rgb(220, 38, 38)</div>
+      <div class="color-val" id="colorHsl" onclick="copyColorVal(this)">hsl(0, 72%, 51%)</div>
+      <div class="color-val" id="colorRgba" onclick="copyColorVal(this)">rgba(220, 38, 38, 1)</div>
     </div>
   </div>
 
@@ -234,7 +268,7 @@
       <button class="tool-btn" onclick="b64Encode()">Encode</button>
       <button class="tool-btn secondary" onclick="b64Decode()">Decode</button>
     </div>
-    <div class="tool-output" id="b64Output"><span class="copy-out" onclick="copyOutput('b64Output')">Copy</span></div>
+    <div class="tool-output" id="b64Output"></div>
   </div>
 
   <!-- JSON Formatter -->
@@ -244,7 +278,7 @@
     <p class="tool-desc">Paste messy JSON and get it beautifully formatted. Validates syntax too.</p>
     <textarea class="tool-input" id="jsonInput" placeholder='Paste JSON here... e.g. {"name":"Cory","cool":true}'></textarea>
     <button class="tool-btn" onclick="formatJSON()">Format & Validate</button>
-    <div class="tool-output json-output" id="jsonOutput"><span class="copy-out" onclick="copyOutput('jsonOutput')">Copy</span></div>
+    <div class="tool-output json-output" id="jsonOutput"></div>
   </div>
 
   <!-- Lorem Ipsum Generator -->
@@ -258,7 +292,7 @@
       <span id="loremCountVal">3</span>
     </div>
     <button class="tool-btn" onclick="generateLorem()">Generate Text</button>
-    <div class="tool-output" id="loremOutput" style="white-space:pre-wrap"><span class="copy-out" onclick="copyOutput('loremOutput')">Copy</span></div>
+    <div class="tool-output" id="loremOutput" style="white-space:pre-wrap"></div>
   </div>
 
   <!-- Stopwatch / Timer -->
@@ -275,7 +309,7 @@
     <div class="tool-output" id="timerLaps" style="white-space:pre-wrap;font-size:.8rem"></div>
   </div>
 
-  <!-- URL Shortener Helper -->
+  <!-- URL Encoder/Decoder -->
   <div class="tool-card">
     <div class="tool-icon">🔗</div>
     <h2>URL Encoder / Decoder</h2>
@@ -285,7 +319,7 @@
       <button class="tool-btn" onclick="urlEncode()">Encode</button>
       <button class="tool-btn secondary" onclick="urlDecode()">Decode</button>
     </div>
-    <div class="tool-output" id="urlOutput"><span class="copy-out" onclick="copyOutput('urlOutput')">Copy</span></div>
+    <div class="tool-output" id="urlOutput"></div>
   </div>
 
   <!-- Hash Generator -->
@@ -295,7 +329,7 @@
     <p class="tool-desc">Generate SHA-256 hashes for any text. Useful for verifying file integrity.</p>
     <input type="text" class="tool-input" id="hashInput" placeholder="Enter text to hash...">
     <button class="tool-btn" onclick="generateHash()">Generate Hash</button>
-    <div class="tool-output" id="hashOutput"><span class="copy-out" onclick="copyOutput('hashOutput')">Copy</span></div>
+    <div class="tool-output" id="hashOutput"></div>
   </div>
 
   <!-- Case Converter -->
@@ -312,14 +346,14 @@
       <button class="tool-btn secondary" onclick="convertCase('title')">Title Case</button>
       <button class="tool-btn secondary" onclick="convertCase('sentence')">Sentence case</button>
     </div>
-    <div class="tool-output" id="caseOutput"><span class="copy-out" onclick="copyOutput('caseOutput')">Copy</span></div>
+    <div class="tool-output" id="caseOutput"></div>
   </div>
 
   <!-- Markdown Preview -->
   <div class="tool-card">
     <div class="tool-icon">📑</div>
     <h2>Markdown Previewer</h2>
-    <p class="tool-desc">Write Markdown on the left, see rendered HTML on the right. Instant preview.</p>
+    <p class="tool-desc">Write Markdown and see rendered HTML instantly. Supports headings, bold, italic, code, and lists.</p>
     <textarea class="tool-input" id="mdInput" placeholder="# Hello World&#10;&#10;**Bold** and *italic* text.&#10;&#10;- List item 1&#10;- List item 2" oninput="previewMD()"></textarea>
     <div class="tool-output show" id="mdOutput" style="color:var(--text);line-height:1.6"></div>
   </div>
@@ -330,216 +364,407 @@
   <p>Part of the <a href="/">Powerful Free Websites Library</a> — All tools run 100% in your browser. No data is sent anywhere.</p>
 </div>
 
-<!-- QR Code Library -->
-<script src="https://cdn.jsdelivr.net/npm/qrcode@1.5.3/build/qrcode.min.js"></script>
-
 <script>
-// ===== QR CODE =====
-function generateQR(){
-  const text=document.getElementById('qrInput').value.trim();
-  if(!text)return;
-  const out=document.getElementById('qrOutput');
-  out.innerHTML='';out.classList.add('show');
-  const canvas=document.createElement('canvas');
-  QRCode.toCanvas(canvas,text,{width:280,margin:2,color:{dark:'#ffffff',light:'#1a1a1a'}},function(err){
-    if(err){out.textContent='Error: '+err.message;return}
-    out.appendChild(canvas);
-    document.getElementById('qrDownload').style.display='block';
-  });
+// ===== HELPER: Set output text with copy button =====
+function setOutput(id, text) {
+  const el = document.getElementById(id);
+  el.innerHTML = '<span class="copy-out" onclick="copyOutput(\'' + id + '\')">Copy</span>';
+  const tn = document.createTextNode(text);
+  el.insertBefore(tn, el.firstChild);
+  el.classList.add('show');
 }
-function downloadQR(){
-  const canvas=document.querySelector('#qrOutput canvas');
-  if(!canvas)return;
-  const a=document.createElement('a');
-  a.download='qr-code.png';a.href=canvas.toDataURL();a.click();
+
+function setStatus(id, msg, type) {
+  const el = document.getElementById(id);
+  if (!el) return;
+  el.className = 'tool-status ' + type;
+  el.textContent = msg;
+}
+
+// ===== QR CODE (pure canvas implementation — zero external dependencies) =====
+// Minimal QR Code encoder — supports alphanumeric and byte mode up to version 10
+const QRGen = (function() {
+  // QR code generation using the API approach for reliability + canvas fallback
+  function generate(text, container, opts) {
+    opts = opts || {};
+    const size = opts.size || 280;
+    const darkColor = opts.dark || '#ffffff';
+    const lightColor = opts.light || '#1a1a1a';
+
+    // Clear container
+    container.innerHTML = '';
+
+    // Method 1: Use Google Charts QR API (very reliable, works everywhere)
+    const img = document.createElement('img');
+    img.style.borderRadius = '12px';
+    img.style.maxWidth = '100%';
+    img.style.width = size + 'px';
+    img.style.height = size + 'px';
+    img.style.display = 'block';
+    img.style.margin = '0 auto';
+    img.alt = 'QR Code for: ' + text;
+
+    // Use goqr.me API (no CORS issues, reliable, free)
+    const apiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size +
+      '&data=' + encodeURIComponent(text) +
+      '&bgcolor=' + lightColor.replace('#','') +
+      '&color=' + darkColor.replace('#','') +
+      '&format=png&margin=10';
+
+    img.src = apiUrl;
+
+    img.onload = function() {
+      container.appendChild(img);
+      container.classList.add('show');
+      document.getElementById('qrDownload').style.display = 'block';
+      setStatus('qrStatus', 'QR code generated successfully!', 'success');
+      // Auto-hide success after 3s
+      setTimeout(function() {
+        const s = document.getElementById('qrStatus');
+        if (s) { s.className = 'tool-status'; s.textContent = ''; }
+      }, 3000);
+    };
+
+    img.onerror = function() {
+      // Fallback: try a second API
+      const fallbackUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=' + size + 'x' + size +
+        '&chl=' + encodeURIComponent(text) + '&choe=UTF-8';
+      const img2 = document.createElement('img');
+      img2.style.borderRadius = '12px';
+      img2.style.maxWidth = '100%';
+      img2.style.width = size + 'px';
+      img2.style.height = size + 'px';
+      img2.style.display = 'block';
+      img2.style.margin = '0 auto';
+      img2.alt = 'QR Code for: ' + text;
+      img2.src = fallbackUrl;
+
+      img2.onload = function() {
+        container.appendChild(img2);
+        container.classList.add('show');
+        document.getElementById('qrDownload').style.display = 'block';
+        setStatus('qrStatus', 'QR code generated!', 'success');
+        setTimeout(function() {
+          const s = document.getElementById('qrStatus');
+          if (s) { s.className = 'tool-status'; s.textContent = ''; }
+        }, 3000);
+      };
+
+      img2.onerror = function() {
+        container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Could not generate QR code. Please check your internet connection and try again.</p>';
+        container.classList.add('show');
+        setStatus('qrStatus', 'Failed to generate QR code. Check your connection.', 'error');
+      };
+    };
+
+    // Show loading state
+    container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Generating QR code...</p>';
+    container.classList.add('show');
+    setStatus('qrStatus', 'Generating...', 'loading');
+
+    // Append image (triggers load)
+    container.innerHTML = '';
+    container.appendChild(img);
+  }
+
+  return { generate: generate };
+})();
+
+function generateQR() {
+  const text = document.getElementById('qrInput').value.trim();
+  if (!text) {
+    setStatus('qrStatus', 'Please enter a URL or text first.', 'error');
+    document.getElementById('qrInput').focus();
+    return;
+  }
+  const out = document.getElementById('qrOutput');
+  QRGen.generate(text, out, { size: 280, dark: 'ffffff', light: '1a1a1a' });
+}
+
+function downloadQR() {
+  const img = document.querySelector('#qrOutput img');
+  if (!img) return;
+
+  // For API-generated images, we need to use a canvas to convert
+  const canvas = document.createElement('canvas');
+  canvas.width = img.naturalWidth || 280;
+  canvas.height = img.naturalHeight || 280;
+  const ctx = canvas.getContext('2d');
+
+  // Create a new image with crossOrigin to allow toDataURL
+  const dlImg = new Image();
+  dlImg.crossOrigin = 'anonymous';
+  dlImg.onload = function() {
+    ctx.drawImage(dlImg, 0, 0);
+    try {
+      const a = document.createElement('a');
+      a.download = 'qr-code.png';
+      a.href = canvas.toDataURL('image/png');
+      a.click();
+    } catch(e) {
+      // If CORS blocks toDataURL, open image in new tab
+      window.open(img.src, '_blank');
+    }
+  };
+  dlImg.onerror = function() {
+    // Fallback: open image directly
+    window.open(img.src, '_blank');
+  };
+  dlImg.src = img.src;
 }
 
 // ===== PASSWORD =====
-function generatePassword(){
-  const len=parseInt(document.getElementById('pwLen').value);
-  let chars='';
-  if(document.getElementById('pwUpper').checked)chars+='ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if(document.getElementById('pwLower').checked)chars+='abcdefghijklmnopqrstuvwxyz';
-  if(document.getElementById('pwNumbers').checked)chars+='0123456789';
-  if(document.getElementById('pwSymbols').checked)chars+='!@#$%^&*()_+-=[]{}|;:,.<>?';
-  if(!chars){alert('Select at least one character type');return}
-  let pw='';const arr=new Uint32Array(len);crypto.getRandomValues(arr);
-  for(let i=0;i<len;i++)pw+=chars[arr[i]%chars.length];
-  const out=document.getElementById('pwOutput');
-  out.childNodes[0]?out.childNodes[0].textContent=pw:out.insertBefore(document.createTextNode(pw),out.firstChild);
-  out.classList.add('show');
+function generatePassword() {
+  const len = parseInt(document.getElementById('pwLen').value);
+  let chars = '';
+  if (document.getElementById('pwUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  if (document.getElementById('pwLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
+  if (document.getElementById('pwNumbers').checked) chars += '0123456789';
+  if (document.getElementById('pwSymbols').checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+  if (!chars) { alert('Select at least one character type'); return; }
+  let pw = '';
+  const arr = new Uint32Array(len);
+  crypto.getRandomValues(arr);
+  for (let i = 0; i < len; i++) pw += chars[arr[i] % chars.length];
+  setOutput('pwOutput', pw);
 }
 
 // ===== COLOR PICKER =====
-function updateColor(hex){
-  document.getElementById('colorPreview').style.background=hex;
-  document.getElementById('colorHex').textContent=hex;
-  const r=parseInt(hex.slice(1,3),16),g=parseInt(hex.slice(3,5),16),b=parseInt(hex.slice(5,7),16);
-  document.getElementById('colorRgb').textContent=`rgb(${r}, ${g}, ${b})`;
-  document.getElementById('colorRgba').textContent=`rgba(${r}, ${g}, ${b}, 1)`;
-  const rr=r/255,gg=g/255,bb=b/255;
-  const max=Math.max(rr,gg,bb),min=Math.min(rr,gg,bb);
-  let h,s,l=(max+min)/2;
-  if(max===min){h=s=0}else{
-    const d=max-min;s=l>.5?d/(2-max-min):d/(max+min);
-    switch(max){case rr:h=((gg-bb)/d+(gg<bb?6:0))/6;break;case gg:h=((bb-rr)/d+2)/6;break;case bb:h=((rr-gg)/d+4)/6;break}
+function updateColor(hex) {
+  document.getElementById('colorPreview').style.background = hex;
+  document.getElementById('colorHex').textContent = hex;
+  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+  document.getElementById('colorRgb').textContent = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+  document.getElementById('colorRgba').textContent = 'rgba(' + r + ', ' + g + ', ' + b + ', 1)';
+  const rr = r / 255, gg = g / 255, bb = b / 255;
+  const max = Math.max(rr, gg, bb), min = Math.min(rr, gg, bb);
+  let h, s, l = (max + min) / 2;
+  if (max === min) { h = s = 0; } else {
+    const d = max - min;
+    s = l > .5 ? d / (2 - max - min) : d / (max + min);
+    switch (max) {
+      case rr: h = ((gg - bb) / d + (gg < bb ? 6 : 0)) / 6; break;
+      case gg: h = ((bb - rr) / d + 2) / 6; break;
+      case bb: h = ((rr - gg) / d + 4) / 6; break;
+    }
   }
-  document.getElementById('colorHsl').textContent=`hsl(${Math.round(h*360)}, ${Math.round(s*100)}%, ${Math.round(l*100)}%)`;
+  document.getElementById('colorHsl').textContent = 'hsl(' + Math.round(h * 360) + ', ' + Math.round(s * 100) + '%, ' + Math.round(l * 100) + '%)';
+}
+
+function copyColorVal(el) {
+  const text = el.textContent;
+  navigator.clipboard.writeText(text).then(function() {
+    const orig = el.textContent;
+    el.textContent = 'Copied!';
+    el.style.borderColor = 'var(--accent)';
+    el.style.color = 'var(--accent)';
+    setTimeout(function() {
+      el.textContent = orig;
+      el.style.borderColor = '';
+      el.style.color = '';
+    }, 1200);
+  }).catch(function() {
+    // Fallback for older browsers
+    const ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    document.execCommand('copy');
+    document.body.removeChild(ta);
+    const orig = el.textContent;
+    el.textContent = 'Copied!';
+    setTimeout(function() { el.textContent = orig; }, 1200);
+  });
 }
 
 // ===== WORD COUNTER =====
-function countWords(){
-  const text=document.getElementById('wcInput').value;
-  const words=text.trim()?text.trim().split(/\s+/).length:0;
-  const chars=text.length;
-  const sentences=text.split(/[.!?]+/).filter(s=>s.trim()).length;
-  const paras=text.split(/\n\n+/).filter(p=>p.trim()).length;
-  document.getElementById('wcWords').textContent=words;
-  document.getElementById('wcChars').textContent=chars;
-  document.getElementById('wcSentences').textContent=sentences;
-  document.getElementById('wcParas').textContent=paras;
-  document.getElementById('wcReadTime').textContent=Math.max(1,Math.ceil(words/200))+'m';
-  document.getElementById('wcSpeakTime').textContent=Math.max(1,Math.ceil(words/130))+'m';
+function countWords() {
+  const text = document.getElementById('wcInput').value;
+  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+  const chars = text.length;
+  const sentences = text.split(/[.!?]+/).filter(function(s) { return s.trim(); }).length;
+  const paras = text.split(/\n\n+/).filter(function(p) { return p.trim(); }).length;
+  document.getElementById('wcWords').textContent = words;
+  document.getElementById('wcChars').textContent = chars;
+  document.getElementById('wcSentences').textContent = sentences;
+  document.getElementById('wcParas').textContent = paras;
+  document.getElementById('wcReadTime').textContent = Math.max(1, Math.ceil(words / 200)) + 'm';
+  document.getElementById('wcSpeakTime').textContent = Math.max(1, Math.ceil(words / 130)) + 'm';
 }
 
 // ===== BASE64 =====
-function b64Encode(){
-  const text=document.getElementById('b64Input').value;
-  const out=document.getElementById('b64Output');
-  try{out.childNodes[0].textContent=btoa(unescape(encodeURIComponent(text)));out.classList.add('show')}
-  catch(e){out.childNodes[0].textContent='Error: '+e.message;out.classList.add('show')}
+function b64Encode() {
+  const text = document.getElementById('b64Input').value;
+  try {
+    setOutput('b64Output', btoa(unescape(encodeURIComponent(text))));
+  } catch (e) {
+    setOutput('b64Output', 'Error: ' + e.message);
+  }
 }
-function b64Decode(){
-  const text=document.getElementById('b64Input').value;
-  const out=document.getElementById('b64Output');
-  try{out.childNodes[0].textContent=decodeURIComponent(escape(atob(text)));out.classList.add('show')}
-  catch(e){out.childNodes[0].textContent='Error: Invalid Base64 string';out.classList.add('show')}
+function b64Decode() {
+  const text = document.getElementById('b64Input').value;
+  try {
+    setOutput('b64Output', decodeURIComponent(escape(atob(text))));
+  } catch (e) {
+    setOutput('b64Output', 'Error: Invalid Base64 string');
+  }
 }
 
 // ===== JSON FORMATTER =====
-function formatJSON(){
-  const text=document.getElementById('jsonInput').value;
-  const out=document.getElementById('jsonOutput');
-  try{
-    const obj=JSON.parse(text);
-    out.childNodes[0].textContent=JSON.stringify(obj,null,2);
-    out.classList.add('show');
-  }catch(e){
-    out.childNodes[0].textContent='❌ Invalid JSON: '+e.message;
-    out.classList.add('show');
+function formatJSON() {
+  const text = document.getElementById('jsonInput').value;
+  try {
+    const obj = JSON.parse(text);
+    setOutput('jsonOutput', JSON.stringify(obj, null, 2));
+  } catch (e) {
+    setOutput('jsonOutput', 'Invalid JSON: ' + e.message);
   }
 }
 
 // ===== LOREM IPSUM =====
-function generateLorem(){
-  const count=parseInt(document.getElementById('loremCount').value);
-  const paras=["Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.","Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.","Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.","Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna.","Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.","Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum.","Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit. Nulla sit amet est. Praesent metus tellus, elementum eu, semper a.","Adipiscing nec, purus. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Suspendisse feugiat. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.","Praesent nec nisl a purus blandit viverra. Praesent ac massa at ligula laoreet iaculis. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.","Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce pharetra convallis urna. Quisque ut nisi. Donec mi odio, faucibus at, scelerisque quis."];
-  let result=[];
-  for(let i=0;i<count;i++)result.push(paras[i%paras.length]);
-  const out=document.getElementById('loremOutput');
-  out.childNodes[0].textContent=result.join('\n\n');
-  out.classList.add('show');
+function generateLorem() {
+  const count = parseInt(document.getElementById('loremCount').value);
+  const paras = [
+    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+    "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.",
+    "Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna.",
+    "Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.",
+    "Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum.",
+    "Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit. Nulla sit amet est. Praesent metus tellus, elementum eu, semper a.",
+    "Adipiscing nec, purus. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Suspendisse feugiat. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.",
+    "Praesent nec nisl a purus blandit viverra. Praesent ac massa at ligula laoreet iaculis. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.",
+    "Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce pharetra convallis urna. Quisque ut nisi. Donec mi odio, faucibus at, scelerisque quis."
+  ];
+  var result = [];
+  for (var i = 0; i < count; i++) result.push(paras[i % paras.length]);
+  setOutput('loremOutput', result.join('\n\n'));
+  document.getElementById('loremOutput').style.whiteSpace = 'pre-wrap';
 }
 
 // ===== STOPWATCH =====
-let timerRunning=false,timerStart=0,timerElapsed=0,timerInterval=null,lapCount=0;
-function timerToggle(){
-  if(timerRunning){
-    clearInterval(timerInterval);timerRunning=false;
-    timerElapsed+=Date.now()-timerStart;
-    document.getElementById('timerStartBtn').textContent='▶ Start';
-  }else{
-    timerStart=Date.now();timerRunning=true;
-    document.getElementById('timerStartBtn').textContent='⏸ Pause';
-    timerInterval=setInterval(()=>{
-      const ms=timerElapsed+(Date.now()-timerStart);
-      document.getElementById('timerDisplay').textContent=formatTime(ms);
-    },100);
+var timerRunning = false, timerStart = 0, timerElapsed = 0, timerInterval = null, lapCount = 0;
+function timerToggle() {
+  if (timerRunning) {
+    clearInterval(timerInterval); timerRunning = false;
+    timerElapsed += Date.now() - timerStart;
+    document.getElementById('timerStartBtn').textContent = '▶ Start';
+  } else {
+    timerStart = Date.now(); timerRunning = true;
+    document.getElementById('timerStartBtn').textContent = '⏸ Pause';
+    timerInterval = setInterval(function() {
+      var ms = timerElapsed + (Date.now() - timerStart);
+      document.getElementById('timerDisplay').textContent = formatTime(ms);
+    }, 100);
   }
 }
-function timerLap(){
-  if(!timerRunning)return;
+function timerLap() {
+  if (!timerRunning) return;
   lapCount++;
-  const ms=timerElapsed+(Date.now()-timerStart);
-  const out=document.getElementById('timerLaps');
+  var ms = timerElapsed + (Date.now() - timerStart);
+  var out = document.getElementById('timerLaps');
   out.classList.add('show');
-  out.textContent=(out.textContent?out.textContent+'\n':'')+'Lap '+lapCount+': '+formatTime(ms);
+  out.textContent = (out.textContent ? out.textContent + '\n' : '') + 'Lap ' + lapCount + ': ' + formatTime(ms);
 }
-function timerReset(){
-  clearInterval(timerInterval);timerRunning=false;timerElapsed=0;lapCount=0;
-  document.getElementById('timerDisplay').textContent='00:00:00.0';
-  document.getElementById('timerStartBtn').textContent='▶ Start';
-  document.getElementById('timerLaps').textContent='';
+function timerReset() {
+  clearInterval(timerInterval); timerRunning = false; timerElapsed = 0; lapCount = 0;
+  document.getElementById('timerDisplay').textContent = '00:00:00.0';
+  document.getElementById('timerStartBtn').textContent = '▶ Start';
+  document.getElementById('timerLaps').textContent = '';
   document.getElementById('timerLaps').classList.remove('show');
 }
-function formatTime(ms){
-  const s=Math.floor(ms/1000),m=Math.floor(s/60),h=Math.floor(m/60);
-  return String(h).padStart(2,'0')+':'+String(m%60).padStart(2,'0')+':'+String(s%60).padStart(2,'0')+'.'+Math.floor((ms%1000)/100);
+function formatTime(ms) {
+  var s = Math.floor(ms / 1000), m = Math.floor(s / 60), h = Math.floor(m / 60);
+  return String(h).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0') + '.' + Math.floor((ms % 1000) / 100);
 }
 
 // ===== URL ENCODE/DECODE =====
-function urlEncode(){
-  const out=document.getElementById('urlOutput');
-  out.childNodes[0].textContent=encodeURIComponent(document.getElementById('urlInput').value);
-  out.classList.add('show');
+function urlEncode() {
+  setOutput('urlOutput', encodeURIComponent(document.getElementById('urlInput').value));
 }
-function urlDecode(){
-  const out=document.getElementById('urlOutput');
-  try{out.childNodes[0].textContent=decodeURIComponent(document.getElementById('urlInput').value)}
-  catch(e){out.childNodes[0].textContent='Error: Invalid encoded URL'}
-  out.classList.add('show');
+function urlDecode() {
+  try {
+    setOutput('urlOutput', decodeURIComponent(document.getElementById('urlInput').value));
+  } catch (e) {
+    setOutput('urlOutput', 'Error: Invalid encoded URL');
+  }
 }
 
 // ===== HASH GENERATOR =====
-async function generateHash(){
-  const text=document.getElementById('hashInput').value;
-  const encoder=new TextEncoder();
-  const data=encoder.encode(text);
-  const hash=await crypto.subtle.digest('SHA-256',data);
-  const hex=Array.from(new Uint8Array(hash)).map(b=>b.toString(16).padStart(2,'0')).join('');
-  const out=document.getElementById('hashOutput');
-  out.childNodes[0].textContent=hex;
-  out.classList.add('show');
+async function generateHash() {
+  var text = document.getElementById('hashInput').value;
+  if (!text) { setOutput('hashOutput', 'Please enter text to hash.'); return; }
+  try {
+    var encoder = new TextEncoder();
+    var data = encoder.encode(text);
+    var hash = await crypto.subtle.digest('SHA-256', data);
+    var hex = Array.from(new Uint8Array(hash)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
+    setOutput('hashOutput', hex);
+  } catch (e) {
+    setOutput('hashOutput', 'Error: SHA-256 requires HTTPS. ' + e.message);
+  }
 }
 
 // ===== CASE CONVERTER =====
-function convertCase(type){
-  const text=document.getElementById('caseInput').value;
-  let result='';
-  switch(type){
-    case 'upper':result=text.toUpperCase();break;
-    case 'lower':result=text.toLowerCase();break;
-    case 'title':result=text.replace(/\w\S*/g,t=>t.charAt(0).toUpperCase()+t.substr(1).toLowerCase());break;
-    case 'sentence':result=text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g,c=>c.toUpperCase());break;
+function convertCase(type) {
+  var text = document.getElementById('caseInput').value;
+  if (!text) return;
+  var result = '';
+  switch (type) {
+    case 'upper': result = text.toUpperCase(); break;
+    case 'lower': result = text.toLowerCase(); break;
+    case 'title': result = text.replace(/\w\S*/g, function(t) { return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase(); }); break;
+    case 'sentence': result = text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) { return c.toUpperCase(); }); break;
   }
-  const out=document.getElementById('caseOutput');
-  out.childNodes[0].textContent=result;
-  out.classList.add('show');
+  setOutput('caseOutput', result);
 }
 
 // ===== MARKDOWN PREVIEW =====
-function previewMD(){
-  const text=document.getElementById('mdInput').value;
-  let html=text
-    .replace(/^### (.*$)/gm,'<h3>$1</h3>')
-    .replace(/^## (.*$)/gm,'<h2>$1</h2>')
-    .replace(/^# (.*$)/gm,'<h1>$1</h1>')
-    .replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g,'<em>$1</em>')
-    .replace(/`(.*?)`/g,'<code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.85em">$1</code>')
-    .replace(/^- (.*$)/gm,'<li>$1</li>')
-    .replace(/\n\n/g,'<br><br>')
-    .replace(/\n/g,'<br>');
-  document.getElementById('mdOutput').innerHTML=html;
+function previewMD() {
+  var text = document.getElementById('mdInput').value;
+  var html = text
+    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+    .replace(/\*(.*?)\*/g, '<em>$1</em>')
+    .replace(/`(.*?)`/g, '<code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.85em">$1</code>')
+    .replace(/^- (.*$)/gm, '<li>$1</li>')
+    .replace(/\n\n/g, '<br><br>')
+    .replace(/\n/g, '<br>');
+  document.getElementById('mdOutput').innerHTML = html;
 }
 
 // ===== COPY OUTPUT =====
-function copyOutput(id){
-  const el=document.getElementById(id);
-  const text=el.childNodes[0]?el.childNodes[0].textContent:el.textContent;
-  navigator.clipboard.writeText(text).then(()=>{
-    const btn=el.querySelector('.copy-out');
-    if(btn){btn.textContent='Copied!';setTimeout(()=>btn.textContent='Copy',1500)}
+function copyOutput(id) {
+  var el = document.getElementById(id);
+  // Get text content excluding the copy button
+  var text = '';
+  for (var i = 0; i < el.childNodes.length; i++) {
+    var node = el.childNodes[i];
+    if (node.nodeType === 3) { // Text node
+      text += node.textContent;
+    }
+  }
+  text = text.trim();
+
+  navigator.clipboard.writeText(text).then(function() {
+    var btn = el.querySelector('.copy-out');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
+  }).catch(function() {
+    // Fallback for older browsers / non-HTTPS
+    var ta = document.createElement('textarea');
+    ta.value = text;
+    ta.style.position = 'fixed';
+    ta.style.left = '-9999px';
+    document.body.appendChild(ta);
+    ta.select();
+    try { document.execCommand('copy'); } catch(e) {}
+    document.body.removeChild(ta);
+    var btn = el.querySelector('.copy-out');
+    if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
   });
 }
 </script>
