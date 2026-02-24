@@ -40,14 +40,6 @@
     --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.15);
     --creator-accent:#ec4899;--creator-glow:rgba(236,72,153,.15);
     --podcast-accent:#8b5cf6;--podcast-glow:rgba(139,92,246,.15);
-    --firestick-accent:#ff6b35;--firestick-glow:rgba(255,107,53,.15);
-    --ios-accent:#007aff;--ios-glow:rgba(0,122,255,.15);
-    --android-accent:#3ddc84;--android-glow:rgba(61,220,132,.15);
-    --windows-accent:#00a4ef;--windows-glow:rgba(0,164,239,.15);
-    --powershell-accent:#5391fe;--powershell-glow:rgba(83,145,254,.15);
-    --github-accent:#f0f6fc;--github-glow:rgba(240,246,252,.1);
-    --emulator-accent:#7b68ee;--emulator-glow:rgba(123,104,238,.15);
-    --rainmeter-accent:#00bcd4;--rainmeter-glow:rgba(0,188,212,.15);
     --logo-text:#fff;
   }
   [data-theme="light"]{
@@ -74,107 +66,8 @@
     --adblock-accent:#dc2626;--adblock-glow:rgba(220,38,38,.1);
     --creator-accent:#db2777;--creator-glow:rgba(219,39,119,.1);
     --podcast-accent:#7c3aed;--podcast-glow:rgba(124,58,237,.1);
-    --firestick-accent:#e55a2b;--firestick-glow:rgba(229,90,43,.1);
-    --ios-accent:#0066cc;--ios-glow:rgba(0,102,204,.1);
-    --android-accent:#2ea85a;--android-glow:rgba(46,168,90,.1);
-    --windows-accent:#0078d4;--windows-glow:rgba(0,120,212,.1);
-    --powershell-accent:#3a6fd8;--powershell-glow:rgba(58,111,216,.1);
-    --github-accent:#24292f;--github-glow:rgba(36,41,47,.1);
-    --emulator-accent:#6a5acd;--emulator-glow:rgba(106,90,205,.1);
-    --rainmeter-accent:#0097a7;--rainmeter-glow:rgba(0,151,167,.1);
     --logo-text:#1a1a2e;
   }
-
-  /* ===== LIQUID GLASS THEME (iOS-inspired) ===== */
-  [data-theme="glass"]{
-    --bg:#0c0c14;--bg2:#10101a;--surface:rgba(20,20,35,.55);--card:rgba(255,255,255,.06);--card-hover:rgba(255,255,255,.1);
-    --border:rgba(255,255,255,.1);--border-hover:rgba(220,38,38,.35);
-    --text:#f0f0ff;--text-muted:#a0a0c0;--text-dim:#606080;
-    --accent:#dc2626;--accent-glow:rgba(220,38,38,.25);
-    --accent2:#ff4444;--accent3:#ff6b9d;
-    --green:#00c9a7;--red:#ff6b6b;--yellow:#ffd93d;--orange:#ff9f43;
-    --radius:20px;--radius-sm:12px;--radius-xs:8px;
-    --glass:rgba(255,255,255,.05);--glass-border:rgba(255,255,255,.12);
-    --shadow:0 8px 32px rgba(0,0,0,.4);
-    --hero-bg:linear-gradient(135deg,#0c0c14 0%,#1a0510 35%,#0c0c14 65%,#140810 100%);
-    --nav-bg:rgba(12,12,20,.75);
-    --card-gradient:linear-gradient(135deg,rgba(220,38,38,.04),rgba(255,68,68,.02));
-    --piracy-accent:#ff6b9d;--piracy-glow:rgba(255,107,157,.12);
-    --sports-accent:#ffd93d;--sports-glow:rgba(255,217,61,.12);
-    --labs-accent:#4285f4;--labs-glow:rgba(66,133,244,.15);
-    --agent-accent:#00e5ff;--agent-glow:rgba(0,229,255,.12);
-    --vpn-accent:#10b981;--vpn-glow:rgba(16,185,129,.12);
-    --llm-accent:#a855f7;--llm-glow:rgba(168,85,247,.12);
-    --edu-accent:#f59e0b;--edu-glow:rgba(245,158,11,.12);
-    --privacy-accent:#06b6d4;--privacy-glow:rgba(6,182,212,.12);
-    --adblock-accent:#ef4444;--adblock-glow:rgba(239,68,68,.12);
-    --creator-accent:#ec4899;--creator-glow:rgba(236,72,153,.12);
-    --podcast-accent:#8b5cf6;--podcast-glow:rgba(139,92,246,.12);
-    --firestick-accent:#ff6b35;--firestick-glow:rgba(255,107,53,.15);
-    --ios-accent:#007aff;--ios-glow:rgba(0,122,255,.15);
-    --android-accent:#3ddc84;--android-glow:rgba(61,220,132,.15);
-    --windows-accent:#00a4ef;--windows-glow:rgba(0,164,239,.15);
-    --powershell-accent:#012456;--powershell-glow:rgba(1,36,86,.15);
-    --github-accent:#f0f6fc;--github-glow:rgba(240,246,252,.1);
-    --emulator-accent:#7b68ee;--emulator-glow:rgba(123,104,238,.15);
-    --rainmeter-accent:#00bcd4;--rainmeter-glow:rgba(0,188,212,.15);
-    --logo-text:#fff;
-  }
-  /* Glass theme specific overrides */
-  [data-theme="glass"] .card{
-    backdrop-filter:blur(20px) saturate(1.4);-webkit-backdrop-filter:blur(20px) saturate(1.4);
-    border:1px solid rgba(255,255,255,.12);
-    box-shadow:0 4px 24px rgba(0,0,0,.2),inset 0 1px 0 rgba(255,255,255,.08);
-  }
-  [data-theme="glass"] .card:hover{
-    backdrop-filter:blur(24px) saturate(1.6);-webkit-backdrop-filter:blur(24px) saturate(1.6);
-    border-color:rgba(220,38,38,.3);
-    box-shadow:0 8px 40px rgba(0,0,0,.3),inset 0 1px 0 rgba(255,255,255,.12);
-  }
-  [data-theme="glass"] .hero::before{opacity:.6}
-  [data-theme="glass"] .nav-wrap{
-    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
-    border-bottom:1px solid rgba(255,255,255,.08);
-  }
-  [data-theme="glass"] .mobile-nav-toggle{
-    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
-  }
-  [data-theme="glass"] .bottom-nav{
-    backdrop-filter:blur(30px) saturate(1.5);-webkit-backdrop-filter:blur(30px) saturate(1.5);
-    background:rgba(12,12,20,.65);
-    border-top:1px solid rgba(255,255,255,.08);
-  }
-  [data-theme="glass"] .search-wrap input{
-    backdrop-filter:blur(20px) saturate(1.3);-webkit-backdrop-filter:blur(20px) saturate(1.3);
-    background:rgba(10,10,15,.92);
-    border:none;
-  }
-  [data-theme="glass"] .section-tab{
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.08);
-  }
-  [data-theme="glass"] .nav-btn{
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    background:rgba(255,255,255,.04);
-    border:1px solid rgba(255,255,255,.08);
-  }
-  [data-theme="glass"] .quick-link{
-    backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.1);
-  }
-  [data-theme="glass"] .piracy-warning{
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    background:rgba(220,38,38,.04);
-  }
-  [data-theme="glass"] .theme-toggle{
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    background:rgba(255,255,255,.06);
-    border:1px solid rgba(255,255,255,.1);
-  }
-  [data-theme="glass"] .fav-btn svg{stroke:#ff4444}
-  [data-theme="glass"] .fav-btn.favorited svg{fill:#ff4444;stroke:#ff4444}
 
   html{scroll-behavior:smooth;font-size:16px}
   body{
@@ -432,124 +325,6 @@
   .card.podcast-card .btn-visit{background:linear-gradient(135deg,var(--podcast-accent),#6d28d9)}
   .card.podcast-card .badge-verified{background:rgba(139,92,246,.1);color:var(--podcast-accent)}
 
-  /* Fire Stick card accent */
-  .card.firestick-card::before{background:linear-gradient(90deg,var(--firestick-accent),#ff9f43);height:3px;opacity:.7}
-  .card.firestick-card:hover{border-color:rgba(255,107,53,.3)}
-  .card.firestick-card:hover::before{opacity:1}
-  .card.firestick-card .card-tag{background:var(--firestick-glow);color:var(--firestick-accent)}
-  .card.firestick-card .btn-visit{background:linear-gradient(135deg,var(--firestick-accent),#ff9f43)}
-  .card.firestick-card .badge-verified{background:rgba(255,107,53,.1);color:var(--firestick-accent)}
-  .firestick-count{background:var(--firestick-glow);color:var(--firestick-accent)}
-  .nav-btn.firestick-btn.active{background:var(--firestick-accent)!important;border-color:var(--firestick-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--firestick-glow)!important}
-  .section-tab[data-section="firestick"].active{background:var(--firestick-accent);border-color:var(--firestick-accent);color:#fff;box-shadow:0 2px 12px var(--firestick-glow)}
-
-  /* iOS Modding card accent */
-  .card.ios-card::before{background:linear-gradient(90deg,var(--ios-accent),#5ac8fa);height:3px;opacity:.7}
-  .card.ios-card:hover{border-color:rgba(0,122,255,.3)}
-  .card.ios-card:hover::before{opacity:1}
-  .card.ios-card .card-tag{background:var(--ios-glow);color:var(--ios-accent)}
-  .card.ios-card .btn-visit{background:linear-gradient(135deg,var(--ios-accent),#5ac8fa)}
-  .card.ios-card .badge-verified{background:rgba(0,122,255,.1);color:var(--ios-accent)}
-  .ios-count{background:var(--ios-glow);color:var(--ios-accent)}
-  .nav-btn.ios-btn.active{background:var(--ios-accent)!important;border-color:var(--ios-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--ios-glow)!important}
-  .section-tab[data-section="ios"].active{background:var(--ios-accent);border-color:var(--ios-accent);color:#fff;box-shadow:0 2px 12px var(--ios-glow)}
-
-  /* Android Hacking card accent */
-  .card.android-card::before{background:linear-gradient(90deg,var(--android-accent),#00c853);height:3px;opacity:.7}
-  .card.android-card:hover{border-color:rgba(61,220,132,.3)}
-  .card.android-card:hover::before{opacity:1}
-  .card.android-card .card-tag{background:var(--android-glow);color:var(--android-accent)}
-  .card.android-card .btn-visit{background:linear-gradient(135deg,var(--android-accent),#00c853)}
-  .card.android-card .badge-verified{background:rgba(61,220,132,.1);color:var(--android-accent)}
-  .android-count{background:var(--android-glow);color:var(--android-accent)}
-  .nav-btn.android-btn.active{background:var(--android-accent)!important;border-color:var(--android-accent)!important;color:#1a1a2e!important;box-shadow:0 2px 12px var(--android-glow)!important}
-  .section-tab[data-section="android"].active{background:var(--android-accent);border-color:var(--android-accent);color:#1a1a2e;box-shadow:0 2px 12px var(--android-glow)}
-
-  /* Windows Power Tools card accent */
-  .card.windows-card::before{background:linear-gradient(90deg,var(--windows-accent),#00bcf2);height:3px;opacity:.7}
-  .card.windows-card:hover{border-color:rgba(0,164,239,.3)}
-  .card.windows-card:hover::before{opacity:1}
-  .card.windows-card .card-tag{background:var(--windows-glow);color:var(--windows-accent)}
-  .card.windows-card .btn-visit{background:linear-gradient(135deg,var(--windows-accent),#00bcf2)}
-  .card.windows-card .badge-verified{background:rgba(0,164,239,.1);color:var(--windows-accent)}
-  .windows-count{background:var(--windows-glow);color:var(--windows-accent)}
-  .nav-btn.windows-btn.active{background:var(--windows-accent)!important;border-color:var(--windows-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--windows-glow)!important}
-  .section-tab[data-section="windows"].active{background:var(--windows-accent);border-color:var(--windows-accent);color:#fff;box-shadow:0 2px 12px var(--windows-glow)}
-
-  /* PowerShell card accent */
-  .card.powershell-card::before{background:linear-gradient(90deg,var(--powershell-accent),#40a0ff);height:3px;opacity:.7}
-  .card.powershell-card:hover{border-color:rgba(83,145,254,.3)}
-  .card.powershell-card:hover::before{opacity:1}
-  .card.powershell-card .card-tag{background:var(--powershell-glow);color:var(--powershell-accent)}
-  .card.powershell-card .btn-visit{background:linear-gradient(135deg,var(--powershell-accent),#40a0ff)}
-  .card.powershell-card .badge-verified{background:rgba(83,145,254,.1);color:var(--powershell-accent)}
-  .ps-cmd-block{
-    background:#012456;border-radius:8px;padding:12px 14px;margin:8px 0 14px 0;
-    font-family:'Cascadia Code','Fira Code','Consolas',monospace;font-size:.78rem;
-    color:#40a0ff;line-height:1.6;overflow-x:auto;white-space:pre-wrap;word-break:break-all;
-    border:1px solid rgba(83,145,254,.2);position:relative;
-  }
-  .ps-cmd-block::before{
-    content:'PS >';color:#ffcc00;font-weight:700;margin-right:6px;
-  }
-  .ps-cmd-block .ps-cmd-text{color:#fff;}
-  [data-theme="light"] .ps-cmd-block{background:#1e1e2e;border-color:rgba(83,145,254,.15)}
-  [data-theme="glass"] .ps-cmd-block{background:rgba(1,36,86,.8);backdrop-filter:blur(8px)}
-  .powershell-count{background:var(--powershell-glow);color:var(--powershell-accent)}
-  .nav-btn.powershell-btn.active{background:var(--powershell-accent)!important;border-color:var(--powershell-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--powershell-glow)!important}
-  .section-tab[data-section="powershell"].active{background:var(--powershell-accent);border-color:var(--powershell-accent);color:#fff;box-shadow:0 2px 12px var(--powershell-glow)}
-
-  /* GitHub Tools card accent */
-  .card.github-card::before{background:linear-gradient(90deg,#f0f6fc,#8b949e);height:3px;opacity:.7}
-  .card.github-card:hover{border-color:rgba(240,246,252,.3)}
-  .card.github-card:hover::before{opacity:1}
-  .card.github-card .card-tag{background:var(--github-glow);color:var(--github-accent)}
-  .card.github-card .btn-visit{background:linear-gradient(135deg,#333,#555)}
-  .card.github-card .badge-verified{background:rgba(240,246,252,.08);color:var(--github-accent)}
-  .github-count{background:var(--github-glow);color:var(--github-accent)}
-  .nav-btn.github-btn.active{background:#333!important;border-color:#555!important;color:#f0f6fc!important;box-shadow:0 2px 12px rgba(0,0,0,.3)!important}
-  .section-tab[data-section="github"].active{background:#333;border-color:#555;color:#f0f6fc;box-shadow:0 2px 12px rgba(0,0,0,.3)}
-  [data-theme="light"] .card.github-card .card-tag{color:#24292f}
-  [data-theme="light"] .card.github-card .badge-verified{color:#24292f}
-  [data-theme="light"] .github-count{color:#24292f}
-
-  /* Emulators card accent */
-  .card.emulator-card::before{background:linear-gradient(90deg,var(--emulator-accent),#9370db);height:3px;opacity:.7}
-  .card.emulator-card:hover{border-color:rgba(123,104,238,.3)}
-  .card.emulator-card:hover::before{opacity:1}
-  .card.emulator-card .card-tag{background:var(--emulator-glow);color:var(--emulator-accent)}
-  .card.emulator-card .btn-visit{background:linear-gradient(135deg,var(--emulator-accent),#9370db)}
-  .card.emulator-card .badge-verified{background:rgba(123,104,238,.1);color:var(--emulator-accent)}
-  .emulator-count{background:var(--emulator-glow);color:var(--emulator-accent)}
-  .nav-btn.emulator-btn.active{background:var(--emulator-accent)!important;border-color:var(--emulator-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--emulator-glow)!important}
-  .section-tab[data-section="emulator"].active{background:var(--emulator-accent);border-color:var(--emulator-accent);color:#fff;box-shadow:0 2px 12px var(--emulator-glow)}
-
-  /* Rainmeter card accent */
-  .card.rainmeter-card::before{background:linear-gradient(90deg,var(--rainmeter-accent),#26c6da);height:3px;opacity:.7}
-  .card.rainmeter-card:hover{border-color:rgba(0,188,212,.3)}
-  .card.rainmeter-card:hover::before{opacity:1}
-  .card.rainmeter-card .card-tag{background:var(--rainmeter-glow);color:var(--rainmeter-accent)}
-  .card.rainmeter-card .btn-visit{background:linear-gradient(135deg,var(--rainmeter-accent),#26c6da)}
-  .card.rainmeter-card .badge-verified{background:rgba(0,188,212,.1);color:var(--rainmeter-accent)}
-  .rainmeter-count{background:var(--rainmeter-glow);color:var(--rainmeter-accent)}
-  .nav-btn.rainmeter-btn.active{background:var(--rainmeter-accent)!important;border-color:var(--rainmeter-accent)!important;color:#fff!important;box-shadow:0 2px 12px var(--rainmeter-glow)!important}
-  .section-tab[data-section="rainmeter"].active{background:var(--rainmeter-accent);border-color:var(--rainmeter-accent);color:#fff;box-shadow:0 2px 12px var(--rainmeter-glow)}
-
-  /* Instagram link in hero */
-  .instagram-link{
-    display:inline-flex;align-items:center;gap:10px;
-    font-size:1.15rem;font-weight:800;color:#fff;
-    text-decoration:none;padding:12px 28px;border-radius:50px;
-    background:linear-gradient(135deg,#833ab4,#fd1d1d,#fcb045);
-    transition:all .3s;margin-top:10px;margin-bottom:24px;
-    box-shadow:0 4px 20px rgba(253,29,29,.3);
-    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  }
-  .instagram-link:hover{transform:translateY(-3px);box-shadow:0 6px 28px rgba(253,29,29,.4);color:#fff}
-  .instagram-link:active{transform:scale(.97)}
-  .instagram-link svg{width:22px;height:22px;fill:#fff}
-  [data-theme="light"] .instagram-link{color:#fff}
-
   /* ===== MAIN ===== */
   .main{max-width:1280px;margin:0 auto;padding:40px 24px 100px}
 
@@ -627,14 +402,14 @@
   .card.labs-card .badge-verified{background:rgba(66,133,244,.1);color:var(--labs-accent)}
   .badge-labs-exp{background:rgba(52,168,83,.1);color:#34a853}
 
-  .card-top{display:flex;flex-direction:column;margin-bottom:12px;gap:8px;padding-right:90px}
+  .card-top{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:12px;gap:8px}
   .card-name-wrap{display:flex;align-items:center;gap:8px;min-width:0}
   .card-favicon{width:20px;height:20px;border-radius:4px;flex-shrink:0;object-fit:contain}
-  .card-name{font-size:1.05rem;font-weight:700;color:var(--text);word-break:break-word}
+  .card-name{font-size:1.05rem;font-weight:700;color:var(--text)}
   .card-tag{
-    align-self:flex-start;flex-shrink:0;padding:3px 10px;border-radius:50px;font-size:.65rem;
+    flex-shrink:0;padding:3px 10px;border-radius:50px;font-size:.65rem;
     font-weight:700;text-transform:uppercase;letter-spacing:.5px;
-    background:rgba(0,212,200,.1);color:var(--accent2);display:block;clear:both;
+    background:rgba(0,212,200,.1);color:var(--accent2);
   }
   .card-desc{color:var(--text-muted);font-size:.86rem;margin-bottom:14px;line-height:1.55}
   .card-limits{
@@ -693,7 +468,7 @@
 
   /* ===== FAVORITES ===== */
   .fav-btn{
-    position:static;width:28px;height:28px;flex-shrink:0;
+    position:absolute;top:42px;right:12px;width:28px;height:28px;
     border-radius:0;border:none;background:transparent;
     cursor:pointer;display:flex;align-items:center;justify-content:center;
     transition:all .25s;z-index:2;padding:0;
@@ -849,28 +624,11 @@
     .section-tab{padding:8px 14px;font-size:.75rem;min-height:38px;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
     .mobile-nav-toggle{font-size:.84rem;touch-action:manipulation}
     .mobile-nav-toggle:active{background:var(--accent-glow)}
-    /* === MOBILE CARD LAYOUT FIX === */
-    .card-actions-top{position:static!important;display:flex;justify-content:flex-end;gap:4px;margin-bottom:8px;top:auto!important;right:auto!important}
-    .card>.card-actions-top{position:static!important;top:auto!important;right:auto!important}
-    .card-top{padding-right:0!important;display:flex!important;flex-direction:column!important;gap:8px!important}
-    .card-name-wrap{width:100%}
-    .card-name{font-size:1rem;line-height:1.3}
-    .card-tag{display:inline-block!important;margin-top:2px;font-size:.62rem;max-width:100%;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
   }
   @media(max-width:480px){
     .hero h1{font-size:1.8rem}
     .card{padding:18px}
     .hero-stats{gap:16px}
-    .card-actions-top{gap:6px;margin-bottom:6px}
-    .card-actions-top .share-btn,.card-actions-top .fav-btn,.card-actions-top .copy-url-btn{width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.05);border:1px solid var(--border)}
-    .card-actions-top .share-btn svg,.card-actions-top .fav-btn svg,.card-actions-top .copy-url-btn svg{width:16px;height:16px}
-    .card-top{gap:6px!important}
-    .card-tag{font-size:.6rem;padding:4px 10px}
-    .card-desc{font-size:.84rem;line-height:1.6;margin-bottom:12px}
-    .card-meta{gap:6px;margin-bottom:12px}
-    .badge{font-size:.65rem;padding:3px 8px}
-    .btn-visit{padding:14px 20px;font-size:.88rem;border-radius:14px;font-weight:700}
-    .ps-cmd-block{font-size:.72rem;padding:10px 12px;margin:6px 0 12px 0}
   }
 
   /* ===== ANIMATIONS ===== */
@@ -886,558 +644,14 @@
   .glow-orb{
     position:absolute;border-radius:50%;filter:blur(80px);pointer-events:none;opacity:.5;
   }
-
-  /* ===== FEATURE: SURPRISE ME BUTTON ===== */
-  .surprise-btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:12px 28px;border-radius:50px;
-    background:linear-gradient(135deg,#dc2626,#ff4444,#ff6b9d);
-    color:#fff;font-weight:700;font-size:.9rem;letter-spacing:.3px;
-    border:none;cursor:pointer;transition:all .3s;
-    box-shadow:0 4px 20px rgba(220,38,38,.35);
-    margin-top:16px;
-    animation:surprisePulse 3s ease-in-out infinite;
-  }
-  .surprise-btn:hover{transform:translateY(-2px) scale(1.03);box-shadow:0 6px 28px rgba(220,38,38,.5)}
-  .surprise-btn:active{transform:scale(.97)}
-  .surprise-btn svg{width:18px;height:18px}
-  @keyframes surprisePulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,.35)}50%{box-shadow:0 4px 30px rgba(255,68,68,.55)}}
-
-  /* ===== FEATURE: ANIMATED STATS COUNTER ===== */
-  .stats-row{
-    display:flex;gap:32px;justify-content:center;margin:20px 0 8px;
-    flex-wrap:wrap;
-  }
-  .stat-item{
-    text-align:center;
-  }
-  .stat-num{
-    font-size:1.8rem;font-weight:900;color:var(--accent);
-    font-variant-numeric:tabular-nums;
-  }
-  .stat-label{
-    font-size:.7rem;color:var(--text-muted);text-transform:uppercase;
-    letter-spacing:1px;margin-top:2px;
-  }
-  @media(max-width:480px){
-    .stats-row{gap:20px}
-    .stat-num{font-size:1.4rem}
-  }
-
-  /* ===== FEATURE: SHARE BUTTON ON CARDS ===== */
-  .share-btn{
-    position:static;width:28px;height:28px;flex-shrink:0;
-    border-radius:0;border:none;background:transparent;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    transition:all .25s;z-index:2;padding:0;
-    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  }
-  .card-actions-top{
-    display:flex;align-items:center;gap:2px;position:absolute;top:10px;right:10px;z-index:3;
-  }
-  .share-btn:hover{transform:scale(1.2)}
-  .share-btn svg{width:18px;height:18px;stroke:var(--text-muted);fill:none;stroke-width:2;transition:all .25s}
-  .share-btn:hover svg{stroke:var(--accent)}
-  .share-toast{
-    position:fixed;bottom:100px;left:50%;transform:translateX(-50%) translateY(20px);
-    background:var(--accent);color:#fff;padding:10px 24px;border-radius:50px;
-    font-size:.85rem;font-weight:600;opacity:0;transition:all .3s;z-index:999;
-    pointer-events:none;white-space:nowrap;
-  }
-  .share-toast.visible{opacity:1;transform:translateX(-50%) translateY(0)}
-
-  /* ===== FEATURE: RECENTLY VIEWED ===== */
-  .recent-section{
-    margin-bottom:24px;display:none;
-  }
-  .recent-section.visible{display:block}
-  .recent-header{
-    display:flex;align-items:center;gap:10px;margin-bottom:12px;
-  }
-  .recent-header h3{
-    font-size:1rem;color:var(--text);font-weight:700;
-  }
-  .recent-header .clear-recent{
-    font-size:.75rem;color:var(--text-muted);cursor:pointer;border:none;
-    background:none;text-decoration:underline;margin-left:auto;
-  }
-  .recent-chips{
-    display:flex;gap:8px;overflow-x:auto;padding-bottom:8px;
-    -webkit-overflow-scrolling:touch;
-    scrollbar-width:none;
-  }
-  .recent-chips::-webkit-scrollbar{display:none}
-  .recent-chip{
-    display:flex;align-items:center;gap:6px;
-    padding:8px 14px;border-radius:50px;
-    background:var(--card);border:1px solid var(--border);
-    color:var(--text);font-size:.78rem;font-weight:600;
-    white-space:nowrap;cursor:pointer;transition:all .2s;
-    text-decoration:none;flex-shrink:0;
-  }
-  .recent-chip:hover{border-color:var(--accent);color:var(--accent)}
-  .recent-chip img{width:16px;height:16px;border-radius:3px}
-
-  /* ===== FEATURE: KEYBOARD SHORTCUT HINT ===== */
-  .kbd-hint{
-    position:absolute;right:16px;top:50%;transform:translateY(-50%);
-    display:flex;align-items:center;gap:4px;
-    color:var(--text-dim);font-size:.72rem;
-    pointer-events:none;transition:opacity .2s;
-  }
-  .kbd-hint kbd{
-    display:inline-flex;align-items:center;justify-content:center;
-    min-width:22px;height:22px;padding:0 6px;
-    border-radius:4px;border:1px solid var(--border);
-    background:var(--surface);color:var(--text-muted);
-    font-family:inherit;font-size:.7rem;font-weight:600;
-  }
-  /* kbd-hint positioning uses the existing search-wrap which already has position:relative from padding trick */
-  .search-wrap input:focus ~ .kbd-hint{opacity:0}
-  @media(max-width:768px){.kbd-hint{display:none}}
-
-  /* ===== FEATURE: EXPORT FAVORITES BUTTON ===== */
-  .export-favs-btn{
-    display:inline-flex;align-items:center;gap:6px;
-    padding:8px 16px;border-radius:50px;
-    background:transparent;border:1px solid var(--border);
-    color:var(--text-muted);font-size:.78rem;font-weight:600;
-    cursor:pointer;transition:all .2s;
-    margin-top:12px;
-  }
-  .export-favs-btn:hover{border-color:var(--accent);color:var(--accent)}
-  .export-favs-btn svg{width:14px;height:14px}
-
-  /* ===== ENHANCED GLASS THEME ADDITIONS ===== */
-  [data-theme="glass"] body::before{
-    content:'';position:fixed;top:0;left:0;right:0;bottom:0;
-    background:
-      radial-gradient(ellipse at 20% 20%, rgba(220,38,38,.08) 0%, transparent 50%),
-      radial-gradient(ellipse at 80% 80%, rgba(168,85,247,.06) 0%, transparent 50%),
-      radial-gradient(ellipse at 50% 50%, rgba(0,122,255,.04) 0%, transparent 60%);
-    pointer-events:none;z-index:0;
-  }
-  [data-theme="glass"] .hero::after{
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-    background:
-      radial-gradient(circle at 30% 40%, rgba(220,38,38,.12) 0%, transparent 40%),
-      radial-gradient(circle at 70% 60%, rgba(255,68,68,.08) 0%, transparent 40%);
-    pointer-events:none;z-index:0;
-  }
-  [data-theme="glass"] .hero>*{position:relative;z-index:1}
-  [data-theme="glass"] .surprise-btn{
-    background:rgba(220,38,38,.25);
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    border:1px solid rgba(220,38,38,.3);
-  }
-  [data-theme="glass"] .surprise-btn:hover{
-    background:rgba(220,38,38,.35);
-  }
-  [data-theme="glass"] .recent-chip{
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    background:rgba(255,255,255,.05);
-    border:1px solid rgba(255,255,255,.1);
-  }
-  [data-theme="glass"] .stats-row .stat-num{
-    text-shadow:0 0 20px rgba(220,38,38,.4);
-  }
-  [data-theme="glass"] .share-toast{
-    backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
-    background:rgba(220,38,38,.7);
-  }
-
-  /* ===== 10X MOBILE UPGRADE: SCROLL PROGRESS BAR ===== */
-  .scroll-progress{
-    position:fixed;top:0;left:0;height:3px;z-index:9999;
-    background:linear-gradient(90deg,#dc2626,#ff4444,#ff6b9d,#ff4444,#dc2626);
-    background-size:200% 100%;
-    animation:progressShimmer 2s linear infinite;
-    width:0%;transition:width .1s linear;
-    box-shadow:0 0 8px rgba(220,38,38,.6);
-  }
-  @keyframes progressShimmer{0%{background-position:200% 0}100%{background-position:-200% 0}}
-
-  /* ===== 10X MOBILE: CARD SCROLL REVEAL ===== */
-  .card.reveal-hidden{
-    opacity:0;transform:translateY(30px) scale(.97);
-    transition:opacity .5s cubic-bezier(.4,0,.2,1),transform .5s cubic-bezier(.4,0,.2,1);
-  }
-  .card.reveal-visible{
-    opacity:1;transform:translateY(0) scale(1);
-  }
-
-  /* ===== 10X MOBILE: TOUCH PRESS FEEDBACK ===== */
-  @media(hover:none) and (pointer:coarse){
-    .nav-btn:active,.section-tab:active,.quick-link:active,.surprise-btn:active,.recent-chip:active{
-      transform:scale(.95)!important;transition:transform .1s!important;
-    }
-    .card:active{
-      transform:scale(.98)!important;transition:transform .15s!important;
-    }
-    .btn-visit:active{
-      transform:scale(.96)!important;opacity:.85!important;
-    }
-  }
-
-  /* ===== 10X MOBILE: SECTION TABS SMOOTH SCROLL ===== */
-  .section-tabs{
-    scroll-snap-type:x mandatory;
-    -webkit-overflow-scrolling:touch;
-  }
-  .section-tab{
-    scroll-snap-align:center;
-  }
-
-  /* ===== 10X MOBILE: BETTER CARD SPACING ===== */
-  @media(max-width:480px){
-    .card-grid{gap:14px}
-    .category-section{margin-bottom:32px}
-    .cat-header{margin-bottom:8px}
-    .cat-desc{margin-bottom:14px;font-size:.85rem;line-height:1.5}
-    .card{padding:20px;border-radius:18px}
-    .card-name{font-size:.95rem}
-    .card-desc{font-size:.84rem;line-height:1.55}
-    .btn-visit{padding:12px 20px;font-size:.85rem;border-radius:14px}
-    .badge{font-size:.68rem;padding:4px 10px}
-  }
-
-  /* ===== 10X MOBILE: ENHANCED GLASS THEME ===== */
-  [data-theme="glass"] .hero{
-    background:linear-gradient(135deg,rgba(12,12,20,.95) 0%,rgba(30,8,18,.9) 35%,rgba(12,12,20,.95) 65%,rgba(20,10,16,.9) 100%);
-  }
-  [data-theme="glass"] .card{
-    background:rgba(255,255,255,.03);
-    border:1px solid rgba(255,255,255,.1);
-    box-shadow:
-      0 4px 24px rgba(0,0,0,.25),
-      inset 0 1px 0 rgba(255,255,255,.1),
-      inset 0 -1px 0 rgba(255,255,255,.02);
-    backdrop-filter:blur(24px) saturate(1.5);-webkit-backdrop-filter:blur(24px) saturate(1.5);
-  }
-  [data-theme="glass"] .card:hover{
-    background:rgba(255,255,255,.05);
-    border-color:rgba(220,38,38,.25);
-    box-shadow:
-      0 8px 40px rgba(0,0,0,.3),
-      0 0 30px rgba(220,38,38,.08),
-      inset 0 1px 0 rgba(255,255,255,.15),
-      inset 0 -1px 0 rgba(255,255,255,.03);
-  }
-  [data-theme="glass"] .hero-badge{
-    backdrop-filter:blur(20px) saturate(1.5);-webkit-backdrop-filter:blur(20px) saturate(1.5);
-    background:rgba(220,38,38,.08);
-    border:1px solid rgba(220,38,38,.2);
-    box-shadow:0 0 20px rgba(220,38,38,.1);
-  }
-  [data-theme="glass"] .btn-visit{
-    backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px);
-    box-shadow:0 4px 16px rgba(220,38,38,.25),inset 0 1px 0 rgba(255,255,255,.1);
-  }
-  [data-theme="glass"] .cat-header .cat-icon{
-    text-shadow:0 0 16px rgba(220,38,38,.3);
-  }
-  [data-theme="glass"] .cat-title{
-    text-shadow:0 0 20px rgba(255,255,255,.05);
-  }
-  [data-theme="glass"] .fav-btn svg{
-    filter:drop-shadow(0 0 4px rgba(255,68,68,.3));
-  }
-  [data-theme="glass"] .instagram-link{
-    backdrop-filter:blur(16px) saturate(1.3);-webkit-backdrop-filter:blur(16px) saturate(1.3);
-    box-shadow:0 4px 24px rgba(225,48,108,.3),inset 0 1px 0 rgba(255,255,255,.15);
-  }
-  [data-theme="glass"] .search-wrap{
-    box-shadow:0 0 30px rgba(124,58,237,.25),0 0 60px rgba(236,72,153,.1);
-  }
-  [data-theme="glass"] .scroll-progress{
-    box-shadow:0 0 12px rgba(220,38,38,.8);
-  }
-
-  /* ===== 10X MOBILE: SMOOTH THEME TRANSITIONS ===== */
-  .card,.nav-btn,.section-tab,.hero,.hero-badge,.quick-link,.piracy-warning,.bottom-nav,.mobile-nav-toggle,.nav-wrap,.cat-header,.cat-title,.cat-desc,.badge,.btn-visit,.fav-btn,.search-wrap input,.instagram-link,.surprise-btn,.stats-row,.recent-chip,.share-btn{
-    transition:background var(--transition-theme),color var(--transition-theme),border-color var(--transition-theme),box-shadow var(--transition-theme),backdrop-filter var(--transition-theme);
-  }
-
-  /* ===== 10X MOBILE: PREMIUM CARD GLOW ON HOVER ===== */
-  .card::before{
-    content:'';position:absolute;top:0;left:0;right:0;bottom:0;
-    border-radius:inherit;opacity:0;transition:opacity .3s;
-    background:radial-gradient(circle at var(--mouse-x,50%) var(--mouse-y,50%),rgba(220,38,38,.06) 0%,transparent 60%);
-    pointer-events:none;z-index:0;
-  }
-  .card:hover::before{opacity:1}
-  .card>*:not(.card-actions-top){position:relative;z-index:1}
-  .card>.card-actions-top{position:absolute;top:10px;right:10px;z-index:3}
-  @media(max-width:768px){
-    .card>.card-actions-top{position:static!important;top:auto!important;right:auto!important;z-index:3;display:flex;justify-content:flex-end;margin-bottom:4px}
-  }
-
-  /* ===== 10X MOBILE: INSTAGRAM LINK PULSE ===== */
-  @keyframes igPulse{0%,100%{box-shadow:0 4px 20px rgba(225,48,108,.3)}50%{box-shadow:0 4px 30px rgba(225,48,108,.5),0 0 40px rgba(131,58,180,.2)}}
-  .instagram-link{animation:igPulse 3s ease-in-out infinite}
-
-  /* ===== 10X MOBILE: CATEGORY SECTION DIVIDER ===== */
-  .category-section+.category-section::before{
-    content:'';display:block;height:1px;margin:8px 0 28px;
-    background:linear-gradient(90deg,transparent,var(--border),rgba(220,38,38,.15),var(--border),transparent);
-  }
-
-  /* ===== ROUND 2 FEATURE 1: ANIMATED HERO BOTTOM BORDER ===== */
-  .hero::after{
-    background:linear-gradient(90deg,transparent,rgba(220,38,38,.3),rgba(255,68,68,.5),rgba(220,38,38,.3),transparent)!important;
-    height:2px!important;
-  }
-
-  /* ===== ROUND 2 FEATURE 2: CARD SKELETON SHIMMER (loading feel) ===== */
-  @keyframes shimmer{
-    0%{background-position:-200% 0}
-    100%{background-position:200% 0}
-  }
-  .card-favicon[src=""],.card-favicon:not([src]){
-    background:linear-gradient(90deg,var(--surface) 25%,var(--border) 50%,var(--surface) 75%);
-    background-size:200% 100%;
-    animation:shimmer 1.5s infinite;
-    border-radius:4px;
-  }
-
-  /* ===== ROUND 2 FEATURE 3: ENHANCED BACK-TO-TOP BUTTON ===== */
-  .back-top{
-    background:linear-gradient(135deg,#dc2626,#ff4444)!important;
-    box-shadow:0 4px 20px rgba(220,38,38,.4)!important;
-    border:none!important;
-  }
-  .back-top:hover{
-    box-shadow:0 6px 28px rgba(220,38,38,.6)!important;
-    transform:translateY(-2px)!important;
-  }
-  @keyframes backTopPulse{0%,100%{box-shadow:0 4px 20px rgba(220,38,38,.4)}50%{box-shadow:0 4px 30px rgba(220,38,38,.6),0 0 20px rgba(255,68,68,.2)}}
-  .back-top.visible{animation:backTopPulse 2s ease-in-out infinite}
-
-  /* ===== ROUND 2 FEATURE 4: CATEGORY COUNT BADGE ANIMATION ===== */
-  @keyframes countPop{0%{transform:scale(1)}50%{transform:scale(1.15)}100%{transform:scale(1)}}
-  .cat-count{transition:all .3s}
-  .cat-count:hover{animation:countPop .4s ease}
-
-  /* ===== ROUND 2 FEATURE 5: SEARCH FOCUS ENHANCED GLOW ===== */
-  .search-wrap input:focus{
-    box-shadow:0 0 0 4px var(--accent-glow),0 0 30px rgba(220,38,38,.1)!important;
-  }
-  .search-wrap:has(input:focus){
-    box-shadow:0 0 30px rgba(124,58,237,.5),0 0 60px rgba(236,72,153,.25)!important;
-  }
-
-  /* ===== ROUND 2 FEATURE 6: FLOATING PARTICLES BACKGROUND ===== */
-  .particles-bg{
-    position:fixed;top:0;left:0;width:100%;height:100%;pointer-events:none;z-index:0;overflow:hidden;
-  }
-  .particle{
-    position:absolute;border-radius:50%;opacity:0;
-    animation:particleFloat linear infinite;
-  }
-  @keyframes particleFloat{
-    0%{opacity:0;transform:translateY(100vh) scale(0)}
-    10%{opacity:.3}
-    90%{opacity:.3}
-    100%{opacity:0;transform:translateY(-10vh) scale(1)}
-  }
-
-  /* ===== ROUND 2 FEATURE 7: CARD VISITED STATE ===== */
-  .card.visited-card{
-    position:relative;
-  }
-  .card.visited-card::after{
-    content:'\2713 Visited';position:absolute;top:12px;left:12px;
-    font-size:.6rem;font-weight:700;letter-spacing:.5px;text-transform:uppercase;
-    color:var(--green);opacity:.6;
-    padding:2px 8px;border-radius:50px;
-    background:rgba(0,201,167,.08);border:1px solid rgba(0,201,167,.15);
-  }
-
-  /* ===== ROUND 2 FEATURE 8: SMOOTH NAV BUTTON RIPPLE ===== */
-  .nav-btn{position:relative;overflow:hidden}
-  .nav-btn .ripple{
-    position:absolute;border-radius:50%;background:rgba(220,38,38,.3);
-    transform:scale(0);animation:rippleAnim .6s ease-out;
-    pointer-events:none;
-  }
-  @keyframes rippleAnim{to{transform:scale(4);opacity:0}}
-
-  /* ===== ROUND 2 FEATURE 9: HERO TITLE GRADIENT ANIMATION ===== */
-  @keyframes titleGradient{
-    0%{background-position:0% 50%}
-    50%{background-position:100% 50%}
-    100%{background-position:0% 50%}
-  }
-  .hero h1{
-    background:linear-gradient(270deg,var(--text),var(--accent),var(--accent2),var(--accent3),var(--accent),var(--text))!important;
-    background-size:300% 100%!important;
-    -webkit-background-clip:text!important;-webkit-text-fill-color:transparent!important;
-    background-clip:text!important;
-    animation:titleGradient 8s ease infinite!important;
-  }
-
-  /* ===== ROUND 2 FEATURE 10: LAST UPDATED TIMESTAMP ===== */
-  .last-updated{
-    display:inline-flex;align-items:center;gap:6px;
-    font-size:.7rem;color:var(--text-dim);margin-top:8px;
-    padding:4px 12px;border-radius:50px;
-    background:rgba(255,255,255,.03);border:1px solid var(--border);
-  }
-  .last-updated svg{width:12px;height:12px}
-  @media(max-width:480px){
-    .instagram-link{font-size:1rem;padding:10px 24px;margin-top:8px;margin-bottom:20px}
-  }
-
-  /* ===== ROUND 3 FEATURE 1: PAGE LOAD ANIMATION ===== */
-  @keyframes pageLoadFade{0%{opacity:0;transform:translateY(20px)}100%{opacity:1;transform:translateY(0)}}
-  .hero-content>*:not(h1){opacity:0;animation:pageLoadFade .6s ease forwards}
-  .hero-content>h1{animation:pageLoadFade .6s ease forwards,titleGradient 8s ease infinite}
-  .hero-content>*:nth-child(1){animation-delay:.1s}
-  .hero-content>*:nth-child(2){animation-delay:.2s}
-  .hero-content>*:nth-child(3){animation-delay:.3s}
-  .hero-content>*:nth-child(4){animation-delay:.4s}
-  .hero-content>*:nth-child(5){animation-delay:.5s}
-  .hero-content>*:nth-child(6){animation-delay:.6s}
-  .hero-content>*:nth-child(7){animation-delay:.7s}
-  .hero-content>*:nth-child(8){animation-delay:.8s}
-  .hero-content>*:nth-child(9){animation-delay:.9s}
-  .hero-content>*:nth-child(10){animation-delay:1s}
-  .hero-content>*:nth-child(11){animation-delay:1.1s}
-
-  /* ===== ROUND 3 FEATURE 2: CATEGORY COLOR-CODED LEFT BORDER ===== */
-  .card{border-left:3px solid transparent}
-  .card.card-top-picks{border-left-color:var(--accent)}
-  .card.card-ai{border-left-color:#7c3aed}
-  .card.card-gaming{border-left-color:#f59e0b}
-  .card.card-streaming{border-left-color:#06b6d4}
-  .card.card-pdf{border-left-color:#10b981}
-  .card.card-design{border-left-color:#ec4899}
-  .card.card-learning{border-left-color:#8b5cf6}
-  .card.card-dev{border-left-color:#3b82f6}
-  .card.card-productivity{border-left-color:#f97316}
-  .card.card-privacy{border-left-color:#14b8a6}
-  .card.card-hidden{border-left-color:#a855f7}
-  .card.card-piracy{border-left-color:#ef4444}
-  .card.card-games-sw{border-left-color:#f43f5e}
-  .card.card-sports{border-left-color:#22c55e}
-  .card.card-agentic{border-left-color:#6366f1}
-  .card.card-llm{border-left-color:#8b5cf6}
-  .card.card-vpn{border-left-color:#0ea5e9}
-  .card.card-google-labs{border-left-color:#34d399}
-  .card.card-educator{border-left-color:#f472b6}
-  .card.card-privacy-browser{border-left-color:#2dd4bf}
-  .card.card-adblocker{border-left-color:#fb923c}
-  .card.card-creator{border-left-color:#c084fc}
-  .card.card-podcast{border-left-color:#a78bfa}
-  .card.card-firestick{border-left-color:var(--firestick-accent)}
-  .card.card-ios-mod{border-left-color:var(--ios-accent)}
-  .card.card-android-hack{border-left-color:var(--android-accent)}
-  .card.card-windows-tools{border-left-color:var(--windows-accent)}
-  .card.card-powershell{border-left-color:var(--powershell-accent)}
-  .card.card-github-tools{border-left-color:var(--github-accent)}
-  .card.card-emulator{border-left-color:var(--emulator-accent)}
-  .card.card-rainmeter{border-left-color:var(--rainmeter-accent)}
-
-  /* ===== ROUND 3 FEATURE 3: QUICK COPY URL BUTTON ===== */
-  .copy-url-btn{
-    position:static;
-    width:28px;height:28px;border-radius:50%;border:1px solid var(--border);
-    background:var(--surface);color:var(--text-dim);cursor:pointer;
-    display:flex;align-items:center;justify-content:center;
-    font-size:.7rem;transition:all .2s;z-index:5;opacity:.7;
-  }
-  .card:hover .copy-url-btn,.card:focus-within .copy-url-btn{opacity:1}
-  @media(max-width:768px){.copy-url-btn{opacity:1}}
-  .copy-url-btn:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-  .copy-url-btn.copied{background:#10b981;color:#fff;border-color:#10b981}
-  .copy-url-btn svg{width:14px;height:14px}
-
-  /* ===== ROUND 3 FEATURE 4: TODAY'S PICK BANNER ===== */
-  .todays-pick{
-    background:linear-gradient(135deg,rgba(220,38,38,.08),rgba(124,58,237,.08));
-    border:1px solid rgba(220,38,38,.15);border-radius:16px;
-    padding:16px 20px;margin:0 auto 24px;max-width:600px;
-    display:flex;align-items:center;gap:14px;
-    cursor:pointer;transition:all .3s;
-  }
-  .todays-pick:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(220,38,38,.15)}
-  .todays-pick-badge{
-    background:linear-gradient(135deg,#dc2626,#ff4444);color:#fff;
-    font-size:.6rem;font-weight:800;letter-spacing:1px;text-transform:uppercase;
-    padding:4px 10px;border-radius:50px;white-space:nowrap;
-  }
-  .todays-pick-name{font-weight:700;color:var(--text);font-size:.95rem}
-  .todays-pick-desc{font-size:.75rem;color:var(--text-dim);margin-top:2px}
-  .todays-pick-arrow{margin-left:auto;color:var(--accent);font-size:1.2rem}
-
-  /* ===== ROUND 3 FEATURE 5: SEARCH SUGGESTION CHIPS ===== */
-  .search-suggestions{
-    display:flex;flex-wrap:wrap;gap:8px;justify-content:center;
-    margin-top:14px;padding:0 16px;
-  }
-  .search-chip{
-    font-size:.82rem;padding:8px 18px;border-radius:50px;
-    background:rgba(255,255,255,.06);border:1px solid var(--border);
-    color:var(--text-muted);cursor:pointer;transition:all .25s;
-    white-space:nowrap;font-weight:600;letter-spacing:.3px;
-    backdrop-filter:blur(4px);
-  }
-  .search-chip:hover{background:var(--accent);color:#fff;border-color:var(--accent);transform:translateY(-1px);box-shadow:0 4px 12px rgba(255,68,68,.25)}
-  .search-chip:active{transform:scale(.96)}
-  [data-theme="light"] .search-chip{background:rgba(0,0,0,.05);color:#555;border-color:rgba(0,0,0,.1)}
-  [data-theme="light"] .search-chip:hover{background:var(--accent);color:#fff;border-color:var(--accent)}
-
-  /* ===== ROUND 3 FEATURE 6: ANIMATED CATEGORY ICON BOUNCE ===== */
-  @keyframes iconBounce{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
-  .nav-btn:hover .nav-emoji,.section-tab:hover .tab-emoji{display:inline-block;animation:iconBounce .4s ease}
-  .nav-emoji,.tab-emoji{display:inline-block;transition:transform .2s}
-
-  /* ===== ROUND 3 FEATURE 7: SITE STATUS INDICATOR ===== */
-  .status-dot{
-    width:6px;height:6px;border-radius:50%;display:inline-block;
-    background:#10b981;margin-right:4px;vertical-align:middle;
-    box-shadow:0 0 4px rgba(16,185,129,.4);
-  }
-  @keyframes statusPulse{0%,100%{opacity:1}50%{opacity:.5}}
-  .status-dot{animation:statusPulse 2s ease-in-out infinite}
-
-  /* ===== ROUND 3 FEATURE 8: ENHANCED HERO COUNTER ANIMATION ===== */
-  @keyframes heroCountUp{0%{opacity:0;transform:translateY(10px)}100%{opacity:1;transform:translateY(0)}}
-  .stat-item{animation:heroCountUp .8s ease forwards}
-  .stat-item:nth-child(1){animation-delay:.3s}
-  .stat-item:nth-child(2){animation-delay:.5s}
-  .stat-item:nth-child(3){animation-delay:.7s}
-
-  /* ===== ROUND 3 FEATURE 9: MOBILE SWIPE HINT ===== */
-  .swipe-hint{
-    display:none;text-align:center;font-size:.65rem;color:var(--text-dim);
-    margin-top:8px;opacity:.5;
-  }
-  @media(max-width:768px){.swipe-hint{display:block}}
-  @keyframes swipeHintFade{0%,100%{opacity:.3}50%{opacity:.7}}
-  .swipe-hint{animation:swipeHintFade 3s ease-in-out infinite}
-
-  /* ===== ROUND 3 FEATURE 10: RED SCROLLBAR ===== */
-  ::-webkit-scrollbar{width:8px;height:8px}
-  ::-webkit-scrollbar-track{background:var(--bg)}
-  ::-webkit-scrollbar-thumb{background:linear-gradient(180deg,#dc2626,#ff4444);border-radius:4px}
-  ::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#b91c1c,#dc2626)}
-  *{scrollbar-width:thin;scrollbar-color:#dc2626 var(--bg)}
 </style>
 </head>
 <body>
 
-<!-- FLOATING PARTICLES BACKGROUND -->
-<div class="particles-bg" id="particlesBg"></div>
-
-<!-- SCROLL PROGRESS BAR -->
-<div class="scroll-progress" id="scrollProgress"></div>
-
 <!-- THEME TOGGLE -->
-<button class="theme-toggle" id="themeToggle" title="Toggle theme">
+<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
   <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
   <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-  <svg class="glass-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="display:none"><rect x="2" y="3" width="20" height="18" rx="4"/><path d="M2 8h20" opacity=".5"/><circle cx="12" cy="15" r="3" opacity=".4"/></svg>
   <span class="theme-label" id="themeLabel">Light</span>
 </button>
 
@@ -1446,18 +660,9 @@
   <div class="hero-content">
     <div class="hero-badge">Curated Collection &bull; 2026</div>
     <h1>Powerful Free Websites Library</h1>
-    <a href="https://instagram.com/coryhepla" target="_blank" rel="noopener noreferrer" class="instagram-link">
-      <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-      @coryhepla
-    </a>
-    <p>600+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
+    <p>475+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer" style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.</p>
     <p style="font-size:.72rem;font-style:italic;opacity:.35;margin-top:10px;letter-spacing:.3px;">Proudly built with source data, deep research &amp; <a href="https://manus.ai" target="_blank" rel="noopener noreferrer" style="color:inherit;text-decoration:underline;opacity:.7">Manus.AI</a> — Yours truly, CH</p>
-    <div class="last-updated"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>Last updated: February 2026</div>
     <div class="quick-links">
-      <a href="tools.html" class="quick-link" style="background:linear-gradient(135deg,rgba(220,38,38,.15),rgba(245,158,11,.1));border-color:rgba(220,38,38,.3)">
-        <div class="quick-link-icon">🔧</div>
-        <div class="quick-link-text"><h3>Site Tools</h3></div>
-      </a>
       <a href="best-practices.html" class="quick-link ql-guide">
         <div class="quick-link-icon">🛡</div>
         <div class="quick-link-text"><h3>Best Practices Guide</h3></div>
@@ -1472,49 +677,15 @@
       <div class="hero-stat"><a href="faq.html" style="text-decoration:none;color:inherit"><div class="num" style="font-size:1.6rem">❓</div><div class="label">FAQ &amp; Help</div></a></div>
       <div class="hero-stat"><a href="javascript:void(0)" id="heroFavLink" style="text-decoration:none;color:inherit"><div class="num" id="heroFavCount" style="font-size:1.6rem">❤️ 0</div><div class="label">My Favorites</div></a></div>
     </div>
-    <!-- ANIMATED STATS COUNTER -->
-    <div class="stats-row">
-      <div class="stat-item"><div class="stat-num" id="statSites">0</div><div class="stat-label">Websites</div></div>
-      <div class="stat-item"><div class="stat-num" id="statCats">0</div><div class="stat-label">Categories</div></div>
-      <div class="stat-item"><div class="stat-num" id="statSources">0</div><div class="stat-label">Sources</div></div>
-      <div class="stat-item"><a href="tools.html" style="text-decoration:none;color:inherit"><div class="stat-num" style="font-size:1.4rem">🔧</div><div class="stat-label">Tools</div></a></div>
-    </div>
-
-    <!-- SURPRISE ME BUTTON -->
-    <button class="surprise-btn" id="surpriseBtn" onclick="surpriseMe()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg>
-      Surprise Me — Random Site
-    </button>
-
     <div class="search-wrap">
       <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
-      <input type="text" id="searchInput" placeholder="Search 600+ websites, categories, or descriptions...">
-      <div class="kbd-hint" id="kbdHint"><kbd>/</kbd> to search</div>
+      <input type="text" id="searchInput" placeholder="Search 475+ websites, categories, or descriptions...">
     </div>
     <div class="search-count" id="searchCount"></div>
 
-    <!-- SEARCH SUGGESTION CHIPS -->
-    <div class="search-suggestions" id="searchSuggestions">
-      <span class="search-chip" data-q="free AI tools">Free AI Tools</span>
-      <span class="search-chip" data-q="streaming">Streaming</span>
-      <span class="search-chip" data-q="VPN">VPN</span>
-      <span class="search-chip" data-q="PDF">PDF Tools</span>
-      <span class="search-chip" data-q="retro games">Retro Games</span>
-      <span class="search-chip" data-q="privacy">Privacy</span>
-      <span class="search-chip" data-q="Fire Stick">Fire Stick</span>
-      <span class="search-chip" data-q="emulator">Emulators</span>
-    </div>
-
-    <!-- TODAY'S PICK -->
-    <div class="todays-pick" id="todaysPick">
-      <div class="todays-pick-badge">Today's Pick</div>
-      <div><div class="todays-pick-name" id="todaysPickName"></div><div class="todays-pick-desc" id="todaysPickDesc"></div></div>
-      <div class="todays-pick-arrow">&rarr;</div>
-    </div>
-
     <!-- SECTION TYPE TABS -->
     <div class="section-tabs">
-      <button class="section-tab active" data-section="all">All (600+)</button>
+      <button class="section-tab active" data-section="all">All (475+)</button>
       <button class="section-tab" data-section="favorites">❤️ My Favorites <span class="fav-count-badge" id="favTabCount">0</span></button>
       <button class="section-tab" data-section="top">⭐ Top Picks</button>
       <button class="section-tab" data-section="free">&#x2728; Free Tools (204)</button>
@@ -1529,14 +700,6 @@
       <button class="section-tab" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
       <button class="section-tab" data-section="sports">&#x26BD; Sports Streams (20)</button>
       <button class="section-tab" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
-      <button class="section-tab" data-section="firestick">&#x1F525; Fire Stick (15)</button>
-      <button class="section-tab" data-section="ios">&#x1F4F1; iOS Modding (15)</button>
-      <button class="section-tab" data-section="android">&#x1F916; Android Hacking (15)</button>
-      <button class="section-tab" data-section="windows">&#x1F5A5; Windows Tools (15)</button>
-      <button class="section-tab" data-section="powershell">&#x2328; PowerShell (10)</button>
-      <button class="section-tab" data-section="github">&#x1F419; GitHub Tools (15)</button>
-      <button class="section-tab" data-section="emulator">&#x1F3AE; Emulators (15)</button>
-      <button class="section-tab" data-section="rainmeter">&#x1F3A8; Rainmeter (10)</button>
     </div>
   </div>
 </header>
@@ -1565,15 +728,6 @@
     </a>
   </div>
 
-  <!-- RECENTLY VIEWED -->
-  <div class="recent-section" id="recentSection">
-    <div class="recent-header">
-      <h3>🕐 Recently Viewed</h3>
-      <button class="clear-recent" onclick="clearRecent()">Clear</button>
-    </div>
-    <div class="recent-chips" id="recentChips"></div>
-  </div>
-
   <div id="favoritesGrid" class="category-section" style="display:none;margin-top:20px">
     <div class="cat-header">
       <span class="cat-icon">❤️</span>
@@ -1593,15 +747,8 @@
     <div class="nf-heart">❤️</div>
     <h3>No favorites yet</h3>
     <p>Tap the heart icon on any card to save it here. Your favorites are stored on this device and persist across visits.</p>
-    <button class="export-favs-btn" id="exportFavsBtn" onclick="exportFavorites()">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
-      Export Favorites as Bookmarks
-    </button>
   </div>
 </div>
-
-<!-- SHARE TOAST -->
-<div class="share-toast" id="shareToast">Link copied!</div>
 
 <!-- FOOTER -->
 <footer class="footer">
@@ -2235,156 +1382,6 @@ const DATA=[
       {n:"Castbox",u:"https://castbox.fm",d:"Free podcast player and hosting platform. Discover, listen, and publish podcasts all in one place.",l:"None",s:"Found via research"},
       {n:"Listnr",u:"https://www.listnr.tech",d:"AI text-to-speech for podcasts. Convert blog posts and articles into natural-sounding podcast episodes.",l:"Free tier: 1000 words",s:"Found via research"}
     ]
-  },
-  {id:"firestick-hacking",name:"Fire Stick Hacking",icon:"\uD83D\uDD25",type:"firestick",
-    desc:"Sideload apps, install secret codes, and unlock your Amazon Fire Stick for free streaming, ad-free YouTube, and custom launchers.",
-    sites:[
-      {n:"Downloader App",u:"https://troypoint.com/downloader",d:"The #1 sideloading app for Fire Stick. Enter codes to install any APK. Code 250931 for TROYPOINT Toolbox.",l:"None",s:"TroyPoint"},
-      {n:"Unlinked",u:"https://unlinked.link",d:"App store alternative for Fire Stick — enter secret codes to access curated app libraries. Codes: 96960000, 67664537.",l:"None",s:"Fire Stick community"},
-      {n:"FileSynced",u:"https://filesynced.com",d:"Replacement for Filelinked — enter codes to download curated app bundles. Codes: 98766969, 55555555.",l:"None",s:"Fire Stick community"},
-      {n:"SmartTube",u:"https://smarttubeapp.github.io",d:"Ad-free YouTube for Fire TV and Android TV. SponsorBlock built in, 4K HDR, no Google account needed.",l:"Fire TV / Android TV only",s:"r/Adblock + Fire Stick community"},
-      {n:"Wolf Launcher",u:"https://techdoctoruk.com/wolf-launcher",d:"Replace the default Fire Stick home screen with a clean, ad-free custom launcher.",l:"Requires sideloading",s:"TechDoctorUK"},
-      {n:"Stremio (Fire Stick)",u:"https://www.stremio.com",d:"Stream movies and TV via torrent add-ons. Install via Downloader code 71893. Best with Torrentio addon.",l:"Needs VPN for torrenting",s:"r/Piracy + Fire Stick community",vpn:true},
-      {n:"Kodi",u:"https://kodi.tv",d:"The ultimate media center — install via Downloader code 483927. Add repos for live TV, movies, and sports.",l:"Requires add-on setup",s:"r/Piracy + Kodi community"},
-      {n:"Cinema HD",u:"https://cinemahdapkapp.com",d:"Free streaming app for Fire Stick — movies and TV with Real-Debrid support. Downloader code 5726169.",l:"Has ads; Real-Debrid recommended",s:"Fire Stick community",vpn:true},
-      {n:"TiviMate",u:"https://tivimate.com",d:"Best IPTV player for Fire Stick — EPG guide, favorites, recording. Downloader code 549628.",l:"Premium for full features",s:"Fire Stick community"},
-      {n:"SportsFire",u:"https://sportstv.me",d:"Live sports streaming app for Fire Stick. NFL, NBA, UFC, soccer. Downloader code 119368.",l:"Has ads",s:"Fire Stick community",vpn:true},
-      {n:"TechDoctorUK",u:"https://techdoctoruk.com",d:"The go-to resource for Fire Stick tutorials, APK downloads, and sideloading guides.",l:"None",s:"YouTube + community"},
-      {n:"TroyPoint",u:"https://troypoint.com",d:"Fire Stick tutorials, best APK lists, VPN guides, and the famous Rapid App Installer.",l:"None",s:"YouTube + community"},
-      {n:"Fire Stick Tricks",u:"https://www.firesticktricks.com",d:"Comprehensive guides for Fire Stick jailbreaking, app installation, and troubleshooting.",l:"None",s:"Community resource"},
-      {n:"APKTime",u:"https://apktime.com",d:"Third-party app store for Fire Stick with categorized APKs for streaming, tools, and games.",l:"Has ads",s:"Fire Stick community"},
-      {n:"Mouse Toggle",u:"https://play.google.com/store/apps/details?id=com.fluxii.android.mousetoggleforfiretv",d:"Adds mouse cursor to Fire Stick — essential for apps not designed for TV remote navigation.",l:"None",s:"Fire Stick community"}
-    ]
-  },
-  {id:"ios-modding",name:"iOS Modding & Sideloading",icon:"\uD83D\uDCF1",type:"ios",
-    desc:"Sideload apps, install tweaks, and mod your iPhone without jailbreaking — app stores, signing services, and exploit tools.",
-    sites:[
-      {n:"AltStore",u:"https://altstore.io",d:"Sideload apps to your iPhone using your Apple ID. Supports 3 active apps. Refresh every 7 days via Wi-Fi.",l:"Requires computer for initial setup; 3 app limit",s:"iOS community"},
-      {n:"SideStore",u:"https://sidestore.io",d:"Fork of AltStore that refreshes apps over Wi-Fi without a computer using WireGuard VPN trick.",l:"Requires initial computer setup",s:"iOS community"},
-      {n:"TrollStore 2",u:"https://github.com/opa334/TrollStore",d:"Permanently install any IPA without signing limits — exploits CoreTrust bug. Works on iOS 14-17.0.",l:"Only works on specific iOS versions",s:"iOS community"},
-      {n:"FlekSt0re",u:"https://flekstore.com",d:"No-PC sideloading — install tweaked and modded apps directly from Safari. No computer needed.",l:"Apps may get revoked",s:"iOS community"},
-      {n:"Scarlet",u:"https://usescarlet.com",d:"IPA installer and app signer for iOS — install any app without jailbreak or computer.",l:"Certificate may get revoked",s:"iOS community"},
-      {n:"AppDB",u:"https://appdb.to",d:"Independent iOS app marketplace — install apps, tweaks, and games. Supports device linking.",l:"Some features require PRO",s:"iOS community"},
-      {n:"LiveContainer",u:"https://github.com/khanhduytran0/LiveContainer",d:"Run unlimited sideloaded apps within a single app slot — bypass the 3-app limit entirely.",l:"Requires AltStore or TrollStore",s:"GitHub + iOS community"},
-      {n:"Signulous",u:"https://www.signulous.com",d:"Premium signing service — install any IPA with enterprise certificate. $19.99/year.",l:"Paid: $19.99/year",s:"iOS community"},
-      {n:"iOSGods",u:"https://iosgods.com",d:"Game cheats, modded apps, and hacked IPAs for iOS. Huge community with request system.",l:"Some mods require jailbreak",s:"iOS community"},
-      {n:"TweakBox",u:"https://www.tweakboxapp.com",d:"Third-party app store for iOS — modded apps, emulators, and tweaked social media apps.",l:"Certificate revocations common",s:"iOS community"},
-      {n:"AltStore PAL",u:"https://altstore.io/pal",d:"EU-only alternative marketplace for iOS — install apps outside the App Store legally under DMA.",l:"EU only; requires iOS 17.4+",s:"iOS community"},
-      {n:"Sideloadly",u:"https://sideloadly.io",d:"Desktop tool to sideload IPAs to your iPhone/iPad. Supports Windows and macOS.",l:"Requires computer; 7-day refresh",s:"iOS community"},
-      {n:"uYou+",u:"https://github.com/qnblackcat/uYouPlus",d:"Ad-free YouTube for iOS with download, background play, SponsorBlock, and more.",l:"Requires sideloading via AltStore/TrollStore",s:"iOS community"},
-      {n:"Santander",u:"https://github.com/NSAntoine/Santander",d:"iOS file manager with root access — browse system files without jailbreak on supported versions.",l:"Limited iOS version support",s:"GitHub + iOS community"},
-      {n:"Cowabunga",u:"https://github.com/leminlimez/Cowabunga",d:"iOS customization toolbox — change icons, fonts, status bar, and UI elements without jailbreak.",l:"iOS 15-16.1.2 only",s:"GitHub + iOS community"}
-    ]
-  },
-  {id:"android-hacking",name:"Android Hacking & Modding",icon:"\uD83E\uDD16",type:"android",
-    desc:"Root your Android, install modded apps, remove ads, and unlock hidden features — the ultimate Android power user toolkit.",
-    sites:[
-      {n:"Magisk",u:"https://github.com/topjohnwu/Magisk",d:"The #1 Android root solution — systemless root with MagiskHide to pass SafetyNet. Module support.",l:"Requires unlocked bootloader",s:"Android community"},
-      {n:"KernelSU",u:"https://kernelsu.org",d:"Kernel-based root solution — more stealthy than Magisk. Works at kernel level for better hiding.",l:"Requires custom kernel or GKI device",s:"Android community"},
-      {n:"APatch",u:"https://apatch.dev",d:"New root tool that patches Android kernel — combines best of Magisk and KernelSU approaches.",l:"Requires unlocked bootloader",s:"Android community"},
-      {n:"ReVanced",u:"https://revanced.app",d:"Patch YouTube, Reddit, Twitter, and more to remove ads and add features. Successor to Vanced.",l:"Requires ReVanced Manager app",s:"r/revancedapp"},
-      {n:"Lucky Patcher",u:"https://www.luckypatchers.com",d:"Remove ads, bypass license verification, and modify app permissions. The Swiss army knife of Android.",l:"Root recommended for full features",s:"Android community"},
-      {n:"LSPosed",u:"https://github.com/LSPosed/LSPosed",d:"Xposed framework for Android 8.1+ — install modules to modify any app behavior systemlessly.",l:"Requires Magisk or KernelSU",s:"Android community"},
-      {n:"Shizuku",u:"https://shizuku.rikka.app",d:"Use ADB-level permissions without root — enable powerful apps without unlocking bootloader.",l:"Requires ADB setup or wireless debugging",s:"Android community"},
-      {n:"F-Droid",u:"https://f-droid.org",d:"Free and open-source Android app store — privacy-respecting alternatives to everything.",l:"None",s:"Privacy community"},
-      {n:"Aurora Store",u:"https://auroraoss.com",d:"Open-source Google Play Store client — download apps anonymously without Google account.",l:"None",s:"Privacy community"},
-      {n:"Obtainium",u:"https://github.com/ImranR98/Obtainium",d:"Get app updates directly from GitHub releases, F-Droid, and other sources. Cut out the middleman.",l:"None",s:"Android community"},
-      {n:"Termux",u:"https://termux.dev",d:"Full Linux terminal emulator for Android — run Python, Node.js, and Linux tools on your phone.",l:"None",s:"Android community"},
-      {n:"AdAway",u:"https://adaway.org",d:"System-wide ad blocker for Android using hosts file. Root for system-wide, VPN mode without root.",l:"Root recommended",s:"Android community"},
-      {n:"Tasker",u:"https://tasker.joaoapps.com",d:"The ultimate Android automation app — automate anything with triggers, conditions, and actions.",l:"Paid: $3.49",s:"Android community"},
-      {n:"Shelter",u:"https://gitea.angry.im/PeterCxy/Shelter",d:"Isolate apps in Android Work Profile — run dual instances and freeze apps to save battery.",l:"None",s:"Privacy community"},
-      {n:"NetGuard",u:"https://netguard.me",d:"No-root firewall for Android — block internet access per app. Control which apps can phone home.",l:"Pro features require payment",s:"Privacy community"}
-    ]
-  },
-  {id:"windows-power-tools",name:"Windows Power Tools",icon:"\uD83D\uDDA5",type:"windows",
-    desc:"Unlock hidden Windows features, optimize performance, and supercharge your PC with power user tools and utilities.",
-    sites:[
-      {n:"Microsoft PowerToys",u:"https://github.com/microsoft/PowerToys",d:"28 free utilities from Microsoft — FancyZones, Color Picker, File Locksmith, Text Extractor, and more.",l:"None",s:"Microsoft official"},
-      {n:"Chris Titus Tech WinUtil",u:"https://christitus.com/windows-tool",d:"The ultimate Windows utility — debloat, optimize, install apps, and tweak settings with one script.",l:"Run via PowerShell: irm christitus.com/win | iex",s:"Chris Titus Tech"},
-      {n:"O&O ShutUp10++",u:"https://www.oo-software.com/en/shutup10",d:"Free privacy tool — disable Windows telemetry, Cortana, and tracking with one click.",l:"None",s:"Privacy community"},
-      {n:"Winaero Tweaker",u:"https://winaero.com/winaero-tweaker",d:"All-in-one Windows customization tool — hidden settings, appearance tweaks, and behavior changes.",l:"None",s:"Windows community"},
-      {n:"Everything Search",u:"https://www.voidtools.com",d:"Instant file search for Windows — indexes your entire drive and finds any file in milliseconds.",l:"None",s:"Windows community"},
-      {n:"Bulk Crap Uninstaller",u:"https://www.bcuninstaller.com",d:"Remove bloatware, leftover files, and stubborn programs that Windows can't uninstall.",l:"None",s:"Windows community"},
-      {n:"Windows God Mode",u:"https://www.howtogeek.com/402458/enable-god-mode-in-windows",d:"Access all 200+ Windows settings in one folder. Create folder named: {ED7BA470-8E54-465E-825C-99712043E01C}",l:"None — built into Windows",s:"Windows community"},
-      {n:"Autoruns",u:"https://learn.microsoft.com/en-us/sysinternals/downloads/autoruns",d:"See everything that runs at Windows startup — disable unwanted programs for faster boot times.",l:"None",s:"Microsoft Sysinternals"},
-      {n:"Process Explorer",u:"https://learn.microsoft.com/en-us/sysinternals/downloads/process-explorer",d:"Advanced Task Manager replacement — see exactly what processes are doing, DLLs loaded, and handles.",l:"None",s:"Microsoft Sysinternals"},
-      {n:"WizTree",u:"https://diskanalyzer.com",d:"Fastest disk space analyzer — see what's eating your storage in seconds. Faster than WinDirStat.",l:"None for personal use",s:"Windows community"},
-      {n:"Ninite",u:"https://ninite.com",d:"Install and update multiple programs at once — select apps, download one installer, done.",l:"None",s:"Windows community"},
-      {n:"QuickLook",u:"https://github.com/QL-Win/QuickLook",d:"macOS-style quick preview for Windows — press Space to preview any file without opening it.",l:"None",s:"GitHub"},
-      {n:"ShareX",u:"https://getsharex.com",d:"The ultimate screenshot and screen recording tool — annotate, GIF capture, OCR, and auto-upload.",l:"None",s:"Windows community"},
-      {n:"Files App",u:"https://files.community",d:"Beautiful modern file manager for Windows — tabs, dual pane, tags, and cloud integration.",l:"None",s:"Microsoft Store"},
-      {n:"Windhawk",u:"https://windhawk.net",d:"Mod Windows UI and behavior with community mods — taskbar tweaks, window management, and more.",l:"None",s:"Windows community"}
-    ]
-  },
-  {id:"powershell-commands",name:"PowerShell Scripts & Commands",icon:"\u2328",type:"powershell",
-    desc:"Essential PowerShell commands, scripts, and modules for system administration, automation, and troubleshooting.",
-    sites:[
-      {n:"PSReadLine",u:"https://github.com/PowerShell/PSReadLine",d:"Enhanced command line editing — syntax highlighting, history search, and predictive IntelliSense.",l:"None",s:"Microsoft official",cmd:"Install-Module PSReadLine -Force -SkipPublisherCheck"},
-      {n:"Oh My Posh",u:"https://ohmyposh.dev",d:"Beautiful PowerShell prompt themes — customize your terminal with icons, git status, and colors.",l:"None",s:"PowerShell community",cmd:"winget install JanDeDobbeleer.OhMyPosh -s winget"},
-      {n:"Terminal-Icons",u:"https://github.com/devblackops/Terminal-Icons",d:"Add file and folder icons to your PowerShell terminal — makes directory listings beautiful.",l:"Requires Nerd Font",s:"PowerShell community",cmd:"Install-Module -Name Terminal-Icons -Repository PSGallery"},
-      {n:"PowerShell Gallery",u:"https://www.powershellgallery.com",d:"Official repository for PowerShell modules and scripts — Install-Module from thousands of packages.",l:"None",s:"Microsoft official",cmd:"Find-Module <name> | Install-Module"},
-      {n:"WinGet (via PS)",u:"https://github.com/microsoft/winget-cli",d:"Windows Package Manager — install any app from PowerShell: winget install <app>. Like apt for Windows.",l:"Windows 10/11 only",s:"Microsoft official",cmd:"winget install <AppName>"},
-      {n:"Scoop",u:"https://scoop.sh",d:"Command-line installer for Windows — install dev tools, fonts, and apps without admin rights.",l:"None",s:"Developer community",cmd:"irm get.scoop.sh | iex"},
-      {n:"Chocolatey",u:"https://chocolatey.org",d:"The original Windows package manager — automate software installation and updates via PowerShell.",l:"Free for personal use",s:"Developer community",cmd:"Set-ExecutionPolicy Bypass -Scope Process -Force; [System.Net.ServicePointManager]::SecurityProtocol = [System.Net.ServicePointManager]::SecurityProtocol -bor 3072; iex ((New-Object System.Net.WebClient).DownloadString('https://community.chocolatey.org/install.ps1'))"},
-      {n:"dbatools",u:"https://dbatools.io",d:"500+ PowerShell commands for SQL Server — migrate, backup, manage databases from the command line.",l:"None",s:"DBA community",cmd:"Install-Module dbatools"},
-      {n:"PoshGUI",u:"https://poshgui.com",d:"Visual PowerShell script editor — drag and drop GUI builder for PowerShell forms and scripts.",l:"Free tier available",s:"PowerShell community",cmd:""},
-      {n:"SS64 PowerShell Reference",u:"https://ss64.com/ps",d:"Complete A-Z reference of every PowerShell command with syntax, examples, and explanations.",l:"None",s:"Community resource",cmd:""}
-    ]
-  },
-  {id:"github-tools",name:"GitHub Open Source Tools",icon:"\uD83D\uDC19",type:"github",
-    desc:"The best open-source tools on GitHub — downloaders, automation, privacy tools, and developer utilities.",
-    sites:[
-      {n:"yt-dlp",u:"https://github.com/yt-dlp/yt-dlp",d:"Download videos from YouTube and 1000+ sites. Fork of youtube-dl with more features and active updates.",l:"Command line tool",s:"r/Piracy + GitHub"},
-      {n:"gallery-dl",u:"https://github.com/mikf/gallery-dl",d:"Download image galleries from Instagram, Twitter, Reddit, DeviantArt, and 100+ sites.",l:"Command line tool",s:"GitHub"},
-      {n:"Stremio Addons",u:"https://stremio-addons.netlify.app",d:"Community addon catalog for Stremio — Torrentio, Cyberflix, and more for free streaming.",l:"Requires Stremio app",s:"r/StremioAddons"},
-      {n:"Cobalt",u:"https://cobalt.tools",d:"Download videos and audio from YouTube, Twitter, TikTok, Instagram — clean UI, no ads, no tracking.",l:"None",s:"GitHub + r/Piracy"},
-      {n:"Stirling PDF",u:"https://stirlingpdf.io",d:"Self-hosted PDF toolkit — merge, split, convert, compress, OCR, and more. All processing done locally.",l:"Self-hosted or use demo",s:"GitHub"},
-      {n:"Upscayl",u:"https://upscayl.org",d:"Free AI image upscaler — enhance and upscale images up to 4x using AI. Runs locally on your GPU.",l:"Requires decent GPU",s:"GitHub"},
-      {n:"LocalSend",u:"https://localsend.org",d:"Free AirDrop alternative — share files between any device on your local network. Cross-platform.",l:"None",s:"GitHub"},
-      {n:"Spotube",u:"https://spotube.krtirtho.dev",d:"Open-source Spotify client — free music streaming without ads or premium. Uses YouTube as backend.",l:"None",s:"GitHub"},
-      {n:"Seal",u:"https://github.com/JunkFood02/Seal",d:"Android video/audio downloader powered by yt-dlp — Material You design, simple and beautiful.",l:"Android only",s:"GitHub"},
-      {n:"Piped",u:"https://piped.video",d:"Privacy-friendly YouTube frontend — no ads, no tracking, SponsorBlock built in. Self-hostable.",l:"None",s:"GitHub + Privacy community"},
-      {n:"Invidious",u:"https://invidious.io",d:"Open-source YouTube frontend — watch without ads or tracking. Multiple public instances available.",l:"None",s:"GitHub + Privacy community"},
-      {n:"Nitter",u:"https://nitter.net",d:"Privacy-focused Twitter/X frontend — browse tweets without an account or tracking.",l:"Instances may go down",s:"GitHub + Privacy community"},
-      {n:"Redlib",u:"https://github.com/redlib-org/redlib",d:"Privacy-focused Reddit frontend — browse Reddit without tracking, ads, or JavaScript.",l:"None",s:"GitHub + Privacy community"},
-      {n:"Bitwarden",u:"https://bitwarden.com",d:"Open-source password manager — free for personal use. Cross-platform sync, 2FA, and secure sharing.",l:"Free for personal; Premium $10/year",s:"GitHub + Security community"},
-      {n:"Syncthing",u:"https://syncthing.net",d:"Free peer-to-peer file sync — replace Dropbox with direct device-to-device encrypted sync.",l:"None",s:"GitHub"}
-    ]
-  },
-  {id:"emulators-keys",name:"Emulators & Console Keys",icon:"\uD83C\uDFAE",type:"emulator",
-    desc:"Play console games on PC — Nintendo Switch, PS3, PS2, Wii, 3DS, and more. Includes firmware and key sources.",
-    sites:[
-      {n:"Ryujinx",u:"https://github.com/ryujinx-mirror/ryujinx",d:"Nintendo Switch emulator with excellent compatibility — play Zelda, Mario, Pokemon on PC.",l:"Requires Switch firmware + prod.keys",s:"Emulation community"},
-      {n:"Citron",u:"https://citron-emu.org",d:"Switch emulator fork continuing Yuzu development — active updates and improving compatibility.",l:"Requires Switch firmware + prod.keys",s:"Emulation community"},
-      {n:"RPCS3",u:"https://rpcs3.net",d:"PlayStation 3 emulator — play PS3 exclusives like The Last of Us, Uncharted, and Persona 5 on PC.",l:"Requires PS3 firmware",s:"Emulation community"},
-      {n:"PCSX2",u:"https://pcsx2.net",d:"PlayStation 2 emulator with near-perfect compatibility — upscale PS2 games to 4K resolution.",l:"Requires PS2 BIOS",s:"Emulation community"},
-      {n:"Dolphin",u:"https://dolphin-emu.org",d:"Wii and GameCube emulator — play Smash Bros, Mario Kart, Zelda with HD graphics and netplay.",l:"None",s:"Emulation community"},
-      {n:"Lime3DS",u:"https://github.com/Lime3DS/Lime3DS",d:"Nintendo 3DS emulator — fork of Citra with continued development. Play Pokemon, Fire Emblem, and more.",l:"Requires 3DS system files for some games",s:"Emulation community"},
-      {n:"melonDS",u:"https://melonds.kuribo64.net",d:"Nintendo DS emulator with accurate emulation — Wi-Fi support, DSi mode, and local multiplayer.",l:"Requires DS BIOS/firmware for DSi mode",s:"Emulation community"},
-      {n:"mGBA",u:"https://mgba.io",d:"Game Boy Advance emulator — also plays GB and GBC games. Fast, accurate, and feature-rich.",l:"None",s:"Emulation community"},
-      {n:"PPSSPP",u:"https://www.ppsspp.org",d:"PlayStation Portable emulator — play PSP games in HD on any platform. Excellent compatibility.",l:"None",s:"Emulation community"},
-      {n:"DuckStation",u:"https://www.duckstation.org",d:"PlayStation 1 emulator with modern features — upscaling, widescreen hacks, and texture replacement.",l:"Requires PS1 BIOS",s:"Emulation community"},
-      {n:"RetroArch",u:"https://www.retroarch.com",d:"All-in-one emulation frontend — run 50+ emulator cores from one app. NES to PS2 and everything between.",l:"None",s:"Emulation community"},
-      {n:"SwitchKeys",u:"https://switchkeys.net",d:"Nintendo Switch prod.keys and title.keys — required for Switch emulators to decrypt and run games.",l:"Legal grey area",s:"Emulation community"},
-      {n:"Vimm's Lair",u:"https://vimm.net",d:"ROM archive for classic consoles — NES, SNES, N64, GameCube, Wii, PS1, PS2, and more.",l:"Slow downloads; one at a time",s:"r/Roms"},
-      {n:"r/Roms Megathread",u:"https://r-roms.github.io",d:"Community-maintained ROM megathread with links to every console's game library.",l:"Links may change",s:"r/Roms"},
-      {n:"CDRomance",u:"https://cdromance.org",d:"ROM and ISO archive with fan translations, hacks, and homebrew for retro and modern consoles.",l:"Has ads",s:"Emulation community"}
-    ]
-  },
-  {id:"rainmeter-skins",name:"Rainmeter Desktop Skins",icon:"\uD83C\uDFA8",type:"rainmeter",
-    desc:"Customize your Windows desktop with Rainmeter — beautiful skins, widgets, system monitors, and visualizers.",
-    sites:[
-      {n:"Rainmeter",u:"https://www.rainmeter.net",d:"The official Rainmeter app — free desktop customization platform for Windows. Download and install first.",l:"Windows only",s:"Official"},
-      {n:"DeviantArt Rainmeter",u:"https://www.deviantart.com/tag/rainmeter",d:"Largest collection of Rainmeter skins — thousands of free themes, widgets, and visualizers.",l:"None",s:"DeviantArt community"},
-      {n:"VisualSkins",u:"https://visualskins.com",d:"Curated Rainmeter skin gallery with previews, ratings, and easy download links.",l:"None",s:"Rainmeter community"},
-      {n:"vsthemes Rainmeter",u:"https://vsthemes.org/en/skins/rainmeter",d:"Large database of Rainmeter skins organized by category — clocks, system monitors, music players.",l:"None",s:"Rainmeter community"},
-      {n:"Dracula Rainmeter",u:"https://github.com/dracula/rainmeter",d:"Dracula dark theme for Rainmeter — the popular dev color scheme as a desktop skin.",l:"None",s:"GitHub"},
-      {n:"Mond",u:"https://www.deviantart.com/apexxx-senkan/art/Mond-762455575",d:"Minimalist Rainmeter skin with clean clock, weather, system stats, and music controls.",l:"None",s:"DeviantArt"},
-      {n:"SUSPENDED",u:"https://www.deviantart.com/crashtech/art/SUSPENDED-Rainmeter-skin-921498498",d:"Futuristic floating widgets with glassmorphism effects — CPU, RAM, clock, and weather.",l:"None",s:"DeviantArt"},
-      {n:"Robik",u:"https://www.deviantart.com/apexxx-senkan/art/Robik-771914763",d:"Modern minimal Rainmeter suite — date, time, weather, system info with clean typography.",l:"None",s:"DeviantArt"},
-      {n:"Fountain of Colors",u:"https://www.deviantart.com/alatsombath/art/Fountain-of-Colors-desktop-music-visualizer-518894563",d:"Beautiful audio visualizer for your desktop — reacts to music with customizable color bars.",l:"None",s:"DeviantArt"},
-      {n:"r/Rainmeter",u:"https://www.reddit.com/r/Rainmeter",d:"Rainmeter community subreddit — share setups, find skins, get help, and get inspired by others.",l:"None",s:"Reddit community"}
-    ]
   }
 ];
 
@@ -2401,35 +1398,27 @@ const themeToggle=document.getElementById('themeToggle');
 let activeFilter='all';
 let activeSectionType='all';
 
-// Theme toggle — 3-way: Dark → Light → Glass
+// Theme toggle
 const themeLabel=document.getElementById('themeLabel');
 function setTheme(theme){
   document.documentElement.setAttribute('data-theme',theme);
   localStorage.setItem('theme',theme);
   const moonIcon=themeToggle.querySelector('.moon-icon');
   const sunIcon=themeToggle.querySelector('.sun-icon');
-  const glassIcon=themeToggle.querySelector('.glass-icon');
-  moonIcon.style.display='none';sunIcon.style.display='none';glassIcon.style.display='none';
   if(theme==='dark'){
-    moonIcon.style.display='inline';
+    moonIcon.style.display='inline';sunIcon.style.display='none';
     themeLabel.textContent='Light';
-  } else if(theme==='light'){
-    sunIcon.style.display='inline';
-    themeLabel.textContent='Glass';
   } else {
-    glassIcon.style.display='inline';
+    moonIcon.style.display='none';sunIcon.style.display='inline';
     themeLabel.textContent='Dark';
   }
 }
 themeToggle.addEventListener('click',()=>{
   const current=document.documentElement.getAttribute('data-theme');
-  if(current==='dark') setTheme('light');
-  else if(current==='light') setTheme('glass');
-  else setTheme('dark');
+  setTheme(current==='dark'?'light':'dark');
 });
-// Load saved theme — auto-detect iOS Safari for Glass default on first visit
-const isIOS=/iPad|iPhone|iPod/.test(navigator.userAgent)||(/Macintosh/.test(navigator.userAgent)&&'ontouchend' in document);
-const savedTheme=localStorage.getItem('theme')||(isIOS?'glass':'dark');
+// Load saved theme
+const savedTheme=localStorage.getItem('theme')||'dark';
 setTheme(savedTheme);
 
 // Section type tabs
@@ -2445,7 +1434,7 @@ document.querySelectorAll('.section-tab').forEach(tab=>{
     updateNavButtons();
     applyFilters();
     // Show piracy warning only for piracy/sports categories
-    piracyWarning.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports'||activeSectionType==='firestick'||activeSectionType==='emulator');
+    piracyWarning.classList.toggle('visible',activeSectionType==='piracy'||activeSectionType==='sports');
     // Auto-scroll to the first visible category section
     requestAnimationFrame(()=>{
       const firstVisible=document.querySelector('.category-section.visible');
@@ -2482,14 +1471,6 @@ function init(){
     if(cat.type==='adblock')btn.classList.add('adblock-btn');
     if(cat.type==='creator')btn.classList.add('creator-btn');
     if(cat.type==='podcast')btn.classList.add('podcast-btn');
-    if(cat.type==='firestick')btn.classList.add('firestick-btn');
-    if(cat.type==='ios')btn.classList.add('ios-btn');
-    if(cat.type==='android')btn.classList.add('android-btn');
-    if(cat.type==='windows')btn.classList.add('windows-btn');
-    if(cat.type==='powershell')btn.classList.add('powershell-btn');
-    if(cat.type==='github')btn.classList.add('github-btn');
-    if(cat.type==='emulator')btn.classList.add('emulator-btn');
-    if(cat.type==='rainmeter')btn.classList.add('rainmeter-btn');
     btn.dataset.filter=cat.id;
     btn.textContent=cat.icon+' '+cat.name;
     btn.addEventListener('click',()=>setFilter(cat.id));
@@ -2502,7 +1483,7 @@ function init(){
     section.className='category-section visible';
     section.dataset.category=cat.id;
     section.dataset.type=cat.type;
-    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':cat.type==='creator'?'creator-count':cat.type==='podcast'?'podcast-count':cat.type==='firestick'?'firestick-count':cat.type==='ios'?'ios-count':cat.type==='android'?'android-count':cat.type==='windows'?'windows-count':cat.type==='powershell'?'powershell-count':cat.type==='github'?'github-count':cat.type==='emulator'?'emulator-count':cat.type==='rainmeter'?'rainmeter-count':'free-count';
+    const countClass=cat.type==='top'?'top-count':cat.type==='piracy'?'piracy-count':cat.type==='sports'?'sports-count':cat.type==='labs'?'labs-count':cat.type==='agent'?'agent-count':cat.type==='llm'?'llm-count':cat.type==='vpn'?'vpn-count':cat.type==='edu'?'edu-count':cat.type==='privacy'?'privacy-count':cat.type==='adblock'?'adblock-count':cat.type==='creator'?'creator-count':cat.type==='podcast'?'podcast-count':'free-count';
     section.innerHTML=`
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
@@ -2525,22 +1506,12 @@ function getFaviconUrl(url){
 
 function renderCard(s,catName,catType){
   const hasLimits=s.l&&!s.l.startsWith('None');
-  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':catType==='creator'?'creator-card':catType==='podcast'?'podcast-card':catType==='firestick'?'firestick-card':catType==='ios'?'ios-card':catType==='android'?'android-card':catType==='windows'?'windows-card':catType==='powershell'?'powershell-card':catType==='github'?'github-card':catType==='emulator'?'emulator-card':catType==='rainmeter'?'rainmeter-card':'';
-  const fallbackEmoji=catType==='sports'?'\u26BD':catType==='piracy'?'\uD83C\uDFA5':catType==='labs'?'\uD83E\uDDEA':catType==='agent'?'\uD83E\uDD16':catType==='llm'?'\uD83D\uDCAC':catType==='vpn'?'\uD83D\uDEE1':catType==='edu'?'\uD83C\uDF93':catType==='privacy'?'\uD83D\uDD0F':catType==='adblock'?'\uD83D\uDEAB':catType==='creator'?'\uD83C\uDFA8':catType==='podcast'?'\uD83C\uDF99':catType==='top'?'\u2B50':catType==='firestick'?'\uD83D\uDD25':catType==='ios'?'\uD83D\uDCF1':catType==='android'?'\uD83E\uDD16':catType==='windows'?'\uD83D\uDDA5':catType==='powershell'?'\u2328':catType==='github'?'\uD83D\uDC19':catType==='emulator'?'\uD83C\uDFAE':catType==='rainmeter'?'\uD83C\uDFA8':'\uD83C\uDF10';
+  const cardClass=catType==='top'?'top-card':catType==='piracy'?'piracy-card':catType==='sports'?'sports-card':catType==='labs'?'labs-card':catType==='agent'?'agent-card':catType==='llm'?'llm-card':catType==='vpn'?'vpn-card':catType==='edu'?'edu-card':catType==='privacy'?'privacy-card':catType==='adblock'?'adblock-card':catType==='creator'?'creator-card':catType==='podcast'?'podcast-card':'';
+  const fallbackEmoji=catType==='sports'?'\u26BD':catType==='piracy'?'\uD83C\uDFA5':catType==='labs'?'\uD83E\uDDEA':catType==='agent'?'\uD83E\uDD16':catType==='llm'?'\uD83D\uDCAC':catType==='vpn'?'\uD83D\uDEE1':catType==='edu'?'\uD83C\uDF93':catType==='privacy'?'\uD83D\uDD0F':catType==='adblock'?'\uD83D\uDEAB':catType==='creator'?'\uD83C\uDFA8':catType==='podcast'?'\uD83C\uDF99':catType==='top'?'\u2B50':'\uD83C\uDF10';
   const vpnBadge=s.vpn?`<span class="badge badge-vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN recommended</span>`:'';
   const faviconSrc=getFaviconUrl(s.u);
-  const psCmd=s.cmd||'';
-  const copyTarget=catType==='powershell'&&psCmd?psCmd.replace(/'/g,"\\'"):s.u;
-  const copyTitle=catType==='powershell'&&psCmd?'Copy Command':'Copy URL';
   return `
     <div class="card ${cardClass}" data-search="${(s.n+' '+s.d+' '+catName+' '+s.s+' '+s.u).toLowerCase()}" data-fav-id="${s.u}">
-      <div class="card-actions-top">
-        <button class="share-btn" title="Share" onclick="shareCard(event,'${s.u}','${s.n.replace(/'/g,"\\'")}')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"/><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"/></svg></button>
-        <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" onclick="toggleFav(this,event)">
-          <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
-        </button>
-        <button class="copy-url-btn" title="${copyTitle}" onclick="copyCardUrl(event,'${copyTarget}')"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg></button>
-      </div>
       <div class="card-top">
         <div class="card-name-wrap">
           ${faviconSrc?`<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">`:''}${faviconSrc?`<span class="card-favicon-fallback" style="display:none;font-size:16px;flex-shrink:0">${fallbackEmoji}</span>`:''}
@@ -2548,13 +1519,15 @@ function renderCard(s,catName,catType){
         </div>
         <span class="card-tag">${catName}</span>
       </div>
-      ${catType==='powershell'&&psCmd?`<div class="ps-cmd-block"><span class="ps-cmd-text">${psCmd}</span></div>`:''}
+      <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" onclick="toggleFav(this,event)">
+        <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+      </button>
       <p class="card-desc">${s.d}</p>
       <div class="card-limits ${hasLimits?'has-limits':''}">${hasLimits?'\u26A0\uFE0F '+s.l:''}</div>
       <div class="card-meta">
         <span class="badge badge-verified">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>
-          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':catType==='creator'?'Free for creators':catType==='podcast'?'Free for podcasters':catType==='firestick'?'Sideload ready':catType==='ios'?'iOS compatible':catType==='android'?'Android tool':catType==='windows'?'Windows tool':catType==='powershell'?'PowerShell module':catType==='github'?'Open source':catType==='emulator'?'Free emulator':catType==='rainmeter'?'Free skin':'No signup verified'}
+          ${catType==='top'?'Top Pick':catType==='labs'?'Free to use':catType==='agent'?'Try it free':catType==='llm'?'Free tier available':catType==='vpn'?'Free tier available':catType==='edu'?'Free for educators':catType==='privacy'?'Privacy-first':catType==='adblock'?'Blocks ads':catType==='creator'?'Free for creators':catType==='podcast'?'Free for podcasters':'No signup verified'}
         </span>
         <span class="badge badge-source">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4M12 8h.01"/></svg>
@@ -2564,8 +1537,8 @@ function renderCard(s,catName,catType){
         ${catType==='labs'?'<span class="badge badge-labs-exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v4l3 8H6l3-8V3zM5 19h14M8 22h8"/></svg>Experimental</span>':''}
       </div>
       <div class="card-actions">
-        <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit" onclick="trackRecent('${s.n.replace(/'/g,"\\'")  }','${s.u}')">
-          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':catType==='firestick'?'Get App':catType==='ios'?'Get Tool':catType==='android'?'Get App':catType==='windows'?'Get Tool':catType==='powershell'?'Get Module':catType==='github'?'View Repo':catType==='emulator'?'Download':catType==='rainmeter'?'Get Skin':'Visit Site'}
+        <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit">
+          ${catType==='top'?'Visit Top Pick':catType==='labs'?'Try Tool':catType==='agent'?'Try Browser':catType==='llm'?'Try It':catType==='vpn'?'Get VPN':catType==='edu'?'Try Tool':catType==='privacy'?'Get Browser':catType==='adblock'?'Get Blocker':catType==='creator'?'Try Tool':catType==='podcast'?'Try Tool':'Visit Site'}
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
         </a>
       </div>
@@ -2649,8 +1622,6 @@ function applyFilters(){
 
   noResults.classList.toggle('visible',totalVisible===0);
   searchCount.textContent=q?totalVisible+' result'+(totalVisible!==1?'s':'')+' found':'';
-  // Re-trigger scroll reveal for newly visible cards
-  if(typeof refreshScrollReveal==='function')refreshScrollReveal();
 }
 
 // Nav collapse logic (must be before scroll listener)
@@ -2848,343 +1819,6 @@ init();
 syncFavButtons();
 updateFavCounts();
 
-// ===== FEATURE 1: SURPRISE ME — RANDOM SITE =====
-function surpriseMe(){
-  const allSites=[];
-  DATA.forEach(cat=>cat.sites.forEach(s=>allSites.push({...s,cat:cat.name})));
-  const random=allSites[Math.floor(Math.random()*allSites.length)];
-  trackRecent(random.n,random.u);
-  window.open(random.u,'_blank');
-}
-
-// ===== FEATURE 2: ANIMATED STATS COUNTER =====
-function animateCounter(el,target,duration){
-  const start=performance.now();
-  const initial=0;
-  function update(now){
-    const elapsed=now-start;
-    const progress=Math.min(elapsed/duration,1);
-    // Ease out cubic
-    const eased=1-Math.pow(1-progress,3);
-    el.textContent=Math.round(initial+(target-initial)*eased);
-    if(progress<1)requestAnimationFrame(update);
-  }
-  requestAnimationFrame(update);
-}
-(function initStats(){
-  let totalSites=0;
-  DATA.forEach(cat=>totalSites+=cat.sites.length);
-  const totalCats=DATA.length;
-  const totalSources=4; // bsky, setupsai, community, research
-  // Use IntersectionObserver to animate when visible
-  const statsRow=document.querySelector('.stats-row');
-  if(!statsRow)return;
-  const observer=new IntersectionObserver((entries)=>{
-    entries.forEach(entry=>{
-      if(entry.isIntersecting){
-        animateCounter(document.getElementById('statSites'),totalSites,1200);
-        animateCounter(document.getElementById('statCats'),totalCats,1000);
-        animateCounter(document.getElementById('statSources'),totalSources,800);
-        observer.disconnect();
-      }
-    });
-  },{threshold:0.3});
-  observer.observe(statsRow);
-})();
-
-// ===== FEATURE 3: SHARE BUTTON =====
-function shareCard(e,url,name){
-  e.stopPropagation();
-  e.preventDefault();
-  if(navigator.share){
-    navigator.share({title:name+' — Powerful Websites Library',url:url}).catch(()=>{});
-  } else {
-    navigator.clipboard.writeText(url).then(()=>{
-      const toast=document.getElementById('shareToast');
-      toast.classList.add('visible');
-      setTimeout(()=>toast.classList.remove('visible'),2000);
-    });
-  }
-}
-
-// ===== FEATURE 4: RECENTLY VIEWED =====
-const RECENT_KEY='pwl_recent';
-function getRecent(){try{return JSON.parse(localStorage.getItem(RECENT_KEY))||[];}catch(e){return[];}}
-function saveRecent(arr){localStorage.setItem(RECENT_KEY,JSON.stringify(arr));}
-function trackRecent(name,url){
-  let recent=getRecent();
-  recent=recent.filter(r=>r.u!==url);
-  recent.unshift({n:name,u:url});
-  if(recent.length>10)recent=recent.slice(0,10);
-  saveRecent(recent);
-  renderRecent();
-}
-function clearRecent(){
-  localStorage.removeItem(RECENT_KEY);
-  renderRecent();
-}
-function renderRecent(){
-  const recent=getRecent();
-  const section=document.getElementById('recentSection');
-  const chips=document.getElementById('recentChips');
-  if(!recent.length){section.classList.remove('visible');return;}
-  section.classList.add('visible');
-  chips.innerHTML=recent.map(r=>{
-    const fav=getFaviconUrl(r.u);
-    return `<a href="${r.u}" target="_blank" rel="noopener noreferrer" class="recent-chip" onclick="trackRecent('${r.n.replace(/'/g,"\\'")}','${r.u}')">${fav?`<img src="${fav}" alt="" onerror="this.style.display='none'">`:''}<span>${r.n}</span></a>`;
-  }).join('');
-}
-renderRecent();
-
-// ===== FEATURE 5: KEYBOARD SHORTCUTS =====
-document.addEventListener('keydown',(e)=>{
-  // "/" to focus search
-  if(e.key==='/'&&document.activeElement!==searchInput){
-    e.preventDefault();
-    searchInput.focus();
-    window.scrollTo({top:0,behavior:'smooth'});
-  }
-  // Escape to clear search
-  if(e.key==='Escape'&&document.activeElement===searchInput){
-    searchInput.value='';
-    searchInput.blur();
-    applyFilters();
-    expandNav();
-  }
-});
-
-// ===== FEATURE 6: EXPORT FAVORITES AS BOOKMARKS =====
-function exportFavorites(){
-  const favs=getFavs();
-  if(!favs.length){alert('No favorites to export yet! Tap the heart icon on any card first.');return;}
-  // Build all sites lookup
-  const allSites={};
-  DATA.forEach(cat=>cat.sites.forEach(s=>{allSites[s.u]={n:s.n,u:s.u,d:s.d};}));
-  let html='<!DOCTYPE NETSCAPE-Bookmark-file-1>\n<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=UTF-8">\n<TITLE>Bookmarks</TITLE>\n<H1>Powerful Websites Library — My Favorites</H1>\n<DL><p>\n';
-  favs.forEach(url=>{
-    const site=allSites[url];
-    if(site)html+=`  <DT><A HREF="${site.u}">${site.n}</A>\n  <DD>${site.d}\n`;
-  });
-  html+='</DL><p>';
-  const blob=new Blob([html],{type:'text/html'});
-  const a=document.createElement('a');
-  a.href=URL.createObjectURL(blob);
-  a.download='pwl-favorites.html';
-  a.click();
-  URL.revokeObjectURL(a.href);
-}
-
-// ===== FEATURE 7: PWA SUPPORT =====
-// Register service worker for Add to Home Screen
-if('serviceWorker' in navigator){
-  // Create a minimal SW inline
-  const swCode=`self.addEventListener('fetch',e=>{e.respondWith(fetch(e.request).catch(()=>new Response('Offline')))});`;
-  const swBlob=new Blob([swCode],{type:'application/javascript'});
-  // We'll skip actual SW registration to avoid issues, but add the manifest
-}
-// Add manifest link dynamically
-(function addManifest(){
-  const manifest={
-    name:'Powerful Free Websites Library',
-    short_name:'PWL',
-    description:'600+ websites that feel illegal to know',
-    start_url:'/',
-    display:'standalone',
-    background_color:'#0a0a0a',
-    theme_color:'#dc2626',
-    icons:[{src:'https://www.google.com/s2/favicons?domain=powerful-websites-library.vercel.app&sz=192',sizes:'192x192',type:'image/png'}]
-  };
-  const blob=new Blob([JSON.stringify(manifest)],{type:'application/json'});
-  const link=document.createElement('link');
-  link.rel='manifest';
-  link.href=URL.createObjectURL(blob);
-  document.head.appendChild(link);
-  // Add meta tags for iOS
-  const meta1=document.createElement('meta');
-  meta1.name='apple-mobile-web-app-capable';meta1.content='yes';
-  document.head.appendChild(meta1);
-  const meta2=document.createElement('meta');
-  meta2.name='apple-mobile-web-app-status-bar-style';meta2.content='black-translucent';
-  document.head.appendChild(meta2);
-  const meta3=document.createElement('meta');
-  meta3.name='apple-mobile-web-app-title';meta3.content='PWL';
-  document.head.appendChild(meta3);
-  const meta4=document.createElement('meta');
-  meta4.name='theme-color';meta4.content='#0a0a0a';
-  document.head.appendChild(meta4);
-})();
-
-// ===== FEATURE 8: ENHANCED GLASS THEME — AUTO-DETECT iOS =====
-// Already handled in theme toggle code — iOS auto-detection sets glass on first visit
-
-// ===== FEATURE 9: SITE COUNT IN TITLE =====
-(function updateTitle(){
-  let total=0;
-  DATA.forEach(cat=>total+=cat.sites.length);
-  document.title=`Powerful Free Websites Library — ${total}+ Free Tools & Sites`;
-})();
-
-// ===== 10X: SCROLL PROGRESS BAR =====
-const scrollProgressEl=document.getElementById('scrollProgress');
-window.addEventListener('scroll',()=>{
-  const winHeight=document.documentElement.scrollHeight-window.innerHeight;
-  const scrolled=winHeight>0?(window.scrollY/winHeight)*100:0;
-  scrollProgressEl.style.width=scrolled+'%';
-},{passive:true});
-
-// ===== 10X: CARD SCROLL REVEAL ANIMATION =====
-const revealObserver=new IntersectionObserver((entries)=>{
-  entries.forEach(entry=>{
-    if(entry.isIntersecting){
-      const card=entry.target;
-      const grid=card.parentElement;
-      const siblings=Array.from(grid.querySelectorAll('.card.reveal-hidden'));
-      const idx=siblings.indexOf(card);
-      const delay=Math.min(idx*50,250);
-      setTimeout(()=>{
-        card.classList.remove('reveal-hidden');
-        card.classList.add('reveal-visible');
-      },delay);
-      revealObserver.unobserve(card);
-    }
-  });
-},{threshold:0.08,rootMargin:'0px 0px -30px 0px'});
-function refreshScrollReveal(){
-  document.querySelectorAll('.card').forEach(c=>{
-    if(c.style.display!=='none'&&!c.classList.contains('reveal-visible')){
-      c.classList.add('reveal-hidden');
-      revealObserver.observe(c);
-    }
-  });
-}
-refreshScrollReveal();
-
-// ===== 10X: CARD MOUSE GLOW TRACKING =====
-document.querySelectorAll('.card').forEach(card=>{
-  card.addEventListener('mousemove',(e)=>{
-    const rect=card.getBoundingClientRect();
-    const x=((e.clientX-rect.left)/rect.width*100).toFixed(1);
-    const y=((e.clientY-rect.top)/rect.height*100).toFixed(1);
-    card.style.setProperty('--mouse-x',x+'%');
-    card.style.setProperty('--mouse-y',y+'%');
-  });
-});
-
-// ===== ROUND 2 FEATURE 6: FLOATING PARTICLES =====
-(function initParticles(){
-  const container=document.getElementById('particlesBg');
-  if(!container)return;
-  const colors=['rgba(220,38,38,.15)','rgba(255,68,68,.1)','rgba(124,58,237,.1)','rgba(236,72,153,.08)','rgba(255,159,67,.08)'];
-  for(let i=0;i<15;i++){
-    const p=document.createElement('div');
-    p.className='particle';
-    const size=Math.random()*4+2;
-    p.style.cssText=`width:${size}px;height:${size}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*15+10}s;animation-delay:${Math.random()*10}s;`;
-    container.appendChild(p);
-  }
-})();
-
-// ===== ROUND 2 FEATURE 7: MARK VISITED CARDS =====
-(function initVisitedCards(){
-  const recent=JSON.parse(localStorage.getItem('pwl_recent')||'[]');
-  const recentUrls=recent.map(r=>r.url);
-  document.querySelectorAll('.card').forEach(card=>{
-    const link=card.querySelector('.btn-visit');
-    if(link&&recentUrls.includes(link.href)){
-      card.classList.add('visited-card');
-    }
-  });
-})();
-
-// ===== ROUND 2 FEATURE 8: NAV BUTTON RIPPLE EFFECT =====
-document.querySelectorAll('.nav-btn').forEach(btn=>{
-  btn.addEventListener('click',(e)=>{
-    const ripple=document.createElement('span');
-    ripple.className='ripple';
-    const rect=btn.getBoundingClientRect();
-    const size=Math.max(rect.width,rect.height);
-    ripple.style.width=ripple.style.height=size+'px';
-    ripple.style.left=(e.clientX-rect.left-size/2)+'px';
-    ripple.style.top=(e.clientY-rect.top-size/2)+'px';
-    btn.appendChild(ripple);
-    setTimeout(()=>ripple.remove(),600);
-  });
-});
-
-// ===== FEATURE 10: DOUBLE-TAP FIX FOR iOS =====
-// Prevent iOS double-tap zoom on interactive elements
-document.addEventListener('touchend',(e)=>{
-  const target=e.target.closest('.fav-btn,.share-btn,.nav-btn,.section-tab,.surprise-btn,.theme-toggle,.mobile-nav-toggle,.btn-visit,.recent-chip,.export-favs-btn');
-  if(target){
-    e.preventDefault();
-    target.click();
-  }
-},{passive:false});
-
-// ===== ROUND 3 FEATURE 3: COPY CARD URL =====
-function copyCardUrl(e,url){
-  e.preventDefault();e.stopPropagation();
-  const btn=e.currentTarget;
-  navigator.clipboard.writeText(url).then(()=>{
-    btn.classList.add('copied');
-    btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M20 6L9 17l-5-5"/></svg>';
-    setTimeout(()=>{
-      btn.classList.remove('copied');
-      btn.innerHTML='<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1"/></svg>';
-    },1500);
-  });
-}
-
-// ===== ROUND 3 FEATURE 4: TODAY'S PICK =====
-(function initTodaysPick(){
-  const allSites=[];
-  DATA.forEach(cat=>cat.sites.forEach(s=>allSites.push({...s,cat:cat.name})));
-  // Use date as seed for daily rotation
-  const today=new Date();
-  const seed=today.getFullYear()*10000+today.getMonth()*100+today.getDate();
-  const idx=seed%allSites.length;
-  const pick=allSites[idx];
-  const nameEl=document.getElementById('todaysPickName');
-  const descEl=document.getElementById('todaysPickDesc');
-  const pickEl=document.getElementById('todaysPick');
-  if(nameEl&&pick){
-    nameEl.textContent=pick.n;
-    descEl.textContent=pick.d.substring(0,80)+(pick.d.length>80?'...':'');
-    pickEl.addEventListener('click',()=>window.open(pick.u,'_blank'));
-  }
-})();
-
-// ===== ROUND 3 FEATURE 5: SEARCH SUGGESTION CHIPS =====
-document.querySelectorAll('.search-chip').forEach(chip=>{
-  chip.addEventListener('click',()=>{
-    const q=chip.dataset.q;
-    searchInput.value=q;
-    searchInput.dispatchEvent(new Event('input'));
-    // Hide suggestions after click
-    document.getElementById('searchSuggestions').style.display='none';
-  });
-});
-// Show suggestions when search is empty
-searchInput.addEventListener('input',()=>{
-  const suggestions=document.getElementById('searchSuggestions');
-  if(suggestions) suggestions.style.display=searchInput.value.trim()?'none':'flex';
-});
-
-// ===== ROUND 3 FEATURE 9: MOBILE SWIPE HINT =====
-// Add swipe hint after first card grid
-(function addSwipeHint(){
-  const firstGrid=document.querySelector('.card-grid');
-  if(firstGrid&&window.innerWidth<=768){
-    const hint=document.createElement('div');
-    hint.className='swipe-hint';
-    hint.textContent='\u2190 Swipe cards to explore \u2192';
-    firstGrid.parentElement.insertBefore(hint,firstGrid.nextSibling);
-    // Auto-hide after 5 seconds
-    setTimeout(()=>{hint.style.transition='opacity 1s';hint.style.opacity='0';setTimeout(()=>hint.remove(),1000);},5000);
-  }
-})();
-
 </script>
 </body>
 </html>
-
