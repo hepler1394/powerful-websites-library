@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
@@ -2761,14 +2761,20 @@
     <div class="hero-content">
       <div class="hero-badge">Curated Collection &bull; 2026</div>
       <h1>Powerful Free Websites Library</h1>
-      <p>475+ websites that feel illegal to know — free tools, agentic browsers, LLMs, streaming, and more. Sourced from
+      <p><span id="heroSiteCount" style="font-weight:900;color:var(--accent)">700+</span> websites that feel illegal to
+        know — free tools, AI, streaming, gaming, music, books, and more. Sourced from
         <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer"
           style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a
           href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer"
           style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.
       </p>
       <p class="hero-credit">Proudly built with source data, deep research &amp; <a href="https://manus.ai"
-          target="_blank" rel="noopener noreferrer">Manus.AI</a> — Yours truly, CH</p>
+          target="_blank" rel="noopener noreferrer">Manus.AI</a> — Yours truly, CH &nbsp;·&nbsp;
+        <button onclick="loadSurpriseMe()"
+          style="background:linear-gradient(135deg,var(--accent),#b91c1c);border:none;color:#fff;padding:4px 14px;border-radius:50px;font-size:.75rem;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;"
+          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🎲 Surprise
+          Me</button>
+      </p>
       <div class="quick-links">
         <a href="best-practices.html" class="quick-link ql-guide">
           <div class="quick-link-icon">🛡</div>
@@ -2802,13 +2808,13 @@
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
         </svg>
-        <input type="text" id="searchInput" placeholder="Search 475+ websites, categories, or descriptions...">
+        <input type="text" id="searchInput" placeholder="Search 700+ websites, categories, or descriptions...">
       </div>
       <div class="search-count" id="searchCount"></div>
 
       <!-- SECTION TYPE TABS -->
-      <div class="section-tabs">
-        <button class="section-tab active" data-section="all">All (475+)</button>
+      <div class="section-tabs" id="sectionTypeTabs" style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;">
+        <button class="section-tab active" data-section="all" id="tabAll">All <span id="tabAllCount">700+</span></button>
         <button class="section-tab" data-section="favorites">❤️ My Favorites <span class="fav-count-badge"
             id="favTabCount">0</span></button>
         <button class="section-tab" data-section="top">⭐ Top Picks</button>
@@ -3579,6 +3585,8 @@
     ];
   </script>
   <script src="data-extra.js"></script>
+  <script src="data-extra-2.js"></script>
+  <script src="data-extra-3.js"></script>
   <script>
     // DOM Elements
     const navEl = document.getElementById('navFilters');
@@ -3624,6 +3632,14 @@
         document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         activeSectionType = tab.dataset.section;
+        // Also update sections that have a mapped section type
+        document.querySelectorAll('.category-section').forEach(s => {
+          const mappedSection = s.dataset.mappedSection || s.dataset.type;
+          const shouldBeVisible = activeSectionType === 'all' || 
+            s.dataset.category === activeFilter ||
+            s.dataset.type === activeSectionType ||
+            mappedSection === activeSectionType;
+        });
         activeFilter = 'all';
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
         updateNavButtons();
@@ -3649,6 +3665,79 @@
       });
     }
 
+    // ===== DYNAMIC SITE COUNT + HERO + SURPRISE ME =====
+    function updateDynamicCounts() {
+      const total = DATA.reduce((acc, cat) => acc + (cat.sites ? cat.sites.length : 0), 0);
+      const rounded = Math.floor(total / 10) * 10;
+      const display = rounded + '+';
+      // Update hero count span
+      const heroCount = document.getElementById('heroSiteCount');
+      if (heroCount) heroCount.textContent = display;
+      // Update search placeholder
+      const si = document.getElementById('searchInput');
+      if (si) si.placeholder = `Search ${display} websites, categories, or descriptions...`;
+      // Update All tab
+      const tabAllCount = document.getElementById('tabAllCount');
+      if (tabAllCount) tabAllCount.textContent = display;
+      // Count-up animation
+      if (heroCount) {
+        let start = 0, end = total, dur = 1200;
+        const step = Math.ceil(end / (dur / 16));
+        const timer = setInterval(() => {
+          start = Math.min(start + step, end);
+          heroCount.textContent = start.toLocaleString() + '+';
+          if (start >= end) clearInterval(timer);
+        }, 16);
+      }
+    }
+
+    function loadSurpriseMe() {
+      const allSites = DATA.flatMap(cat => cat.sites || []);
+      if (!allSites.length) return;
+      const site = allSites[Math.floor(Math.random() * allSites.length)];
+      // Show a quick toast then open in new tab
+      const toast = document.createElement('div');
+      toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;padding:12px 24px;border-radius:50px;font-weight:700;font-size:.9rem;z-index:9999;opacity:0;transition:all .4s;white-space:nowrap;box-shadow:0 4px 20px rgba(220,38,38,.4)';
+      toast.textContent = '🎲 Opening: ' + site.n;
+      document.body.appendChild(toast);
+      requestAnimationFrame(() => { toast.style.opacity = '1'; toast.style.transform = 'translateX(-50%) translateY(0)'; });
+      setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2500);
+      setTimeout(() => window.open(site.u, '_blank', 'noopener'), 300);
+    }
+    window.loadSurpriseMe = loadSurpriseMe;
+
+    // ===== SECTION TAB FILTER (supports new extra category IDs) =====
+    function getSectionTypeForCategory(catId, catType) {
+      // Map data-extra-2/3 category IDs to section tab data-section values
+      const MAP = {
+        'game-emulators': 'gaming',
+        'ai-image-gen': 'ai-image',
+        'video-editing': 'video',
+        'web3-crypto': 'web3',
+        'data-research': 'data',
+        'music-discovery': 'music',
+        'pc-system-tools': 'pc',
+        'photography-image': 'photography',
+        'maps-travel': 'maps',
+        'food-recipes': 'food',
+        'health-fitness': 'health',
+        'social-media-tools': 'social',
+        'file-conversion': 'files',
+        'books-reading': 'books',
+        'ai-frontier-2026': 'llm',
+        'ai-coding-dev': 'free',
+        'ai-agents-2026': 'agent',
+        'ai-video-2026': 'video',
+        'ai-image-2026': 'ai-image',
+        'ai-voice-audio': 'free',
+        'local-ai-tools': 'free',
+        'ai-presentation': 'free',
+        'ai-website-builders': 'free',
+        'productivity-ai-2026': 'free',
+        'browser-power-tools': 'free'
+      };
+      return MAP[catId] || catType || 'free';
+    }
     function init() {
       // Build nav buttons
       DATA.forEach(cat => {
@@ -3678,6 +3767,7 @@
         section.className = 'category-section visible';
         section.dataset.category = cat.id;
         section.dataset.type = cat.type;
+        section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
         const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
         section.innerHTML = `
       <div class="cat-header">
@@ -4485,6 +4575,8 @@
       });
     }
     initVoiceSearch();
+    // Run dynamic count update AFTER all data scripts loaded
+    setTimeout(updateDynamicCounts, 50);
 
     // ===== SCROLL-TO-HIDE HEADER =====
     (function () {
