@@ -1,0 +1,1017 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <title>Admin Dashboard — WebsLib</title>
+    <meta name="robots" content="noindex, nofollow">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+    <style>
+        :root {
+            --bg: #0f0f0f;
+            --surface: #1a1a1a;
+            --card: #222;
+            --card-hover: #2a2a2a;
+            --border: rgba(255, 255, 255, .08);
+            --text: #f0f0f0;
+            --text-muted: #888;
+            --text-dim: #555;
+            --accent: #dc2626;
+            --accent-glow: rgba(220, 38, 38, .3);
+            --green: #22c55e;
+            --yellow: #f59e0b;
+            --blue: #3b82f6;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            min-height: 100vh;
+        }
+
+        /* ── AUTH GATE ── */
+        #authGate {
+            position: fixed;
+            inset: 0;
+            background: var(--bg);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            z-index: 999;
+            gap: 16px;
+        }
+
+        #authGate h2 {
+            font-size: 1.4rem;
+        }
+
+        #authGate p {
+            color: var(--text-muted);
+            font-size: .9rem;
+        }
+
+        #authGate .gate-icon {
+            font-size: 3rem;
+        }
+
+        #authGate a {
+            color: var(--accent);
+            font-weight: 700;
+            text-decoration: none;
+        }
+
+        /* ── LAYOUT ── */
+        .admin-wrap {
+            display: grid;
+            grid-template-columns: 220px 1fr;
+            min-height: 100vh;
+        }
+
+        .admin-sidebar {
+            background: var(--surface);
+            border-right: 1px solid var(--border);
+            padding: 24px 0;
+            position: sticky;
+            top: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .admin-logo {
+            padding: 0 20px 20px;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 16px;
+        }
+
+        .admin-logo span {
+            font-size: 1rem;
+            font-weight: 900;
+        }
+
+        .admin-logo .badge {
+            display: inline-block;
+            background: var(--accent);
+            color: #fff;
+            font-size: .6rem;
+            font-weight: 800;
+            padding: 2px 8px;
+            border-radius: 50px;
+            margin-left: 8px;
+            letter-spacing: .5px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-link {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 20px;
+            color: var(--text-muted);
+            text-decoration: none;
+            font-size: .875rem;
+            font-weight: 600;
+            transition: all .2s;
+            cursor: pointer;
+            border: none;
+            background: none;
+            width: 100%;
+            text-align: left;
+        }
+
+        .sidebar-link:hover {
+            color: var(--text);
+            background: rgba(255, 255, 255, .04);
+        }
+
+        .sidebar-link.active {
+            color: var(--accent);
+            background: rgba(220, 38, 38, .08);
+            border-left: 3px solid var(--accent);
+        }
+
+        .sidebar-link .sl-icon {
+            font-size: 1.1rem;
+            width: 22px;
+            flex-shrink: 0;
+        }
+
+        .sidebar-footer {
+            margin-top: auto;
+            padding: 16px 20px;
+            border-top: 1px solid var(--border);
+        }
+
+        .sidebar-user {
+            font-size: .78rem;
+            color: var(--text-muted);
+        }
+
+        .sidebar-user strong {
+            display: block;
+            color: var(--text);
+            margin-bottom: 2px;
+        }
+
+        /* ── MAIN CONTENT ── */
+        .admin-main {
+            padding: 32px;
+            overflow-y: auto;
+        }
+
+        .admin-header {
+            margin-bottom: 28px;
+        }
+
+        .admin-header h1 {
+            font-size: 1.6rem;
+            font-weight: 900;
+        }
+
+        .admin-header p {
+            color: var(--text-muted);
+            font-size: .88rem;
+            margin-top: 4px;
+        }
+
+        /* ── STAT CARDS ── */
+        .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+            gap: 16px;
+            margin-bottom: 32px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 20px;
+        }
+
+        .stat-card .sc-label {
+            font-size: .72rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .8px;
+            color: var(--text-muted);
+            margin-bottom: 8px;
+        }
+
+        .stat-card .sc-value {
+            font-size: 2rem;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .stat-card .sc-sub {
+            font-size: .72rem;
+            color: var(--text-muted);
+            margin-top: 4px;
+        }
+
+        .stat-card.green .sc-value {
+            color: var(--green);
+        }
+
+        .stat-card.red .sc-value {
+            color: var(--accent);
+        }
+
+        .stat-card.blue .sc-value {
+            color: var(--blue);
+        }
+
+        .stat-card.yellow .sc-value {
+            color: var(--yellow);
+        }
+
+        /* ── SECTION ── */
+        .admin-section {
+            margin-bottom: 32px;
+        }
+
+        .admin-section h2 {
+            font-size: 1rem;
+            font-weight: 800;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .admin-section h2 .s2-count {
+            font-size: .7rem;
+            background: rgba(255, 255, 255, .08);
+            border-radius: 50px;
+            padding: 2px 10px;
+            color: var(--text-muted);
+            font-weight: 700;
+        }
+
+        /* ── DATA FILES TABLE ── */
+        .data-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: .85rem;
+        }
+
+        .data-table th {
+            text-align: left;
+            padding: 10px 14px;
+            color: var(--text-muted);
+            font-weight: 700;
+            font-size: .72rem;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .data-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid var(--border);
+            vertical-align: middle;
+        }
+
+        .data-table tr:last-child td {
+            border-bottom: none;
+        }
+
+        .data-table tr:hover td {
+            background: rgba(255, 255, 255, .02);
+        }
+
+        .badge-pill {
+            display: inline-block;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: .68rem;
+            font-weight: 800;
+        }
+
+        .badge-green {
+            background: rgba(34, 197, 94, .12);
+            color: var(--green);
+        }
+
+        .badge-red {
+            background: rgba(220, 38, 38, .12);
+            color: var(--accent);
+        }
+
+        .badge-blue {
+            background: rgba(59, 130, 246, .12);
+            color: var(--blue);
+        }
+
+        /* ── ACTION BUTTONS ── */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent);
+            background: rgba(220, 38, 38, .06);
+        }
+
+        .action-btn .ab-icon {
+            font-size: 1.4rem;
+        }
+
+        .action-btn .ab-text strong {
+            display: block;
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .action-btn .ab-text span {
+            font-size: .72rem;
+            color: var(--text-muted);
+        }
+
+        /* ── CATEGORY BREAKDOWN ── */
+        .cat-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .cat-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 10px 14px;
+        }
+
+        .cat-row .cr-name {
+            flex: 1;
+            font-size: .85rem;
+            font-weight: 600;
+        }
+
+        .cat-row .cr-type {
+            font-size: .68rem;
+            color: var(--text-muted);
+            background: rgba(255, 255, 255, .05);
+            padding: 2px 8px;
+            border-radius: 50px;
+        }
+
+        .cat-row .cr-count {
+            font-size: .88rem;
+            font-weight: 800;
+            color: var(--accent);
+            min-width: 40px;
+            text-align: right;
+        }
+
+        .cat-row .cr-bar {
+            flex: 2;
+            height: 4px;
+            background: rgba(255, 255, 255, .06);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .cat-row .cr-bar-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--accent), #ff4444);
+            border-radius: 2px;
+        }
+
+        /* ── RECENT SEARCHES ── */
+        .search-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .search-chip {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 5px 14px;
+            font-size: .8rem;
+            color: var(--text-muted);
+        }
+
+        /* ── ADMIN LOG ── */
+        .admin-log {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            font-size: .82rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            max-height: 200px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+        }
+
+        .log-line .ts {
+            color: var(--text-dim);
+            margin-right: 8px;
+        }
+
+        .log-line .level-info {
+            color: var(--blue);
+        }
+
+        .log-line .level-warn {
+            color: var(--yellow);
+        }
+
+        /* ── TOAST ── */
+        #adminToast {
+            position: fixed;
+            bottom: 24px;
+            left: 50%;
+            transform: translateX(-50%) translateY(80px);
+            background: var(--green);
+            color: #fff;
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-weight: 700;
+            font-size: .88rem;
+            z-index: 9999;
+            transition: transform .4s cubic-bezier(.34, 1.2, .64, 1);
+            pointer-events: none;
+        }
+
+        #adminToast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+
+        /* ── RESPONSIVE MOBILE ── */
+        @media (max-width: 768px) {
+            .admin-wrap {
+                grid-template-columns: 1fr;
+            }
+
+            .admin-sidebar {
+                position: static;
+                height: auto;
+                flex-direction: row;
+                flex-wrap: wrap;
+                padding: 12px;
+                gap: 4px;
+                border-right: none;
+                border-bottom: 1px solid var(--border);
+            }
+
+            .admin-logo {
+                border-bottom: none;
+                padding: 0 8px;
+                margin-bottom: 0;
+            }
+
+            .sidebar-link {
+                padding: 8px 12px;
+                border-radius: 8px;
+                font-size: .78rem;
+            }
+
+            .sidebar-footer {
+                display: none;
+            }
+
+            .admin-main {
+                padding: 16px;
+            }
+
+            .stat-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- ── AUTH GATE ── -->
+    <div id="authGate">
+        <div class="gate-icon">🔐</div>
+        <h2>Admin Access Required</h2>
+        <p>Checking authentication...</p>
+        <p id="gateMsg" style="display:none">Not authorized. <a href="index.html">← Go back</a></p>
+    </div>
+
+    <!-- ── ADMIN APP (hidden until auth verified) ── -->
+    <div id="adminApp" style="display:none">
+        <div class="admin-wrap">
+
+            <!-- SIDEBAR -->
+            <aside class="admin-sidebar">
+                <div class="admin-logo">
+                    <span>WebsLib</span>
+                    <span class="badge">Admin</span>
+                </div>
+                <button class="sidebar-link active" onclick="showSection('overview')"><span class="sl-icon">📊</span>
+                    Overview</button>
+                <button class="sidebar-link" onclick="showSection('library')"><span class="sl-icon">📚</span>
+                    Library</button>
+                <button class="sidebar-link" onclick="showSection('analytics')"><span class="sl-icon">📈</span>
+                    Analytics</button>
+                <button class="sidebar-link" onclick="showSection('actions')"><span class="sl-icon">⚡</span>
+                    Actions</button>
+                <button class="sidebar-link" onclick="showSection('log')"><span class="sl-icon">🗒️</span> Log</button>
+                <hr style="border:none;border-top:1px solid var(--border);margin:8px 16px;">
+                <a class="sidebar-link" href="index.html"><span class="sl-icon">← </span> Back to Library</a>
+                <div class="sidebar-footer">
+                    <div class="sidebar-user">
+                        <strong id="adminUserName">Loading...</strong>
+                        <span id="adminUserEmail">—</span>
+                    </div>
+                    <button onclick="signOut()"
+                        style="margin-top:8px;background:none;border:1px solid var(--border);border-radius:8px;padding:6px 12px;color:var(--text-muted);font-size:.75rem;cursor:pointer;width:100%;transition:all .2s;"
+                        onmouseover="this.style.borderColor='var(--accent)'"
+                        onmouseout="this.style.borderColor='var(--border)'">Sign Out</button>
+                </div>
+            </aside>
+
+            <!-- MAIN -->
+            <main class="admin-main">
+
+                <!-- OVERVIEW SECTION -->
+                <div id="section-overview" class="admin-panel">
+                    <div class="admin-header">
+                        <h1>📊 Admin Overview</h1>
+                        <p id="adminWelcome">Welcome back. Here's your library at a glance.</p>
+                    </div>
+
+                    <div class="stat-grid">
+                        <div class="stat-card green">
+                            <div class="sc-label">Total Sites</div>
+                            <div class="sc-value" id="statTotal">—</div>
+                            <div class="sc-sub">Across all categories</div>
+                        </div>
+                        <div class="stat-card red">
+                            <div class="sc-label">Categories</div>
+                            <div class="sc-value" id="statCats">—</div>
+                            <div class="sc-sub">Active sections</div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="sc-label">Data Files</div>
+                            <div class="sc-value">5</div>
+                            <div class="sc-sub">data-extra-1 through 4</div>
+                        </div>
+                        <div class="stat-card yellow">
+                            <div class="sc-label">Local Favs</div>
+                            <div class="sc-value" id="statFavs">—</div>
+                            <div class="sc-sub">Your saved favorites</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="sc-label">Searches Done</div>
+                            <div class="sc-value" id="statSearches">—</div>
+                            <div class="sc-sub">From your history</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="sc-label">Sites Visited</div>
+                            <div class="sc-value" id="statVisited">—</div>
+                            <div class="sc-sub">Recently viewed</div>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2>⚡ Quick Actions <span class="s2-count">Common tasks</span></h2>
+                        <div class="action-grid">
+                            <a href="index.html" class="action-btn">
+                                <span class="ab-icon">🏠</span>
+                                <div class="ab-text"><strong>View Library</strong><span>Open main site</span></div>
+                            </a>
+                            <button class="action-btn" onclick="clearPromoFlag()">
+                                <span class="ab-icon">🔄</span>
+                                <div class="ab-text"><strong>Reset Promo</strong><span>Show popup again</span></div>
+                            </button>
+                            <button class="action-btn" onclick="clearVisited()">
+                                <span class="ab-icon">🗑️</span>
+                                <div class="ab-text"><strong>Clear History</strong><span>Wipe recently viewed</span>
+                                </div>
+                            </button>
+                            <button class="action-btn" onclick="exportFavCSV()">
+                                <span class="ab-icon">⬇️</span>
+                                <div class="ab-text"><strong>Export Favs</strong><span>Download as CSV</span></div>
+                            </button>
+                            <button class="action-btn" onclick="clearAllCache()">
+                                <span class="ab-icon">💨</span>
+                                <div class="ab-text"><strong>Clear SW Cache</strong><span>Force update all files</span>
+                                </div>
+                            </button>
+                            <a href="onboarding.html" class="action-btn">
+                                <span class="ab-icon">🎉</span>
+                                <div class="ab-text"><strong>Onboarding</strong><span>View onboarding page</span></div>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIBRARY SECTION -->
+                <div id="section-library" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>📚 Library Breakdown</h1>
+                        <p>All categories and site counts by data file.</p>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2>📁 Data Files</h2>
+                        <div
+                            style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
+                            <table class="data-table">
+                                <thead>
+                                    <tr>
+                                        <th>File</th>
+                                        <th>Categories</th>
+                                        <th>Sites</th>
+                                        <th>Status</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>data.js (built-in)</td>
+                                        <td id="dCats0">—</td>
+                                        <td id="dSites0">—</td>
+                                        <td><span class="badge-pill badge-green">Loaded</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra.js</td>
+                                        <td id="dCats1">—</td>
+                                        <td id="dSites1">—</td>
+                                        <td><span class="badge-pill badge-green">Loaded</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra-2.js</td>
+                                        <td>15</td>
+                                        <td>225</td>
+                                        <td><span class="badge-pill badge-green">Loaded</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra-3.js</td>
+                                        <td>10</td>
+                                        <td>100</td>
+                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra-4.js</td>
+                                        <td>6</td>
+                                        <td>90</td>
+                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2>📂 All Categories <span class="s2-count" id="catCount">—</span></h2>
+                        <div class="cat-list" id="catList">
+                            <p style="color:var(--text-muted);font-size:.85rem;">Loading categories from library...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ANALYTICS SECTION -->
+                <div id="section-analytics" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>📈 Your Analytics</h1>
+                        <p>Based on your local browser data.</p>
+                    </div>
+
+                    <div class="admin-section">
+                        <h2>🔍 Recent Searches</h2>
+                        <div class="search-list" id="searchHistoryList">
+                            <p style="color:var(--text-muted);font-size:.85rem;">No searches recorded yet.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-section" style="margin-top:24px;">
+                        <h2>⏱️ Recently Viewed Sites</h2>
+                        <div id="recentlyViewedList" style="display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:.85rem;">No recently viewed sites.</p>
+                        </div>
+                    </div>
+
+                    <div class="admin-section" style="margin-top:24px;">
+                        <h2>❤️ Saved Favorites <span class="s2-count" id="favCount">0</span></h2>
+                        <div id="favListAdmin" style="display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:.85rem;">No favorites saved yet.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- ACTIONS SECTION -->
+                <div id="section-actions" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>⚡ All Actions</h1>
+                        <p>Admin tools and controls.</p>
+                    </div>
+                    <div class="action-grid">
+                        <button class="action-btn" onclick="clearPromoFlag()"><span class="ab-icon">🔄</span>
+                            <div class="ab-text"><strong>Reset Promo Popup</strong><span>Show save-favorites popup
+                                    again</span></div>
+                        </button>
+                        <button class="action-btn" onclick="clearVisited()"><span class="ab-icon">🗑️</span>
+                            <div class="ab-text"><strong>Clear Visited History</strong><span>Wipe recently viewed saved
+                                    data</span></div>
+                        </button>
+                        <button class="action-btn" onclick="clearSearchHistory()"><span class="ab-icon">🔍</span>
+                            <div class="ab-text"><strong>Clear Search History</strong><span>Remove saved search
+                                    terms</span></div>
+                        </button>
+                        <button class="action-btn" onclick="exportFavCSV()"><span class="ab-icon">⬇️</span>
+                            <div class="ab-text"><strong>Export Favorites CSV</strong><span>Download all saved
+                                    favorites</span></div>
+                        </button>
+                        <button class="action-btn" onclick="clearAllCache()"><span class="ab-icon">💨</span>
+                            <div class="ab-text"><strong>Bust Service Worker Cache</strong><span>Force refresh all
+                                    cached files</span></div>
+                        </button>
+                        <button class="action-btn" onclick="clearAllLocalStorage()"><span class="ab-icon">⚠️</span>
+                            <div class="ab-text"><strong>Clear ALL Local Data</strong><span>Reset everything
+                                    (careful!)</span></div>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- LOG SECTION -->
+                <div id="section-log" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>🗒️ Admin Log</h1>
+                        <p>Session activity log.</p>
+                    </div>
+                    <div class="admin-log" id="adminLog">
+                        <div class="log-line"><span class="ts" id="logTs">—</span><span class="level-info">[INFO]</span>
+                            Admin panel loaded</div>
+                    </div>
+                    <button
+                        onclick="document.getElementById('adminLog').innerHTML='<div class=\'log-line\' style=\'color:var(--text-dim)\'>Log cleared</div>'"
+                        style="margin-top:12px;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 16px;color:var(--text-muted);cursor:pointer;font-size:.8rem;">Clear
+                        Log</button>
+                </div>
+
+            </main>
+        </div>
+    </div>
+
+    <div id="adminToast"></div>
+
+    <script>
+        const ADMIN_EMAILS = ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
+
+        // ── FIREBASE LOAD ─────────────────────────────────────────────────────
+        const FIREBASE_CONFIG = {
+            apiKey: "AIzaSyDummyKeyReplaceWithReal",
+            authDomain: "powerful-websites.firebaseapp.com",
+            projectId: "powerful-websites"
+        };
+
+        function loadFirebaseAuth() {
+            return new Promise(resolve => {
+                if (window.firebase && window.firebase.auth) { resolve(); return; }
+                const s1 = document.createElement('script');
+                s1.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+                s1.onload = () => {
+                    const s2 = document.createElement('script');
+                    s2.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js';
+                    s2.onload = () => {
+                        try { firebase.initializeApp(FIREBASE_CONFIG); } catch (e) { }
+                        resolve();
+                    };
+                    document.head.appendChild(s2);
+                };
+                document.head.appendChild(s1);
+            });
+        }
+
+        loadFirebaseAuth().then(() => {
+            firebase.auth().onAuthStateChanged(user => {
+                const gate = document.getElementById('authGate');
+                const app = document.getElementById('adminApp');
+                if (user && ADMIN_EMAILS.includes(user.email)) {
+                    // Admin verified
+                    gate.style.display = 'none';
+                    app.style.display = 'block';
+                    document.getElementById('adminUserName').textContent = user.displayName || 'Admin';
+                    document.getElementById('adminUserEmail').textContent = user.email;
+                    document.getElementById('adminWelcome').textContent = `Welcome back, ${user.displayName || 'Cory'}! Last login: ${new Date().toLocaleString()}`;
+                    document.getElementById('logTs').textContent = new Date().toLocaleTimeString();
+                    initAdminData();
+                } else if (user && !ADMIN_EMAILS.includes(user.email)) {
+                    // Signed in but not admin
+                    document.getElementById('gateMsg').style.display = 'block';
+                    document.querySelector('#authGate p:first-of-type').textContent = 'You are not authorized to view this page.';
+                } else {
+                    // Not signed in
+                    document.querySelector('#authGate p:first-of-type').textContent = 'You must be signed in as an admin.';
+                    document.getElementById('gateMsg').style.display = 'block';
+                }
+            });
+        }).catch(() => {
+            // Firebase load failed — show not authorized
+            document.querySelector('#authGate p:first-of-type').textContent = 'Authentication service unavailable.';
+            document.getElementById('gateMsg').style.display = 'block';
+        });
+
+        function signOut() {
+            if (window.firebase && window.firebase.auth) {
+                firebase.auth().signOut().then(() => window.location.href = 'index.html');
+            }
+        }
+
+        // ── DATA INIT ─────────────────────────────────────────────────────────
+        function initAdminData() {
+            // Stats
+            const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const searched = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+            const visited = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+
+            document.getElementById('statFavs').textContent = favs.length;
+            document.getElementById('statSearches').textContent = searched.length;
+            document.getElementById('statVisited').textContent = visited.length;
+            document.getElementById('favCount').textContent = favs.length;
+
+            // Load DATA from parent page context (defer to iframe or direct access)
+            // Since admin.html loads data files from index context, we load them here
+            loadDataFiles().then(() => {
+                if (typeof DATA !== 'undefined') {
+                    const total = DATA.reduce((a, c) => a + (c.sites ? c.sites.length : 0), 0);
+                    document.getElementById('statTotal').textContent = total.toLocaleString();
+                    document.getElementById('statCats').textContent = DATA.length;
+                    document.getElementById('catCount').textContent = DATA.length + ' total';
+                    renderCategoryList();
+                }
+            });
+
+            renderSearchHistory(searched);
+            renderRecentlyViewed(visited);
+            renderFavorites(favs);
+        }
+
+        function loadDataFiles() {
+            return new Promise(resolve => {
+                if (typeof DATA !== 'undefined') { resolve(); return; }
+                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js'];
+                // Inject a minimal DATA array first
+                window.DATA = [];
+                let loaded = 0;
+                files.forEach(src => {
+                    const s = document.createElement('script');
+                    s.src = src;
+                    s.onload = s.onerror = () => { loaded++; if (loaded === files.length) resolve(); };
+                    document.head.appendChild(s);
+                });
+            });
+        }
+
+        function renderCategoryList() {
+            const list = document.getElementById('catList');
+            if (!DATA || !DATA.length) { list.innerHTML = '<p style="color:var(--text-muted)">No data loaded.</p>'; return; }
+            const maxSites = Math.max(...DATA.map(c => c.sites ? c.sites.length : 0));
+            list.innerHTML = DATA.map(cat => {
+                const count = cat.sites ? cat.sites.length : 0;
+                const pct = Math.round((count / maxSites) * 100);
+                return `<div class="cat-row">
+        <span style="font-size:1.2rem">${cat.icon || '📁'}</span>
+        <span class="cr-name">${cat.name}</span>
+        <span class="cr-type">${cat.type || '—'}</span>
+        <div class="cr-bar"><div class="cr-bar-fill" style="width:${pct}%"></div></div>
+        <span class="cr-count">${count}</span>
+      </div>`;
+            }).join('');
+        }
+
+        function renderSearchHistory(searches) {
+            const el = document.getElementById('searchHistoryList');
+            if (!searches.length) return;
+            el.innerHTML = searches.map(q => `<span class="search-chip">🔍 ${q}</span>`).join('');
+        }
+
+        function renderRecentlyViewed(visited) {
+            const el = document.getElementById('recentlyViewedList');
+            if (!visited.length) return;
+            el.innerHTML = visited.map(v => {
+                const domain = (() => { try { return new URL(v.u).hostname; } catch (e) { return v.u; } })();
+                const fav = `https://www.google.com/s2/favicons?domain=${domain}&sz=24`;
+                const time = new Date(v.t).toLocaleString();
+                return `<div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;">
+        <img src="${fav}" width="20" height="20" style="border-radius:4px" onerror="this.style.display='none'">
+        <span style="flex:1;font-size:.85rem;font-weight:600;">${v.n}</span>
+        <span style="font-size:.7rem;color:var(--text-muted)">${time}</span>
+        <a href="${v.u}" target="_blank" rel="noopener" style="color:var(--accent);font-size:.75rem;font-weight:700;text-decoration:none;">Visit →</a>
+      </div>`;
+            }).join('');
+        }
+
+        function renderFavorites(favs) {
+            const el = document.getElementById('favListAdmin');
+            if (!favs.length) return;
+            el.innerHTML = favs.map(url => {
+                const domain = (() => { try { return new URL(url).hostname; } catch (e) { return url; } })();
+                return `<div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;">
+        <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=24" width="20" height="20" style="border-radius:4px" onerror="this.style.display='none'">
+        <span style="flex:1;font-size:.85rem;color:var(--text-muted)">${url}</span>
+        <a href="${url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:.75rem;font-weight:700;text-decoration:none;">Visit →</a>
+      </div>`;
+            }).join('');
+        }
+
+        // ── SECTION NAV ────────────────────────────────────────────────────────
+        function showSection(id) {
+            document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
+            document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
+            document.getElementById('section-' + id).style.display = 'block';
+            event.currentTarget.classList.add('active');
+        }
+
+        // ── ACTIONS ────────────────────────────────────────────────────────────
+        function clearPromoFlag() {
+            localStorage.removeItem('promoShown');
+            toast('✅ Promo flag cleared — popup will show on next visit');
+        }
+        function clearVisited() {
+            localStorage.removeItem('recentlyViewed');
+            toast('✅ Recently viewed history cleared');
+            document.getElementById('statVisited').textContent = '0';
+        }
+        function clearSearchHistory() {
+            localStorage.removeItem('searchHistory');
+            toast('✅ Search history cleared');
+            document.getElementById('statSearches').textContent = '0';
+        }
+        function exportFavCSV() {
+            const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            if (!favs.length) { toast('⚠️ No favorites to export'); return; }
+            const csv = 'URL\n' + favs.join('\n');
+            const blob = new Blob([csv], { type: 'text/csv' });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = 'favorites-' + Date.now() + '.csv';
+            a.click();
+            toast('⬇️ Favorites exported as CSV');
+        }
+        function clearAllCache() {
+            if ('caches' in window) {
+                caches.keys().then(keys => { keys.forEach(k => caches.delete(k)); });
+            }
+            if ('serviceWorker' in navigator) {
+                navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+            }
+            toast('💨 SW cache cleared — reload to refetch all files');
+        }
+        function clearAllLocalStorage() {
+            if (!confirm('⚠️ This will clear ALL local data including favorites. Are you sure?')) return;
+            localStorage.clear();
+            toast('🗑️ All local data cleared');
+            initAdminData();
+        }
+
+        function toast(msg) {
+            const t = document.getElementById('adminToast');
+            t.textContent = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+            // Log it
+            const log = document.getElementById('adminLog');
+            const line = document.createElement('div');
+            line.className = 'log-line';
+            line.innerHTML = `<span class="ts">${new Date().toLocaleTimeString()}</span><span class="level-info">[ACTION]</span> ${msg}`;
+            log.prepend(line);
+        }
+    </script>
+</body>
+
+</html>

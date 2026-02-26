@@ -2404,35 +2404,43 @@
       background: #f8f8f8
     }
 
-    /* ===== ONE-TIME PROMO POPUP ===== */
-    .promo-popup {
+    /* ===== ONE-TIME PROMO POPUP — fixed center overlay ===== */
+    .promo-popup-overlay {
       position: fixed;
-      bottom: -200px;
-      left: 50%;
-      transform: translateX(-50%);
-      z-index: 400;
-      width: calc(100% - 32px);
-      max-width: 480px;
+      inset: 0;
+      background: rgba(0,0,0,.65);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      z-index: 600;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity .35s ease;
+    }
+    .promo-popup-overlay.open {
+      opacity: 1;
+      pointer-events: all;
+    }
+    .promo-popup {
+      position: relative;
+      width: 100%;
+      max-width: 440px;
       background: var(--surface);
-      border: 1px solid rgba(220, 38, 38, .25);
-      border-radius: 20px 20px 0 0;
-      padding: 24px 24px 32px;
-      box-shadow: 0 -8px 40px rgba(0, 0, 0, .4);
-      transition: bottom .45s cubic-bezier(.34, 1.2, .64, 1);
-      border-bottom: none;
+      border: 1px solid rgba(220,38,38,.3);
+      border-radius: 24px;
+      padding: 32px 28px 28px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.5), 0 0 0 1px rgba(255,255,255,.05);
+      transform: scale(.92) translateY(16px);
+      transition: transform .4s cubic-bezier(.34,1.2,.64,1);
+    }
+    .promo-popup-overlay.open .promo-popup {
+      transform: scale(1) translateY(0);
     }
 
-    .promo-popup.open {
-      bottom: 0
-    }
-
-    .promo-popup-handle {
-      width: 40px;
-      height: 4px;
-      border-radius: 4px;
-      background: var(--border);
-      margin: 0 auto 20px;
-    }
+    .promo-popup-handle { display: none; }
 
     .promo-popup .promo-title {
       font-size: 1.15rem;
@@ -2514,25 +2522,28 @@
 
     .promo-close-x {
       position: absolute;
-      top: 16px;
-      right: 16px;
-      width: 28px;
-      height: 28px;
+      top: 14px;
+      right: 14px;
+      width: 34px;
+      height: 34px;
       border-radius: 50%;
-      border: none;
+      border: 1.5px solid var(--border);
       background: var(--card);
       color: var(--text-muted);
       cursor: pointer;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1rem;
+      font-size: 1.1rem;
+      font-weight: 700;
       transition: all .2s;
+      z-index: 2;
     }
-
     .promo-close-x:hover {
-      background: var(--card-hover);
-      color: var(--text)
+      background: rgba(220,38,38,.12);
+      border-color: rgba(220,38,38,.4);
+      color: var(--accent);
+      transform: scale(1.1);
     }
 
     /* ===== MOBILE ENHANCEMENTS ===== */
@@ -2744,11 +2755,20 @@
           <path d="M7 11V7a5 5 0 0110 0v4" />
         </svg>
         <input type="password" id="authPassword" placeholder="Password" autocomplete="current-password">
+        <button type="button" onclick="const i=document.getElementById('authPassword');const b=this;i.type=i.type==='password'?'text':'password';b.innerHTML=i.type==='password'?'👁':'🙈';" style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;padding:4px;color:var(--text-muted);z-index:2;" aria-label="Toggle password">👁</button>
       </div>
       <button class="auth-submit" id="authSubmitBtn" onclick="handleAuthSubmit()">Sign In</button>
+      <div style="text-align:center;margin-top:8px;">
+        <a onclick="showForgotPassword()" style="font-size:.78rem;color:var(--text-muted);cursor:pointer;text-decoration:underline;" id="forgotPwdLink">Forgot password?</a>
+      </div>
       <div class="auth-toggle">
         <span id="authToggleText">Don't have an account?</span>
         <a onclick="toggleAuthMode()">Create one</a>
+      </div>
+      <div id="adminLinkWrap" style="display:none;text-align:center;margin-top:10px;">
+        <a href="admin.html" style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.8rem;font-weight:700;padding:6px 18px;border-radius:50px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
+          ⚙️ Admin Dashboard
+        </a>
       </div>
       <div class="auth-toggle" style="margin-top:8px" id="authLogoutWrap" style="display:none">
         <a id="authLogoutBtn" onclick="signOutUser()" style="color:var(--text-dim)">Sign out</a>
@@ -2794,20 +2814,26 @@
   </div>
 
   <!-- ===== ONE-TIME PROMO POPUP ===== -->
-  <div class="promo-popup" id="promoPopup">
-    <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close">✕</button>
-    <div class="promo-popup-handle"></div>
-    <div class="promo-title">💾 Save Your Favorites Forever</div>
-    <p class="promo-sub">Create a free account to unlock cloud sync and personalized picks.</p>
-    <ul class="promo-benefits">
-      <li><span class="pb-icon">☁️</span> Sync favorites across all your devices</li>
-      <li><span class="pb-icon">✨</span> Get personalized site recommendations</li>
-      <li><span class="pb-icon">🎉</span> Exclusive onboarding with curated picks just for you</li>
-    </ul>
-    <button class="promo-cta" onclick="dismissPromo();openAuthModal(true)">
-      🚀 Create Free Account
-    </button>
-    <span class="promo-dismiss" onclick="dismissPromo()">No thanks, I'll save locally only</span>
+  <div class="promo-popup-overlay" id="promoOverlay" onclick="if(event.target===this)dismissPromo()" role="dialog" aria-modal="true" aria-labelledby="promoTitle">
+    <div class="promo-popup" id="promoPopup">
+      <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close popup">✕</button>
+      <div class="promo-title" id="promoTitle">💾 Save Your Favorites Forever</div>
+      <p class="promo-sub">Create a free account to sync your favorites across all your devices.</p>
+      <ul class="promo-benefits">
+        <li><span class="pb-icon">☁️</span> Sync favorites across all your devices</li>
+        <li><span class="pb-icon">✨</span> Get personalized site recommendations</li>
+        <li><span class="pb-icon">🎉</span> Exclusive onboarding with curated picks just for you</li>
+        <li><span class="pb-icon">🔒</span> Your data is private — sign in with Google in one click</li>
+      </ul>
+      <button class="promo-cta" onclick="dismissPromo();openAuthModal(true)">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M14 10l6.1-6.1M9 21H3v-6M10 14l-6.1 6.1"/></svg>
+        Create Free Account
+      </button>
+      <button class="promo-cta" style="margin-top:10px;background:transparent;border:1.5px solid rgba(255,255,255,.15);color:var(--text-muted);font-size:.82rem;padding:10px;" onclick="dismissPromo();openAuthModal(false)">
+        Already have an account? Sign in
+      </button>
+      <span class="promo-dismiss" onclick="dismissPromo()">No thanks, continue without account</span>
+    </div>
   </div>
 
   <!-- HERO -->
@@ -4225,18 +4251,29 @@
     // ===== PROMO POPUP =====
     let promoTimer = null;
     function showPromoPopup() {
-      const popup = document.getElementById('promoPopup');
-      if (popup) {
-        popup.classList.add('open');
-        promoTimer = setTimeout(() => dismissPromo(), 9000);
+      const overlay = document.getElementById('promoOverlay');
+      if (overlay) {
+        overlay.classList.add('open');
+        document.body.style.overflow = 'hidden';
+        // NO auto-dismiss — user must explicitly close it
       }
     }
     function dismissPromo() {
       clearTimeout(promoTimer);
       localStorage.setItem('promoShown', '1');
-      const popup = document.getElementById('promoPopup');
-      if (popup) popup.classList.remove('open');
+      const overlay = document.getElementById('promoOverlay');
+      if (overlay) {
+        overlay.classList.remove('open');
+        document.body.style.overflow = '';
+      }
     }
+    // Escape key closes promo
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape') {
+        const overlay = document.getElementById('promoOverlay');
+        if (overlay && overlay.classList.contains('open')) dismissPromo();
+      }
+    });
 
     // ===== AUTH MODAL =====
     let _authMode = 'signin'; // 'signin' | 'signup'
@@ -4335,6 +4372,8 @@
       });
     }
 
+    const ADMIN_EMAILS = ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
+
     function setupAuthListener() {
       firebase.auth().onAuthStateChanged(user => {
         window._authUser = user;
@@ -4347,6 +4386,24 @@
           label.textContent = name;
           if (bnAccount) bnAccount.querySelector('span').textContent = name;
           if (logoutWrap) logoutWrap.style.display = 'block';
+          // Admin check
+          const isAdmin = ADMIN_EMAILS.includes(user.email);
+          const adminLink = document.getElementById('adminLinkWrap');
+          if (adminLink) adminLink.style.display = isAdmin ? 'block' : 'none';
+          if (isAdmin) {
+            // Store admin status
+            sessionStorage.setItem('isAdmin', '1');
+            // Add admin badge to top bar
+            if (!document.getElementById('adminBadge')) {
+              const badge = document.createElement('a');
+              badge.id = 'adminBadge';
+              badge.href = 'admin.html';
+              badge.innerHTML = '⚙️ Admin';
+              badge.style.cssText = 'background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.72rem;font-weight:800;padding:5px 12px;border-radius:50px;text-decoration:none;letter-spacing:.3px;flex-shrink:0;';
+              const topBar = document.querySelector('.top-bar');
+              if (topBar) topBar.appendChild(badge);
+            }
+          }
           // Firestore sync + mobile signed-in UI
           setupFirestoreSync(user);
           buildSignedInUI(user);
@@ -4373,6 +4430,22 @@
       });
     }
 
+
+    function showForgotPassword() {
+      const email = document.getElementById('authEmail').value.trim();
+      if (!email) { showAuthError('Enter your email address above first.'); return; }
+      loadFirebase().then(() => {
+        firebase.auth().sendPasswordResetEmail(email).then(() => {
+          showAuthSuccess('Password reset email sent! Check your inbox.');
+        }).catch(err => showAuthError(err.message));
+      });
+    }
+    function showAuthSuccess(msg) {
+      const el = document.getElementById('authSuccess');
+      if (el) { el.textContent = msg; el.style.display = 'block'; }
+      const errEl = document.getElementById('authError');
+      if (errEl) { errEl.style.display = 'none'; }
+    }
     function handleAuthSubmit() {
       const email = document.getElementById('authEmail').value.trim();
       const password = document.getElementById('authPassword').value;
