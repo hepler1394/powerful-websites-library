@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <meta name="theme-color" content="#dc2626">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Welcome — Powerful Websites Library</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        *,
+        *::before,
+        *::after {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0
+        }
+
+        :root {
+            --transition-theme: .4s cubic-bezier(.4, 0, .2, 1)
+        }
+
+        [data-theme="dark"] {
+            --bg: #0a0a0a;
+            --bg2: #0e0e0e;
+            --surface: #141414;
+            --card: #1a1a1a;
+            --card-hover: #222;
+            --border: rgba(255, 255, 255, .06);
+            --border-hover: rgba(220, 38, 38, .4);
+            --text: #e8e8f0;
+            --text-muted: #8a8a9a;
+            --text-dim: #55556a;
+            --accent: #dc2626;
+            --accent-glow: rgba(220, 38, 38, .2);
+            --accent2: #ff4444;
+            --green: #00c9a7;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --glass: rgba(10, 10, 10, .7);
+            --glass-border: rgba(255, 255, 255, .06);
+            --shadow: 0 8px 32px rgba(0, 0, 0, .5);
+            --hero-bg: linear-gradient(135deg, #0a0a0a 0%, #1a0505 35%, #0a0a0a 65%, #120808 100%);
+            --nav-bg: rgba(10, 10, 10, .92);
+            --logo-text: #fff;
+        }
+
+        [data-theme="light"] {
+            --bg: #faf5f5;
+            --bg2: #f5eeee;
+            --surface: #ffffff;
+            --card: #ffffff;
+            --card-hover: #fff5f5;
+            --border: rgba(0, 0, 0, .08);
+            --border-hover: rgba(220, 38, 38, .3);
+            --text: #1a1a2e;
+            --text-muted: #5a5a7a;
+            --text-dim: #8888a0;
+            --accent: #c0392b;
+            --accent-glow: rgba(192, 57, 43, .15);
+            --accent2: #e74c3c;
+            --green: #00a884;
+            --radius: 16px;
+            --radius-sm: 10px;
+            --glass: rgba(255, 255, 255, .85);
+            --glass-border: rgba(0, 0, 0, .08);
+            --shadow: 0 4px 24px rgba(0, 0, 0, .08);
+            --hero-bg: linear-gradient(135deg, #faf5f5 0%, #ffe8e8 35%, #fff0f0 65%, #faf5f5 100%);
+            --nav-bg: rgba(250, 245, 245, .92);
+            --logo-text: #1a1a2e;
+        }
+
+        html {
+            scroll-behavior: smooth;
+            font-size: 16px
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            overflow-x: hidden;
+            transition: background var(--transition-theme), color var(--transition-theme);
+            padding-bottom: env(safe-area-inset-bottom);
+            min-height: 100vh;
+        }
+
+        a {
+            color: var(--accent);
+            text-decoration: none
+        }
+
+        a:hover {
+            opacity: .85
+        }
+
+        /* SCROLLBAR */
+        ::-webkit-scrollbar {
+            width: 8px
+        }
+
+        ::-webkit-scrollbar-track {
+            background: var(--bg)
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #e74c3c;
+            border-radius: 4px
+        }
+
+        /* THEME TOGGLE */
+        .theme-toggle {
+            position: fixed;
+            top: 16px;
+            right: 16px;
+            z-index: 200;
+            padding: 10px;
+            border-radius: 50%;
+            border: none;
+            cursor: pointer;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            transition: all .3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 42px;
+            height: 42px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, .15);
+            color: var(--text);
+        }
+
+        .theme-toggle:hover {
+            border-color: var(--accent)
+        }
+
+        .theme-toggle svg {
+            width: 18px;
+            height: 18px
+        }
+
+        /* CONFETTI CANVAS */
+        #confettiCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        /* ===== HERO ===== */
+        .hero {
+            position: relative;
+            text-align: center;
+            padding: 80px 24px 60px;
+            background: var(--hero-bg);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 30% 50%, rgba(220, 38, 38, .1) 0%, transparent 50%),
+                radial-gradient(circle at 70% 50%, rgba(255, 68, 68, .06) 0%, transparent 50%);
+            animation: heroFloat 20s ease-in-out infinite;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 80px;
+            background: linear-gradient(transparent, var(--bg));
+            pointer-events: none;
+        }
+
+        @keyframes heroFloat {
+
+            0%,
+            100% {
+                transform: translate(0, 0)
+            }
+
+            50% {
+                transform: translate(-2%, 2%)
+            }
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            max-width: 720px;
+            margin: 0 auto
+        }
+
+        .welcome-badge {
+            display: inline-block;
+            padding: 6px 20px;
+            border-radius: 50px;
+            font-size: .72rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            background: rgba(220, 38, 38, .12);
+            color: var(--accent);
+            border: 1px solid rgba(220, 38, 38, .25);
+            margin-bottom: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-greeting {
+            font-size: clamp(2rem, 5vw, 3.4rem);
+            font-weight: 900;
+            line-height: 1.15;
+            margin-bottom: 16px;
+            letter-spacing: -1px;
+        }
+
+        .hero-greeting .wave {
+            display: inline-block;
+            animation: wave 2.5s ease infinite;
+            transform-origin: 70% 70%
+        }
+
+        @keyframes wave {
+
+            0%,
+            60%,
+            100% {
+                transform: rotate(0)
+            }
+
+            10% {
+                transform: rotate(14deg)
+            }
+
+            20% {
+                transform: rotate(-8deg)
+            }
+
+            30% {
+                transform: rotate(14deg)
+            }
+
+            40% {
+                transform: rotate(-4deg)
+            }
+
+            50% {
+                transform: rotate(10deg)
+            }
+        }
+
+        .hero-greeting .username {
+            background: linear-gradient(135deg, var(--accent), #ff4444, var(--accent2));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: clamp(.95rem, 2vw, 1.1rem);
+            color: var(--text-muted);
+            max-width: 540px;
+            margin: 0 auto 32px;
+        }
+
+        .hero-cta {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 14px 32px;
+            border-radius: 50px;
+            text-decoration: none;
+            background: linear-gradient(135deg, var(--accent), #b91c1c);
+            color: #fff;
+            font-weight: 700;
+            font-size: .95rem;
+            transition: all .3s;
+            box-shadow: 0 4px 20px var(--accent-glow);
+        }
+
+        .hero-cta:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 28px var(--accent-glow);
+            opacity: 1;
+            color: #fff
+        }
+
+        .hero-cta svg {
+            width: 18px;
+            height: 18px
+        }
+
+        /* ===== SECTION ===== */
+        .page {
+            max-width: 1100px;
+            margin: 0 auto;
+            padding: 40px 24px 100px
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            font-weight: 900;
+            margin-bottom: 8px;
+            letter-spacing: -.3px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .section-desc {
+            color: var(--text-muted);
+            font-size: .88rem;
+            margin-bottom: 24px
+        }
+
+        /* ===== STEP CARDS ===== */
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+            max-width: 680px;
+            margin: 0 auto 60px;
+        }
+
+        .step-card {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 20px 22px;
+            transition: all .3s;
+        }
+
+        .step-card:hover {
+            border-color: rgba(220, 38, 38, .3);
+            transform: translateX(4px)
+        }
+
+        .step-num {
+            width: 40px;
+            height: 40px;
+            border-radius: 12px;
+            flex-shrink: 0;
+            background: linear-gradient(135deg, var(--accent), #b91c1c);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: #fff;
+        }
+
+        .step-body h3 {
+            font-size: .95rem;
+            font-weight: 800;
+            margin-bottom: 4px
+        }
+
+        .step-body p {
+            font-size: .82rem;
+            color: var(--text-muted);
+            line-height: 1.5
+        }
+
+        /* ===== GRID ===== */
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 16px;
+            margin-bottom: 56px
+        }
+
+        .card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 22px;
+            transition: all .35s cubic-bezier(.4, 0, .2, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), var(--accent2));
+            opacity: 0;
+            transition: opacity .3s;
+        }
+
+        .card:hover {
+            border-color: var(--border-hover);
+            transform: translateY(-4px);
+            box-shadow: var(--shadow);
+            background: var(--card-hover)
+        }
+
+        .card:hover::before {
+            opacity: 1
+        }
+
+        .card-name-wrap {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 10px
+        }
+
+        .card-favicon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+            object-fit: contain
+        }
+
+        .card-name {
+            font-size: 1rem;
+            font-weight: 700
+        }
+
+        .card-tag {
+            margin-left: auto;
+            flex-shrink: 0;
+            padding: 3px 10px;
+            border-radius: 50px;
+            font-size: .65rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: .5px;
+            background: rgba(220, 38, 38, .1);
+            color: var(--accent);
+        }
+
+        .card-desc {
+            color: var(--text-muted);
+            font-size: .84rem;
+            margin-bottom: 16px;
+            line-height: 1.55
+        }
+
+        .btn-visit {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 10px 18px;
+            border-radius: var(--radius-sm);
+            font-size: .83rem;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--accent), #b91c1c);
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: all .25s;
+            text-decoration: none;
+        }
+
+        .btn-visit:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 16px var(--accent-glow);
+            color: #fff
+        }
+
+        .btn-visit svg {
+            width: 13px;
+            height: 13px
+        }
+
+        .empty-msg {
+            text-align: center;
+            padding: 48px 24px;
+            color: var(--text-muted);
+            border: 2px dashed var(--border);
+            border-radius: var(--radius);
+        }
+
+        .empty-msg .em-icon {
+            font-size: 2.5rem;
+            margin-bottom: 12px
+        }
+
+        .empty-msg p {
+            font-size: .88rem
+        }
+
+        /* DIVIDER */
+        .divider {
+            border: none;
+            border-top: 1px solid var(--border);
+            margin: 0 0 48px;
+        }
+
+        /* ===== FOOTER ===== */
+        .footer {
+            text-align: center;
+            padding: 32px 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: .85rem;
+        }
+
+        .footer a {
+            color: var(--accent)
+        }
+
+        /* ===== ANIMATIONS ===== */
+        @keyframes fadeUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px)
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0)
+            }
+        }
+
+        .card {
+            animation: fadeUp .4s ease both
+        }
+
+        .card:nth-child(2) {
+            animation-delay: .06s
+        }
+
+        .card:nth-child(3) {
+            animation-delay: .12s
+        }
+
+        .card:nth-child(4) {
+            animation-delay: .18s
+        }
+
+        .card:nth-child(5) {
+            animation-delay: .24s
+        }
+
+        .card:nth-child(6) {
+            animation-delay: .30s
+        }
+
+        /* ===== RESPONSIVE ===== */
+        @media(max-width:768px) {
+            .hero {
+                padding: 60px 16px 40px
+            }
+
+            .page {
+                padding: 24px 16px 80px
+            }
+
+            .card-grid {
+                grid-template-columns: 1fr
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- CONFETTI CANVAS -->
+    <canvas id="confettiCanvas"></canvas>
+
+    <!-- THEME TOGGLE -->
+    <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+        <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+        </svg>
+        <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+            <circle cx="12" cy="12" r="5" />
+            <path
+                d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+                stroke="currentColor" stroke-width="2" fill="none" />
+        </svg>
+    </button>
+
+    <!-- HERO -->
+    <header class="hero">
+        <div class="hero-inner">
+            <div class="welcome-badge">🎉 Welcome to the Library</div>
+            <h1 class="hero-greeting">
+                Hey <span class="username" id="heroUsername">Explorer</span>&nbsp;<span class="wave">👋</span>
+            </h1>
+            <p class="hero-sub">You're in! Here's a quick tour of what you can do with <strong>475+ free
+                    websites</strong> at your fingertips.</p>
+            <a href="index.html" class="hero-cta">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <path
+                        d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                </svg>
+                Start Exploring
+            </a>
+        </div>
+    </header>
+
+    <main class="page">
+
+        <!-- QUICK START STEPS -->
+        <section style="max-width:680px;margin:0 auto 56px">
+            <div class="section-title">⚡ How It Works</div>
+            <p class="section-desc">Three steps to get the most out of this library.</p>
+            <div class="steps">
+                <div class="step-card">
+                    <div class="step-num">1</div>
+                    <div class="step-body">
+                        <h3>Browse &amp; Discover</h3>
+                        <p>Use the tabs to browse by category — AI tools, streaming, gaming, VPNs, and more. Use the
+                            search bar to find anything instantly.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">2</div>
+                    <div class="step-body">
+                        <h3>❤️ Save Favorites</h3>
+                        <p>Tap the heart icon on any card to save it. Your favorites are synced to your account so you
+                            never lose them when switching devices.</p>
+                    </div>
+                </div>
+                <div class="step-card">
+                    <div class="step-num">3</div>
+                    <div class="step-body">
+                        <h3>🛡️ Stay Safe</h3>
+                        <p>Before visiting streaming or piracy sites, read our <a href="best-practices.html">Best
+                                Practices Guide</a> — it covers VPNs, ad blockers, and staying protected.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- MY FAVORITES (from localStorage) -->
+        <section id="favsSection">
+            <div class="section-title">❤️ Your Saved Favorites</div>
+            <p class="section-desc">These are the sites you've already bookmarked — they're synced to your account now.
+            </p>
+            <div class="card-grid" id="favsGrid">
+                <div class="empty-msg">
+                    <div class="em-icon">❤️</div>
+                    <p>You haven't saved any favorites yet.<br>Head to the <a href="index.html">main library</a> and tap
+                        any heart icon!</p>
+                </div>
+            </div>
+        </section>
+
+        <hr class="divider">
+
+        <!-- SITES YOU MIGHT LIKE -->
+        <section id="recommendsSection">
+            <div class="section-title">✨ Sites You Might Like</div>
+            <p class="section-desc">Handpicked highlights — one standout from every major category to get you started.
+            </p>
+            <div class="card-grid" id="recommendsGrid"></div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>You're all set! &nbsp;·&nbsp; <a href="index.html">← Back to the full library</a> &nbsp;·&nbsp; <a
+                href="best-practices.html">🛡️ Best Practices</a> &nbsp;·&nbsp; <a href="faq.html">FAQ</a></p>
+    </footer>
+
+    <script>
+        // ===== THEME =====
+        const themeToggle = document.getElementById('themeToggle');
+        function setTheme(t) {
+            document.documentElement.setAttribute('data-theme', t);
+            localStorage.setItem('theme', t);
+            themeToggle.querySelector('.moon-icon').style.display = t === 'dark' ? '' : 'none';
+            themeToggle.querySelector('.sun-icon').style.display = t === 'dark' ? 'none' : '';
+        }
+        themeToggle.addEventListener('click', () => {
+            setTheme(document.documentElement.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+        });
+        setTheme(localStorage.getItem('theme') || 'dark');
+
+        // ===== GREETING =====
+        (function () {
+            // Try to get user name from Firebase (if already loaded on parent page)
+            // or from session storage set by index.html auth flow
+            const storedName = sessionStorage.getItem('userName') || localStorage.getItem('userName');
+            if (storedName) {
+                document.getElementById('heroUsername').textContent = storedName;
+            }
+            // Also try Firebase lazily
+            function tryFirebase() {
+                if (typeof firebase !== 'undefined' && firebase.apps && firebase.apps.length) {
+                    const user = firebase.auth().currentUser;
+                    if (user) {
+                        const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+                        document.getElementById('heroUsername').textContent = name;
+                        localStorage.setItem('userName', name);
+                    }
+                }
+            }
+            setTimeout(tryFirebase, 800);
+        })();
+
+        // ===== FAVORITES FROM LOCALSTORAGE =====
+        const FAVS_KEY = 'pwl_favorites';
+        function getFavs() { try { return JSON.parse(localStorage.getItem(FAVS_KEY)) || []; } catch { return []; } }
+        function getFaviconUrl(url) {
+            try { return 'https://www.google.com/s2/favicons?domain=' + new URL(url).hostname + '&sz=32'; }
+            catch { return ''; }
+        }
+
+        function renderFavCard(url) {
+            const favicon = getFaviconUrl(url);
+            let domain = '';
+            try { domain = new URL(url).hostname.replace('www.', ''); } catch { }
+            return `<div class="card">
+    <div class="card-name-wrap">
+      ${favicon ? `<img class="card-favicon" src="${favicon}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+      <span class="card-name">${domain}</span>
+      <span class="card-tag">Favorite</span>
+    </div>
+    <p class="card-desc" style="font-size:.8rem;word-break:break-all;opacity:.6">${url}</p>
+    <a href="${url}" target="_blank" rel="noopener noreferrer" class="btn-visit">
+      Visit
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+    </a>
+  </div>`;
+        }
+
+        (function buildFavs() {
+            const favs = getFavs();
+            const grid = document.getElementById('favsGrid');
+            if (favs.length === 0) return; // keep empty message
+            grid.innerHTML = favs.map(url => renderFavCard(url)).join('');
+        })();
+
+        // ===== RECOMMENDED SITES =====
+        const PICKS = [
+            { n: "TinyWow", u: "https://tinywow.com", d: "200+ free AI tools for PDFs, images, video, and writing — all in your browser.", cat: "🤖 AI Tools" },
+            { n: "Cineby", u: "https://cineby.app", d: "Netflix-like UI for free movie streaming. Auto-next episodes, subtitles, zero pop-up ads.", cat: "📺 Streaming" },
+            { n: "RetroGames.cc", u: "https://retrogames.cc", d: "Play NES, SNES, GBA, and Genesis games directly in your browser. Zero downloads.", cat: "🎮 Gaming" },
+            { n: "Photopea", u: "https://photopea.com", d: "Full Photoshop clone in your browser. Opens PSD, AI, XD, and Sketch files.", cat: "🎨 Design" },
+            { n: "NotebookLM", u: "https://notebooklm.google.com", d: "Google's AI notebook — upload docs and get audio overviews, mind maps, and summaries.", cat: "🧪 Google Labs" },
+            { n: "FlowithOS", u: "https://flowith.net", d: "AI canvas workspace with parallel browsing agents. Think, browse, and create together.", cat: "🤖 Agentic AI" },
+            { n: "Proton VPN", u: "https://protonvpn.com/free-vpn", d: "Unlimited-data free VPN. Swiss privacy, no logs, no ads. The best truly free VPN.", cat: "🛡️ VPN" },
+            { n: "Khan Academy", u: "https://khanacademy.org", d: "World-class education in math, science, computing, and more. Completely free forever.", cat: "📚 Education" },
+            { n: "CodePen", u: "https://codepen.io", d: "Write HTML/CSS/JS in the browser and see live results instantly. Perfect playground.", cat: "💻 Dev Tools" },
+            { n: "Radio Garden", u: "https://radio.garden", d: "Explore live radio stations from around the world by spinning an interactive 3D globe.", cat: "🎵 Media" },
+            { n: "Manus", u: "https://manus.im", d: "Autonomous AI agent that executes real tasks, automates workflows, and delivers results.", cat: "💬 LLMs & AI" },
+            { n: "Buffstream", u: "https://ms.buffstream.io", d: "Watch NFL, NBA, MLB, NHL, MMA live. Reliable streams with minimal ads.", cat: "⚽ Sports" },
+        ];
+
+        (function buildRecommends() {
+            const grid = document.getElementById('recommendsGrid');
+            const favs = getFavs();
+            grid.innerHTML = PICKS.map(p => {
+                const favicon = getFaviconUrl(p.u);
+                const alreadySaved = favs.includes(p.u);
+                return `<div class="card">
+      <div class="card-name-wrap">
+        ${favicon ? `<img class="card-favicon" src="${favicon}" alt="" loading="lazy" onerror="this.style.display='none'">` : ''}
+        <span class="card-name">${p.n}</span>
+        <span class="card-tag">${p.cat}</span>
+      </div>
+      <p class="card-desc">${p.d}</p>
+      <a href="${p.u}" target="_blank" rel="noopener noreferrer" class="btn-visit">
+        Visit Site
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3"/></svg>
+      </a>
+    </div>`;
+            }).join('');
+        })();
+
+        // ===== CONFETTI =====
+        (function confetti() {
+            const canvas = document.getElementById('confettiCanvas');
+            const ctx = canvas.getContext('2d');
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            const colors = ['#dc2626', '#ff4444', '#ff6b9d', '#ffd93d', '#00c9a7', '#a855f7', '#3b82f6'];
+            const pieces = [];
+            for (let i = 0; i < 120; i++) {
+                pieces.push({
+                    x: Math.random() * canvas.width,
+                    y: -20 - Math.random() * canvas.height * 0.5,
+                    w: 8 + Math.random() * 8, h: 6 + Math.random() * 6,
+                    r: Math.random() * 360,
+                    vx: (Math.random() - 0.5) * 3,
+                    vy: 2 + Math.random() * 3,
+                    vr: (Math.random() - 0.5) * 6,
+                    color: colors[Math.floor(Math.random() * colors.length)],
+                    opacity: 1
+                });
+            }
+            let frame = 0;
+            function draw() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                pieces.forEach(p => {
+                    p.x += p.vx; p.y += p.vy; p.r += p.vr;
+                    if (frame > 120) p.opacity = Math.max(0, p.opacity - 0.008);
+                    ctx.save();
+                    ctx.translate(p.x, p.y);
+                    ctx.rotate(p.r * Math.PI / 180);
+                    ctx.globalAlpha = p.opacity;
+                    ctx.fillStyle = p.color;
+                    ctx.fillRect(-p.w / 2, -p.h / 2, p.w, p.h);
+                    ctx.restore();
+                });
+                frame++;
+                if (frame < 200) requestAnimationFrame(draw);
+                else ctx.clearRect(0, 0, canvas.width, canvas.height);
+            }
+            draw();
+            window.addEventListener('resize', () => { canvas.width = window.innerWidth; canvas.height = window.innerHeight; });
+        })();
+    </script>
+</body>
+
+</html>
