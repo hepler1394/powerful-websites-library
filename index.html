@@ -462,6 +462,12 @@
 
     /* ===== SECTION TYPE TABS ===== */
     .section-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+      justify-content: flex-start;
       display: flex;
       justify-content: center;
       gap: 12px;
@@ -470,6 +476,8 @@
     }
 
     .section-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
       padding: 10px 24px;
       border-radius: 50px;
       font-size: .88rem;
@@ -1991,12 +1999,20 @@
       }
 
       .section-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+      justify-content: flex-start;
         gap: 6px;
         flex-wrap: wrap;
         justify-content: center
       }
 
       .section-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
         padding: 8px 14px;
         font-size: .75rem;
         min-height: 38px;
@@ -2530,6 +2546,12 @@
 
     /* Swipeable horizontal scroll for nav tabs */
     .section-tabs {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+      padding-bottom: 2px;
+      justify-content: flex-start;
       flex-wrap: nowrap !important;
       overflow-x: auto;
       scroll-snap-type: x mandatory;
@@ -2545,6 +2567,8 @@
     }
 
     .section-tab {
+      white-space: nowrap;
+      flex-shrink: 0;
       scroll-snap-align: start;
       flex-shrink: 0
     }
@@ -2759,7 +2783,7 @@
   <!-- HERO -->
   <header class="hero">
     <div class="hero-content">
-      <div class="hero-badge">Curated Collection &bull; 2026</div>
+      <div class="hero-badge">700+ Free Tools &bull; 2026</div>
       <h1>Powerful Free Websites Library</h1>
       <p><span id="heroSiteCount" style="font-weight:900;color:var(--accent)">700+</span> websites that feel illegal to
         know — free tools, AI, streaming, gaming, music, books, and more. Sourced from
@@ -2813,7 +2837,7 @@
       <div class="search-count" id="searchCount"></div>
 
       <!-- SECTION TYPE TABS -->
-      <div class="section-tabs" id="sectionTypeTabs" style="overflow-x:auto;-webkit-overflow-scrolling:touch;padding-bottom:4px;scrollbar-width:none;">
+      <div class="section-tabs" id="sectionTypeTabs">
         <button class="section-tab active" data-section="all" id="tabAll">All <span id="tabAllCount">700+</span></button>
         <button class="section-tab" data-section="favorites">❤️ My Favorites <span class="fav-count-badge"
             id="favTabCount">0</span></button>
@@ -3632,14 +3656,7 @@
         document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
         tab.classList.add('active');
         activeSectionType = tab.dataset.section;
-        // Also update sections that have a mapped section type
-        document.querySelectorAll('.category-section').forEach(s => {
-          const mappedSection = s.dataset.mappedSection || s.dataset.type;
-          const shouldBeVisible = activeSectionType === 'all' || 
-            s.dataset.category === activeFilter ||
-            s.dataset.type === activeSectionType ||
-            mappedSection === activeSectionType;
-        });
+
         activeFilter = 'all';
         document.querySelectorAll('.nav-btn').forEach(b => b.classList.toggle('active', b.dataset.filter === 'all'));
         updateNavButtons();
@@ -3885,7 +3902,8 @@
         const catId = section.dataset.category;
         const catType = section.dataset.type;
         const matchesCat = activeFilter === 'all' || activeFilter === catId;
-        const matchesSection = activeSectionType === 'all' || activeSectionType === catType;
+        const mappedSec = section.dataset.mappedSection || catType;
+        const matchesSection = activeSectionType === 'all' || activeSectionType === catType || activeSectionType === mappedSec;
 
         if (!matchesCat || !matchesSection) {
           section.classList.remove('visible');

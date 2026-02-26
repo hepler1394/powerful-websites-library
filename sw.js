@@ -1,11 +1,16 @@
-const CACHE_NAME = 'webslib-v1';
+const CACHE_NAME = 'webslib-v3';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
   '/onboarding.html',
   '/best-practices.html',
   '/faq.html',
-  '/manifest.json'
+  '/manifest.json',
+  '/mobile.css',
+  '/mobile-extra.css',
+  '/data-extra.js',
+  '/data-extra-2.js',
+  '/data-extra-3.js'
 ];
 
 // Install: cache core shell
@@ -13,7 +18,7 @@ self.addEventListener('install', event => {
   event.waitUntil(
     caches.open(CACHE_NAME).then(cache => {
       return cache.addAll(STATIC_ASSETS.filter(url => !url.includes('firebase')));
-    }).catch(() => {})
+    }).catch(() => { })
   );
   self.skipWaiting();
 });
@@ -28,7 +33,7 @@ self.addEventListener('activate', event => {
   self.clients.claim();
 });
 
-// Fetch: network-first for HTML, cache-first for static assets
+// Fetch: network-first for HTML/JS data files, cache-first for static assets
 self.addEventListener('fetch', event => {
   const { request } = event;
   const url = new URL(request.url);
@@ -39,13 +44,15 @@ self.addEventListener('fetch', event => {
     url.origin === 'https://www.gstatic.com' ||
     url.origin === 'https://identitytoolkit.googleapis.com' ||
     url.origin === 'https://securetoken.googleapis.com' ||
-    url.hostname.includes('firebaseio.com')
+    url.hostname.includes('firebaseio.com') ||
+    url.hostname.includes('googleapis.com') ||
+    url.hostname.includes('google.com') && url.pathname.includes('s2/favicons')
   ) {
     return;
   }
 
-  // For HTML pages: network-first
-  if (request.destination === 'document') {
+  // For HTML pages and JS data files: network-first (always get latest data)
+  if (request.destination === 'document' || url.pathname.match(/data-extra.*\.js$/)) {
     event.respondWith(
       fetch(request)
         .then(res => {

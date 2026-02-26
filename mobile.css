@@ -1,4 +1,4 @@
-/* ============================================================
+﻿/* ============================================================
    mobile.css — 10x Mobile Overhaul for Powerful Websites Library
    Applied on top of index.html styles for maximum enhancement
    ============================================================ */
@@ -10,8 +10,9 @@
   html { -webkit-overflow-scrolling: touch; scroll-behavior: smooth; }
   body { overscroll-behavior-y: contain; }
 
-  /* Prevent horizontal scroll bleed */
-  .main, .hero, nav { overflow-x: hidden; }
+  /* Prevent horizontal scroll bleed — nav excluded so section-tabs can scroll */
+  .main, .hero { overflow-x: hidden; }
+  .nav-wrap { overflow-x: hidden; }  /* but nav-inner/navFilters still scroll */
 
   /* Bigger safe area padding for notch/home bar */
   body { padding-bottom: calc(72px + env(safe-area-inset-bottom)); }
