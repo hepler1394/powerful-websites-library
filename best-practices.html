@@ -1,703 +1,1303 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="dark">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Best Practices — Powerful Free Websites Library</title>
-<style>
-  *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
-  ::-webkit-scrollbar{width:8px;height:8px}
-  ::-webkit-scrollbar-track{background:transparent}
-  ::-webkit-scrollbar-thumb{background:#e53e3e;border-radius:4px}
-  ::-webkit-scrollbar-thumb:hover{background:#c53030}
-  *{scrollbar-width:thin;scrollbar-color:#e53e3e transparent}
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Best Practices — Powerful Free Websites Library</title>
+  <style>
+    *,
+    *::before,
+    *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
+    }
 
-  :root{--transition-theme:.4s cubic-bezier(.4,0,.2,1)}
-  [data-theme="dark"]{
-    --bg:#0a0a0a;--bg2:#0e0e0e;--surface:#141414;--card:#1a1a1a;--card-hover:#222;
-    --border:rgba(255,255,255,.06);--border-hover:rgba(220,38,38,.4);
-    --text:#e8e8f0;--text-muted:#8a8a9a;--text-dim:#55556a;
-    --accent:#dc2626;--accent-glow:rgba(220,38,38,.2);
-    --accent2:#ff4444;--accent3:#ff6b9d;
-    --radius:16px;--radius-sm:10px;--radius-xs:6px;
-    --glass:rgba(10,10,10,.7);--glass-border:rgba(255,255,255,.06);
-    --shadow:0 8px 32px rgba(0,0,0,.5);
-    --hero-bg:linear-gradient(135deg,#0a0a0a 0%,#1a0505 35%,#0a0a0a 65%,#120808 100%);
-  }
-  [data-theme="light"]{
-    --bg:#faf5f5;--bg2:#f5eeee;--surface:#ffffff;--card:#ffffff;--card-hover:#fff5f5;
-    --border:rgba(0,0,0,.08);--border-hover:rgba(220,38,38,.3);
-    --text:#1a1a2e;--text-muted:#5a5a7a;--text-dim:#8888a0;
-    --accent:#c0392b;--accent-glow:rgba(192,57,43,.15);
-    --accent2:#e74c3c;--accent3:#e84393;
-    --radius:16px;--radius-sm:10px;--radius-xs:6px;
-    --glass:rgba(255,255,255,.85);--glass-border:rgba(0,0,0,.08);
-    --shadow:0 4px 24px rgba(0,0,0,.08);
-    --hero-bg:linear-gradient(135deg,#faf5f5 0%,#ffe8e8 35%,#fff0f0 65%,#faf5f5 100%);
-  }
+    ::-webkit-scrollbar {
+      width: 8px;
+      height: 8px
+    }
 
-  html{scroll-behavior:smooth;font-size:16px}
-  body{
-    font-family:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,'Helvetica Neue',Arial,sans-serif;
-    background:var(--bg);color:var(--text);line-height:1.6;
-    overflow-x:hidden;transition:background var(--transition-theme),color var(--transition-theme);
-    padding-bottom:80px;
-  }
-  a{color:var(--accent2);text-decoration:none;transition:color .2s}
-  a:hover{color:#ff6b6b}
+    ::-webkit-scrollbar-track {
+      background: transparent
+    }
 
-  /* Theme toggle */
-  .theme-toggle{
-    position:fixed;top:16px;right:16px;z-index:200;
-    padding:10px;border-radius:50%;border:none;cursor:pointer;
-    background:var(--surface);border:1px solid var(--border);
-    transition:all .3s;display:flex;align-items:center;justify-content:center;
-    width:42px;height:42px;box-shadow:0 2px 12px rgba(0,0,0,.15);
-    color:var(--text);-webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  }
-  .theme-toggle:hover{border-color:var(--accent);box-shadow:0 2px 16px var(--accent-glow)}
-  .theme-toggle:active{transform:scale(.95)}
-  .theme-toggle svg{width:18px;height:18px;flex-shrink:0}
+    ::-webkit-scrollbar-thumb {
+      background: #e53e3e;
+      border-radius: 4px
+    }
 
-  /* Hero */
-  .hero{
-    position:relative;text-align:center;padding:90px 24px 50px;
-    background:var(--hero-bg);overflow:hidden;
-    transition:background var(--transition-theme);
-  }
-  .hero::before{
-    content:'';position:absolute;top:-50%;left:-50%;width:200%;height:200%;
-    background:radial-gradient(circle at 30% 50%,rgba(220,38,38,.1) 0%,transparent 50%),
-               radial-gradient(circle at 70% 50%,rgba(255,68,68,.06) 0%,transparent 50%);
-    animation:heroFloat 20s ease-in-out infinite;
-  }
-  .hero::after{
-    content:'';position:absolute;bottom:0;left:0;right:0;height:120px;
-    background:linear-gradient(transparent,var(--bg));pointer-events:none;
-    transition:background var(--transition-theme);
-  }
-  @keyframes heroFloat{0%,100%{transform:translate(0,0) rotate(0)}50%{transform:translate(-2%,2%) rotate(1deg)}}
-  .hero-content{position:relative;z-index:1;max-width:860px;margin:0 auto}
-  .hero-badge{
-    display:inline-block;padding:6px 20px;border-radius:50px;font-size:.72rem;
-    font-weight:700;letter-spacing:2px;text-transform:uppercase;
-    background:rgba(220,38,38,.12);color:var(--accent);border:1px solid rgba(220,38,38,.25);
-    margin-bottom:28px;backdrop-filter:blur(10px);
-  }
-  .hero h1{
-    font-size:clamp(2rem,5vw,3.2rem);font-weight:900;
-    background:linear-gradient(135deg,var(--text) 0%,var(--accent) 50%,var(--accent2) 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;line-height:1.15;margin-bottom:16px;padding-bottom:4px;
-    letter-spacing:-1px;
-  }
-  .hero p{
-    font-size:clamp(.9rem,2vw,1.05rem);color:var(--text-muted);
-    max-width:600px;margin:0 auto;
-  }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #c53030
+    }
 
-  /* Content */
-  .content{max-width:800px;margin:0 auto;padding:40px 24px 60px}
+    * {
+      scrollbar-width: thin;
+      scrollbar-color: #e53e3e transparent
+    }
 
-  /* Guide Sections */
-  .guide-section{margin-bottom:48px}
-  .guide-section h2{
-    font-size:1.5rem;font-weight:800;margin-bottom:8px;
-    display:flex;align-items:center;gap:12px;
-  }
-  .guide-section h2 .section-icon{
-    width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;
-    font-size:1.2rem;flex-shrink:0;
-  }
-  .guide-section .section-subtitle{
-    color:var(--text-muted);font-size:.9rem;margin-bottom:24px;
-  }
+    :root {
+      --transition-theme: .4s cubic-bezier(.4, 0, .2, 1)
+    }
 
-  /* Step Cards */
-  .step-card{
-    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-    padding:24px;margin-bottom:16px;transition:all .3s;position:relative;overflow:hidden;
-  }
-  .step-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    border-radius:var(--radius) var(--radius) 0 0;opacity:.7;
-  }
-  .step-card:hover{border-color:var(--border-hover);transform:translateY(-2px);box-shadow:var(--shadow)}
-  .step-card h3{font-size:1.05rem;font-weight:700;margin-bottom:8px;display:flex;align-items:center;gap:10px}
-  .step-card p{color:var(--text-muted);font-size:.9rem;line-height:1.7;margin-bottom:8px}
-  .step-card p:last-child{margin-bottom:0}
-  .step-card ul{color:var(--text-muted);font-size:.9rem;line-height:1.7;padding-left:20px;margin-bottom:8px}
-  .step-card li{margin-bottom:4px}
-  .step-card a{color:var(--accent2);font-weight:600}
-  .step-card code{
-    background:rgba(220,38,38,.08);color:var(--accent);padding:2px 8px;
-    border-radius:4px;font-size:.85rem;font-family:'SF Mono',monospace;
-  }
-  .step-num{
-    display:inline-flex;align-items:center;justify-content:center;
-    width:28px;height:28px;border-radius:50%;font-size:.75rem;font-weight:800;flex-shrink:0;
-  }
+    [data-theme="dark"] {
+      --bg: #0a0a0a;
+      --bg2: #0e0e0e;
+      --surface: #141414;
+      --card: #1a1a1a;
+      --card-hover: #222;
+      --border: rgba(255, 255, 255, .06);
+      --border-hover: rgba(220, 38, 38, .4);
+      --text: #e8e8f0;
+      --text-muted: #8a8a9a;
+      --text-dim: #55556a;
+      --accent: #dc2626;
+      --accent-glow: rgba(220, 38, 38, .2);
+      --accent2: #ff4444;
+      --accent3: #ff6b9d;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      --glass: rgba(10, 10, 10, .7);
+      --glass-border: rgba(255, 255, 255, .06);
+      --shadow: 0 8px 32px rgba(0, 0, 0, .5);
+      --hero-bg: linear-gradient(135deg, #0a0a0a 0%, #1a0505 35%, #0a0a0a 65%, #120808 100%);
+    }
 
-  /* Unified red accent for all sections */
-  .step-card::before{background:linear-gradient(90deg,var(--accent),#b91c1c)}
-  .step-num{background:rgba(220,38,38,.12);color:var(--accent)}
-  .guide-section h2{color:var(--accent)}
+    [data-theme="light"] {
+      --bg: #faf5f5;
+      --bg2: #f5eeee;
+      --surface: #ffffff;
+      --card: #ffffff;
+      --card-hover: #fff5f5;
+      --border: rgba(0, 0, 0, .08);
+      --border-hover: rgba(220, 38, 38, .3);
+      --text: #1a1a2e;
+      --text-muted: #5a5a7a;
+      --text-dim: #8888a0;
+      --accent: #c0392b;
+      --accent-glow: rgba(192, 57, 43, .15);
+      --accent2: #e74c3c;
+      --accent3: #e84393;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      --glass: rgba(255, 255, 255, .85);
+      --glass-border: rgba(0, 0, 0, .08);
+      --shadow: 0 4px 24px rgba(0, 0, 0, .08);
+      --hero-bg: linear-gradient(135deg, #faf5f5 0%, #ffe8e8 35%, #fff0f0 65%, #faf5f5 100%);
+    }
 
-  /* Recommendation Box */
-  .rec-box{
-    background:var(--card);border:1px solid var(--border);border-radius:var(--radius);
-    padding:20px 24px;margin-bottom:12px;display:flex;align-items:flex-start;gap:16px;
-    transition:all .3s;
-  }
-  .rec-box:hover{border-color:var(--border-hover)}
-  .rec-icon{font-size:1.5rem;flex-shrink:0;margin-top:2px}
-  .rec-content h4{font-size:.95rem;font-weight:700;margin-bottom:4px}
-  .rec-content p{color:var(--text-muted);font-size:.85rem;line-height:1.6}
-  .rec-badge{
-    display:inline-block;padding:3px 10px;border-radius:50px;font-size:.7rem;
-    font-weight:700;letter-spacing:.5px;text-transform:uppercase;margin-left:8px;
-  }
-  .rec-badge.best{background:rgba(220,38,38,.12);color:var(--accent)}
-  .rec-badge.free{background:rgba(220,38,38,.08);color:var(--accent2)}
-  .rec-badge.paid{background:rgba(255,68,68,.1);color:var(--accent2)}
+    html {
+      scroll-behavior: smooth;
+      font-size: 16px
+    }
 
-  /* Go Home Button */
-  .go-home-wrap{
-    display:flex;justify-content:center;margin-top:24px;
-  }
-  .go-home{
-    display:inline-flex;align-items:center;gap:10px;
-    padding:14px 32px;border-radius:50px;text-decoration:none;
-    background:linear-gradient(135deg,var(--accent),#b91c1c);color:#fff;
-    font-size:.9rem;font-weight:700;letter-spacing:.3px;
-    border:none;cursor:pointer;transition:all .3s;
-    box-shadow:0 4px 20px var(--accent-glow);
-  }
-  .go-home:hover{transform:translateY(-2px);box-shadow:0 6px 28px var(--accent-glow);color:#fff}
-  .go-home:active{transform:scale(.97)}
-  .go-home svg{width:18px;height:18px}
-  @media(max-width:480px){
-    .go-home{padding:12px 26px;font-size:.84rem}
-    .go-home svg{width:16px;height:16px}
-  }
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      overflow-x: hidden;
+      transition: background var(--transition-theme), color var(--transition-theme);
+      padding-bottom: 80px;
+    }
 
-  /* TLDR Box */
-  .tldr-box{
-    background:linear-gradient(135deg,rgba(220,38,38,.08),rgba(255,68,68,.04));
-    border:1px solid rgba(220,38,38,.2);border-radius:var(--radius);
-    padding:24px;margin-bottom:32px;
-  }
-  .tldr-box h3{font-size:1rem;font-weight:800;color:var(--accent);margin-bottom:8px;display:flex;align-items:center;gap:8px}
-  .tldr-box p{color:var(--text-muted);font-size:.9rem;line-height:1.7}
-  .tldr-box ol{color:var(--text-muted);font-size:.9rem;line-height:1.7;padding-left:20px}
-  .tldr-box li{margin-bottom:4px}
-  .tldr-box a{color:var(--accent2);font-weight:600}
+    a {
+      color: var(--accent2);
+      text-decoration: none;
+      transition: color .2s
+    }
 
-  /* Divider */
-  .section-divider{
-    height:1px;background:var(--border);margin:48px 0;
-  }
+    a:hover {
+      color: #ff6b6b
+    }
 
-  /* Footer */
-  .footer{
-    text-align:center;padding:48px 24px;border-top:1px solid var(--border);
-    color:var(--text-muted);font-size:.85rem;
-    transition:border-color var(--transition-theme);
-  }
-  .footer a{color:#ff4444}
+    /* Theme toggle */
+    .theme-toggle {
+      position: fixed;
+      top: 16px;
+      right: 16px;
+      z-index: 200;
+      padding: 10px;
+      border-radius: 50%;
+      border: none;
+      cursor: pointer;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      transition: all .3s;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      box-shadow: 0 2px 12px rgba(0, 0, 0, .15);
+      color: var(--text);
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
 
-  /* Bottom Nav */
-  .bottom-nav{
-    position:fixed;bottom:0;left:0;right:0;z-index:200;
-    background:var(--surface);border-top:1px solid var(--border);
-    backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);
-    display:flex;justify-content:center;align-items:stretch;
-    padding:0;height:60px;
-    box-shadow:0 -2px 20px rgba(0,0,0,.15);
-    transition:background var(--transition-theme),border-color var(--transition-theme);
-  }
-  .bottom-nav-inner{
-    display:flex;justify-content:space-around;align-items:stretch;
-    max-width:520px;width:100%;
-  }
-  .bottom-nav a{
-    display:flex;flex-direction:column;align-items:center;justify-content:center;
-    flex:1;text-decoration:none;color:var(--text-muted);
-    font-size:.6rem;font-weight:600;letter-spacing:.3px;
-    transition:color .2s;gap:2px;padding:6px 0;
-    -webkit-tap-highlight-color:transparent;touch-action:manipulation;
-  }
-  .bottom-nav a:hover,.bottom-nav a.active{color:var(--accent)}
-  .bottom-nav a svg{width:20px;height:20px;stroke-width:2}
-  .bottom-nav a.active svg{stroke:var(--accent)}
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      box-shadow: 0 2px 16px var(--accent-glow)
+    }
 
-  /* Back to top */
-  .back-top{
-    position:fixed;bottom:80px;right:24px;width:48px;height:48px;
-    border-radius:50%;background:#dc2626;color:#fff;border:none;
-    cursor:pointer;display:flex;align-items:center;justify-content:center;
-    opacity:0;transform:translateY(20px);transition:all .3s;z-index:99;
-    box-shadow:0 4px 16px rgba(220,38,38,.3);
-  }
-  .back-top.visible{opacity:1;transform:translateY(0)}
-  .back-top:hover{transform:translateY(-3px);box-shadow:0 6px 24px rgba(220,38,38,.4)}
-  .back-top svg{width:20px;height:20px}
+    .theme-toggle:active {
+      transform: scale(.95)
+    }
 
-  @media(max-width:768px){
-    .hero{padding:70px 16px 40px}
-    .content{padding:24px 16px 60px}
-    .step-card{padding:20px 18px}
-    .theme-toggle{top:12px;right:12px;width:36px;height:36px}
-    .theme-toggle svg{width:16px;height:16px}
-    .guide-section h2{font-size:1.25rem}
-    .rec-box{flex-direction:column;gap:8px}
-    .back-top{bottom:24px!important;right:20px!important;width:44px;height:44px}
-  }
-  @media(max-width:480px){
-    .hero h1{font-size:1.7rem}
-    .guide-section h2{font-size:1.1rem}
-    .step-card h3{font-size:.95rem}
-  }
-  @media(max-width:768px){
-    .bottom-nav{display:none!important}
-  }
-  @media(min-width:769px){
-    .bottom-nav{height:56px}
-    .bottom-nav a{font-size:.65rem}
-  }
+    .theme-toggle svg {
+      width: 18px;
+      height: 18px;
+      flex-shrink: 0
+    }
 
-  @keyframes fadeUp{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:translateY(0)}}
-  .guide-section{animation:fadeUp .5s ease both}
-  .guide-section:nth-child(2){animation-delay:.1s}
-  .guide-section:nth-child(3){animation-delay:.15s}
-  .guide-section:nth-child(4){animation-delay:.2s}
-</style>
+    /* Hero */
+    .hero {
+      position: relative;
+      text-align: center;
+      padding: 90px 24px 50px;
+      background: var(--hero-bg);
+      overflow: hidden;
+      transition: background var(--transition-theme);
+    }
+
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(circle at 30% 50%, rgba(220, 38, 38, .1) 0%, transparent 50%),
+        radial-gradient(circle at 70% 50%, rgba(255, 68, 68, .06) 0%, transparent 50%);
+      animation: heroFloat 20s ease-in-out infinite;
+    }
+
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 120px;
+      background: linear-gradient(transparent, var(--bg));
+      pointer-events: none;
+      transition: background var(--transition-theme);
+    }
+
+    @keyframes heroFloat {
+
+      0%,
+      100% {
+        transform: translate(0, 0) rotate(0)
+      }
+
+      50% {
+        transform: translate(-2%, 2%) rotate(1deg)
+      }
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 1;
+      max-width: 860px;
+      margin: 0 auto
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 6px 20px;
+      border-radius: 50px;
+      font-size: .72rem;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      background: rgba(220, 38, 38, .12);
+      color: var(--accent);
+      border: 1px solid rgba(220, 38, 38, .25);
+      margin-bottom: 28px;
+      backdrop-filter: blur(10px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2rem, 5vw, 3.2rem);
+      font-weight: 900;
+      color: var(--text);
+      line-height: 1.15;
+      margin-bottom: 16px;
+      padding-bottom: 4px;
+      letter-spacing: -1px;
+    }
+
+    [data-theme="dark"] .hero h1 {
+      background: linear-gradient(135deg, #ffffff 0%, #ff6b6b 50%, #ff4444 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .hero p {
+      font-size: clamp(.9rem, 2vw, 1.05rem);
+      color: var(--text-muted);
+      max-width: 600px;
+      margin: 0 auto;
+    }
+
+    /* Content */
+    .content {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 40px 24px 60px
+    }
+
+    /* Guide Sections */
+    .guide-section {
+      margin-bottom: 48px
+    }
+
+    .guide-section h2 {
+      font-size: 1.5rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .guide-section h2 .section-icon {
+      width: 40px;
+      height: 40px;
+      border-radius: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.2rem;
+      flex-shrink: 0;
+    }
+
+    .guide-section .section-subtitle {
+      color: var(--text-muted);
+      font-size: .9rem;
+      margin-bottom: 24px;
+    }
+
+    /* Step Cards */
+    .step-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 16px;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .step-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      border-radius: var(--radius) var(--radius) 0 0;
+      opacity: .7;
+    }
+
+    .step-card:hover {
+      border-color: var(--border-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow)
+    }
+
+    .step-card h3 {
+      font-size: 1.05rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 10px
+    }
+
+    .step-card p {
+      color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.7;
+      margin-bottom: 8px
+    }
+
+    .step-card p:last-child {
+      margin-bottom: 0
+    }
+
+    .step-card ul {
+      color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.7;
+      padding-left: 20px;
+      margin-bottom: 8px
+    }
+
+    .step-card li {
+      margin-bottom: 4px
+    }
+
+    .step-card a {
+      color: var(--accent2);
+      font-weight: 600
+    }
+
+    .step-card code {
+      background: rgba(220, 38, 38, .08);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: .85rem;
+      font-family: 'SF Mono', monospace;
+    }
+
+    .step-num {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      font-size: .75rem;
+      font-weight: 800;
+      flex-shrink: 0;
+    }
+
+    /* Unified red accent for all sections */
+    .step-card::before {
+      background: linear-gradient(90deg, var(--accent), #b91c1c)
+    }
+
+    .step-num {
+      background: rgba(220, 38, 38, .12);
+      color: var(--accent)
+    }
+
+    .guide-section h2 {
+      color: var(--accent)
+    }
+
+    /* Recommendation Box */
+    .rec-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: flex-start;
+      gap: 16px;
+      transition: all .3s;
+    }
+
+    .rec-box:hover {
+      border-color: var(--border-hover)
+    }
+
+    .rec-icon {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+      margin-top: 2px
+    }
+
+    .rec-content h4 {
+      font-size: .95rem;
+      font-weight: 700;
+      margin-bottom: 4px
+    }
+
+    .rec-content p {
+      color: var(--text-muted);
+      font-size: .85rem;
+      line-height: 1.6
+    }
+
+    .rec-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 50px;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-left: 8px;
+    }
+
+    .rec-badge.best {
+      background: rgba(220, 38, 38, .12);
+      color: var(--accent)
+    }
+
+    .rec-badge.free {
+      background: rgba(220, 38, 38, .08);
+      color: var(--accent2)
+    }
+
+    .rec-badge.paid {
+      background: rgba(255, 68, 68, .1);
+      color: var(--accent2)
+    }
+
+    /* Go Home Button */
+    .go-home-wrap {
+      display: flex;
+      justify-content: center;
+      margin-top: 24px;
+    }
+
+    .go-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 14px 32px;
+      border-radius: 50px;
+      text-decoration: none;
+      background: linear-gradient(135deg, var(--accent), #b91c1c);
+      color: #fff;
+      font-size: .9rem;
+      font-weight: 700;
+      letter-spacing: .3px;
+      border: none;
+      cursor: pointer;
+      transition: all .3s;
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .go-home:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 28px var(--accent-glow);
+      color: #fff
+    }
+
+    .go-home:active {
+      transform: scale(.97)
+    }
+
+    .go-home svg {
+      width: 18px;
+      height: 18px
+    }
+
+    @media(max-width:480px) {
+      .go-home {
+        padding: 12px 26px;
+        font-size: .84rem
+      }
+
+      .go-home svg {
+        width: 16px;
+        height: 16px
+      }
+    }
+
+    /* TLDR Box */
+    .tldr-box {
+      background: linear-gradient(135deg, rgba(220, 38, 38, .08), rgba(255, 68, 68, .04));
+      border: 1px solid rgba(220, 38, 38, .2);
+      border-radius: var(--radius);
+      padding: 24px;
+      margin-bottom: 32px;
+    }
+
+    .tldr-box h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 8px
+    }
+
+    .tldr-box p {
+      color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.7
+    }
+
+    .tldr-box ol {
+      color: var(--text-muted);
+      font-size: .9rem;
+      line-height: 1.7;
+      padding-left: 20px
+    }
+
+    .tldr-box li {
+      margin-bottom: 4px
+    }
+
+    .tldr-box a {
+      color: var(--accent2);
+      font-weight: 600
+    }
+
+    /* Divider */
+    .section-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 48px 0;
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 48px 24px;
+      border-top: 1px solid var(--border);
+      color: var(--text-muted);
+      font-size: .85rem;
+      transition: border-color var(--transition-theme);
+    }
+
+    .footer a {
+      color: #ff4444
+    }
+
+    /* Bottom Nav */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      z-index: 200;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      backdrop-filter: blur(24px);
+      -webkit-backdrop-filter: blur(24px);
+      display: flex;
+      justify-content: center;
+      align-items: stretch;
+      padding: 0;
+      height: 60px;
+      box-shadow: 0 -2px 20px rgba(0, 0, 0, .15);
+      transition: background var(--transition-theme), border-color var(--transition-theme);
+    }
+
+    .bottom-nav-inner {
+      display: flex;
+      justify-content: space-around;
+      align-items: stretch;
+      max-width: 520px;
+      width: 100%;
+    }
+
+    .bottom-nav a {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: .6rem;
+      font-weight: 600;
+      letter-spacing: .3px;
+      transition: color .2s;
+      gap: 2px;
+      padding: 6px 0;
+      -webkit-tap-highlight-color: transparent;
+      touch-action: manipulation;
+    }
+
+    .bottom-nav a:hover,
+    .bottom-nav a.active {
+      color: var(--accent)
+    }
+
+    .bottom-nav a svg {
+      width: 20px;
+      height: 20px;
+      stroke-width: 2
+    }
+
+    .bottom-nav a.active svg {
+      stroke: var(--accent)
+    }
+
+    /* Back to top */
+    .back-top {
+      position: fixed;
+      bottom: 80px;
+      right: 24px;
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: #dc2626;
+      color: #fff;
+      border: none;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all .3s;
+      z-index: 99;
+      box-shadow: 0 4px 16px rgba(220, 38, 38, .3);
+    }
+
+    .back-top.visible {
+      opacity: 1;
+      transform: translateY(0)
+    }
+
+    .back-top:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 24px rgba(220, 38, 38, .4)
+    }
+
+    .back-top svg {
+      width: 20px;
+      height: 20px
+    }
+
+    @media(max-width:768px) {
+      .hero {
+        padding: 70px 16px 40px
+      }
+
+      .content {
+        padding: 24px 16px 60px
+      }
+
+      .step-card {
+        padding: 20px 18px
+      }
+
+      .theme-toggle {
+        top: 12px;
+        right: 12px;
+        width: 36px;
+        height: 36px
+      }
+
+      .theme-toggle svg {
+        width: 16px;
+        height: 16px
+      }
+
+      .guide-section h2 {
+        font-size: 1.25rem
+      }
+
+      .rec-box {
+        flex-direction: column;
+        gap: 8px
+      }
+
+      .back-top {
+        bottom: 24px !important;
+        right: 20px !important;
+        width: 44px;
+        height: 44px
+      }
+    }
+
+    @media(max-width:480px) {
+      .hero h1 {
+        font-size: 1.7rem
+      }
+
+      .guide-section h2 {
+        font-size: 1.1rem
+      }
+
+      .step-card h3 {
+        font-size: .95rem
+      }
+    }
+
+    @media(max-width:768px) {
+      .bottom-nav {
+        display: none !important
+      }
+    }
+
+    @media(min-width:769px) {
+      .bottom-nav {
+        height: 56px
+      }
+
+      .bottom-nav a {
+        font-size: .65rem
+      }
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px)
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
+    }
+
+    .guide-section {
+      animation: fadeUp .5s ease both
+    }
+
+    .guide-section:nth-child(2) {
+      animation-delay: .1s
+    }
+
+    .guide-section:nth-child(3) {
+      animation-delay: .15s
+    }
+
+    .guide-section:nth-child(4) {
+      animation-delay: .2s
+    }
+  </style>
 </head>
+
 <body>
 
-<!-- THEME TOGGLE -->
-<button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
-  <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-  <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none"><circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42" stroke="currentColor" stroke-width="2" fill="none"/></svg>
-</button>
+  <!-- THEME TOGGLE -->
+  <button class="theme-toggle" id="themeToggle" title="Toggle light/dark mode">
+    <svg class="moon-icon" viewBox="0 0 24 24" fill="currentColor">
+      <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z" />
+    </svg>
+    <svg class="sun-icon" viewBox="0 0 24 24" fill="currentColor" style="display:none">
+      <circle cx="12" cy="12" r="5" />
+      <path
+        d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
+        stroke="currentColor" stroke-width="2" fill="none" />
+    </svg>
+  </button>
 
-<!-- HERO -->
-<header class="hero">
-  <div class="hero-content">
-    <div class="hero-badge">Essential Guide &bull; 2026</div>
-    <h1>Best Practices</h1>
-    <p>Everything you need to stay safe, block ads, protect your privacy, and get the most out of every site in our library.</p>
-    <div class="go-home-wrap">
-      <a href="index.html" class="go-home">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-        Go Home
+  <!-- HERO -->
+  <header class="hero">
+    <div class="hero-content">
+      <div class="hero-badge">Essential Guide &bull; 2026</div>
+      <h1>Best Practices</h1>
+      <p>Everything you need to stay safe, block ads, protect your privacy, and get the most out of every site in our
+        library.</p>
+      <div class="go-home-wrap">
+        <a href="index.html" class="go-home">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+            <polyline points="9 22 9 12 15 12 15 22" />
+          </svg>
+          Go Home
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- CONTENT -->
+  <div class="content">
+
+    <!-- TLDR -->
+    <div class="tldr-box">
+      <h3>⚡ TL;DR — Do These 3 Things Right Now</h3>
+      <ol>
+        <li><strong>Switch to <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave
+              Browser</a></strong> — blocks ads, trackers, and pop-ups by default</li>
+        <li><strong>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock
+              Origin</a></strong> on Firefox for maximum ad blocking power</li>
+        <li><strong>Get <a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton
+              VPN</a></strong> (free) — hides your IP and encrypts your traffic</li>
+      </ol>
+      <p style="margin-top:8px">Do all three and you'll never see a pop-up, your ISP won't know what you're browsing,
+        and every site in our library will work flawlessly.</p>
+    </div>
+
+    <!-- SECTION 1: VPN -->
+    <div class="guide-section vpn-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">🛡</span>
+        Why You Need a VPN
+      </h2>
+      <p class="section-subtitle">A VPN encrypts your internet traffic and hides your IP address from your ISP, hackers,
+        and websites.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> What a VPN Actually Does</h3>
+        <p>Without a VPN, your Internet Service Provider (ISP) can see <strong>every website you visit</strong>. They
+          can throttle your speed, sell your browsing data, and even send you warning letters if you visit streaming or
+          piracy sites.</p>
+        <p>A VPN creates an encrypted tunnel between your device and the internet. Your ISP only sees encrypted
+          gibberish — they can't see what sites you visit, what you stream, or what you download.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> When You MUST Use a VPN</h3>
+        <ul>
+          <li><strong>Streaming sites</strong> (Movies & TV, Sports) — your ISP can see you're streaming pirated content
+          </li>
+          <li><strong>Downloading anything</strong> — torrenting without a VPN is how people get caught</li>
+          <li><strong>Public Wi-Fi</strong> — coffee shops, airports, hotels. Anyone on the same network can intercept
+            your data</li>
+          <li><strong>Accessing geo-blocked content</strong> — connect to a server in another country to bypass
+            restrictions</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> When You DON'T Need a VPN</h3>
+        <p>For regular free tools like Photopea, TinyWow, Khan Academy, or any legitimate site — you don't need a VPN.
+          These sites are safe and legal. A VPN is for privacy and protection, not for everyday browsing on trusted
+          sites.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">4</span> Our VPN Recommendations</h3>
+        <div class="rec-box">
+          <span class="rec-icon">🥇</span>
+          <div class="rec-content">
+            <h4><a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton VPN</a> <span
+                class="rec-badge best">Best Free</span></h4>
+            <p>Unlimited data, no ads, no logs. Swiss-based privacy. 5 countries on free tier, 1 device. The only free
+              VPN we trust completely.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🥈</span>
+          <div class="rec-content">
+            <h4><a href="https://www.privateinternetaccess.com" target="_blank" rel="noopener noreferrer">Private
+                Internet Access</a> <span class="rec-badge paid">$2/mo</span></h4>
+            <p>35,000+ servers in 91 countries. Open-source, no-logs proven in court twice. WireGuard protocol for
+              blazing speed. Our top paid pick.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🥉</span>
+          <div class="rec-content">
+            <h4><a href="https://windscribe.com" target="_blank" rel="noopener noreferrer">Windscribe</a> <span
+                class="rec-badge free">10GB Free</span></h4>
+            <p>10GB/month free with browser extension. No email needed to sign up. Built-in ad blocker. Great for casual
+              use.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 2: AD BLOCKERS -->
+    <div class="guide-section adblock-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">🚫</span>
+        Setting Up Ad Blocking
+      </h2>
+      <p class="section-subtitle">Ad blockers remove pop-ups, banner ads, video ads, and malicious trackers. They also
+        make pages load faster.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> Desktop: Firefox + uBlock Origin (Best Combo)</h3>
+        <p>This is the most powerful ad blocking setup available:</p>
+        <ul>
+          <li>Install <a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">Firefox</a>
+            (supports full Manifest V2 extensions)</li>
+          <li>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a>
+            from the Firefox Add-ons store</li>
+          <li>That's it — uBlock Origin blocks 100% of ads out of the box. No configuration needed.</li>
+        </ul>
+        <p><strong>Why not Chrome?</strong> Google is killing ad blockers on Chrome with Manifest V3. uBlock Origin on
+          Chrome is being replaced with a weaker "Lite" version. Firefox is the only major browser that still supports
+          full ad blocking.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Desktop: Brave Browser (Easiest Option)</h3>
+        <p>If you don't want to install extensions, just use <a href="https://brave.com" target="_blank"
+            rel="noopener noreferrer">Brave Browser</a>. It blocks ads and trackers by default with Brave Shields. No
+          setup required. It's Chromium-based, so all your Chrome extensions still work.</p>
+        <p><strong>Pro tip:</strong> Install uBlock Origin on Brave too for double protection on stubborn sites.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> Mobile: Brave Browser (Android & iOS)</h3>
+        <p>Mobile browsers don't support extensions well (except Firefox on Android). The easiest solution:</p>
+        <ul>
+          <li><strong>Android & iOS:</strong> Use <a href="https://brave.com" target="_blank"
+              rel="noopener noreferrer">Brave Browser</a> — built-in ad blocking, no extensions needed</li>
+          <li><strong>Android only:</strong> Firefox for Android supports uBlock Origin — install both for maximum
+            blocking</li>
+          <li><strong>System-wide (Android):</strong> Install <a href="https://blokada.org" target="_blank"
+              rel="noopener noreferrer">Blokada</a> — blocks ads in ALL apps, not just the browser</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">4</span> Bonus Extensions to Install</h3>
+        <ul>
+          <li><a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a> — auto-skips
+            sponsor segments, intros, and outros on YouTube</li>
+          <li><a href="https://unhook.app" target="_blank" rel="noopener noreferrer">Unhook</a> — removes YouTube
+            recommendations, shorts, and comments for distraction-free viewing</li>
+          <li><a href="https://clearurls.xyz" target="_blank" rel="noopener noreferrer">ClearURLs</a> — strips tracking
+            parameters from every URL you visit</li>
+          <li><a href="https://privacybadger.org" target="_blank" rel="noopener noreferrer">Privacy Badger</a> — EFF's
+            tracker blocker that learns as you browse</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 3: BROWSER CHOICE -->
+    <div class="guide-section browser-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">🔏</span>
+        Choosing the Right Browser
+      </h2>
+      <p class="section-subtitle">Your browser is the gateway to everything online. Choose one that respects your
+        privacy.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> Why You Should Stop Using Chrome</h3>
+        <p>Chrome is made by Google — the world's largest advertising company. Here's what Chrome does:</p>
+        <ul>
+          <li>Tracks your browsing history and sends it to Google</li>
+          <li>Manifest V3 is actively weakening ad blockers (uBlock Origin is being nerfed)</li>
+          <li>Sends telemetry data about your usage patterns</li>
+          <li>Uses your browsing data to serve you targeted ads across the web</li>
+        </ul>
+        <p>Every browser below is a better choice than Chrome for privacy.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Our Browser Recommendations</h3>
+        <div class="rec-box">
+          <span class="rec-icon">🦁</span>
+          <div class="rec-content">
+            <h4><a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave</a> <span
+                class="rec-badge best">Best Overall</span></h4>
+            <p>Built-in ad blocking, fast, Chromium-based (all Chrome extensions work). Perfect for people switching
+              from Chrome — feels identical but with privacy.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🦊</span>
+          <div class="rec-content">
+            <h4><a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">Firefox</a> <span
+                class="rec-badge best">Best for Extensions</span></h4>
+            <p>Open-source, fully supports uBlock Origin (Manifest V2), massive extension library. Most customizable
+              privacy browser.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🐺</span>
+          <div class="rec-content">
+            <h4><a href="https://librewolf.net" target="_blank" rel="noopener noreferrer">LibreWolf</a> <span
+                class="rec-badge free">Pre-Hardened</span></h4>
+            <p>Firefox with all telemetry removed and uBlock Origin pre-installed. Zero configuration needed — privacy
+              out of the box.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🧅</span>
+          <div class="rec-content">
+            <h4><a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">Tor Browser</a> <span
+                class="rec-badge free">Maximum Privacy</span></h4>
+            <p>Routes all traffic through the Tor network for true anonymity. Slower, but impossible to trace. Use for
+              sensitive browsing.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 4: SAFE BROWSING -->
+    <div class="guide-section safety-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">⚠️</span>
+        Safe Browsing on Free Sites
+      </h2>
+      <p class="section-subtitle">Free streaming and piracy sites can be sketchy. Follow these rules to stay safe.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> The Golden Rules</h3>
+        <ul>
+          <li><strong>Never download anything</strong> a streaming site asks you to. No "video player updates," no
+            "codec packs," no ".exe" files. Just stream.</li>
+          <li><strong>Never enter personal information</strong> on free streaming sites. No email, no credit card, no
+            phone number.</li>
+          <li><strong>If a site asks you to register</strong> to watch — it's a scam ad. Close it and try again.</li>
+          <li><strong>Always use an ad blocker</strong> (uBlock Origin or Brave). This blocks 99% of malicious content.
+          </li>
+          <li><strong>Use a VPN</strong> on streaming and piracy sites to hide your IP from your ISP.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Red Flags to Watch For</h3>
+        <ul>
+          <li>🚩 "You need to update your Flash Player" — Flash is dead. This is malware.</li>
+          <li>🚩 "Your computer is infected!" — Fake virus warnings. Close the tab.</li>
+          <li>🚩 "Download our app to watch" — Never download apps from streaming sites.</li>
+          <li>🚩 "Complete a survey to unlock" — Survey scams. Close and try another source.</li>
+          <li>🚩 "Enter your credit card for free trial" — Nothing on these sites costs money.</li>
+          <li>🚩 Multiple redirects before the video plays — Use an ad blocker to prevent this.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> Check If You've Been Compromised</h3>
+        <p>Visit <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">Have I Been Pwned</a> to
+          check if your email or phone number has appeared in any data breaches. It's free, safe, and run by a respected
+          security researcher. If your data has been breached, change your passwords immediately and enable two-factor
+          authentication.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 5: YOUTUBE -->
+    <div class="guide-section youtube-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">▶️</span>
+        Blocking YouTube Ads on Every Device
+      </h2>
+      <p class="section-subtitle">YouTube is the worst offender for unskippable ads. Here's how to block them
+        everywhere.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> Desktop (Windows / Mac / Linux)</h3>
+        <ul>
+          <li><strong>Best:</strong> Firefox + <a href="https://ublockorigin.com" target="_blank"
+              rel="noopener noreferrer">uBlock Origin</a> — blocks all YouTube ads, 100%</li>
+          <li><strong>Easy:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave
+              Browser</a> — blocks YouTube ads by default</li>
+          <li><strong>App:</strong> <a href="https://freetubeapp.io" target="_blank"
+              rel="noopener noreferrer">FreeTube</a> — standalone desktop YouTube client, zero ads, no tracking</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Android Phone</h3>
+        <ul>
+          <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave
+              Browser</a> — open YouTube in Brave, no ads</li>
+          <li><strong>App:</strong> <a href="https://libretube.dev" target="_blank"
+              rel="noopener noreferrer">LibreTube</a> — privacy-focused YouTube frontend, no ads, uses Piped API</li>
+          <li><strong>App:</strong> <a href="https://grayjay.app" target="_blank" rel="noopener noreferrer">Grayjay</a>
+            — blocks ads on YouTube, Twitch, Nebula, and more in one app</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> Android TV / Fire TV Stick</h3>
+        <p><a href="https://smarttubeapp.github.io" target="_blank" rel="noopener noreferrer">SmartTube</a> is the
+          answer. It's a free, ad-free YouTube client designed specifically for TVs. Features: no ads, SponsorBlock
+          built in, 4K/HDR support, background playback. Sideload it on any Android TV or Fire TV Stick.</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">4</span> iPhone / iPad</h3>
+        <ul>
+          <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave
+              Browser</a> — open YouTube in Brave for ad-free viewing</li>
+          <li><strong>Safari:</strong> Install <a href="https://apps.apple.com/us/app/vinegar-tube-cleaner/id1591303229"
+              target="_blank" rel="noopener noreferrer">Vinegar</a> ($2) — replaces YouTube's player with Safari's
+            native player, removing ads</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">5</span> Bonus: Skip Sponsors Too</h3>
+        <p>Install <a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a> on any
+          browser. It's a crowdsourced extension that automatically skips sponsor segments, intros, outros,
+          self-promotion, and "like and subscribe" reminders. Works on YouTube in any browser.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 6: DNS -->
+    <div class="guide-section dns-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">🌐</span>
+        Network-Wide Ad Blocking (DNS)
+      </h2>
+      <p class="section-subtitle">Block ads on EVERY device in your home — TVs, phones, tablets, game consoles — with
+        one setup.</p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> What is DNS-Level Blocking?</h3>
+        <p>DNS is like the phone book of the internet — it translates website names into IP addresses. DNS-level ad
+          blocking works by refusing to look up ad server addresses. When your device tries to load an ad, the DNS says
+          "that address doesn't exist" and the ad never loads. This works on <strong>every device</strong> on your
+          network, even ones that don't support ad blocker extensions (smart TVs, game consoles, IoT devices).</p>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Easiest: Change Your DNS Settings</h3>
+        <p>The simplest option — just change your router's DNS to an ad-blocking DNS provider:</p>
+        <div class="rec-box">
+          <span class="rec-icon">🔵</span>
+          <div class="rec-content">
+            <h4><a href="https://adguard-dns.io" target="_blank" rel="noopener noreferrer">AdGuard DNS</a> <span
+                class="rec-badge free">Free</span></h4>
+            <p>Set your DNS to <code>94.140.14.14</code> and <code>94.140.15.15</code>. Blocks ads and trackers
+              network-wide. Takes 2 minutes.</p>
+          </div>
+        </div>
+        <div class="rec-box">
+          <span class="rec-icon">🟠</span>
+          <div class="rec-content">
+            <h4><a href="https://nextdns.io" target="_blank" rel="noopener noreferrer">NextDNS</a> <span
+                class="rec-badge free">300K queries free</span></h4>
+            <p>Cloud-based DNS with a dashboard to customize what gets blocked. Free for 300,000 queries/month (enough
+              for most homes).</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> Advanced: Pi-hole</h3>
+        <p><a href="https://pi-hole.net" target="_blank" rel="noopener noreferrer">Pi-hole</a> is a self-hosted DNS
+          server you run on a Raspberry Pi ($35) or any Linux machine. It blocks ads on your entire network with a
+          beautiful dashboard showing stats. It's the gold standard for home network ad blocking, but requires some
+          technical setup.</p>
+      </div>
+    </div>
+
+    <div class="section-divider"></div>
+
+    <!-- SECTION 7: MOBILE -->
+    <div class="guide-section mobile-section">
+      <h2>
+        <span class="section-icon" style="background:rgba(220,38,38,.1)">📱</span>
+        Mobile-Specific Tips
+      </h2>
+      <p class="section-subtitle">Most people will visit sites from their phone. Here's how to get the best experience.
+      </p>
+
+      <div class="step-card">
+        <h3><span class="step-num">1</span> The Perfect Mobile Setup</h3>
+        <ul>
+          <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave
+              Browser</a> — blocks all ads and pop-ups natively</li>
+          <li><strong>VPN:</strong> <a href="https://protonvpn.com/free-vpn" target="_blank"
+              rel="noopener noreferrer">Proton VPN</a> app — free, unlimited, one-tap connect</li>
+          <li><strong>Android extra:</strong> <a href="https://blokada.org" target="_blank"
+              rel="noopener noreferrer">Blokada</a> — system-wide ad blocking for all apps</li>
+          <li><strong>DNS:</strong> Set your phone's Private DNS to <code>dns.adguard-dns.com</code> for system-wide ad
+            blocking</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">2</span> Setting Private DNS on Android</h3>
+        <p>This blocks ads in ALL apps — not just the browser:</p>
+        <ul>
+          <li>Go to <strong>Settings → Network & Internet → Private DNS</strong></li>
+          <li>Select <strong>"Private DNS provider hostname"</strong></li>
+          <li>Enter: <code>dns.adguard-dns.com</code></li>
+          <li>Tap Save. Done — ads are now blocked system-wide.</li>
+        </ul>
+      </div>
+
+      <div class="step-card">
+        <h3><span class="step-num">3</span> Setting DNS on iPhone</h3>
+        <p>iOS doesn't have a simple Private DNS setting, but you can:</p>
+        <ul>
+          <li>Install the <a href="https://adguard-dns.io" target="_blank" rel="noopener noreferrer">AdGuard DNS</a>
+            profile from their website (free)</li>
+          <li>Or install the <a href="https://nextdns.io" target="_blank" rel="noopener noreferrer">NextDNS</a> app from
+            the App Store</li>
+          <li>Both block ads system-wide on iOS with one tap</li>
+        </ul>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- FOOTER -->
+  <footer class="footer">
+    <p>Part of the <a href="index.html">Powerful Free Websites Library</a>. Curated with care.</p>
+    <p style="margin-top:8px;">Last updated February 2026.</p>
+    <div
+      style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
+      <p style="font-weight:700;margin-bottom:6px;color:var(--text-muted);">Legal Disclaimer</p>
+      <p>This website does not host, store, or distribute any copyrighted content. All links provided are to third-party
+        websites that are publicly available on the internet. This site is intended for educational and informational
+        purposes only. We do not endorse, promote, or encourage piracy or any illegal activity. Users are solely
+        responsible for how they use the information and links provided. We assume no liability for the content,
+        availability, or legality of any third-party websites linked herein.</p>
+      <p style="margin-top:10px;">If you are a copyright holder and would like a link removed, or if you have any
+        concerns, please contact us at <a href="mailto:Crimetimesnacks@gmail.com"
+          style="color:#ff4444;font-weight:600;">Crimetimesnacks@gmail.com</a> and we will promptly address your
+        request.</p>
+      <p style="margin-top:16px;"><a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go
+          Home</a></p>
+    </div>
+  </footer>
+
+  <!-- BACK TO TOP -->
+  <button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+      <path d="M18 15l-6-6-6 6" />
+    </svg>
+  </button>
+
+  <!-- BOTTOM NAV BAR -->
+  <nav class="bottom-nav">
+    <div class="bottom-nav-inner">
+      <a href="index.html" title="Home">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
+          <polyline points="9 22 9 12 15 12 15 22" />
+        </svg>
+        <span>Home</span>
+      </a>
+      <a href="best-practices.html" class="active" title="Best Practices">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+        </svg>
+        <span>Best Practices Guide</span>
+      </a>
+      <a href="faq.html" title="FAQ">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <circle cx="12" cy="12" r="10" />
+          <path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3" />
+          <line x1="12" y1="17" x2="12.01" y2="17" />
+        </svg>
+        <span>FAQ</span>
+      </a>
+      <a href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <path d="M18 15l-6-6-6 6" />
+        </svg>
+        <span>Top</span>
       </a>
     </div>
-  </div>
-</header>
+  </nav>
 
-<!-- CONTENT -->
-<div class="content">
+  <script>
+    // Theme toggle
+    const themeToggle = document.getElementById('themeToggle');
+    function setTheme(theme) {
+      document.documentElement.setAttribute('data-theme', theme);
+      localStorage.setItem('theme', theme);
+      const moonIcon = themeToggle.querySelector('.moon-icon');
+      const sunIcon = themeToggle.querySelector('.sun-icon');
+      if (theme === 'dark') { moonIcon.style.display = 'inline'; sunIcon.style.display = 'none' }
+      else { moonIcon.style.display = 'none'; sunIcon.style.display = 'inline' }
+    }
+    themeToggle.addEventListener('click', () => {
+      const current = document.documentElement.getAttribute('data-theme');
+      setTheme(current === 'dark' ? 'light' : 'dark');
+    });
+    const savedTheme = localStorage.getItem('theme') || 'dark';
+    setTheme(savedTheme);
 
-  <!-- TLDR -->
-  <div class="tldr-box">
-    <h3>⚡ TL;DR — Do These 3 Things Right Now</h3>
-    <ol>
-      <li><strong>Switch to <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a></strong> — blocks ads, trackers, and pop-ups by default</li>
-      <li><strong>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a></strong> on Firefox for maximum ad blocking power</li>
-      <li><strong>Get <a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton VPN</a></strong> (free) — hides your IP and encrypts your traffic</li>
-    </ol>
-    <p style="margin-top:8px">Do all three and you'll never see a pop-up, your ISP won't know what you're browsing, and every site in our library will work flawlessly.</p>
-  </div>
-
-  <!-- SECTION 1: VPN -->
-  <div class="guide-section vpn-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">🛡</span>
-      Why You Need a VPN
-    </h2>
-    <p class="section-subtitle">A VPN encrypts your internet traffic and hides your IP address from your ISP, hackers, and websites.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> What a VPN Actually Does</h3>
-      <p>Without a VPN, your Internet Service Provider (ISP) can see <strong>every website you visit</strong>. They can throttle your speed, sell your browsing data, and even send you warning letters if you visit streaming or piracy sites.</p>
-      <p>A VPN creates an encrypted tunnel between your device and the internet. Your ISP only sees encrypted gibberish — they can't see what sites you visit, what you stream, or what you download.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> When You MUST Use a VPN</h3>
-      <ul>
-        <li><strong>Streaming sites</strong> (Movies & TV, Sports) — your ISP can see you're streaming pirated content</li>
-        <li><strong>Downloading anything</strong> — torrenting without a VPN is how people get caught</li>
-        <li><strong>Public Wi-Fi</strong> — coffee shops, airports, hotels. Anyone on the same network can intercept your data</li>
-        <li><strong>Accessing geo-blocked content</strong> — connect to a server in another country to bypass restrictions</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> When You DON'T Need a VPN</h3>
-      <p>For regular free tools like Photopea, TinyWow, Khan Academy, or any legitimate site — you don't need a VPN. These sites are safe and legal. A VPN is for privacy and protection, not for everyday browsing on trusted sites.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">4</span> Our VPN Recommendations</h3>
-      <div class="rec-box">
-        <span class="rec-icon">🥇</span>
-        <div class="rec-content">
-          <h4><a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton VPN</a> <span class="rec-badge best">Best Free</span></h4>
-          <p>Unlimited data, no ads, no logs. Swiss-based privacy. 5 countries on free tier, 1 device. The only free VPN we trust completely.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🥈</span>
-        <div class="rec-content">
-          <h4><a href="https://www.privateinternetaccess.com" target="_blank" rel="noopener noreferrer">Private Internet Access</a> <span class="rec-badge paid">$2/mo</span></h4>
-          <p>35,000+ servers in 91 countries. Open-source, no-logs proven in court twice. WireGuard protocol for blazing speed. Our top paid pick.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🥉</span>
-        <div class="rec-content">
-          <h4><a href="https://windscribe.com" target="_blank" rel="noopener noreferrer">Windscribe</a> <span class="rec-badge free">10GB Free</span></h4>
-          <p>10GB/month free with browser extension. No email needed to sign up. Built-in ad blocker. Great for casual use.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 2: AD BLOCKERS -->
-  <div class="guide-section adblock-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">🚫</span>
-      Setting Up Ad Blocking
-    </h2>
-    <p class="section-subtitle">Ad blockers remove pop-ups, banner ads, video ads, and malicious trackers. They also make pages load faster.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> Desktop: Firefox + uBlock Origin (Best Combo)</h3>
-      <p>This is the most powerful ad blocking setup available:</p>
-      <ul>
-        <li>Install <a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">Firefox</a> (supports full Manifest V2 extensions)</li>
-        <li>Install <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a> from the Firefox Add-ons store</li>
-        <li>That's it — uBlock Origin blocks 100% of ads out of the box. No configuration needed.</li>
-      </ul>
-      <p><strong>Why not Chrome?</strong> Google is killing ad blockers on Chrome with Manifest V3. uBlock Origin on Chrome is being replaced with a weaker "Lite" version. Firefox is the only major browser that still supports full ad blocking.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Desktop: Brave Browser (Easiest Option)</h3>
-      <p>If you don't want to install extensions, just use <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a>. It blocks ads and trackers by default with Brave Shields. No setup required. It's Chromium-based, so all your Chrome extensions still work.</p>
-      <p><strong>Pro tip:</strong> Install uBlock Origin on Brave too for double protection on stubborn sites.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> Mobile: Brave Browser (Android & iOS)</h3>
-      <p>Mobile browsers don't support extensions well (except Firefox on Android). The easiest solution:</p>
-      <ul>
-        <li><strong>Android & iOS:</strong> Use <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — built-in ad blocking, no extensions needed</li>
-        <li><strong>Android only:</strong> Firefox for Android supports uBlock Origin — install both for maximum blocking</li>
-        <li><strong>System-wide (Android):</strong> Install <a href="https://blokada.org" target="_blank" rel="noopener noreferrer">Blokada</a> — blocks ads in ALL apps, not just the browser</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">4</span> Bonus Extensions to Install</h3>
-      <ul>
-        <li><a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a> — auto-skips sponsor segments, intros, and outros on YouTube</li>
-        <li><a href="https://unhook.app" target="_blank" rel="noopener noreferrer">Unhook</a> — removes YouTube recommendations, shorts, and comments for distraction-free viewing</li>
-        <li><a href="https://clearurls.xyz" target="_blank" rel="noopener noreferrer">ClearURLs</a> — strips tracking parameters from every URL you visit</li>
-        <li><a href="https://privacybadger.org" target="_blank" rel="noopener noreferrer">Privacy Badger</a> — EFF's tracker blocker that learns as you browse</li>
-      </ul>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 3: BROWSER CHOICE -->
-  <div class="guide-section browser-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">🔏</span>
-      Choosing the Right Browser
-    </h2>
-    <p class="section-subtitle">Your browser is the gateway to everything online. Choose one that respects your privacy.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> Why You Should Stop Using Chrome</h3>
-      <p>Chrome is made by Google — the world's largest advertising company. Here's what Chrome does:</p>
-      <ul>
-        <li>Tracks your browsing history and sends it to Google</li>
-        <li>Manifest V3 is actively weakening ad blockers (uBlock Origin is being nerfed)</li>
-        <li>Sends telemetry data about your usage patterns</li>
-        <li>Uses your browsing data to serve you targeted ads across the web</li>
-      </ul>
-      <p>Every browser below is a better choice than Chrome for privacy.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Our Browser Recommendations</h3>
-      <div class="rec-box">
-        <span class="rec-icon">🦁</span>
-        <div class="rec-content">
-          <h4><a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave</a> <span class="rec-badge best">Best Overall</span></h4>
-          <p>Built-in ad blocking, fast, Chromium-based (all Chrome extensions work). Perfect for people switching from Chrome — feels identical but with privacy.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🦊</span>
-        <div class="rec-content">
-          <h4><a href="https://www.mozilla.org/firefox" target="_blank" rel="noopener noreferrer">Firefox</a> <span class="rec-badge best">Best for Extensions</span></h4>
-          <p>Open-source, fully supports uBlock Origin (Manifest V2), massive extension library. Most customizable privacy browser.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🐺</span>
-        <div class="rec-content">
-          <h4><a href="https://librewolf.net" target="_blank" rel="noopener noreferrer">LibreWolf</a> <span class="rec-badge free">Pre-Hardened</span></h4>
-          <p>Firefox with all telemetry removed and uBlock Origin pre-installed. Zero configuration needed — privacy out of the box.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🧅</span>
-        <div class="rec-content">
-          <h4><a href="https://www.torproject.org" target="_blank" rel="noopener noreferrer">Tor Browser</a> <span class="rec-badge free">Maximum Privacy</span></h4>
-          <p>Routes all traffic through the Tor network for true anonymity. Slower, but impossible to trace. Use for sensitive browsing.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 4: SAFE BROWSING -->
-  <div class="guide-section safety-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">⚠️</span>
-      Safe Browsing on Free Sites
-    </h2>
-    <p class="section-subtitle">Free streaming and piracy sites can be sketchy. Follow these rules to stay safe.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> The Golden Rules</h3>
-      <ul>
-        <li><strong>Never download anything</strong> a streaming site asks you to. No "video player updates," no "codec packs," no ".exe" files. Just stream.</li>
-        <li><strong>Never enter personal information</strong> on free streaming sites. No email, no credit card, no phone number.</li>
-        <li><strong>If a site asks you to register</strong> to watch — it's a scam ad. Close it and try again.</li>
-        <li><strong>Always use an ad blocker</strong> (uBlock Origin or Brave). This blocks 99% of malicious content.</li>
-        <li><strong>Use a VPN</strong> on streaming and piracy sites to hide your IP from your ISP.</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Red Flags to Watch For</h3>
-      <ul>
-        <li>🚩 "You need to update your Flash Player" — Flash is dead. This is malware.</li>
-        <li>🚩 "Your computer is infected!" — Fake virus warnings. Close the tab.</li>
-        <li>🚩 "Download our app to watch" — Never download apps from streaming sites.</li>
-        <li>🚩 "Complete a survey to unlock" — Survey scams. Close and try another source.</li>
-        <li>🚩 "Enter your credit card for free trial" — Nothing on these sites costs money.</li>
-        <li>🚩 Multiple redirects before the video plays — Use an ad blocker to prevent this.</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> Check If You've Been Compromised</h3>
-      <p>Visit <a href="https://haveibeenpwned.com" target="_blank" rel="noopener noreferrer">Have I Been Pwned</a> to check if your email or phone number has appeared in any data breaches. It's free, safe, and run by a respected security researcher. If your data has been breached, change your passwords immediately and enable two-factor authentication.</p>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 5: YOUTUBE -->
-  <div class="guide-section youtube-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">▶️</span>
-      Blocking YouTube Ads on Every Device
-    </h2>
-    <p class="section-subtitle">YouTube is the worst offender for unskippable ads. Here's how to block them everywhere.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> Desktop (Windows / Mac / Linux)</h3>
-      <ul>
-        <li><strong>Best:</strong> Firefox + <a href="https://ublockorigin.com" target="_blank" rel="noopener noreferrer">uBlock Origin</a> — blocks all YouTube ads, 100%</li>
-        <li><strong>Easy:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — blocks YouTube ads by default</li>
-        <li><strong>App:</strong> <a href="https://freetubeapp.io" target="_blank" rel="noopener noreferrer">FreeTube</a> — standalone desktop YouTube client, zero ads, no tracking</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Android Phone</h3>
-      <ul>
-        <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — open YouTube in Brave, no ads</li>
-        <li><strong>App:</strong> <a href="https://libretube.dev" target="_blank" rel="noopener noreferrer">LibreTube</a> — privacy-focused YouTube frontend, no ads, uses Piped API</li>
-        <li><strong>App:</strong> <a href="https://grayjay.app" target="_blank" rel="noopener noreferrer">Grayjay</a> — blocks ads on YouTube, Twitch, Nebula, and more in one app</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> Android TV / Fire TV Stick</h3>
-      <p><a href="https://smarttubeapp.github.io" target="_blank" rel="noopener noreferrer">SmartTube</a> is the answer. It's a free, ad-free YouTube client designed specifically for TVs. Features: no ads, SponsorBlock built in, 4K/HDR support, background playback. Sideload it on any Android TV or Fire TV Stick.</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">4</span> iPhone / iPad</h3>
-      <ul>
-        <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — open YouTube in Brave for ad-free viewing</li>
-        <li><strong>Safari:</strong> Install <a href="https://apps.apple.com/us/app/vinegar-tube-cleaner/id1591303229" target="_blank" rel="noopener noreferrer">Vinegar</a> ($2) — replaces YouTube's player with Safari's native player, removing ads</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">5</span> Bonus: Skip Sponsors Too</h3>
-      <p>Install <a href="https://sponsor.ajay.app" target="_blank" rel="noopener noreferrer">SponsorBlock</a> on any browser. It's a crowdsourced extension that automatically skips sponsor segments, intros, outros, self-promotion, and "like and subscribe" reminders. Works on YouTube in any browser.</p>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 6: DNS -->
-  <div class="guide-section dns-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">🌐</span>
-      Network-Wide Ad Blocking (DNS)
-    </h2>
-    <p class="section-subtitle">Block ads on EVERY device in your home — TVs, phones, tablets, game consoles — with one setup.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> What is DNS-Level Blocking?</h3>
-      <p>DNS is like the phone book of the internet — it translates website names into IP addresses. DNS-level ad blocking works by refusing to look up ad server addresses. When your device tries to load an ad, the DNS says "that address doesn't exist" and the ad never loads. This works on <strong>every device</strong> on your network, even ones that don't support ad blocker extensions (smart TVs, game consoles, IoT devices).</p>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Easiest: Change Your DNS Settings</h3>
-      <p>The simplest option — just change your router's DNS to an ad-blocking DNS provider:</p>
-      <div class="rec-box">
-        <span class="rec-icon">🔵</span>
-        <div class="rec-content">
-          <h4><a href="https://adguard-dns.io" target="_blank" rel="noopener noreferrer">AdGuard DNS</a> <span class="rec-badge free">Free</span></h4>
-          <p>Set your DNS to <code>94.140.14.14</code> and <code>94.140.15.15</code>. Blocks ads and trackers network-wide. Takes 2 minutes.</p>
-        </div>
-      </div>
-      <div class="rec-box">
-        <span class="rec-icon">🟠</span>
-        <div class="rec-content">
-          <h4><a href="https://nextdns.io" target="_blank" rel="noopener noreferrer">NextDNS</a> <span class="rec-badge free">300K queries free</span></h4>
-          <p>Cloud-based DNS with a dashboard to customize what gets blocked. Free for 300,000 queries/month (enough for most homes).</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> Advanced: Pi-hole</h3>
-      <p><a href="https://pi-hole.net" target="_blank" rel="noopener noreferrer">Pi-hole</a> is a self-hosted DNS server you run on a Raspberry Pi ($35) or any Linux machine. It blocks ads on your entire network with a beautiful dashboard showing stats. It's the gold standard for home network ad blocking, but requires some technical setup.</p>
-    </div>
-  </div>
-
-  <div class="section-divider"></div>
-
-  <!-- SECTION 7: MOBILE -->
-  <div class="guide-section mobile-section">
-    <h2>
-      <span class="section-icon" style="background:rgba(220,38,38,.1)">📱</span>
-      Mobile-Specific Tips
-    </h2>
-    <p class="section-subtitle">Most people will visit sites from their phone. Here's how to get the best experience.</p>
-
-    <div class="step-card">
-      <h3><span class="step-num">1</span> The Perfect Mobile Setup</h3>
-      <ul>
-        <li><strong>Browser:</strong> <a href="https://brave.com" target="_blank" rel="noopener noreferrer">Brave Browser</a> — blocks all ads and pop-ups natively</li>
-        <li><strong>VPN:</strong> <a href="https://protonvpn.com/free-vpn" target="_blank" rel="noopener noreferrer">Proton VPN</a> app — free, unlimited, one-tap connect</li>
-        <li><strong>Android extra:</strong> <a href="https://blokada.org" target="_blank" rel="noopener noreferrer">Blokada</a> — system-wide ad blocking for all apps</li>
-        <li><strong>DNS:</strong> Set your phone's Private DNS to <code>dns.adguard-dns.com</code> for system-wide ad blocking</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">2</span> Setting Private DNS on Android</h3>
-      <p>This blocks ads in ALL apps — not just the browser:</p>
-      <ul>
-        <li>Go to <strong>Settings → Network & Internet → Private DNS</strong></li>
-        <li>Select <strong>"Private DNS provider hostname"</strong></li>
-        <li>Enter: <code>dns.adguard-dns.com</code></li>
-        <li>Tap Save. Done — ads are now blocked system-wide.</li>
-      </ul>
-    </div>
-
-    <div class="step-card">
-      <h3><span class="step-num">3</span> Setting DNS on iPhone</h3>
-      <p>iOS doesn't have a simple Private DNS setting, but you can:</p>
-      <ul>
-        <li>Install the <a href="https://adguard-dns.io" target="_blank" rel="noopener noreferrer">AdGuard DNS</a> profile from their website (free)</li>
-        <li>Or install the <a href="https://nextdns.io" target="_blank" rel="noopener noreferrer">NextDNS</a> app from the App Store</li>
-        <li>Both block ads system-wide on iOS with one tap</li>
-      </ul>
-    </div>
-  </div>
-
-</div>
-
-<!-- FOOTER -->
-<footer class="footer">
-  <p>Part of the <a href="index.html">Powerful Free Websites Library</a>. Curated with care.</p>
-  <p style="margin-top:8px;">Last updated February 2026.</p>
-  <div style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
-    <p style="font-weight:700;margin-bottom:6px;color:var(--text-muted);">Legal Disclaimer</p>
-    <p>This website does not host, store, or distribute any copyrighted content. All links provided are to third-party websites that are publicly available on the internet. This site is intended for educational and informational purposes only. We do not endorse, promote, or encourage piracy or any illegal activity. Users are solely responsible for how they use the information and links provided. We assume no liability for the content, availability, or legality of any third-party websites linked herein.</p>
-    <p style="margin-top:10px;">If you are a copyright holder and would like a link removed, or if you have any concerns, please contact us at <a href="mailto:Crimetimesnacks@gmail.com" style="color:#ff4444;font-weight:600;">Crimetimesnacks@gmail.com</a> and we will promptly address your request.</p>
-    <p style="margin-top:16px;"><a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go Home</a></p>
-  </div>
-</footer>
-
-<!-- BACK TO TOP -->
-<button class="back-top" id="backTop" onclick="window.scrollTo({top:0,behavior:'smooth'})">
-  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M18 15l-6-6-6 6"/></svg>
-</button>
-
-<!-- BOTTOM NAV BAR -->
-<nav class="bottom-nav">
-  <div class="bottom-nav-inner">
-    <a href="index.html" title="Home">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-      <span>Home</span>
-    </a>
-    <a href="best-practices.html" class="active" title="Best Practices">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
-      <span>Best Practices Guide</span>
-    </a>
-    <a href="faq.html" title="FAQ">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
-      <span>FAQ</span>
-    </a>
-    <a href="javascript:void(0)" onclick="window.scrollTo({top:0,behavior:'smooth'})" title="Back to Top">
-      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor"><path d="M18 15l-6-6-6 6"/></svg>
-      <span>Top</span>
-    </a>
-  </div>
-</nav>
-
-<script>
-// Theme toggle
-const themeToggle=document.getElementById('themeToggle');
-function setTheme(theme){
-  document.documentElement.setAttribute('data-theme',theme);
-  localStorage.setItem('theme',theme);
-  const moonIcon=themeToggle.querySelector('.moon-icon');
-  const sunIcon=themeToggle.querySelector('.sun-icon');
-  if(theme==='dark'){moonIcon.style.display='inline';sunIcon.style.display='none'}
-  else{moonIcon.style.display='none';sunIcon.style.display='inline'}
-}
-themeToggle.addEventListener('click',()=>{
-  const current=document.documentElement.getAttribute('data-theme');
-  setTheme(current==='dark'?'light':'dark');
-});
-const savedTheme=localStorage.getItem('theme')||'dark';
-setTheme(savedTheme);
-
-// Back to top
-const backTop=document.getElementById('backTop');
-window.addEventListener('scroll',()=>{backTop.classList.toggle('visible',window.scrollY>400)});
-</script>
+    // Back to top
+    const backTop = document.getElementById('backTop');
+    window.addEventListener('scroll', () => { backTop.classList.toggle('visible', window.scrollY > 400) });
+  </script>
 </body>
+
 </html>

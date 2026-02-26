@@ -282,8 +282,25 @@
                 { n: "SportStream", u: "https://www.sportstream.io", d: "Global sports streaming hub. Soccer, basketball, tennis, F1, and esports.", l: "VPN recommended", s: "Found via research" },
                 { n: "Futemax", u: "https://futemax.app", d: "Latin America's top free soccer streaming. Champions League, Libertadores, World Cup.", l: "VPN recommended", s: "Found via research" }
             ]
+        },
+        {
+            id: "browser-power-tools", name: "🌟 Browser Power Tools", icon: "⚡", type: "free",
+            desc: "Extensions, browser tricks, and power-user tools that make every tab faster and smarter.",
+            sites: [
+                { n: "Momentum", u: "https://momentumdash.com", d: "Replace your new tab with a beautiful dashboard — focus, weather, to-do, and daily inspiration.", l: "Free tier available", s: "Viral on Instagram productivity reels" },
+                { n: "OneTab", u: "https://www.one-tab.com", d: "Convert all open Chrome tabs into a list instantly. Saves up to 95% RAM. Share tab groups as links.", l: "None", s: "GitHub awesome lists" },
+                { n: "Vimium", u: "https://vimium.github.io", d: "Navigate the web entirely with keyboard shortcuts. No mouse needed. Power users love this.", l: "None", s: "GitHub trending" },
+                { n: "uBlacklist", u: "https://iorate.github.io/ublacklist", d: "Block specific sites from Google search results. Clean up SEO spam from your searches.", l: "None", s: "Reddit r/privacy" },
+                { n: "Dark Reader", u: "https://darkreader.org", d: "Dark mode for every website. Automatically inverts colors intelligently. Saves eyes at night.", l: "None", s: "GitHub (18k stars)" },
+                { n: "Tabliss", u: "https://tabliss.io", d: "Beautiful new tab page with widgets — clock, weather, Unsplash backgrounds, to-do lists.", l: "None", s: "Reddit r/chrome" },
+                { n: "Session Buddy", u: "https://sessionbuddy.com", d: "Save and restore browser sessions. Never lose your tabs after a crash or restart.", l: "None", s: "Found via research" },
+                { n: "Toucan", u: "https://jointoucan.com", d: "Learn a new language while browsing. Translates words on every webpage you visit.", l: "None", s: "Viral Instagram learning reels" },
+                { n: "Bypass Paywalls", u: "https://gitlab.com/magnolia1234/bypass-paywalls-firefox-clean", d: "Firefox extension to bypass soft paywalls on 300+ news sites. Open-source.", l: "Firefox only", s: "Reddit r/privacy" },
+                { n: "Refined GitHub", u: "https://github.com/refined-github/refined-github", d: "Browser extension that adds 100+ useful features to GitHub. Stars, PR improvements, and more.", l: "None", s: "GitHub (25k stars)" }
+            ]
         }
     ];
+
 
     // Append to DATA array
     if (typeof DATA !== 'undefined') {
