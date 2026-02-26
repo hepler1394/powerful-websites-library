@@ -1,4 +1,4 @@
-const CACHE_NAME = 'webslib-v3';
+﻿const CACHE_NAME = 'webslib-v4';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -10,7 +10,8 @@ const STATIC_ASSETS = [
   '/mobile-extra.css',
   '/data-extra.js',
   '/data-extra-2.js',
-  '/data-extra-3.js'
+  '/data-extra-3.js',
+  '/data-extra-4.js'
 ];
 
 // Install: cache core shell

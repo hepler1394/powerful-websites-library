@@ -1,26 +1,47 @@
-{
-  "name": "Powerful Websites Library",
-  "short_name": "WebsLib",
-  "description": "475+ free websites that feel illegal to know — AI tools, streaming, gaming, VPNs, and more.",
-  "start_url": "/index.html",
-  "display": "standalone",
-  "background_color": "#0a0a0a",
-  "theme_color": "#dc2626",
-  "orientation": "portrait-primary",
-  "icons": [
-    {
-      "src": "icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png",
-      "purpose": "any maskable"
-    },
-    {
-      "src": "icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png",
-      "purpose": "any maskable"
-    }
-  ],
-  "categories": ["utilities", "reference", "productivity"],
-  "lang": "en-US"
+﻿{
+    "name":  "Powerful Free Websites Library",
+    "short_name":  "WebsLib",
+    "description":  "475+ free websites that feel illegal to know â€” AI tools, streaming, gaming, VPNs, and more.",
+    "start_url":  "/index.html",
+    "display":  "standalone",
+    "background_color":  "#0a0a0a",
+    "theme_color":  "#dc2626",
+    "orientation":  "portrait-primary",
+    "icons":  [
+                  {
+                      "src":  "icon-192.png",
+                      "sizes":  "192x192",
+                      "type":  "image/png",
+                      "purpose":  "any maskable"
+                  },
+                  {
+                      "src":  "icon-512.png",
+                      "sizes":  "512x512",
+                      "type":  "image/png",
+                      "purpose":  "any maskable"
+                  }
+              ],
+    "categories":  [
+                       "utilities",
+                       "reference",
+                       "productivity"
+                   ],
+    "lang":  "en-US",
+    "shortcuts":  [
+                      {
+                          "url":  "/?q=",
+                          "name":  "Search",
+                          "description":  "Search all sites"
+                      },
+                      {
+                          "url":  "/#favorites",
+                          "name":  "Favorites",
+                          "description":  "View my favorites"
+                      },
+                      {
+                          "url":  "/?surprise=1",
+                          "name":  "Surprise Me",
+                          "description":  "Open a random site"
+                      }
+                  ]
 }

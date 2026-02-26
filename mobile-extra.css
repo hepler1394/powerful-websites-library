@@ -963,3 +963,15 @@
         -webkit-user-select: text;
     }
 }
+/* ═══ 55-56. PRINT STYLES ═══ */
+@media print {
+  .top-bar,.nav-wrap,.section-tabs,.back-top,.fav-btn,.btn-copy-link,.mobile-nav-toggle,.ptr-indicator,.promo-popup,.fab-container,.bottom-nav { display:none !important; }
+  .card { break-inside:avoid; border:1px solid #ccc !important; box-shadow:none !important; }
+  .card-grid { display:block; }
+  body { background:#fff !important; color:#000 !important; }
+  a { color:#000 !important; text-decoration:underline !important; }
+}
+
+/* 57. Text selection color */
+::selection { background:rgba(220,38,38,.3); color:inherit; }
+::-moz-selection { background:rgba(220,38,38,.3); color:inherit; }
