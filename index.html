@@ -11,6 +11,7 @@
   <meta name="description"
     content="475+ free websites that feel illegal to know — AI tools, streaming, gaming, VPNs, and more. Curated & searchable.">
   <link rel="manifest" href="manifest.json">
+  <link rel="stylesheet" href="mobile.css">
   <link rel="apple-touch-icon" href="icon-192.png">
   <title>Powerful Free Websites Library</title>
   <style>
@@ -2700,6 +2701,43 @@
     </div>
   </div>
 
+  <!-- ===== BOTTOM SHEET (mobile card detail) ===== -->
+  <div class="card-sheet-overlay" id="cardSheetOverlay" onclick="closeCardSheet()"></div>
+  <div class="card-sheet" id="cardSheet">
+    <div class="card-sheet-handle"></div>
+    <img class="card-sheet-favicon" id="csFavicon" src="" alt="" loading="lazy">
+    <div class="card-sheet-name" id="csName"></div>
+    <div class="card-sheet-category" id="csCategory"></div>
+    <p class="card-sheet-desc" id="csDesc"></p>
+    <div class="card-sheet-limits" id="csLimits" style="display:none"></div>
+    <div class="card-sheet-actions">
+      <a class="card-sheet-visit" id="csVisit" href="#" target="_blank" rel="noopener">
+        Visit Site
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
+        </svg>
+      </a>
+      <button class="card-sheet-fav" id="csFav" onclick="toggleSheetFav()">
+        <svg viewBox="0 0 24 24" width="16" height="16">
+          <path
+            d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"
+            fill="none" stroke="currentColor" stroke-width="2" />
+        </svg>
+        Favorite
+      </button>
+      <button class="card-sheet-share" id="csShare" onclick="shareCardSheet()">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="18" cy="5" r="3" />
+          <circle cx="6" cy="12" r="3" />
+          <circle cx="18" cy="19" r="3" />
+          <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+          <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+        </svg>
+        Share
+      </button>
+    </div>
+  </div>
+
   <!-- ===== ONE-TIME PROMO POPUP ===== -->
   <div class="promo-popup" id="promoPopup">
     <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close">✕</button>
@@ -3538,7 +3576,9 @@
         ]
       }
     ];
-
+  </script>
+  <script src="data-extra.js"></script>
+  <script>
     // DOM Elements
     const navEl = document.getElementById('navFilters');
     const mainEl = document.getElementById('mainContent');
@@ -4083,10 +4123,23 @@
           const s2 = document.createElement('script');
           s2.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js';
           s2.onload = () => {
-            firebase.initializeApp(FIREBASE_CONFIG);
-            _firebaseReady = true;
-            setupAuthListener();
-            resolve();
+            // Load Firestore for favorites sync
+            const s3 = document.createElement('script');
+            s3.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
+            s3.onload = () => {
+              firebase.initializeApp(FIREBASE_CONFIG);
+              _firebaseReady = true;
+              setupAuthListener();
+              resolve();
+            };
+            s3.onerror = () => {
+              // Firestore failed, continue without it
+              firebase.initializeApp(FIREBASE_CONFIG);
+              _firebaseReady = true;
+              setupAuthListener();
+              resolve();
+            };
+            document.head.appendChild(s3);
           };
           document.head.appendChild(s2);
         };
@@ -4106,6 +4159,9 @@
           label.textContent = name;
           if (bnAccount) bnAccount.querySelector('span').textContent = name;
           if (logoutWrap) logoutWrap.style.display = 'block';
+          // Firestore sync + mobile signed-in UI
+          setupFirestoreSync(user);
+          buildSignedInUI(user);
           // Check isNewUser flag for onboarding redirect
           if (sessionStorage.getItem('isNewUser') === '1') {
             sessionStorage.removeItem('isNewUser');
@@ -4120,6 +4176,11 @@
           label.textContent = 'Sign In';
           if (bnAccount) bnAccount.querySelector('span').textContent = 'Account';
           if (logoutWrap) logoutWrap.style.display = 'none';
+          // Show guest badge on bottom nav to encourage sign-in
+          addGuestBadge();
+          // Remove signed-in banner if it exists
+          const oldBanner = document.getElementById('signedInBanner');
+          if (oldBanner) oldBanner.remove();
         }
       });
     }
@@ -4259,6 +4320,223 @@
         navigator.serviceWorker.register('sw.js').catch(() => { });
       });
     }
+
+    // ===== BOTTOM SHEET (mobile) =====
+    let _sheetSiteUrl = null;
+    function openCardSheet(siteData) {
+      if (window.innerWidth > 768) return; // desktop: let href work
+      _sheetSiteUrl = siteData.u;
+      document.getElementById('csFavicon').src = `https://www.google.com/s2/favicons?domain=${new URL(siteData.u).hostname}&sz=32`;
+      document.getElementById('csName').textContent = siteData.n;
+      document.getElementById('csCategory').textContent = siteData.cat || '';
+      document.getElementById('csDesc').textContent = siteData.d;
+      const limEl = document.getElementById('csLimits');
+      if (siteData.l && !siteData.l.startsWith('None')) {
+        limEl.textContent = '⚠️ ' + siteData.l; limEl.style.display = '';
+      } else { limEl.style.display = 'none'; }
+      document.getElementById('csVisit').href = siteData.u;
+      updateSheetFavBtn();
+      document.getElementById('cardSheet').classList.add('open');
+      document.getElementById('cardSheetOverlay').classList.add('active');
+      document.body.style.overflow = 'hidden';
+    }
+    function closeCardSheet() {
+      document.getElementById('cardSheet').classList.remove('open');
+      document.getElementById('cardSheetOverlay').classList.remove('active');
+      document.body.style.overflow = '';
+    }
+    function updateSheetFavBtn() {
+      const btn = document.getElementById('csFav');
+      const isFav = getFavs().includes(_sheetSiteUrl);
+      btn.classList.toggle('favorited', isFav);
+      btn.querySelector('svg path').setAttribute('fill', isFav ? 'currentColor' : 'none');
+    }
+    function toggleSheetFav() {
+      if (!_sheetSiteUrl) return;
+      let favs = getFavs();
+      if (favs.includes(_sheetSiteUrl)) {
+        favs = favs.filter(f => f !== _sheetSiteUrl);
+      } else {
+        favs.push(_sheetSiteUrl);
+        if (navigator.vibrate) navigator.vibrate(8);
+      }
+      saveFavs(favs);
+      updateSheetFavBtn();
+      updateFavCounts();
+    }
+    function shareCardSheet() {
+      if (navigator.share && _sheetSiteUrl) {
+        navigator.share({ title: document.getElementById('csName').textContent, url: _sheetSiteUrl });
+      } else if (_sheetSiteUrl) {
+        navigator.clipboard.writeText(_sheetSiteUrl).then(() => alert('Link copied!'));
+      }
+    }
+
+    // ===== FIRESTORE FAVORITES SYNC =====
+    function setupFirestoreSync(user) {
+      if (!window.firebase || !firebase.firestore) return;
+      const db = firebase.firestore();
+      const userRef = db.collection('users').doc(user.uid);
+      // Merge local favs with cloud on sign-in
+      const local = getFavs();
+      userRef.get().then(doc => {
+        const cloudFavs = doc.exists ? (doc.data().favorites || []) : [];
+        const merged = [...new Set([...local, ...cloudFavs])];
+        saveFavs(merged);
+        updateFavCounts();
+        // Save profile + email to Firestore
+        userRef.set({
+          email: user.email,
+          displayName: user.displayName || '',
+          photoURL: user.photoURL || '',
+          favorites: merged,
+          lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
+          createdAt: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true });
+      }).catch(() => { });
+    }
+    function syncFavsToFirestore() {
+      if (!window._authUser || !window.firebase || !firebase.firestore) return;
+      const db = firebase.firestore();
+      db.collection('users').doc(window._authUser.uid)
+        .set({ favorites: getFavs() }, { merge: true })
+        .catch(() => { });
+    }
+
+    // ===== SIGNED-IN MOBILE PERSONALIZATION =====
+    function buildSignedInUI(user) {
+      if (window.innerWidth > 768) return;
+      const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+      const initialLetter = name.charAt(0).toUpperCase();
+      // Add greeting banner below hero
+      const hero = document.querySelector('.hero');
+      if (hero && !document.getElementById('signedInBanner')) {
+        const banner = document.createElement('div');
+        banner.id = 'signedInBanner';
+        banner.className = 'hero-signed-in-banner';
+        banner.innerHTML = `
+          <div class="avatar-ring">${user.photoURL ? `<img src="${user.photoURL}" style="width:44px;height:44px;border-radius:50%;object-fit:cover">` : initialLetter}</div>
+          <div class="greeting-text">
+            <strong>${greeting}, ${name}! 👋</strong>
+            <span>Sports & Movies are pinned for you below.</span>
+          </div>`;
+        hero.appendChild(banner);
+      }
+      // Update bottom nav account icon text
+      const bnAccount = document.getElementById('bnAccount');
+      if (bnAccount) {
+        bnAccount.querySelector('span').textContent = name;
+        bnAccount.style.color = 'var(--accent)';
+      }
+      // Show notification badge when NOT signed in (remove it now that signed in)
+      document.querySelectorAll('.bn-badge').forEach(b => b.remove());
+      // Auto-scroll Sports and Movies to be visible in category filter bar
+      setTimeout(() => {
+        const sportsBtn = document.querySelector('.nav-btn.sports-btn');
+        if (sportsBtn) sportsBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+      }, 800);
+    }
+    function addGuestBadge() {
+      if (window.innerWidth > 768) return;
+      const bnAccount = document.getElementById('bnAccount');
+      if (bnAccount && !bnAccount.querySelector('.bn-badge')) {
+        const badge = document.createElement('div');
+        badge.className = 'bn-badge';
+        bnAccount.style.position = 'relative';
+        bnAccount.appendChild(badge);
+      }
+    }
+
+    // ===== RECENTLY VIEWED TRACKING =====
+    const RV_KEY = 'pwl_recently_viewed';
+    function trackSiteView(url, name) {
+      try {
+        let rv = JSON.parse(localStorage.getItem(RV_KEY) || '[]');
+        rv = rv.filter(x => x.u !== url);
+        rv.unshift({ u: url, n: name, t: Date.now() });
+        if (rv.length > 20) rv = rv.slice(0, 20);
+        localStorage.setItem(RV_KEY, JSON.stringify(rv));
+      } catch (e) { }
+    }
+
+    // ===== VOICE SEARCH =====
+    function initVoiceSearch() {
+      const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+      if (!SpeechRecognition) return;
+      const voiceBtn = document.getElementById('voiceSearchBtn');
+      if (!voiceBtn) return;
+      voiceBtn.style.display = 'flex';
+      const recognition = new SpeechRecognition();
+      recognition.continuous = false;
+      recognition.lang = 'en-US';
+      recognition.onresult = e => {
+        searchInput.value = e.results[0][0].transcript;
+        searchInput.dispatchEvent(new Event('input'));
+        voiceBtn.classList.remove('listening');
+      };
+      recognition.onend = () => voiceBtn.classList.remove('listening');
+      voiceBtn.addEventListener('click', () => {
+        voiceBtn.classList.add('listening');
+        if (navigator.vibrate) navigator.vibrate([30]);
+        recognition.start();
+      });
+    }
+    initVoiceSearch();
+
+    // ===== SCROLL-TO-HIDE HEADER =====
+    (function () {
+      const topBar = document.querySelector('.top-bar');
+      const navEl2 = document.querySelector('nav');
+      let lastY = 0, ticking = false;
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          requestAnimationFrame(() => {
+            const y = window.scrollY;
+            if (window.innerWidth <= 768) {
+              if (y > lastY && y > 100) {
+                topBar && topBar.classList.add('hide-on-scroll');
+              } else {
+                topBar && topBar.classList.remove('hide-on-scroll');
+              }
+            }
+            lastY = y; ticking = false;
+          });
+          ticking = true;
+        }
+      }, { passive: true });
+    })();
+
+    // ===== PULL-TO-REFRESH =====
+    (function () {
+      if (window.innerWidth > 768) return;
+      const ptr = document.createElement('div');
+      ptr.className = 'ptr-indicator'; ptr.id = 'ptrIndicator';
+      ptr.innerHTML = '<div class="ptr-spinner"></div><span>Release to refresh</span>';
+      document.body.prepend(ptr);
+      let startY = 0, pulling = false;
+      document.addEventListener('touchstart', e => { startY = e.touches[0].clientY; }, { passive: true });
+      document.addEventListener('touchmove', e => {
+        if (window.scrollY > 0) return;
+        const dy = e.touches[0].clientY - startY;
+        if (dy > 60) { ptr.classList.add('pulling'); pulling = true; }
+        else { ptr.classList.remove('pulling'); pulling = false; }
+      }, { passive: true });
+      document.addEventListener('touchend', () => {
+        if (pulling) {
+          ptr.classList.remove('pulling');
+          ptr.classList.add('refreshing');
+          ptr.querySelector('span').textContent = 'Refreshing…';
+          setTimeout(() => {
+            ptr.classList.remove('refreshing');
+            ptr.querySelector('span').textContent = 'Release to refresh';
+            window.location.reload();
+          }, 1000);
+        }
+        pulling = false;
+      });
+    })();
 
   </script>
 </body>
