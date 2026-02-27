@@ -4292,17 +4292,20 @@
         const allCards = Array.from(document.querySelectorAll('#mainContent .card'));
         const favCardsMap = new Map();
         allCards.forEach(card => {
-          if (favs.includes(card.dataset.favId)) {
+          const btn = card.querySelector('.fav-btn');
+          const favUrl = btn ? btn.dataset.favUrl : null;
+
+          if (favUrl && favs.includes(favUrl)) {
             const text = card.dataset.search;
             if (!q || text.includes(q)) {
               // Use Map to ensure unique cards in the favorites grid
-              if (!favCardsMap.has(card.dataset.favId)) {
+              if (!favCardsMap.has(favUrl)) {
                 const clone = card.cloneNode(true);
                 clone.style.display = '';
                 // Re-attach favorite click listener to clone
                 const favBtn = clone.querySelector('.fav-btn');
                 favBtn.onclick = (e) => toggleFav(favBtn, e);
-                favCardsMap.set(card.dataset.favId, clone);
+                favCardsMap.set(favUrl, clone);
               }
             }
           }
