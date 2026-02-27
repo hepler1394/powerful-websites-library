@@ -1554,11 +1554,11 @@
     /* ===== FAVORITES ===== */
     .fav-btn {
       position: absolute;
-      top: 42px;
+      top: 48px;
       right: 12px;
       width: 28px;
       height: 28px;
-      border-radius: 0;
+      border-radius: 50%;
       border: none;
       background: transparent;
       cursor: pointer;
@@ -1588,7 +1588,7 @@
 
     .fav-btn.favorited svg {
       fill: #ff4444;
-      stroke: #ff4444
+      stroke: none;
     }
 
     .fav-btn.favorited {
@@ -1631,7 +1631,7 @@
 
     [data-theme="light"] .fav-btn.favorited svg {
       fill: #dc2626;
-      stroke: #dc2626
+      stroke: none;
     }
 
     [data-theme="light"] .fav-btn.favorited {
@@ -2645,7 +2645,8 @@
       .fav-btn {
         width: 36px !important;
         height: 36px !important;
-        top: 38px !important
+        top: 48px !important;
+        border-radius: 50% !important;
       }
 
       /* Bottom nav additions */
@@ -2711,7 +2712,6 @@
     }
 
     .btn-copy-link:focus,
-    .fav-btn:focus,
     .btn-visit:focus {
       outline: 2px solid var(--accent);
       outline-offset: 2px;
@@ -4152,13 +4152,16 @@
       if (activeBtn) return activeBtn.textContent.trim();
       return 'All Categories';
     }
+    // Navigation expand/collapse logic (Mobile Only)
     function collapseNav() {
+      if (window.innerWidth > 768) return;
       navWrap.classList.add('collapsed');
       mobileNavToggle.classList.remove('open');
       const name = getActiveFilterName();
       mobileNavLabel.innerHTML = `<span>Show Categories</span><span class="active-cat-label">${name}</span>`;
     }
     function expandNav() {
+      if (window.innerWidth > 768) return;
       navWrap.classList.remove('collapsed');
       mobileNavToggle.classList.add('open');
       mobileNavLabel.innerHTML = '<span>Hide Categories</span>';
@@ -4307,7 +4310,7 @@
               if (!favCardsMap.has(favUrl)) {
                 const clone = card.cloneNode(true);
                 // Force display block and remove hidden inline styles it might have inherited
-                clone.style.cssText = 'display: flex !important;';
+                clone.style.cssText = 'display: flex !important; flex-direction: column !important;';
                 // Re-attach favorite click listener to clone
                 const favBtn = clone.querySelector('.fav-btn');
                 favBtn.onclick = (e) => toggleFav(favBtn, e);
