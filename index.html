@@ -4292,6 +4292,7 @@
         noResults.classList.remove('visible');
         mainEl.style.display = 'none';
         favGrid.style.display = 'block';
+        favGrid.classList.add('visible'); // Critical: overrides mobile.css opacity: 0
 
         // Get unique favorited cards across all sections
         const allCards = Array.from(document.querySelectorAll('#mainContent .card'));
@@ -4336,6 +4337,7 @@
 
       noFav.classList.remove('visible');
       favGrid.style.display = 'none';
+      favGrid.classList.remove('visible');
       mainEl.style.display = 'block';
       _origApplyFilters();
     };
