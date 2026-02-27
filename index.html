@@ -1947,7 +1947,7 @@
     }
 
     .nav-wrap:not(.collapsed) {
-      max-height: 500px;
+      max-height: 1500px;
       opacity: 1;
       pointer-events: auto;
     }
@@ -3834,15 +3834,19 @@
         applyFilters();
         // Show piracy warning only for piracy/sports categories
         piracyWarning.classList.toggle('visible', activeSectionType === 'piracy' || activeSectionType === 'sports');
+
+        // Auto-collapse nav if it's open on mobile to save vertical space
+        collapseNav();
+
         // Auto-scroll to the first visible category section
-        requestAnimationFrame(() => {
+        setTimeout(() => {
           const firstVisible = document.querySelector('.category-section.visible');
           if (firstVisible) {
             const rect = firstVisible.getBoundingClientRect();
             const offset = rect.top + window.scrollY - 160; // 160px above so title+desc are fully visible
             window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
           }
-        });
+        }, 400);
       });
     });
 
@@ -4078,14 +4082,15 @@
         collapseNav();
       }
       // Auto-scroll to the first visible category section so user sees the title + cards
-      requestAnimationFrame(() => {
+      // Wait for nav collapse transition (400ms) to finish so page height is accurate
+      setTimeout(() => {
         const firstVisible = document.querySelector('.category-section.visible');
         if (firstVisible) {
           const rect = firstVisible.getBoundingClientRect();
           const offset = rect.top + window.scrollY - 160; // 160px above so title+desc are fully visible
           window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
         }
-      });
+      }, 400);
     }
 
     document.querySelector('[data-filter="all"]').addEventListener('click', () => setFilter('all'));
@@ -4346,14 +4351,15 @@
       updateNavButtons();
       piracyWarning.classList.remove('visible');
       applyFilters();
-      requestAnimationFrame(() => {
-        const firstVisible = document.querySelector('.category-section.visible');
-        if (firstVisible) {
+      setTimeout(() => {
+        // Special logic for favorites since it's outside mainContent
+        const firstVisible = document.getElementById('favoritesGrid');
+        if (firstVisible && firstVisible.style.display !== 'none') {
           const rect = firstVisible.getBoundingClientRect();
           const offset = rect.top + window.scrollY - 120;
           window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
         }
-      });
+      }, 400);
     });
 
     init();
