@@ -2951,6 +2951,12 @@
             <h3>Best Practices Guide</h3>
           </div>
         </a>
+        <a href="tools.html" class="quick-link ql-tools">
+          <div class="quick-link-icon">🛠️</div>
+          <div class="quick-link-text">
+            <h3>Site Tools</h3>
+          </div>
+        </a>
         <a href="faq.html" class="quick-link ql-faq">
           <div class="quick-link-icon">❓</div>
           <div class="quick-link-text">
@@ -2962,6 +2968,10 @@
         <div class="hero-stat"><a href="best-practices.html" style="text-decoration:none;color:inherit">
             <div class="num" style="font-size:1.6rem">🛡</div>
             <div class="label">Best Practices</div>
+          </a></div>
+        <div class="hero-stat"><a href="tools.html" style="text-decoration:none;color:inherit">
+            <div class="num" style="font-size:1.6rem">🛠️</div>
+            <div class="label">Site Tools</div>
           </a></div>
         <div class="hero-stat"><a href="faq.html" style="text-decoration:none;color:inherit">
             <div class="num" style="font-size:1.6rem">❓</div>
@@ -3077,6 +3087,11 @@
       <p>Tap the heart icon on any card to save it here. Your favorites are stored on this device and persist across
         visits.</p>
     </div>
+
+    <!-- AUTH HOME CONTENT (For logged in users) -->
+    <div id="authHomeContent" style="display:none;width:100%;max-width:1400px;margin:0 auto;padding:20px 0;">
+      <!-- Search, Favorites, and Recommendations will be moved/rendered here via JS -->
+    </div>
   </div>
 
   <!-- FOOTER -->
@@ -3130,6 +3145,17 @@
             d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
         </svg>
         <span>Favorites</span>
+        <span class="nav-dot"></span>
+      </a>
+      <a href="javascript:void(0)" onclick="showCategoriesTab()" title="Categories" id="bnCategories"
+        style="display:none;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Categories</span>
         <span class="nav-dot"></span>
       </a>
       <a href="best-practices.html" title="Guide">
@@ -4152,16 +4178,14 @@
       if (activeBtn) return activeBtn.textContent.trim();
       return 'All Categories';
     }
-    // Navigation expand/collapse logic (Mobile Only)
+    // Navigation expand/collapse logic (Global)
     function collapseNav() {
-      if (window.innerWidth > 768) return;
       navWrap.classList.add('collapsed');
       mobileNavToggle.classList.remove('open');
       const name = getActiveFilterName();
       mobileNavLabel.innerHTML = `<span>Show Categories</span><span class="active-cat-label">${name}</span>`;
     }
     function expandNav() {
-      if (window.innerWidth > 768) return;
       navWrap.classList.remove('collapsed');
       mobileNavToggle.classList.add('open');
       mobileNavLabel.innerHTML = '<span>Hide Categories</span>';
@@ -4511,6 +4535,91 @@
 
     const ADMIN_EMAILS = ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
 
+    // --- BOTTOM NAV ROUTING ---
+    function showFavoritesTab() {
+      if (window._authUser) {
+        showAuthHome();
+        setTimeout(() => {
+          const favGrid = document.getElementById('favoritesGrid');
+          if (favGrid) {
+            const offset = favGrid.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        }, 100);
+      } else {
+        document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+        const favTab = document.querySelector('[data-section="favorites"]');
+        if (favTab) favTab.classList.add('active');
+        activeSectionType = 'favorites';
+        activeFilter = 'all';
+        applyFilters();
+
+        document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+        const bnFavs = document.getElementById('bnFavs');
+        if (bnFavs) bnFavs.classList.add('active');
+
+        setTimeout(() => {
+          const favGrid = document.getElementById('favoritesGrid');
+          if (favGrid) {
+            const offset = favGrid.getBoundingClientRect().top + window.scrollY - 80;
+            window.scrollTo({ top: offset, behavior: 'smooth' });
+          }
+        }, 400);
+      }
+    }
+
+    function showAuthHome() {
+      document.getElementById('mainContent').style.display = 'none';
+      const authHome = document.getElementById('authHomeContent');
+      authHome.style.display = 'block';
+
+      let welcomeHeader = document.getElementById('authWelcomeHeader');
+      if (!welcomeHeader) {
+        welcomeHeader = document.createElement('div');
+        welcomeHeader.id = 'authWelcomeHeader';
+        welcomeHeader.style.padding = '10px 20px 30px';
+        authHome.insertBefore(welcomeHeader, authHome.firstChild);
+      }
+      const name = window._authUser && window._authUser.displayName ? window._authUser.displayName.split(' ')[0] : (window._authUser ? window._authUser.email.split('@')[0] : 'there');
+      welcomeHeader.innerHTML = `<h2 style="font-size:2.2rem;margin-bottom:8px;font-weight:900;">Welcome back, <span style="color:var(--accent)">${name}</span>! 👋</h2><p style="color:var(--text-muted);font-size:1.1rem;">Here are your saved tools and shortcuts. Use the search bar above to discover more.</p>`;
+
+      const favGrid = document.getElementById('favoritesGrid');
+      if (favGrid) {
+        favGrid.style.display = 'block';
+        favGrid.classList.add('visible');
+        authHome.appendChild(favGrid);
+        activeSectionType = 'favorites';
+        applyFilters();
+      }
+
+      document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+      const bnHome = document.getElementById('bnHome');
+      if (bnHome) bnHome.classList.add('active');
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function showCategoriesTab() {
+      document.getElementById('authHomeContent').style.display = 'none';
+      document.getElementById('mainContent').style.display = 'block';
+
+      const favGrid = document.getElementById('favoritesGrid');
+      if (favGrid) {
+        favGrid.style.display = 'none';
+        document.querySelector('.hero').insertAdjacentElement('afterend', favGrid);
+      }
+
+      document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+      const bnCategories = document.getElementById('bnCategories');
+      if (bnCategories) bnCategories.classList.add('active');
+
+      document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+      const allTab = document.querySelector('[data-section="all"]');
+      if (allTab) allTab.classList.add('active');
+
+      setFilter('', null);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
     function setupAuthListener() {
       firebase.auth().onAuthStateChanged(user => {
         window._authUser = user;
@@ -4518,11 +4627,21 @@
         const label = document.getElementById('authBtnLabel');
         const logoutWrap = document.getElementById('authLogoutWrap');
         const bnAccount = document.getElementById('bnAccount');
+        const bnCategories = document.getElementById('bnCategories');
+        const bnHome = document.getElementById('bnHome');
+
         if (user) {
           const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
           label.textContent = name;
           if (bnAccount) bnAccount.querySelector('span').textContent = name;
           if (logoutWrap) logoutWrap.style.display = 'block';
+          if (bnCategories) bnCategories.style.display = 'flex';
+
+          if (bnHome) {
+            bnHome.removeAttribute('href');
+            bnHome.onclick = () => showAuthHome();
+          }
+          showAuthHome();
           // Admin check
           const isAdmin = ADMIN_EMAILS.includes(user.email);
           const adminLink = document.getElementById('adminLinkWrap');
@@ -4558,6 +4677,17 @@
           label.textContent = 'Sign In';
           if (bnAccount) bnAccount.querySelector('span').textContent = 'Account';
           if (logoutWrap) logoutWrap.style.display = 'none';
+
+          const bnCategories = document.getElementById('bnCategories');
+          if (bnCategories) bnCategories.style.display = 'none';
+          const bnHome = document.getElementById('bnHome');
+          if (bnHome) {
+            bnHome.href = 'index.html';
+            bnHome.onclick = null;
+          }
+          document.getElementById('authHomeContent').style.display = 'none';
+          document.getElementById('mainContent').style.display = 'block';
+
           // Show guest badge on bottom nav to encourage sign-in
           addGuestBadge();
           // Remove signed-in banner if it exists
