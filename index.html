@@ -4303,10 +4303,10 @@
           if (favUrl && favs.includes(favUrl)) {
             const text = card.dataset.search;
             if (!q || text.includes(q)) {
-              // Use Map to ensure unique cards in the favorites grid
               if (!favCardsMap.has(favUrl)) {
                 const clone = card.cloneNode(true);
-                clone.style.display = '';
+                // Force display block and remove hidden inline styles it might have inherited
+                clone.style.cssText = 'display: flex !important;';
                 // Re-attach favorite click listener to clone
                 const favBtn = clone.querySelector('.fav-btn');
                 favBtn.onclick = (e) => toggleFav(favBtn, e);
