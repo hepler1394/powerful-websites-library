@@ -592,25 +592,35 @@
       position: relative;
       padding: 2px;
       border-radius: 53px;
-      background: var(--border);
+      background: linear-gradient(135deg, rgba(220, 38, 38, .35), rgba(0, 212, 200, .35));
+      transition: background .4s;
+    }
+
+    @keyframes spinRing {
+      0% {
+        --ring-angle: 0deg
+      }
+
+      100% {
+        --ring-angle: 360deg
+      }
+    }
+
+    @property --ring-angle {
+      syntax: '<angle>';
+      initial-value: 0deg;
+      inherits: false;
     }
 
     .search-wrap:focus-within {
-      background: transparent;
-    }
-
-    .search-wrap input {
-      width: 100%;
-      padding: 16px 20px 16px 52px;
-      border-radius: 50px;
-      border: none;
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      color: var(--text);
-      font-size: 1rem;
-      outline: none;
-      transition: all .3s;
+      background: conic-gradient(from var(--ring-angle),
+          #dc2626 0%,
+          #ff6b6b 15%,
+          #00d4c8 40%,
+          #22c55e 55%,
+          #3b82f6 70%,
+          #dc2626 100%);
+      animation: spinRing 2.5s linear infinite;
     }
 
     .search-wrap input:focus {
@@ -1378,7 +1388,6 @@
       border-color: var(--border-hover);
       transform: translateY(-4px);
       box-shadow: var(--shadow);
-      background: var(--card-hover);
     }
 
     .card:hover::before {
