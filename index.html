@@ -648,16 +648,6 @@
       background: var(--card);
     }
 
-    /* Glass theme: use white/silver/blue ring to match glass aesthetic */
-    [data-theme="glass"] .search-wrap {
-      background: conic-gradient(from var(--gemini-angle),
-          rgba(255, 255, 255, 0.9) 0%,
-          rgba(120, 200, 255, 1) 25%,
-          rgba(200, 160, 255, 1) 50%,
-          rgba(255, 255, 255, 0.9) 75%,
-          rgba(120, 200, 255, 1) 100%);
-    }
-
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
     body.modal-open .search-wrap {
       display: none;
