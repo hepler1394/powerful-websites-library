@@ -4731,13 +4731,7 @@
         navEl.appendChild(btn);
       });
 
-      // Build sections: render first 3 categories immediately for fast first paint,
-      // then stream the rest in chunks using idle time
-      const CHUNK_SIZE = 5;
-      const schedule = typeof requestIdleCallback === 'function'
-        ? (fn) => requestIdleCallback(fn, { timeout: 800 })
-        : (fn) => setTimeout(fn, 0);
-
+      // Build all sections at once via DocumentFragment for fastest possible render
       function buildSection(cat) {
         const section = document.createElement('section');
         section.className = 'category-section';
@@ -4754,13 +4748,10 @@
       <p class="cat-desc">${cat.desc}</p>
       <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
     `;
-        mainEl.appendChild(section);
-        if ('IntersectionObserver' in window) sectionObserver.observe(section);
-        else section.classList.add('is-visible');
         return section;
       }
 
-      // Set up intersection observer first so it's ready for both immediate and deferred sections
+      // Set up intersection observer for scroll-reveal animations
       let sectionObserver;
       if ('IntersectionObserver' in window) {
         sectionObserver = new IntersectionObserver((entries, obs) => {
@@ -4773,25 +4764,18 @@
         }, { rootMargin: '0px 0px 400px 0px', threshold: 0 });
       }
 
-      // Render first 3 categories synchronously for instant first paint
-      const immediate = DATA.slice(0, 3);
-      const deferred = DATA.slice(3);
-      immediate.forEach(buildSection);
+      // Build all sections into a DocumentFragment and append once — fast & all 990+ sites immediately present
+      const frag = document.createDocumentFragment();
+      DATA.forEach(cat => {
+        const sec = buildSection(cat);
+        if (sectionObserver) sectionObserver.observe(sec);
+        else sec.classList.add('is-visible');
+        frag.appendChild(sec);
+      });
+      mainEl.appendChild(frag);
 
-      // Apply filters now so first 3 show immediately
+      // Apply filters so visible state is correct
       applyFilters();
-
-      // Stream the rest in chunks during idle time
-      function renderChunk(startIdx) {
-        const chunk = deferred.slice(startIdx, startIdx + CHUNK_SIZE);
-        if (chunk.length === 0) {
-          applyFilters(); // re-apply once all done to catch any filter state
-          return;
-        }
-        chunk.forEach(buildSection);
-        schedule(() => renderChunk(startIdx + CHUNK_SIZE));
-      }
-      schedule(() => renderChunk(0));
     }
 
     function getFaviconUrl(url) {
@@ -5192,12 +5176,10 @@
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
           const delta = currentY - lastScrollY;
-          // Auto-hide on scroll down, auto-show on scroll up
+          // Auto-hide on scroll down only — manual button to pull back up
           if (!userManualToggle) {
             if (delta > 15 && currentY > 300 && !navWrap.classList.contains('collapsed')) {
               collapseNav();
-            } else if (delta < -10 && navWrap.classList.contains('collapsed')) {
-              expandNav();
             }
           }
           lastScrollY = currentY;
