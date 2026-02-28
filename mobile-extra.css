@@ -909,15 +909,9 @@
     color: var(--accent);
 }
 
-/* ═══════════════════ 48. SEARCH BAR FOCUS GLOW ═══════════════════ */
+/* ═══════════════════ 48. SEARCH BAR FOCUS GLOW — see global rule below ═══════════════════ */
 @media (max-width: 768px) {
-    .search-wrap:focus-within {
-        box-shadow: 0 0 0 3px rgba(220, 38, 38, .2);
-    }
-
-    .search-input-wrap input:focus {
-        outline: none;
-    }
+    .search-input-wrap input:focus { outline: none; }
 }
 
 /* ═══════════════════ 49. HERO STATS TICKER (SIGNED IN) ═══════════════════ */
@@ -2856,4 +2850,31 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 /* Manus.AI link in credit line */
 [data-theme="glass"] .hero-credit a {
     color: #dc2626 !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   GLASS THEME — Section tabs active state fix
+   Active tabs showing as white-on-white → force red
+   ══════════════════════════════════════════════════════ */
+[data-theme="glass"] .section-tab.active,
+[data-theme="glass"] .section-tab[data-section="all"].active,
+[data-theme="glass"] .section-tab[data-section="top"].active,
+[data-theme="glass"] .section-tab[data-section="free"].active {
+    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
+    border-color: #dc2626 !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    box-shadow: 0 3px 16px rgba(220, 38, 38, 0.5) !important;
+    opacity: 1 !important;
+}
+
+/* Glass theme nav-btn hover text — ensure visible */
+[data-theme="glass"] .nav-btn {
+    color: rgba(255,255,255,0.8) !important;
+    border-color: rgba(255,255,255,0.15) !important;
+}
+
+/* Glass active nav btn indicator line */
+[data-theme="glass"] .bottom-nav a.active::before {
+    background: linear-gradient(90deg, #dc2626, #ff4444) !important;
 }
