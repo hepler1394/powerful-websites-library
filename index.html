@@ -234,8 +234,6 @@
       background-attachment: fixed;
     }
 
-    [data-theme="glass"] .nav-wrapper,
-    [data-theme="glass"] .bottom-nav,
     [data-theme="glass"] .card,
     [data-theme="glass"] .search-dropdown,
     [data-theme="glass"] .auth-modal,
@@ -244,6 +242,21 @@
       -webkit-backdrop-filter: blur(25px) saturate(180%);
       background: var(--surface);
       border: 1px solid var(--border);
+    }
+
+    /* Glass theme: nav bars need solid dark background so cards don't bleed through */
+    [data-theme="glass"] .bottom-nav {
+      background: rgba(0, 0, 0, 0.78) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(30px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    }
+
+    [data-theme="glass"] .nav-wrapper {
+      background: rgba(0, 0, 0, 0.72) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(30px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
     }
 
     /* Glass theme: search bar should be opaque dark, not translucent (stops rainbow body bleed-through) */
@@ -4718,8 +4731,14 @@
         navEl.appendChild(btn);
       });
 
-      // Build sections synchronously so search/filter work immediately
-      DATA.forEach(cat => {
+      // Build sections: render first 3 categories immediately for fast first paint,
+      // then stream the rest in chunks using idle time
+      const CHUNK_SIZE = 5;
+      const schedule = typeof requestIdleCallback === 'function'
+        ? (fn) => requestIdleCallback(fn, { timeout: 800 })
+        : (fn) => setTimeout(fn, 0);
+
+      function buildSection(cat) {
         const section = document.createElement('section');
         section.className = 'category-section';
         section.dataset.category = cat.id;
@@ -4736,28 +4755,43 @@
       <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
     `;
         mainEl.appendChild(section);
-      });
+        if ('IntersectionObserver' in window) sectionObserver.observe(section);
+        else section.classList.add('is-visible');
+        return section;
+      }
 
-      // Intersection Observer for lazy section reveal animations
+      // Set up intersection observer first so it's ready for both immediate and deferred sections
+      let sectionObserver;
       if ('IntersectionObserver' in window) {
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
+        sectionObserver = new IntersectionObserver((entries, obs) => {
           entries.forEach(entry => {
             if (entry.isIntersecting) {
               entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target);
+              obs.unobserve(entry.target);
             }
           });
-        }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
-
-        document.querySelectorAll('.category-section').forEach(sec => {
-          sectionObserver.observe(sec);
-        });
-      } else {
-        document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
+        }, { rootMargin: '0px 0px 400px 0px', threshold: 0 });
       }
 
-      // Immediately apply filters so cards become visible
+      // Render first 3 categories synchronously for instant first paint
+      const immediate = DATA.slice(0, 3);
+      const deferred = DATA.slice(3);
+      immediate.forEach(buildSection);
+
+      // Apply filters now so first 3 show immediately
       applyFilters();
+
+      // Stream the rest in chunks during idle time
+      function renderChunk(startIdx) {
+        const chunk = deferred.slice(startIdx, startIdx + CHUNK_SIZE);
+        if (chunk.length === 0) {
+          applyFilters(); // re-apply once all done to catch any filter state
+          return;
+        }
+        chunk.forEach(buildSection);
+        schedule(() => renderChunk(startIdx + CHUNK_SIZE));
+      }
+      schedule(() => renderChunk(0));
     }
 
     function getFaviconUrl(url) {
