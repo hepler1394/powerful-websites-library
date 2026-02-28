@@ -570,9 +570,9 @@
       box-shadow: 0 0 0 3px var(--accent), 0 0 20px rgba(229, 62, 62, 0.25);
     }
 
-    /* Hide search bar visually when auth modal is open (stops bleed-through) */
+    /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
     body.modal-open .search-wrap {
-      visibility: hidden;
+      display: none;
     }
 
     .search-wrap input::placeholder {
