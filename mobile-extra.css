@@ -2810,3 +2810,50 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     line-height: 1;
 }
 #offlineIndicator .offline-close:hover { opacity: 1; }
+
+/* ══════════════════════════════════════════════════════
+   SCROLL FIX — ensure off-screen fixed elements don't
+   capture pointer/scroll events
+   ══════════════════════════════════════════════════════ */
+
+/* Multi-select bar: no pointer events when hidden */
+.multi-select-bar:not(.visible) {
+    pointer-events: none !important;
+}
+
+/* Onboarding checklist: no pointer events when off-screen */
+#onboardingChecklist:not(.show) {
+    pointer-events: none !important;
+}
+
+/* Settings drawer: no pointer events when closed */
+#settingsDrawer:not(.open) {
+    pointer-events: none !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   GLASS THEME — Hero description links + count = RED
+   (Override inline style via !important + high specificity)
+   ══════════════════════════════════════════════════════ */
+
+/* Site count "991+" in hero paragraph */
+[data-theme="glass"] #heroSiteCount {
+    color: #dc2626 !important;
+}
+
+/* @bsky and @setupsai links */
+[data-theme="glass"] .hero p a {
+    color: #dc2626 !important;
+}
+
+/* Surprise Me button — inline style uses var(--accent) for bg */
+[data-theme="glass"] button[onclick*="loadSurpriseMe"] {
+    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* Manus.AI link in credit line */
+[data-theme="glass"] .hero-credit a {
+    color: #dc2626 !important;
+}
