@@ -1955,30 +1955,46 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     border-bottom-color: var(--vpn-accent) !important;
 }
 
-/* ─── FEATURE 60: GEMINI-STYLE ANIMATED SEARCH GLOW ─── */
-@keyframes geminiGlow {
-    0% {
-        background-position: 0% 50%;
-    }
+/* ─── FEATURE 60: GEMINI ANIMATED SEARCH GLOW ─── */
+@property --search-glow-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
+}
 
-    50% {
-        background-position: 100% 50%;
-    }
-
-    100% {
-        background-position: 0% 50%;
+@keyframes searchGlowSpin {
+    to {
+        --search-glow-angle: 360deg;
     }
 }
 
+/* Make the wrapper a stacking context so ::before stays behind */
+.search-wrap {
+    isolation: isolate;
+}
+
 .search-wrap:focus-within {
-    background: linear-gradient(270deg,
-            #dc2626, #ff6b9d, #a855f7,
-            #3b82f6, #10b981, #ffd93d,
-            #dc2626) !important;
-    background-size: 400% 400% !important;
-    animation: geminiGlow 3s ease infinite !important;
-    box-shadow: 0 0 28px rgba(168, 85, 247, 0.25) !important;
-    transition: none !important;
+    box-shadow: 0 0 0 1px transparent !important;
+}
+
+/* The animated rainbow ring sits BEHIND the card-bg input */
+.search-wrap:focus-within::before {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 55px;
+    z-index: -1;
+    background: conic-gradient(from var(--search-glow-angle),
+            #dc2626 0%,
+            #ff6b9d 14%,
+            #a855f7 28%,
+            #6366f1 42%,
+            #3b82f6 56%,
+            #10b981 70%,
+            #ffd93d 84%,
+            #dc2626 100%);
+    animation: searchGlowSpin 3s linear infinite;
+    filter: blur(1px);
 }
 
 /* ─── FEATURE 62: PWA INSTALL BANNER ─── */
