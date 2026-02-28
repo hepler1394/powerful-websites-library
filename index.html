@@ -502,10 +502,8 @@
       position: relative;
       padding: 3px;
       border-radius: 53px;
-      background: linear-gradient(270deg, #7c3aed, #ec4899, #f59e0b, #10b981, #3b82f6, #7c3aed);
-      background-size: 600% 600%;
-      animation: glowRing 4s ease infinite;
-      box-shadow: 0 0 20px rgba(124, 58, 237, .35), 0 0 40px rgba(236, 72, 153, .15)
+      background: var(--border);
+      box-shadow: 0 0 0 2px var(--border);
     }
 
     .search-wrap input {
@@ -1165,7 +1163,6 @@
     /* ===== CATEGORY SECTIONS ===== */
     .category-section {
       margin-bottom: 64px;
-      display: none
     }
 
     .category-section.visible {
@@ -4665,23 +4662,6 @@
       return MAP[catId] || catType || 'free';
     }
     function init() {
-      // Show Skeleton Loaders initially
-      mainEl.innerHTML = Array(3).fill(0).map(() => `
-        <section class="category-section is-visible">
-          <div class="cat-header"><div style="width:200px;height:28px;background:var(--border);border-radius:12px;animation:pulse 1.5s infinite"></div></div>
-          <div class="card-grid">
-            ${Array(6).fill(0).map(() => `
-              <div class="card" style="height:160px;background:var(--surface);border-color:var(--border);display:flex;flex-direction:column;gap:12px;padding:16px;">
-                <div style="width:50%;height:20px;background:var(--border);border-radius:10px;animation:pulse 1.5s infinite"></div>
-                <div style="width:100%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
-                <div style="width:80%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
-                <div style="margin-top:auto;width:30%;height:20px;background:var(--border);border-radius:8px;animation:pulse 1.5s infinite"></div>
-              </div>
-            `).join('')}
-          </div>
-        </section>
-      `).join('');
-
       // Build nav buttons
       DATA.forEach(cat => {
         const btn = document.createElement('button');
@@ -4704,49 +4684,46 @@
         navEl.appendChild(btn);
       });
 
-      // Build sections after a short delay to allow skeleton to paint
-      setTimeout(() => {
-        mainEl.innerHTML = '';
-        DATA.forEach(cat => {
-          const section = document.createElement('section');
-          section.className = 'category-section'; // removed .visible initially for intersection observer
-          section.dataset.category = cat.id;
-          section.dataset.type = cat.type;
-          section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
-          const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
-          section.innerHTML = `
-        <div class="cat-header">
-          <span class="cat-icon">${cat.icon}</span>
-          <h2 class="cat-title">${cat.name}</h2>
-          <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
-        </div>
-        <p class="cat-desc">${cat.desc}</p>
-        <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
-      `;
-          mainEl.appendChild(section);
-        });
+      // Build sections synchronously so search/filter work immediately
+      DATA.forEach(cat => {
+        const section = document.createElement('section');
+        section.className = 'category-section';
+        section.dataset.category = cat.id;
+        section.dataset.type = cat.type;
+        section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
+        const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
+        section.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-icon">${cat.icon}</span>
+        <h2 class="cat-title">${cat.name}</h2>
+        <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
+      </div>
+      <p class="cat-desc">${cat.desc}</p>
+      <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
+    `;
+        mainEl.appendChild(section);
+      });
 
-        // Implement Intersection Observer for lazy section rendering
-        if ('IntersectionObserver' in window) {
-          const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
-
-          document.querySelectorAll('.category-section').forEach(sec => {
-            sectionObserver.observe(sec);
+      // Intersection Observer for lazy section reveal animations
+      if ('IntersectionObserver' in window) {
+        const sectionObserver = new IntersectionObserver((entries, observer) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              observer.unobserve(entry.target);
+            }
           });
-        } else {
-          document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
-        }
+        }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
 
-        applyFilters(); // Re-apply current filter in case it was set before setTimeout finished
-      }, 50);
+        document.querySelectorAll('.category-section').forEach(sec => {
+          sectionObserver.observe(sec);
+        });
+      } else {
+        document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
+      }
 
+      // Immediately apply filters so cards become visible
+      applyFilters();
     }
 
     function getFaviconUrl(url) {
@@ -5054,19 +5031,22 @@
           return;
         }
 
-        section.style.display = ''; // reset display to let observer handle it
+        section.style.display = ''; // reset display
+        section.classList.add('is-visible'); // immediately visible
         let sectionVisible = 0;
         section.querySelectorAll('.card').forEach(card => {
-          const text = card.dataset.search;
+          const text = (card.dataset.search || '').toLowerCase();
           const matchesSearch = !q || text.includes(q);
           card.style.display = matchesSearch ? '' : 'none';
           if (matchesSearch) sectionVisible++;
         });
 
-        // Use is-visible instead of visible for observer compatibility
-        section.classList.toggle('is-visible', sectionVisible > 0);
-        if (sectionVisible === 0) section.style.display = 'none';
-        totalVisible += sectionVisible;
+        // Hide section only when a search term produces zero results
+        if (q && sectionVisible === 0) {
+          section.classList.remove('is-visible');
+          section.style.display = 'none';
+        }
+        totalVisible += sectionVisible || section.querySelectorAll('.card').length;
       });
 
       const noResults = document.getElementById('noResults');
@@ -5713,7 +5693,7 @@
             bnHome.onclick = () => showAuthHome();
           }
           document.querySelectorAll('.auth-restricted').forEach(el => el.style.display = '');
-          showAuthHome();
+          // Don't auto-redirect to dashboard; let user stay on the library
           // Admin check
           const isAdmin = ADMIN_EMAILS.includes(user.email);
           const adminLink = document.getElementById('adminLinkWrap');
@@ -5807,8 +5787,11 @@
         if (_authMode === 'signup') {
           firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(cred => {
-              sessionStorage.setItem('isNewUser', '1');
-              showAuthSuccess('Account created! Welcome 🎉');
+              cred.user.sendEmailVerification().catch(() => { });
+              firebase.auth().signOut();
+              showAuthSuccess('Account created! Check your email to verify before signing in. 📧');
+              btn.textContent = 'Create Account';
+              btn.style.opacity = '1';
             })
             .catch(err => {
               showAuthError(friendlyAuthError(err.code));
