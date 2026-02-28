@@ -7293,12 +7293,7 @@
     </div>
   </div>
 
-  <div id="offlineIndicator">
-    <span class="offline-dot"></span>
-    <span>You're offline — showing cached content</span>
-    <button class="offline-close" onclick="document.getElementById('offlineIndicator').classList.remove('show')"
-      title="Dismiss">✕</button>
-  </div>
+
 
   <!-- F12: Multi-Select Bar -->
   <div class="multi-select-bar" id="multiSelectBar">
@@ -7556,15 +7551,7 @@
     window.openCmdPalette = openCmdPalette;
     window.closeCmdPalette = closeCmdPalette;
 
-    // ─── F15: OFFLINE INDICATOR ───
-    window.addEventListener('online', () => {
-      const el = document.getElementById('offlineIndicator');
-      el.classList.remove('show');
-      showToast('Back online! 🌐');
-    });
-    window.addEventListener('offline', () => {
-      document.getElementById('offlineIndicator').classList.add('show');
-    });
+    // F15: Offline indicator removed — was blocking scroll
 
     // ─── F41 + F42: CONFETTI ───
     function launchConfetti(count = 60, colors = ['#dc2626', '#ff6b9d', '#a855f7', '#3b82f6', '#ffd93d', '#10b981']) {
