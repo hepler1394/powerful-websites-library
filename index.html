@@ -37,26 +37,39 @@
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px
+      width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: transparent
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
       background: #e53e3e;
-      border-radius: 4px
+      border-radius: 10px;
+      min-height: 48px;
+      /* stays grabbable even on 124k+ px pages */
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #c53030
+      background: #fc5858;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+      background: #c53030;
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
 
     * {
       scrollbar-width: thin;
-      scrollbar-color: #e53e3e transparent
+      scrollbar-color: #e53e3e rgba(255, 255, 255, 0.06);
     }
 
     /* ===== THEME VARIABLES ===== */
@@ -182,10 +195,11 @@
       --text: #ffffff;
       --text-muted: rgba(255, 255, 255, 0.7);
       --text-dim: rgba(255, 255, 255, 0.5);
-      --accent: #fff;
-      --accent-glow: rgba(255, 255, 255, 0.3);
-      --accent2: #ff3b30;
-      --accent3: #5e5ce6;
+      --accent: #dc2626;
+      --accent-glow: rgba(220, 38, 38, 0.2);
+      --accent2: #ff4444;
+      --accent3: #ff6b9d;
+
       --red: #ff3b30;
       --green: #34c759;
       --yellow: #ffcc00;
@@ -234,8 +248,6 @@
       background-attachment: fixed;
     }
 
-    [data-theme="glass"] .nav-wrapper,
-    [data-theme="glass"] .bottom-nav,
     [data-theme="glass"] .card,
     [data-theme="glass"] .search-dropdown,
     [data-theme="glass"] .auth-modal,
@@ -244,6 +256,41 @@
       -webkit-backdrop-filter: blur(25px) saturate(180%);
       background: var(--surface);
       border: 1px solid var(--border);
+    }
+
+    /* Glass theme: nav bars need solid dark background so cards don't bleed through */
+    [data-theme="glass"] .bottom-nav {
+      background: rgba(5, 5, 15, 0.92) !important;
+      border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(30px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    }
+
+    [data-theme="glass"] .nav-wrapper {
+      background: rgba(0, 0, 0, 0.72) !important;
+      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
+      backdrop-filter: blur(30px) saturate(200%) !important;
+      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
+    }
+
+    /* Glass theme: search bar should be opaque dark, not translucent (stops rainbow body bleed-through) */
+    [data-theme="glass"] .search-wrap {
+      background: rgba(20, 20, 30, 0.85) !important;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+    }
+
+    [data-theme="glass"] .search-wrap input {
+      background: rgba(20, 20, 30, 0.9);
+    }
+
+    /* Glass theme: active section tabs need dark text to be readable on colored backgrounds */
+    [data-theme="glass"] .section-tab.active {
+      color: #fff !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="glass"] .section-tab[data-section="all"].active {
+      color: #fff !important;
     }
 
 
@@ -502,10 +549,8 @@
       position: relative;
       padding: 3px;
       border-radius: 53px;
-      background: linear-gradient(270deg, #7c3aed, #ec4899, #f59e0b, #10b981, #3b82f6, #7c3aed);
-      background-size: 600% 600%;
-      animation: glowRing 4s ease infinite;
-      box-shadow: 0 0 20px rgba(124, 58, 237, .35), 0 0 40px rgba(236, 72, 153, .15)
+      background: var(--border);
+      box-shadow: 0 0 0 2px var(--border);
     }
 
     .search-wrap input {
@@ -523,7 +568,12 @@
     }
 
     .search-wrap input:focus {
-      box-shadow: 0 0 0 4px var(--accent-glow)
+      box-shadow: 0 0 0 3px var(--accent), 0 0 20px rgba(229, 62, 62, 0.25);
+    }
+
+    /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
+    body.modal-open .search-wrap {
+      display: none;
     }
 
     .search-wrap input::placeholder {
@@ -795,7 +845,7 @@
     .nav-wrap {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 150;
       background: var(--nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -1159,17 +1209,31 @@
     .main {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 40px 24px 100px
+      padding: 40px 24px 120px
+        /* 120px bottom = 60px nav + 60px breathing room */
     }
 
     /* ===== CATEGORY SECTIONS ===== */
     .category-section {
       margin-bottom: 64px;
-      display: none
     }
 
     .category-section.visible {
       display: block
+    }
+
+    /* ===== CARD GRID — multi-column responsive layout ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 700px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
     }
 
     .cat-header {
@@ -2312,10 +2376,18 @@
     }
 
     /* ===== AUTH MODAL ===== */
+    /* ===== INSTANT THEME SWITCHING — suppress all transitions for one frame ===== */
+    .theme-switching *,
+    .theme-switching *::before,
+    .theme-switching *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
-      z-index: 500;
+      z-index: 2000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -3253,7 +3325,708 @@
         /* Desktop doesn't have bottom nav */
       }
     }
+
+    /* =====================================================================
+       COMPREHENSIVE UI POLISH — 12 BATCHES
+       ===================================================================== */
+
+    /* ── BATCH 1: DESIGN TOKENS ──────────────────────────────────────── */
+    :root {
+      --transition-fast: 0.12s cubic-bezier(.4, 0, .2, 1);
+      --transition-mid: 0.22s cubic-bezier(.4, 0, .2, 1);
+      --transition-slow: 0.40s cubic-bezier(.4, 0, .2, 1);
+      --shadow-sm: 0 1px 4px rgba(0, 0, 0, .12), 0 1px 2px rgba(0, 0, 0, .08);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, .18), 0 2px 6px rgba(0, 0, 0, .10);
+      --shadow-lg: 0 8px 32px rgba(0, 0, 0, .28), 0 4px 12px rgba(0, 0, 0, .14);
+      --shadow-xl: 0 16px 48px rgba(0, 0, 0, .38), 0 8px 20px rgba(0, 0, 0, .18);
+      --radius-pill: 50px;
+      --spacing-1: 4px;
+      --spacing-2: 8px;
+      --spacing-3: 12px;
+      --spacing-4: 16px;
+      --spacing-5: 20px;
+      --spacing-6: 24px;
+      --spacing-7: 28px;
+      --spacing-8: 32px;
+      --spacing-10: 40px;
+      --spacing-12: 48px;
+      --z-nav: 150;
+      --z-modal: 2000;
+      --z-toast: 9000;
+      --font-xs: 0.72rem;
+      --font-sm: 0.8125rem;
+      --font-base: 1rem;
+      --font-lg: 1.0625rem;
+      --font-xl: 1.25rem;
+      --font-2xl: 1.5rem;
+      --font-hero: clamp(2.2rem, 6vw, 4.2rem);
+      --lh-tight: 1.2;
+      --lh-base: 1.6;
+      --lh-loose: 1.8;
+      --ls-tight: -0.025em;
+      --ls-norm: 0;
+      --ls-wide: 0.05em;
+    }
+
+    /* ── BATCH 2: GOOGLE FONT IMPORT ─────────────────────────────────── */
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'SF Pro Display', system-ui, sans-serif;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+      text-rendering: optimizeLegibility;
+    }
+
+    /* ── BATCH 2: TYPOGRAPHY CONSISTENCY ────────────────────────────── */
+    .hero-title {
+      font-size: var(--font-hero);
+      line-height: var(--lh-tight);
+      letter-spacing: var(--ls-tight);
+      font-weight: 900;
+    }
+
+    .cat-title {
+      font-size: clamp(1rem, 2vw, 1.25rem);
+      font-weight: 800;
+      letter-spacing: var(--ls-tight);
+      line-height: var(--lh-tight);
+    }
+
+    .cat-desc {
+      font-size: var(--font-sm);
+      line-height: var(--lh-loose);
+      color: var(--text-muted);
+    }
+
+    .card-title {
+      font-size: var(--font-base);
+      font-weight: 700;
+      letter-spacing: -0.01em;
+      line-height: 1.3;
+    }
+
+    .card-desc {
+      font-size: var(--font-sm);
+      line-height: var(--lh-base);
+      color: var(--text-muted);
+    }
+
+    .card-tag {
+      font-size: var(--font-xs) !important;
+      font-weight: 700 !important;
+      letter-spacing: 0.04em !important;
+      text-transform: uppercase;
+    }
+
+    .nav-btn {
+      font-size: var(--font-sm);
+      font-weight: 600;
+      letter-spacing: 0.01em;
+    }
+
+    .section-tab {
+      font-size: var(--font-sm) !important;
+      font-weight: 700 !important;
+    }
+
+    .btn-visit {
+      font-size: var(--font-sm);
+      font-weight: 700;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── BATCH 3: CARD FLEX-COLUMN (BUTTON ALWAYS AT BOTTOM) ─────────── */
+    .card {
+      display: flex !important;
+      flex-direction: column !important;
+      contain: layout style;
+    }
+
+    .card-body {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .card-meta {
+      margin-top: auto;
+      padding-top: var(--spacing-2);
+    }
+
+    .btn-visit {
+      width: 100%;
+      min-height: 44px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-sm) !important;
+      transition: filter var(--transition-fast), transform var(--transition-fast),
+        box-shadow var(--transition-fast) !important;
+    }
+
+    .btn-visit:hover {
+      filter: brightness(1.12);
+      transform: translateY(-1px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-visit:active {
+      filter: brightness(0.95);
+      transform: translateY(0);
+    }
+
+    /* Card hover: uniform lift across all card types */
+    .card:hover {
+      transform: translateY(-3px) !important;
+      box-shadow: var(--shadow-md) !important;
+      border-color: var(--border-hover) !important;
+    }
+
+    .card:active {
+      transform: translateY(-1px) !important;
+    }
+
+    /* Card action buttons consistent sizing */
+    .card-actions button,
+    .card-actions a {
+      width: 36px;
+      height: 36px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: var(--radius-xs);
+      transition: background var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .card-actions button:hover,
+    .card-actions a:hover {
+      background: var(--border);
+      transform: scale(1.08);
+    }
+
+    .card-actions button:active,
+    .card-actions a:active {
+      transform: scale(0.95);
+    }
+
+    /* ── BATCH 3: WARNING BADGE WCAG FIX ─────────────────────────────── */
+    [data-theme="light"] .badge-warn,
+    [data-theme="light"] .badge-warning,
+    [data-theme="light"] [class*="warn"] {
+      color: #92400e !important;
+      background: rgba(217, 119, 6, 0.12) !important;
+    }
+
+    [data-theme="light"] .badge-free,
+    [data-theme="light"] .badge-verified {
+      color: var(--green) !important;
+    }
+
+    /* ── BATCH 4: HERO SECTION FIXES ─────────────────────────────────── */
+    .hero {
+      padding: clamp(50px, 7vw, 100px) var(--spacing-6) clamp(30px, 5vw, 60px);
+      text-align: center;
+    }
+
+    /* Center Surprise Me button */
+    .hero-cta-wrap,
+    .hero>div:has(.btn-surprise),
+    .hero-btns {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: var(--spacing-3);
+    }
+
+    /* Ensure all hero layout is centered */
+    .hero-sub,
+    .hero-desc,
+    .hero p {
+      max-width: 680px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    /* ── BATCH 5: NAVIGATION POLISH ──────────────────────────────────── */
+
+    /* Back-to-top stays above bottom nav (60px tall) */
+    #backTop,
+    .back-top,
+    [id*="backTop"],
+    [id*="back-top"] {
+      bottom: 80px !important;
+      transition: opacity var(--transition-mid), transform var(--transition-mid) !important;
+    }
+
+    /* Nav buttons smoother interaction */
+    .nav-btn,
+    .section-tab,
+    .theme-btn {
+      transition: background var(--transition-fast), color var(--transition-fast),
+        border-color var(--transition-fast), transform var(--transition-fast) !important;
+    }
+
+    .nav-btn:hover,
+    .section-tab:hover {
+      transform: translateY(-1px);
+    }
+
+    .nav-btn:active,
+    .section-tab:active {
+      transform: translateY(0) scale(0.97);
+    }
+
+    /* Active section tab: stronger visual */
+    .section-tab.active {
+      background: var(--accent) !important;
+      color: #fff !important;
+      border-color: var(--accent) !important;
+    }
+
+    /* Active category pill */
+    .nav-btn.active {
+      background: var(--accent) !important;
+      color: #fff !important;
+    }
+
+    /* Bottom nav glass theme: better contrast on inactive icons */
+    [data-theme="glass"] .bottom-nav a:not(.active),
+    [data-theme="glass"] .bottom-nav button:not(.active),
+    [data-theme="glass"] #bnHome:not(.active),
+    [data-theme="glass"] #bnFav:not(.active),
+    [data-theme="glass"] #bnGuide:not(.active),
+    [data-theme="glass"] #bnFaq:not(.active),
+    [data-theme="glass"] #bnProfile:not(.active) {
+      color: rgba(255, 255, 255, 0.72) !important;
+    }
+
+    /* Bottom nav icon size and touch targets */
+    .bottom-nav a,
+    .bottom-nav button {
+      min-width: 56px;
+      height: 60px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 3px;
+    }
+
+    .bottom-nav a svg,
+    .bottom-nav button svg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+    }
+
+    /* Bottom nav transition */
+    .bottom-nav a,
+    .bottom-nav button {
+      transition: color var(--transition-fast), transform var(--transition-fast);
+    }
+
+    .bottom-nav a:active,
+    .bottom-nav button:active {
+      transform: scale(0.9);
+    }
+
+    /* ── BATCH 6: SEARCH POLISH ───────────────────────────────────────── */
+    .search-wrap input {
+      min-height: 52px;
+      font-size: var(--font-base);
+    }
+
+    /* Glass theme search stronger background */
+    [data-theme="glass"] .search-wrap {
+      background: rgba(255, 255, 255, 0.15) !important;
+    }
+
+    [data-theme="glass"] .search-wrap input {
+      background: rgba(255, 255, 255, 0.08) !important;
+      color: #fff !important;
+    }
+
+    [data-theme="glass"] .search-wrap input::placeholder {
+      color: rgba(255, 255, 255, 0.55) !important;
+    }
+
+    /* Light theme search inset shadow */
+    [data-theme="light"] .search-wrap input {
+      box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.05);
+    }
+
+    /* ── BATCH 7: AUTH MODAL POLISH ──────────────────────────────────── */
+    .auth-modal {
+      border-radius: 24px !important;
+      max-width: 460px !important;
+      width: calc(100% - 32px);
+    }
+
+    .auth-modal input[type="email"],
+    .auth-modal input[type="password"],
+    .auth-modal input[type="text"] {
+      min-height: 52px;
+      font-size: 16px;
+      /* prevents iOS zoom */
+      border-radius: var(--radius-sm) !important;
+    }
+
+    .auth-modal input:focus {
+      border-color: var(--accent) !important;
+      box-shadow: 0 0 0 3px var(--accent-glow) !important;
+      outline: none;
+    }
+
+    /* ── BATCH 8: PER-THEME POLISH ───────────────────────────────────── */
+
+    /* Dark: cards get subtle shadow to lift off bg */
+    [data-theme="dark"] .card {
+      box-shadow: 0 2px 12px rgba(0, 0, 0, 0.45), 0 1px 3px rgba(0, 0, 0, 0.3);
+    }
+
+    /* Light: stronger card shadow for depth */
+    [data-theme="light"] .card {
+      box-shadow: 0 2px 16px rgba(0, 0, 0, 0.07), 0 1px 4px rgba(0, 0, 0, 0.04);
+    }
+
+    /* Light scrollbar */
+    [data-theme="light"] ::-webkit-scrollbar-track {
+      background: rgba(0, 0, 0, 0.06);
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-thumb {
+      background: rgba(192, 57, 43, 0.5);
+    }
+
+    [data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+      background: rgba(192, 57, 43, 0.75);
+    }
+
+    /* Glass: card stronger glass effect */
+    [data-theme="glass"] .card {
+      backdrop-filter: blur(24px) saturate(180%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+      background: rgba(255, 255, 255, 0.09) !important;
+      border: 1px solid rgba(255, 255, 255, 0.18) !important;
+    }
+
+    /* Glass: category section titles readable on gradient bg */
+    [data-theme="glass"] .cat-title {
+      color: #fff;
+      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
+    }
+
+    [data-theme="glass"] .cat-desc {
+      color: rgba(255, 255, 255, 0.72);
+    }
+
+    /* Glass: section tab on glass */
+    [data-theme="glass"] .section-tab {
+      color: rgba(255, 255, 255, 0.85);
+      border-color: rgba(255, 255, 255, 0.2);
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    [data-theme="glass"] .section-tab.active {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+      border-color: rgba(255, 255, 255, 0.4) !important;
+    }
+
+    [data-theme="glass"] .nav-btn.active {
+      background: rgba(255, 255, 255, 0.2) !important;
+      color: #fff !important;
+    }
+
+    /* ── BATCH 9: ACCESSIBILITY ───────────────────────────────────────── */
+
+    /* Skip link */
+    .skip-link {
+      position: fixed;
+      top: -100px;
+      left: 16px;
+      z-index: 9999;
+      background: var(--accent);
+      color: #fff;
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-weight: 700;
+      transition: top 0.2s;
+      text-decoration: none;
+    }
+
+    .skip-link:focus {
+      top: 8px;
+    }
+
+    /* Focus-visible rings on all interactive elements */
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible,
+    select:focus-visible,
+    textarea:focus-visible,
+    [tabindex]:focus-visible {
+      outline: 3px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* Remove focus ring on mouse click (keep for keyboard) */
+    button:focus:not(:focus-visible),
+    a:focus:not(:focus-visible) {
+      outline: none;
+    }
+
+    /* Prefers reduced motion */
+    @media (prefers-reduced-motion: reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* ── BATCH 10: MICRO-INTERACTIONS ────────────────────────────────── */
+
+    /* Category section entrance stagger */
+    .category-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.4s ease, transform 0.4s ease;
+    }
+
+    .category-section.is-visible {
+      opacity: 1 !important;
+      transform: translateY(0) !important;
+    }
+
+    /* Heart/like button pop */
+    .btn-like:active,
+    .card-like:active,
+    [class*="heart"]:active,
+    [class*="fav"]:active {
+      transform: scale(1.35);
+    }
+
+    .btn-like,
+    .card-like,
+    [class*="heart"],
+    [class*="fav"] {
+      transition: transform var(--transition-fast), color var(--transition-fast);
+    }
+
+    /* Theme button hover */
+    .theme-btn:hover {
+      background: var(--border);
+      transform: scale(1.1);
+    }
+
+    .theme-btn:active {
+      transform: scale(0.92);
+    }
+
+    /* Section tab switch animation */
+    .category-section {
+      transition: opacity 0.25s ease, transform 0.25s ease;
+    }
+
+    /* ── BATCH 11: MOBILE / RESPONSIVE ───────────────────────────────── */
+
+    /* Card grid: 1 col mobile, 2 col tablet, 3 col desktop */
+    @media (max-width: 479px) {
+      .card-grid {
+        grid-template-columns: 1fr !important;
+        gap: 12px !important;
+      }
+
+      .card {
+        padding: 16px !important;
+      }
+
+      .hero-title {
+        font-size: clamp(1.8rem, 8vw, 2.5rem) !important;
+      }
+
+      .main {
+        padding: 24px 12px 120px !important;
+      }
+
+      .cat-header {
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+
+      /* Auth modal full-width on very small screens */
+      .auth-modal {
+        margin: 8px;
+        border-radius: 20px !important;
+      }
+
+      /* Search bar full width */
+      .search-wrap {
+        margin-left: 12px;
+        margin-right: 12px;
+      }
+    }
+
+    @media (min-width: 480px) and (max-width: 767px) {
+      .card-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        gap: 14px !important;
+      }
+
+      .hero-title {
+        font-size: clamp(2rem, 6vw, 3rem) !important;
+      }
+    }
+
+    /* Desktop always 3 col minimum */
+    @media (min-width: 768px) {
+      .card-grid {
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      }
+
+      /* Back to top only on desktop */
+      #backTop,
+      .back-top,
+      [id*="backTop"] {
+        display: flex;
+      }
+    }
+
+    /* Touch device: remove hover effects (performance + UX) */
+    @media (hover: none) {
+      .card:hover {
+        transform: none !important;
+        box-shadow: none !important;
+      }
+
+      .btn-visit:hover {
+        filter: none !important;
+        transform: none !important;
+      }
+
+      .nav-btn:hover,
+      .section-tab:hover {
+        transform: none !important;
+      }
+    }
+
+    /* Prevent text selection on card buttons */
+    .card-actions,
+    .bottom-nav,
+    .nav-wrap {
+      user-select: none;
+      -webkit-user-select: none;
+    }
+
+    /* iOS: prevent double-tap zoom on buttons */
+    button,
+    a {
+      touch-action: manipulation;
+    }
+
+    /* Prevent horizontal overflow on mobile */
+    html,
+    body {
+      overflow-x: hidden;
+      max-width: 100vw;
+    }
+
+    /* ── BATCH 12: PERFORMANCE OPTIMISATIONS ─────────────────────────── */
+
+    /* content-visibility on off-screen category sections */
+    .category-section {
+      content-visibility: auto;
+      contain-intrinsic-size: 0 600px;
+    }
+
+    /* The first visible section doesn't need content-visibility delay */
+    .category-section:first-child,
+    .category-section:nth-child(2),
+    .category-section:nth-child(3) {
+      content-visibility: visible;
+    }
+
+    /* GPU layers only where actually animating */
+    .card {
+      will-change: transform;
+    }
+
+    /* Remove will-change when not hovered to free resources */
+    .card:not(:hover) {
+      will-change: auto;
+    }
+
+    /* ── MISC FIXES ───────────────────────────────────────────────────── */
+
+    /* Fix duplicate justify-content on section-tabs */
+    .section-tabs {
+      justify-content: center !important;
+      display: flex !important;
+    }
+
+    /* Cat count badge: consistent pill */
+    .cat-count {
+      border-radius: var(--radius-pill);
+      font-size: var(--font-xs);
+      font-weight: 800;
+      padding: 2px 10px;
+      white-space: nowrap;
+    }
+
+    /* External link safety handled in JS renderCard function */
+
+    /* Smooth scrolling */
+    html {
+      scroll-behavior: smooth;
+    }
+
+    /* Better image defaults */
+    img {
+      max-width: 100%;
+      height: auto;
+      display: block;
+    }
+
+    /* Selection color matches theme */
+    ::selection {
+      background: var(--accent-glow);
+      color: var(--text);
+    }
+
+    /* Card grid align-items stretch for equal height rows */
+    .card-grid {
+      align-items: stretch !important;
+    }
+
+    /* Glass theme: hero gradient shows through */
+    [data-theme="glass"] .hero {
+      background: transparent !important;
+    }
+
+    /* Light theme: bottom nav background */
+    [data-theme="light"] .bottom-nav {
+      background: rgba(250, 245, 245, 0.96) !important;
+      border-top: 1px solid rgba(0, 0, 0, 0.08) !important;
+    }
+
+    /* Toast stays above everything */
+    .toast {
+      z-index: var(--z-toast) !important;
+    }
+
+    /* Prevent layout shift from scrollbar appearing */
+    html {
+      scrollbar-gutter: stable;
+    }
   </style>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://www.google.com">
@@ -3266,6 +4039,7 @@
   onfocus="this.style.top='16px'" onblur="this.style.top='-100px'">Skip to main content</a>
 
 <body>
+  <a href="#mainContent" class="skip-link">Skip to main content</a>
 
   <!-- TOP BAR: auth + theme in one clean row -->
   <div class="top-bar">
@@ -3586,7 +4360,7 @@
           <path d="m21 21-4.35-4.35" />
         </svg>
         <input type="text" id="searchInput" name="q" aria-label="Search websites"
-          placeholder="Search 700+ websites, categories, or descriptions..." spellcheck="false" autocorrect="off"
+          placeholder="Search 990+ websites, categories, or descriptions..." spellcheck="false" autocorrect="off"
           autocapitalize="off" autocomplete="off" inputmode="search">
       </div>
       <div class="search-count" id="searchCount"></div>
@@ -4456,7 +5230,13 @@
 
     // Theme toggle Logic
     function setTheme(theme, skipSync = false) {
+      // Suppress all transitions so 990+ cards switch instantly (no 300ms crawl)
+      document.documentElement.classList.add('theme-switching');
       document.documentElement.setAttribute('data-theme', theme);
+      // Re-enable transitions after 2 frames
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.documentElement.classList.remove('theme-switching');
+      }));
       localStorage.setItem('theme', theme);
       document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.themeBtn === theme);
@@ -4490,7 +5270,7 @@
 
         // Auto-scroll to the first visible category section
         setTimeout(() => {
-          const firstVisible = document.querySelector('.category-section.visible');
+          const firstVisible = document.querySelector('.category-section.is-visible');
           if (firstVisible) {
             const rect = firstVisible.getBoundingClientRect();
             const offset = rect.top + window.scrollY - 160; // 160px above so title+desc are fully visible
@@ -4665,23 +5445,6 @@
       return MAP[catId] || catType || 'free';
     }
     function init() {
-      // Show Skeleton Loaders initially
-      mainEl.innerHTML = Array(3).fill(0).map(() => `
-        <section class="category-section is-visible">
-          <div class="cat-header"><div style="width:200px;height:28px;background:var(--border);border-radius:12px;animation:pulse 1.5s infinite"></div></div>
-          <div class="card-grid">
-            ${Array(6).fill(0).map(() => `
-              <div class="card" style="height:160px;background:var(--surface);border-color:var(--border);display:flex;flex-direction:column;gap:12px;padding:16px;">
-                <div style="width:50%;height:20px;background:var(--border);border-radius:10px;animation:pulse 1.5s infinite"></div>
-                <div style="width:100%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
-                <div style="width:80%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
-                <div style="margin-top:auto;width:30%;height:20px;background:var(--border);border-radius:8px;animation:pulse 1.5s infinite"></div>
-              </div>
-            `).join('')}
-          </div>
-        </section>
-      `).join('');
-
       // Build nav buttons
       DATA.forEach(cat => {
         const btn = document.createElement('button');
@@ -4704,49 +5467,51 @@
         navEl.appendChild(btn);
       });
 
-      // Build sections after a short delay to allow skeleton to paint
-      setTimeout(() => {
-        mainEl.innerHTML = '';
-        DATA.forEach(cat => {
-          const section = document.createElement('section');
-          section.className = 'category-section'; // removed .visible initially for intersection observer
-          section.dataset.category = cat.id;
-          section.dataset.type = cat.type;
-          section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
-          const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
-          section.innerHTML = `
-        <div class="cat-header">
-          <span class="cat-icon">${cat.icon}</span>
-          <h2 class="cat-title">${cat.name}</h2>
-          <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
-        </div>
-        <p class="cat-desc">${cat.desc}</p>
-        <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
-      `;
-          mainEl.appendChild(section);
-        });
+      // Build all sections at once via DocumentFragment for fastest possible render
+      function buildSection(cat) {
+        const section = document.createElement('section');
+        section.className = 'category-section';
+        section.dataset.category = cat.id;
+        section.dataset.type = cat.type;
+        section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
+        const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
+        section.innerHTML = `
+      <div class="cat-header">
+        <span class="cat-icon">${cat.icon}</span>
+        <h2 class="cat-title">${cat.name}</h2>
+        <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
+      </div>
+      <p class="cat-desc">${cat.desc}</p>
+      <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
+    `;
+        return section;
+      }
 
-        // Implement Intersection Observer for lazy section rendering
-        if ('IntersectionObserver' in window) {
-          const sectionObserver = new IntersectionObserver((entries, observer) => {
-            entries.forEach(entry => {
-              if (entry.isIntersecting) {
-                entry.target.classList.add('is-visible');
-                observer.unobserve(entry.target);
-              }
-            });
-          }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
-
-          document.querySelectorAll('.category-section').forEach(sec => {
-            sectionObserver.observe(sec);
+      // Set up intersection observer for scroll-reveal animations
+      let sectionObserver;
+      if ('IntersectionObserver' in window) {
+        sectionObserver = new IntersectionObserver((entries, obs) => {
+          entries.forEach(entry => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
           });
-        } else {
-          document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
-        }
+        }, { rootMargin: '0px 0px 400px 0px', threshold: 0 });
+      }
 
-        applyFilters(); // Re-apply current filter in case it was set before setTimeout finished
-      }, 50);
+      // Build all sections into a DocumentFragment and append once — fast & all 990+ sites immediately present
+      const frag = document.createDocumentFragment();
+      DATA.forEach(cat => {
+        const sec = buildSection(cat);
+        if (sectionObserver) sectionObserver.observe(sec);
+        else sec.classList.add('is-visible');
+        frag.appendChild(sec);
+      });
+      mainEl.appendChild(frag);
 
+      // Apply filters so visible state is correct
+      applyFilters();
     }
 
     function getFaviconUrl(url) {
@@ -4777,7 +5542,6 @@
           <span class="card-name">${s.n}</span>
         </div>
         <span class="card-tag"><span class="cat-dot" style="background:${dotColor}"></span>${catName}</span>
-      </div>
       <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" aria-label="Favorite ${s.n}" onclick="toggleFav(this,event)">
         <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
       </button>
@@ -4834,7 +5598,7 @@
       // Auto-scroll to the first visible category section so user sees the title + cards
       // Wait for nav collapse transition (400ms) to finish so      // Auto-scroll logic...
       setTimeout(() => {
-        const firstVisible = document.querySelector('.category-section.visible');
+        const firstVisible = document.querySelector('.category-section.is-visible');
         if (firstVisible) {
           const rect = firstVisible.getBoundingClientRect();
           const offset = rect.top + window.scrollY - 160;
@@ -4949,19 +5713,19 @@
         searchInput.value = transcript;
         searchInput.dispatchEvent(new Event('input'));
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
       };
 
       recognition.onerror = function (event) {
         console.error('Speech recognition error:', event.error);
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
         showToast('Voice search failed. Try again.', 'error');
       };
 
       recognition.onend = function () {
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
       };
 
       voiceSearchBtn.style.display = 'flex'; // Show voice search button if supported
@@ -5054,19 +5818,22 @@
           return;
         }
 
-        section.style.display = ''; // reset display to let observer handle it
+        section.style.display = ''; // reset display
+        section.classList.add('is-visible'); // immediately visible
         let sectionVisible = 0;
         section.querySelectorAll('.card').forEach(card => {
-          const text = card.dataset.search;
+          const text = (card.dataset.search || '').toLowerCase();
           const matchesSearch = !q || text.includes(q);
           card.style.display = matchesSearch ? '' : 'none';
           if (matchesSearch) sectionVisible++;
         });
 
-        // Use is-visible instead of visible for observer compatibility
-        section.classList.toggle('is-visible', sectionVisible > 0);
-        if (sectionVisible === 0) section.style.display = 'none';
-        totalVisible += sectionVisible;
+        // Hide section only when a search term produces zero results
+        if (q && sectionVisible === 0) {
+          section.classList.remove('is-visible');
+          section.style.display = 'none';
+        }
+        totalVisible += sectionVisible || section.querySelectorAll('.card').length;
       });
 
       const noResults = document.getElementById('noResults');
@@ -5145,7 +5912,7 @@
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
           const delta = currentY - lastScrollY;
-          // Only auto-hide on scroll down — no scroll-up auto-expand (user toggles manually)
+          // Auto-hide on scroll down only — manual button to pull back up
           if (!userManualToggle) {
             if (delta > 15 && currentY > 300 && !navWrap.classList.contains('collapsed')) {
               collapseNav();
@@ -5421,10 +6188,12 @@
       if (forceSignup) _authMode = 'signup';
       updateAuthModalUI();
       document.getElementById('authModal').classList.add('open');
+      document.body.classList.add('modal-open');
       setTimeout(() => document.getElementById('authEmail').focus(), 400);
     }
     function closeAuthModal() {
       document.getElementById('authModal').classList.remove('open');
+      document.body.classList.remove('modal-open');
     }
     function toggleAuthMode() {
       _authMode = _authMode === 'signin' ? 'signup' : 'signin';
@@ -5713,7 +6482,7 @@
             bnHome.onclick = () => showAuthHome();
           }
           document.querySelectorAll('.auth-restricted').forEach(el => el.style.display = '');
-          showAuthHome();
+          // Don't auto-redirect to dashboard; let user stay on the library
           // Admin check
           const isAdmin = ADMIN_EMAILS.includes(user.email);
           const adminLink = document.getElementById('adminLinkWrap');
@@ -5807,8 +6576,11 @@
         if (_authMode === 'signup') {
           firebase.auth().createUserWithEmailAndPassword(email, password)
             .then(cred => {
-              sessionStorage.setItem('isNewUser', '1');
-              showAuthSuccess('Account created! Welcome 🎉');
+              cred.user.sendEmailVerification().catch(() => { });
+              firebase.auth().signOut();
+              showAuthSuccess('Account created! Check your email to verify before signing in. 📧');
+              btn.textContent = 'Create Account';
+              btn.style.opacity = '1';
             })
             .catch(err => {
               showAuthError(friendlyAuthError(err.code));
@@ -6401,7 +7173,1069 @@
       });
     })();
 
+    // ESC key closes auth modal
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') {
+        if (document.getElementById('authModal').classList.contains('open')) {
+          closeAuthModal();
+        }
+      }
+    });
+
+    // ── MOBILE PERFORMANCE OPTIMIZATIONS ──────────────────────────────
+    // Detect mobile / touch device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
+      || window.matchMedia('(max-width: 768px)').matches
+      || ('ontouchstart' in window);
+
+    // Detect slow connection
+    const slowConnection = navigator.connection &&
+      (navigator.connection.effectiveType === '2g' || navigator.connection.effectiveType === 'slow-2g' ||
+        navigator.connection.saveData === true);
+
+    if (isMobile || slowConnection) {
+      // Disable backdrop-filter everywhere on mobile (massive GPU saver)
+      // backdrop-filter on 990 cards = browser compositing 990 layers
+      const perfStyle = document.createElement('style');
+      perfStyle.id = 'mobile-perf-style';
+      perfStyle.textContent = `
+          /* MOBILE PERF: kill expensive paint operations */
+          .card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            will-change: auto !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15) !important;
+          }
+          .card:hover {
+            transform: none !important;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.15) !important;
+          }
+          .nav-wrap, .bottom-nav, .top-bar {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+          }
+          [data-theme="glass"] .card {
+            backdrop-filter: none !important;
+            -webkit-backdrop-filter: none !important;
+            background: rgba(30, 30, 40, 0.85) !important;
+          }
+          [data-theme="glass"] body {
+            background-attachment: scroll !important;
+          }
+          .hero::before, .hero::after {
+            animation: none !important;
+          }
+          .category-section {
+            content-visibility: auto;
+            contain-intrinsic-size: 0 500px;
+          }
+          * {
+            animation-duration: 0.15s !important;
+          }
+        `;
+      document.head.appendChild(perfStyle);
+    }
+
+    // Prevent scroll listener compositing explosion: use passive listeners
+    // (Already set on main scroll listener, this ensures card grid scroll too)
+    document.querySelectorAll('[style*="overflow"]').forEach(el => {
+      el.addEventListener('touchstart', () => { }, { passive: true });
+      el.addEventListener('touchmove', () => { }, { passive: true });
+    });
+
+    // Overscroll contain on modal to prevent iOS bounce leaking to page
+    const modalEl = document.getElementById('authModal');
+    if (modalEl) modalEl.style.overscrollBehavior = 'contain';
+
+    // Release will-change from cards during scroll to free compositor layers
+    let scrollReleaseTimer;
+    window.addEventListener('scroll', () => {
+      if (!scrollReleaseTimer) {
+        document.documentElement.classList.add('is-scrolling');
+      }
+      clearTimeout(scrollReleaseTimer);
+      scrollReleaseTimer = setTimeout(() => {
+        document.documentElement.classList.remove('is-scrolling');
+        scrollReleaseTimer = null;
+      }, 150);
+    }, { passive: true });
+
   </script>
+
+
+  <!-- ═══ MEGA BUILD: 100 FEATURES HTML ═══ -->
+
+  <!-- F10: Scroll Progress Bar -->
+  <div id="scrollProgressBar"></div>
+
+  <!-- F81: XP Bar -->
+  <div id="xpBar">
+    <div id="xpBarFill" style="width:0%"></div>
+  </div>
+
+  <!-- F1: Command Palette -->
+  <div id="cmdPalette" role="dialog" aria-modal="true" aria-label="Command Palette">
+    <div id="cmdPaletteOverlay" onclick="closeCmdPalette()"></div>
+    <div id="cmdPaletteBox">
+      <div style="position:relative">
+        <svg class="cmd-search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="11" cy="11" r="8" />
+          <path d="m21 21-4.35-4.35" />
+        </svg>
+        <input id="cmdInput" placeholder="Search sites, commands, themes..." autocomplete="off" spellcheck="false">
+      </div>
+      <div id="cmdResults"></div>
+      <div id="cmdPaletteKbd">
+        <span><kbd class="cmd-kbd">↑↓</kbd> navigate</span>
+        <span><kbd class="cmd-kbd">↵</kbd> open</span>
+        <span><kbd class="cmd-kbd">Esc</kbd> close</span>
+      </div>
+    </div>
+  </div>
+
+  <div id="offlineIndicator">
+    <span class="offline-dot"></span>
+    <span>You're offline — showing cached content</span>
+    <button class="offline-close" onclick="document.getElementById('offlineIndicator').classList.remove('show')"
+      title="Dismiss">✕</button>
+  </div>
+
+  <!-- F12: Multi-Select Bar -->
+  <div class="multi-select-bar" id="multiSelectBar">
+    <span class="multi-select-count" id="msCount">0 selected</span>
+    <button class="ms-btn" onclick="msBatchFavorite()">❤️ Favorite All</button>
+    <button class="ms-btn" onclick="msBatchShare()">📤 Share</button>
+    <button class="ms-btn danger" onclick="exitMultiSelect()">✕ Cancel</button>
+  </div>
+
+  <!-- F5: Pinch Zoom Toast -->
+  <div class="zoom-level-toast" id="zoomToast"></div>
+
+  <!-- F62: PWA Install Banner -->
+  <div id="pwaInstallBanner">
+    <div class="pwa-icon">🌐</div>
+    <div class="pwa-text">
+      <div class="pwa-title">Add to Home Screen</div>
+      <div class="pwa-sub">Instant access, works offline</div>
+    </div>
+    <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
+    <button class="pwa-dismiss" onclick="dismissPWA()">✕</button>
+  </div>
+
+  <!-- F38: Onboarding Checklist -->
+  <div id="onboardingChecklist">
+    <button id="obCloseBtn" onclick="closeOnboarding()">✕</button>
+    <div class="ob-title">🚀 Quick Start Guide</div>
+    <div class="ob-item" id="ob1">
+      <div class="ob-check">✓</div><span>Browse the library</span>
+    </div>
+    <div class="ob-item" id="ob2">
+      <div class="ob-check">✓</div><span>Favorite a site (tap ♡)</span>
+    </div>
+    <div class="ob-item" id="ob3">
+      <div class="ob-check">✓</div><span>Try voice search (🎤)</span>
+    </div>
+    <div class="ob-item" id="ob4">
+      <div class="ob-check">✓</div><span>Create an account</span>
+    </div>
+    <div class="ob-item" id="ob5">
+      <div class="ob-check">✓</div><span>Try dark/glass theme</span>
+    </div>
+    <div class="ob-progress">
+      <div class="ob-progress-fill" id="obFill" style="width:0%"></div>
+    </div>
+  </div>
+
+  <!-- F80: Leaderboard Modal -->
+  <div id="leaderboardModal" onclick="if(event.target===this)closeLeaderboard()">
+    <div id="leaderboardBox">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+        <h3 style="font-size:1rem;font-weight:900;color:var(--text)">🏆 Most Upvoted Sites</h3>
+        <button onclick="closeLeaderboard()"
+          style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem">✕</button>
+      </div>
+      <div id="leaderboardList"></div>
+    </div>
+  </div>
+
+  <!-- F97: Changelog Modal -->
+  <div id="changelogModal" onclick="if(event.target===this)closeChangelog()">
+    <div id="changelogBox">
+      <div class="cl-header">
+        <span class="cl-title">✨ What's New</span>
+        <span class="cl-version">v3.0 — Feb 2026</span>
+      </div>
+      <div id="changelogList">
+        <div class="cl-item">
+          <div class="cl-emoji">🎮</div>
+          <div class="cl-desc"><strong>Command Palette</strong> — Press Ctrl+K to search everything instantly</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">🏆</div>
+          <div class="cl-desc"><strong>XP & Curator System</strong> — Earn points for exploring the library</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">📱</div>
+          <div class="cl-desc"><strong>Pinch-to-Zoom Grid</strong> — Resize cards with a pinch gesture on mobile</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">🎨</div>
+          <div class="cl-desc"><strong>3D Card Tilt</strong> — Hover cards for a perspective tilt effect on desktop
+          </div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">⚡</div>
+          <div class="cl-desc"><strong>100 New Features</strong> — Offline mode, leaderboards, streaks, achievements,
+            and more</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">🕹️</div>
+          <div class="cl-desc"><strong>Easter Egg</strong> — Try the Konami Code for a secret retro theme</div>
+        </div>
+      </div>
+      <button onclick="closeChangelog()"
+        style="margin-top:16px;width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:0.9rem">Got
+        it! 🎉</button>
+    </div>
+  </div>
+
+  <!-- F100: Settings Drawer -->
+  <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
+  <div id="settingsDrawer">
+    <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
+      <div class="settings-title">⚙️ Settings</div>
+      <button onclick="closeSettings()"
+        style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem">✕</button>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Display</div>
+      <div class="settings-row"><span>Animated Borders on Hover</span>
+        <div class="settings-toggle on" id="stAnimBorder" onclick="toggleSetting(this,'animBorder')"></div>
+      </div>
+      <div class="settings-row"><span>3D Card Tilt</span>
+        <div class="settings-toggle on" id="st3DTilt" onclick="toggleSetting(this,'3dtilt')"></div>
+      </div>
+      <div class="settings-row"><span>Hero Particles</span>
+        <div class="settings-toggle on" id="stParticles" onclick="toggleSetting(this,'particles')"></div>
+      </div>
+      <div class="settings-row"><span>Scroll Progress Bar</span>
+        <div class="settings-toggle on" id="stScrollBar" onclick="toggleSetting(this,'scrollbar')"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Behavior</div>
+      <div class="settings-row"><span>Auto Night Mode</span>
+        <div class="settings-toggle" id="stNightMode" onclick="toggleSetting(this,'nightmode')"></div>
+      </div>
+      <div class="settings-row"><span>Haptic Feedback</span>
+        <div class="settings-toggle on" id="stHaptic" onclick="toggleSetting(this,'haptic')"></div>
+      </div>
+      <div class="settings-row"><span>Onboarding Guide</span>
+        <div class="settings-toggle on" id="stOnboarding" onclick="toggleSetting(this,'onboarding')"></div>
+      </div>
+    </div>
+    <div class="settings-section">
+      <div class="settings-label">Data</div>
+      <div class="settings-row"><span>Clear Search History</span><button
+          onclick="clearAllSearchHistory();showToast('History cleared')"
+          style="background:none;border:1px solid var(--border);border-radius:8px;padding:4px 12px;font-size:0.75rem;color:var(--text-muted);cursor:pointer">Clear</button>
+      </div>
+      <div class="settings-row"><span>Reset XP & Streaks</span><button onclick="resetXP()"
+          style="background:none;border:1px solid rgba(255,107,107,.3);border-radius:8px;padding:4px 12px;font-size:0.75rem;color:var(--red);cursor:pointer">Reset</button>
+      </div>
+    </div>
+    <div style="margin-top:20px;text-align:center;font-size:0.72rem;color:var(--text-dim)">
+      Powerful Websites Library v3.0<br>by Cory Hepler UI 🚀
+    </div>
+  </div>
+
+  <!-- F51: Toast Container -->
+  <div id="toastContainer"></div>
+
+  <!-- F82: Achievement Popup -->
+  <div class="achievement-popup" id="achievementPopup">
+    <div class="achievement-icon" id="achievementIcon">🏅</div>
+    <div class="achievement-text">
+      <div class="ach-title" id="achievementTitle">Achievement Unlocked!</div>
+      <div class="ach-sub" id="achievementSub">You earned a new badge</div>
+    </div>
+  </div>
+
+  <!-- F55: Hero Particles Container (injected into .hero by JS) -->
+
+  <!-- Settings gear button in top-bar (added via JS) -->
+
+  <script>
+    /* ═══════════════════════════════════════════════════════════
+       MEGA BUILD — 100 FEATURES JavaScript Engine
+       ═══════════════════════════════════════════════════════════ */
+
+    // ─── F10: SCROLL PROGRESS BAR ───
+    (function () {
+      const bar = document.getElementById('scrollProgressBar');
+      if (!bar) return;
+      window.addEventListener('scroll', () => {
+        const pct = window.scrollY / (document.body.scrollHeight - window.innerHeight) * 100;
+        bar.style.width = Math.min(100, pct) + '%';
+      }, { passive: true });
+    })();
+
+    // ─── F1: COMMAND PALETTE ───
+    const CMD_ACTIONS = [
+      { icon: '🌙', label: 'Dark Theme', hint: '', action: () => setTheme('dark') },
+      { icon: '☀️', label: 'Light Theme', hint: '', action: () => setTheme('light') },
+      { icon: '✨', label: 'Glass Theme', hint: '', action: () => setTheme('glass') },
+      { icon: '🕹️', label: 'Retro Mode (Easter Egg)', hint: '', action: () => setTheme('retro') },
+      { icon: '❤️', label: 'My Favorites', hint: '', action: () => document.querySelector('[data-section="favorites"]')?.click() },
+      { icon: '⭐', label: 'Top Picks', hint: '', action: () => document.querySelector('[data-section="top"]')?.click() },
+      { icon: '🏆', label: 'Leaderboard', hint: 'most upvoted', action: openLeaderboard },
+      { icon: '📋', label: 'Export Favorites CSV', hint: '', action: () => typeof exportFavsCSV === 'function' ? exportFavsCSV() : showToast('Exporting...') },
+      { icon: '⚙️', label: 'Settings', hint: '', action: openSettings },
+      { icon: '🎲', label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
+      { icon: '🔊', label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
+      { icon: '📱', label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
+      { icon: '✨', label: "What's New (Changelog)", hint: 'v3.0', action: openChangelog },
+      { icon: '🚀', label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
+    ];
+
+    function openCmdPalette() {
+      const el = document.getElementById('cmdPalette');
+      el.classList.add('open');
+      document.getElementById('cmdInput').value = '';
+      renderCmdResults('');
+      setTimeout(() => document.getElementById('cmdInput').focus(), 50);
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+    function closeCmdPalette() {
+      document.getElementById('cmdPalette').classList.remove('open');
+    }
+    function renderCmdResults(q) {
+      const container = document.getElementById('cmdResults');
+      const ql = q.toLowerCase();
+      let html = '';
+      // Site search results
+      if (q.length > 1 && window.DATA) {
+        html += '<div class="cmd-section-label">Sites</div>';
+        let count = 0;
+        for (const cat of window.DATA) {
+          for (const s of cat.sites) {
+            if (count >= 5) break;
+            if ((s.n + s.d).toLowerCase().includes(ql)) {
+              html += `<a class="cmd-item" href="${s.u}" target="_blank" rel="noopener" onclick="closeCmdPalette()">
+            <span class="cmd-item-icon">🌐</span>
+            <span class="cmd-item-label">${s.n}</span>
+            <span class="cmd-item-hint">${cat.name}</span>
+          </a>`;
+              count++;
+            }
+          }
+          if (count >= 5) break;
+        }
+      }
+      // Actions
+      const actions = CMD_ACTIONS.filter(a => !q || a.label.toLowerCase().includes(ql));
+      if (actions.length) {
+        html += '<div class="cmd-section-label">Actions</div>';
+        actions.forEach(a => {
+          html += `<div class="cmd-item" onclick="closeCmdPalette();(${a.action.toString()})()">
+        <span class="cmd-item-icon">${a.icon}</span>
+        <span class="cmd-item-label">${a.label}</span>
+        <span class="cmd-item-hint">${a.hint}</span>
+      </div>`;
+        });
+      }
+      if (!html) html = '<div style="padding:24px;text-align:center;color:var(--text-dim)">No results found</div>';
+      container.innerHTML = html;
+    }
+    document.getElementById('cmdInput')?.addEventListener('input', e => renderCmdResults(e.target.value));
+    document.addEventListener('keydown', e => {
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openCmdPalette(); }
+      if (e.key === 'Escape') closeCmdPalette();
+      if (e.key === '?') { e.preventDefault(); openCmdPalette(); }
+    });
+    window.openCmdPalette = openCmdPalette;
+    window.closeCmdPalette = closeCmdPalette;
+
+    // ─── F15: OFFLINE INDICATOR ───
+    window.addEventListener('online', () => {
+      const el = document.getElementById('offlineIndicator');
+      el.classList.remove('show');
+      showToast('Back online! 🌐');
+    });
+    window.addEventListener('offline', () => {
+      document.getElementById('offlineIndicator').classList.add('show');
+    });
+
+    // ─── F41 + F42: CONFETTI ───
+    function launchConfetti(count = 60, colors = ['#dc2626', '#ff6b9d', '#a855f7', '#3b82f6', '#ffd93d', '#10b981']) {
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = 'confetti-piece';
+        el.style.cssText = `
+      left:${Math.random() * 100}vw;
+      background:${colors[Math.floor(Math.random() * colors.length)]};
+      animation-duration:${0.8 + Math.random() * 1.4}s;
+      animation-delay:${Math.random() * 0.6}s;
+      width:${6 + Math.random() * 8}px;
+      height:${6 + Math.random() * 8}px;
+      border-radius:${Math.random() > 0.5 ? '50%' : '2px'};
+    `;
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 2500);
+      }
+    }
+    window.launchConfetti = launchConfetti;
+
+    // ─── F81: XP SYSTEM ───
+    const XP_KEY = 'pwl_xp';
+    const XP_PER_LEVEL = 100;
+    function getXP() { return parseInt(localStorage.getItem(XP_KEY) || '0'); }
+    function addXP(amount, reason = '') {
+      const prev = getXP();
+      const next = prev + amount;
+      localStorage.setItem(XP_KEY, next);
+      const prevLevel = Math.floor(prev / XP_PER_LEVEL);
+      const nextLevel = Math.floor(next / XP_PER_LEVEL);
+      updateXPBar();
+      if (nextLevel > prevLevel) {
+        showAchievement('⬆️', `Level ${nextLevel + 1} Curator!`, `You've earned ${next} XP total`);
+      }
+    }
+    function updateXPBar() {
+      const xp = getXP() % XP_PER_LEVEL;
+      const fill = document.getElementById('xpBarFill');
+      if (fill) fill.style.width = (xp / XP_PER_LEVEL * 100) + '%';
+    }
+    function resetXP() {
+      localStorage.removeItem(XP_KEY);
+      updateXPBar();
+      showToast('XP reset 🔄');
+    }
+    window.resetXP = resetXP;
+    updateXPBar();
+
+    // ─── F82: ACHIEVEMENTS ───
+    function showAchievement(icon, title, sub) {
+      const el = document.getElementById('achievementPopup');
+      if (!el) return;
+      document.getElementById('achievementIcon').textContent = icon;
+      document.getElementById('achievementTitle').textContent = title;
+      document.getElementById('achievementSub').textContent = sub;
+      el.classList.add('show');
+      if (navigator.vibrate) navigator.vibrate([50, 30, 50]);
+      setTimeout(() => el.classList.remove('show'), 4000);
+    }
+    window.showAchievement = showAchievement;
+
+    // ─── F90: STREAK SYSTEM ───
+    (function () {
+      const STREAK_KEY = 'pwl_streak';
+      const LAST_VISIT_KEY = 'pwl_last_visit';
+      const today = new Date().toDateString();
+      const lastVisit = localStorage.getItem(LAST_VISIT_KEY);
+      let streak = parseInt(localStorage.getItem(STREAK_KEY) || '0');
+      if (lastVisit !== today) {
+        const yesterday = new Date(); yesterday.setDate(yesterday.getDate() - 1);
+        if (lastVisit === yesterday.toDateString()) { streak++; }
+        else { streak = 1; }
+        localStorage.setItem(STREAK_KEY, streak);
+        localStorage.setItem(LAST_VISIT_KEY, today);
+        if (streak > 1) { setTimeout(() => showToast(`🔥 Day ${streak} streak! Keep exploring!`), 3000); }
+      }
+      window._streak = streak;
+    })();
+
+    // ─── F80: LEADERBOARD ───
+    function openLeaderboard() {
+      const modal = document.getElementById('leaderboardModal');
+      const list = document.getElementById('leaderboardList');
+      const upvotes = JSON.parse(localStorage.getItem('pwl_upvotes') || '{}');
+      const sorted = Object.entries(upvotes).sort((a, b) => b[1] - a[1]).slice(0, 10);
+      const medals = ['🥇', '🥈', '🥉'];
+      const rankClass = ['gold', 'silver', 'bronze'];
+      list.innerHTML = sorted.length ? sorted.map(([url, v], i) => {
+        let name = url; try { name = new URL(url).hostname.replace('www.', ''); } catch (e) { }
+        return `<div class="lb-row">
+      <div class="lb-rank ${rankClass[i] || ''}">${medals[i] || i + 1}</div>
+      <div class="lb-site">${name}</div>
+      <div class="lb-votes">▲ ${v}</div>
+    </div>`;
+      }).join('') : '<p style="color:var(--text-muted);text-align:center;padding:20px">No upvotes yet — start exploring and upvoting!</p>';
+      modal.classList.add('open');
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+    function closeLeaderboard() { document.getElementById('leaderboardModal').classList.remove('open'); }
+    window.openLeaderboard = openLeaderboard;
+    window.closeLeaderboard = closeLeaderboard;
+
+    // ─── F97: CHANGELOG ───
+    function openChangelog() {
+      document.getElementById('changelogModal').classList.add('open');
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+    function closeChangelog() { document.getElementById('changelogModal').classList.remove('open'); }
+    window.openChangelog = openChangelog;
+    window.closeChangelog = closeChangelog;
+
+    // Show changelog on first visit of new version
+    (function () {
+      const CL_KEY = 'pwl_cl_v3';
+      if (!localStorage.getItem(CL_KEY)) {
+        setTimeout(openChangelog, 2000);
+        localStorage.setItem(CL_KEY, '1');
+      }
+    })();
+
+    // ─── F100: SETTINGS DRAWER ───
+    function openSettings() {
+      document.getElementById('settingsDrawer').classList.add('open');
+      document.getElementById('settingsOverlay').classList.add('open');
+      if (navigator.vibrate) navigator.vibrate(10);
+    }
+    function closeSettings() {
+      document.getElementById('settingsDrawer').classList.remove('open');
+      document.getElementById('settingsOverlay').classList.remove('open');
+    }
+    function toggleSetting(el, key) {
+      el.classList.toggle('on');
+      const on = el.classList.contains('on');
+      localStorage.setItem('pwl_setting_' + key, on ? '1' : '0');
+      applySettings();
+    }
+    function applySettings() {
+      const get = key => localStorage.getItem('pwl_setting_' + key) !== '0';
+      // scroll bar
+      const bar = document.getElementById('scrollProgressBar');
+      if (bar) bar.style.display = get('scrollbar') ? '' : 'none';
+      // particles
+      const particles = document.getElementById('heroParticles');
+      if (particles) particles.style.display = get('particles') ? '' : 'none';
+      // 3d tilt
+      if (!get('3dtilt')) {
+        const s = document.createElement('style');
+        s.id = 'noTiltStyle';
+        s.textContent = '.card:hover { transform: none !important; animation: none !important; }';
+        if (!document.getElementById('noTiltStyle')) document.head.appendChild(s);
+      } else {
+        document.getElementById('noTiltStyle')?.remove();
+      }
+    }
+    window.openSettings = openSettings;
+    window.closeSettings = closeSettings;
+    window.toggleSetting = toggleSetting;
+
+    // Add settings button to top-bar
+    (function () {
+      const topBar = document.querySelector('.top-bar');
+      if (!topBar) return;
+      const btn = document.createElement('button');
+      btn.title = 'Settings';
+      btn.setAttribute('aria-label', 'Open settings');
+      btn.style.cssText = 'background:var(--card);border:1px solid var(--border);border-radius:50%;width:36px;height:36px;display:flex;align-items:center;justify-content:center;cursor:pointer;color:var(--text-muted);transition:all .2s;flex-shrink:0;';
+      btn.innerHTML = '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>';
+      btn.onclick = openSettings;
+      topBar.appendChild(btn);
+    })();
+
+    // ─── F55: HERO PARTICLES ───
+    (function () {
+      const hero = document.querySelector('.hero');
+      if (!hero) return;
+      const container = document.createElement('div');
+      container.id = 'heroParticles';
+      hero.appendChild(container);
+      for (let i = 0; i < 18; i++) {
+        const p = document.createElement('div');
+        p.className = 'hero-particle';
+        const size = 4 + Math.random() * 10;
+        p.style.cssText = `width:${size}px;height:${size}px;left:${Math.random() * 100}%;animation-duration:${8 + Math.random() * 12}s;animation-delay:${-Math.random() * 12}s;opacity:${0.2 + Math.random() * 0.3}`;
+        container.appendChild(p);
+      }
+    })();
+
+    // ─── F98: KONAMI CODE ───
+    (function () {
+      const seq = ['ArrowUp', 'ArrowUp', 'ArrowDown', 'ArrowDown', 'ArrowLeft', 'ArrowRight', 'ArrowLeft', 'ArrowRight', 'b', 'a'];
+      let pos = 0;
+      document.addEventListener('keydown', e => {
+        if (e.key === seq[pos]) {
+          pos++;
+          if (pos === seq.length) {
+            pos = 0;
+            setTheme('retro');
+            launchConfetti(80, ['#00ff00', '#00cc00', '#003300']);
+            showToast('🕹️ KONAMI CODE! Retro mode unlocked!');
+            if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
+          }
+        } else { pos = 0; }
+      });
+    })();
+
+    // ─── F3: GYRO GLASS PARALLAX ───
+    (function () {
+      if (!window.DeviceOrientationEvent) return;
+      window.addEventListener('deviceorientation', e => {
+        const html = document.documentElement;
+        if (html.dataset.theme !== 'glass') return;
+        const x = (e.gamma || 0) / 90;
+        const y = (e.beta || 0) / 90;
+        document.body.style.backgroundPosition = `${50 + x * 8}% ${50 + y * 8}%`;
+      }, { passive: true });
+    })();
+
+    // ─── F44: 3D CARD TILT (Desktop) ───
+    (function () {
+      if (window.matchMedia('(hover: none)').matches) return;
+      document.addEventListener('mousemove', e => {
+        const card = e.target.closest('.card');
+        if (!card) { document.querySelectorAll('.card').forEach(c => c.style.setProperty('--rx', '0deg') && c.style.setProperty('--ry', '0deg')); return; }
+        const rect = card.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        const rx = ((e.clientY - cy) / (rect.height / 2) * -6).toFixed(2);
+        const ry = ((e.clientX - cx) / (rect.width / 2) * 6).toFixed(2);
+        card.style.setProperty('--rx', rx + 'deg');
+        card.style.setProperty('--ry', ry + 'deg');
+      }, { passive: true });
+      document.addEventListener('mouseleave', e => {
+        const card = e.target.closest?.('.card');
+        if (card) { card.style.setProperty('--rx', '0deg'); card.style.setProperty('--ry', '0deg'); }
+      }, { passive: true });
+    })();
+
+    // ─── F5: PINCH-TO-ZOOM GRID ───
+    (function () {
+      let startDist = 0;
+      let zoomLevel = parseInt(localStorage.getItem('pwl_zoom') || '3');
+      const mc = document.getElementById('mainContent');
+      if (!mc) return;
+      mc.classList.add('zoom-' + zoomLevel);
+      const toast = document.getElementById('zoomToast');
+      const zoomLabels = { 1: '1 Column', 2: '2 Columns', 3: 'Default Grid', 4: 'Compact Grid' };
+      function showZoomToast(lv) {
+        if (!toast) return;
+        toast.textContent = '🔍 ' + (zoomLabels[lv] || 'Default');
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 1200);
+      }
+      document.addEventListener('touchstart', e => {
+        if (e.touches.length === 2) {
+          const [t1, t2] = [e.touches[0], e.touches[1]];
+          startDist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+        }
+      }, { passive: true });
+      document.addEventListener('touchend', e => {
+        if (startDist === 0 || e.touches.length > 0) return;
+        startDist = 0;
+      }, { passive: true });
+      document.addEventListener('touchmove', e => {
+        if (e.touches.length !== 2 || startDist === 0) return;
+        const [t1, t2] = [e.touches[0], e.touches[1]];
+        const dist = Math.hypot(t2.clientX - t1.clientX, t2.clientY - t1.clientY);
+        const delta = dist - startDist;
+        if (Math.abs(delta) < 30) return;
+        const prev = zoomLevel;
+        if (delta < -30 && zoomLevel < 4) zoomLevel++;
+        else if (delta > 30 && zoomLevel > 1) zoomLevel--;
+        if (zoomLevel !== prev) {
+          mc.className = mc.className.replace(/zoom-\d/, '') + ' zoom-' + zoomLevel;
+          localStorage.setItem('pwl_zoom', zoomLevel);
+          showZoomToast(zoomLevel);
+          if (navigator.vibrate) navigator.vibrate(15);
+          startDist = dist;
+        }
+      }, { passive: true });
+    })();
+
+    // ─── F4: KINETIC HAPTIC ENGINE ───
+    (function () {
+      const hapticMap = new Map([
+        ['.fav-btn', [8]],
+        ['.btn-visit', [15]],
+        ['.section-tab', [10]],
+        ['.nav-btn', [8]],
+        ['.theme-btn', [12]],
+        ['.ms-btn', [10]],
+        ['.pwa-install-btn', [20, 10, 20]],
+        ['.cmd-item', [5]],
+      ]);
+      document.addEventListener('touchstart', e => {
+        if (!navigator.vibrate) return;
+        if (localStorage.getItem('pwl_setting_haptic') === '0') return;
+        for (const [sel, pattern] of hapticMap) {
+          if (e.target.closest(sel)) { navigator.vibrate(pattern); break; }
+        }
+      }, { passive: true });
+    })();
+
+    // ─── F62: PWA INSTALL BANNER ───
+    (function () {
+      let deferredPrompt;
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredPrompt = e;
+        window._pwaInstall = () => deferredPrompt?.prompt();
+        if (!localStorage.getItem('pwl_pwa_dismissed')) {
+          setTimeout(() => document.getElementById('pwaInstallBanner')?.classList.add('show'), 8000);
+        }
+      });
+      document.getElementById('pwaInstallBtn')?.addEventListener('click', () => {
+        deferredPrompt?.prompt();
+        dismissPWA();
+      });
+    })();
+    function dismissPWA() {
+      document.getElementById('pwaInstallBanner')?.classList.remove('show');
+      localStorage.setItem('pwl_pwa_dismissed', '1');
+    }
+    window.dismissPWA = dismissPWA;
+
+    // ─── F12: MULTI-SELECT MODE ───
+    let _msItems = new Set();
+    function enterMultiSelect() {
+      document.body.classList.add('multi-select-mode');
+      document.getElementById('multiSelectBar').classList.add('visible');
+      _msItems.clear();
+      updateMsCount();
+      showToast('Multi-select mode — tap cards to select');
+    }
+    function exitMultiSelect() {
+      document.body.classList.remove('multi-select-mode');
+      document.getElementById('multiSelectBar').classList.remove('visible');
+      document.querySelectorAll('.card.ms-selected').forEach(c => c.classList.remove('ms-selected'));
+      _msItems.clear();
+    }
+    function updateMsCount() {
+      document.getElementById('msCount').textContent = _msItems.size + ' selected';
+    }
+    function msBatchFavorite() {
+      let favs = typeof getFavs === 'function' ? getFavs() : [];
+      _msItems.forEach(u => { if (!favs.includes(u)) favs.push(u); });
+      if (typeof saveFavs === 'function') saveFavs(favs);
+      if (typeof updateFavCounts === 'function') updateFavCounts();
+      addXP(5 * _msItems.size, 'batch favorite');
+      launchConfetti(40);
+      showToast(`❤️ ${_msItems.size} sites favorited!`);
+      exitMultiSelect();
+    }
+    function msBatchShare() {
+      const urls = Array.from(_msItems).join('\n');
+      if (navigator.share) navigator.share({ text: urls });
+      else navigator.clipboard.writeText(urls).then(() => showToast('Links copied! 📋'));
+      exitMultiSelect();
+    }
+    window.enterMultiSelect = enterMultiSelect;
+    window.exitMultiSelect = exitMultiSelect;
+    window.msBatchFavorite = msBatchFavorite;
+    window.msBatchShare = msBatchShare;
+    // Toggle card selection in multi-select mode
+    document.addEventListener('click', e => {
+      if (!document.body.classList.contains('multi-select-mode')) return;
+      const card = e.target.closest('.card:not(.card-sheet)');
+      if (!card) return;
+      e.preventDefault(); e.stopPropagation();
+      const url = card.dataset.favId;
+      if (_msItems.has(url)) { _msItems.delete(url); card.classList.remove('ms-selected'); }
+      else { _msItems.add(url); card.classList.add('ms-selected'); if (navigator.vibrate) navigator.vibrate(8); }
+      updateMsCount();
+    });
+
+    // ─── F38: ONBOARDING CHECKLIST ───
+    (function () {
+      const OB_KEY = 'pwl_ob_shown';
+      if (localStorage.getItem(OB_KEY)) return;
+      setTimeout(() => {
+        if (localStorage.getItem('pwl_setting_onboarding') === '0') return;
+        document.getElementById('onboardingChecklist')?.classList.add('show');
+        localStorage.setItem(OB_KEY, '1');
+      }, 5000);
+      function checkOb() {
+        const hasVisit = true;
+        const hasFav = (typeof getFavs === 'function' ? getFavs() : []).length > 0;
+        const hasVoice = localStorage.getItem('pwl_voice_used');
+        const hasAuth = !!window._authUser;
+        const hasTheme = localStorage.getItem('theme') !== null;
+        const items = [hasVisit, hasFav, hasVoice, hasAuth, hasTheme];
+        items.forEach((done, i) => {
+          const el = document.getElementById('ob' + (i + 1));
+          if (el && done) el.classList.add('done');
+        });
+        const pct = (items.filter(Boolean).length / items.length) * 100;
+        const fill = document.getElementById('obFill');
+        if (fill) fill.style.width = pct + '%';
+        if (pct === 100) {
+          setTimeout(() => { document.getElementById('onboardingChecklist')?.classList.remove('show'); showAchievement('🎓', 'Onboarding Complete!', 'You are now a power user'); }, 1000);
+        }
+      }
+      setTimeout(checkOb, 6000);
+      setInterval(checkOb, 30000);
+    })();
+    function closeOnboarding() { document.getElementById('onboardingChecklist')?.classList.remove('show'); }
+    window.closeOnboarding = closeOnboarding;
+
+    // ─── F9+F43: AUTO NIGHT MODE ───
+    (function () {
+      function autoNightMode() {
+        if (localStorage.getItem('pwl_setting_nightmode') !== '1') return;
+        const h = new Date().getHours();
+        if (h >= 22 || h < 6) {
+          if (document.documentElement.dataset.theme !== 'dark') setTheme('dark');
+        }
+      }
+      autoNightMode();
+      setInterval(autoNightMode, 60000);
+    })();
+
+    // ─── F52: RIPPLE EFFECT ───
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('button, .section-tab, .nav-btn, .ms-btn');
+      if (!btn) return;
+      btn.classList.add('ripple-host');
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.className = 'ripple';
+      const size = Math.max(rect.width, rect.height) * 2;
+      ripple.style.cssText = `width:${size}px;height:${size}px;left:${e.clientX - rect.left - size / 2}px;top:${e.clientY - rect.top - size / 2}px`;
+      btn.appendChild(ripple);
+      setTimeout(() => ripple.remove(), 600);
+    }, { passive: true });
+
+    // ─── F99: AMBIENT AUDIO ───
+    let _ambientAudio;
+    function toggleAudio() {
+      const btn = document.getElementById('audioToggleBtn');
+      if (!_ambientAudio) {
+        _ambientAudio = new Audio('https://stream.nightride.fm/nightride.ogg');
+        _ambientAudio.loop = true;
+        _ambientAudio.volume = 0.3;
+      }
+      if (_ambientAudio.paused) {
+        _ambientAudio.play().catch(() => { });
+        btn?.classList.add('playing');
+        showToast('🎵 Ambient audio on');
+      } else {
+        _ambientAudio.pause();
+        btn?.classList.remove('playing');
+        showToast('🔇 Audio off');
+      }
+    }
+    window.toggleAudio = toggleAudio;
+    // Add audio button to footer
+    (function () {
+      const footer = document.querySelector('footer');
+      if (!footer) return;
+      const wrap = document.createElement('div');
+      wrap.style.cssText = 'margin-top:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;';
+      wrap.innerHTML = `
+    <button id="audioToggleBtn" onclick="toggleAudio()">
+      <div class="audio-wave"><span style="height:4px"></span><span style="height:8px"></span><span style="height:6px"></span></div>
+      Ambient Audio
+    </button>
+    <button onclick="openLeaderboard()" style="background:none;border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s">🏆 Leaderboard</button>
+    <button onclick="openCmdPalette()" style="background:none;border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s">⌨️ Cmd+K</button>
+  `;
+      footer.appendChild(wrap);
+    })();
+
+    // ─── F6: HERO COUNTER (live update) ───
+    (function () {
+      function updateHeroCount() {
+        if (!window.DATA) return;
+        const total = window.DATA.reduce((sum, c) => sum + c.sites.length, 0);
+        const el = document.getElementById('footerSiteCount');
+        if (el) el.textContent = total.toLocaleString() + '+';
+        // Animate count-up
+        const heroCount = document.querySelector('.hero-stat .num');
+        if (heroCount && heroCount.textContent.includes('+')) {
+          let start = 0;
+          const end = total;
+          const dur = 1200;
+          const step = (end / dur) * 16;
+          const interval = setInterval(() => {
+            start = Math.min(start + step, end);
+            heroCount.textContent = Math.floor(start).toLocaleString() + '+';
+            if (start >= end) clearInterval(interval);
+          }, 16);
+        }
+      }
+      setTimeout(updateHeroCount, 1500);
+    })();
+
+    // ─── F46: ANIMATED FAVICON TICKER ───
+    (function () {
+      let tick = false;
+      setInterval(() => {
+        if (!window.DATA) return;
+        const total = window.DATA.reduce((s, c) => s + c.sites.length, 0);
+        const favs = typeof getFavs === 'function' ? getFavs().length : 0;
+        const link = document.querySelector("link[rel='icon']");
+        if (!link) return;
+        // Just update title to show count alternating
+        document.title = tick ? `${total}+ Sites — Powerful Websites` : '🌐 WebsLib — Browse Free';
+        tick = !tick;
+      }, 4000);
+    })();
+
+    // ─── F29: SHAREABLE FAVORITES URL ───
+    window.shareableFavsURL = function () {
+      const favs = typeof getFavs === 'function' ? getFavs() : [];
+      if (!favs.length) { showToast('No favorites to share yet!'); return; }
+      const encoded = btoa(JSON.stringify(favs.slice(0, 20))).replace(/=/g, '');
+      const url = `${location.origin}${location.pathname}#favs=${encoded}`;
+      navigator.clipboard?.writeText(url).then(() => showToast('Share link copied! 🔗'));
+    };
+    // Load shared favs from URL
+    (function () {
+      const hash = location.hash;
+      if (!hash.includes('favs=')) return;
+      try {
+        const encoded = hash.split('favs=')[1];
+        const favs = JSON.parse(atob(encoded + '=='));
+        if (Array.isArray(favs) && favs.length) {
+          const current = typeof getFavs === 'function' ? getFavs() : [];
+          const merged = [...new Set([...current, ...favs])];
+          if (typeof saveFavs === 'function') saveFavs(merged);
+          showToast(`Imported ${favs.length} shared favorites! 🎉`);
+          history.replaceState(null, '', location.pathname);
+        }
+      } catch (e) { }
+    })();
+
+    // ─── F16+F17: UPVOTE COUNT + TRENDING ───
+    // Already partially implemented; enhance to fire XP on upvote
+    const _origUpvote = window.handleUpvote;
+    window.handleUpvote = function (url, e) {
+      if (_origUpvote) _origUpvote(url, e);
+      addXP(2, 'upvote');
+    };
+
+    // ─── F96: SITE OF THE DAY ───
+    (function () {
+      if (!window.DATA) return;
+      const today = new Date().toDateString();
+      const stored = JSON.parse(localStorage.getItem('pwl_sotd') || '{}');
+      if (stored.date !== today) {
+        const allSites = window.DATA.flatMap(c => c.sites.map(s => ({ ...s, cat: c.name })));
+        const idx = Math.abs(new Date(today).getTime()) % allSites.length;
+        const site = allSites[idx];
+        localStorage.setItem('pwl_sotd', JSON.stringify({ date: today, site }));
+        if (!stored.date) return; // Don't show on first visit
+        setTimeout(() => showToast(`⭐ Site of the Day: ${site.n}`), 4500);
+      }
+    })();
+
+    // ─── F18: RANDOM SITE OF THE DAY exposed ───
+    window.randomSiteOfDay = function () {
+      const stored = JSON.parse(localStorage.getItem('pwl_sotd') || '{}');
+      if (stored.site) window.open(stored.site.u, '_blank');
+    };
+
+    // ─── F57: NAV COLOR PER CATEGORY ───
+    const _origSetFilter = window.setFilter;
+    if (typeof _origSetFilter === 'function') {
+      window.setFilter = function (id) {
+        _origSetFilter(id);
+        const nav = document.getElementById('navWrap');
+        if (!nav) return;
+        if (!id || id === 'all') { nav.removeAttribute('data-active-type'); return; }
+        const cat = window.DATA?.find(c => c.id === id);
+        if (cat) nav.setAttribute('data-active-type', cat.type || '');
+      };
+    }
+
+    // ─── F54: DICE ROLL ON SURPRISE ME ───
+    const _origSurprise = window.loadSurpriseMe;
+    window.loadSurpriseMe = function () {
+      const btns = document.querySelectorAll('[onclick*="loadSurpriseme"], [onclick*="Surprise"]');
+      btns.forEach(b => { b.classList.add('dice-rolling'); setTimeout(() => b.classList.remove('dice-rolling'), 600); });
+      if (_origSurprise) _origSurprise();
+    };
+
+    // ─── F11: COPY LINK with feedback ───
+    document.addEventListener('click', e => {
+      const btn = e.target.closest('.btn-copy-link');
+      if (!btn) return;
+      const url = btn.dataset.url;
+      if (!url) return;
+      navigator.clipboard?.writeText(url).then(() => {
+        btn.classList.add('copied');
+        btn.textContent = '✓ Copied!';
+        addXP(1, 'copy link');
+        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋 Copy'; }, 1800);
+      });
+    }, { passive: true });
+
+    // ─── ADD XP ON FAV / VISIT ───
+    const _origToggleFav = window.toggleFav;
+    window.toggleFav = function (btn, e) {
+      if (_origToggleFav) _origToggleFav(btn, e);
+      const url = btn?.dataset?.favUrl || '';
+      const isFaved = typeof getFavs === 'function' && getFavs().includes(url);
+      if (!isFaved) { // was just added
+        addXP(5, 'favorite');
+        const favs = typeof getFavs === 'function' ? getFavs() : [];
+        if (favs.length === 1) { launchConfetti(); showAchievement('❤️', 'First Favorite Saved!', 'Your journey begins'); }
+        else if (favs.length === 10) { launchConfetti(100); showAchievement('💎', 'Power Collector!', '10 sites favorited'); }
+        else if (favs.length === 50) { launchConfetti(150); showAchievement('👑', 'Library Master!', '50 sites favorited!'); }
+      }
+    };
+
+    // ─── F95: SIMULATED LIVE USER COUNT ───
+    (function () {
+      const topBar = document.querySelector('.top-bar');
+      if (!topBar) return;
+      const badge = document.createElement('div');
+      badge.id = 'liveUserCount';
+      badge.innerHTML = '<span class="live-dot"></span><span id="liveCount">--</span> online';
+      badge.style.display = 'none'; // hidden by default on mobile to save space
+      // Show only on desktop
+      if (window.innerWidth > 1024) {
+        badge.style.display = 'inline-flex';
+        topBar.appendChild(badge);
+      }
+      function updateCount() {
+        const base = 87;
+        const noise = Math.floor(Math.random() * 40) - 20;
+        document.getElementById('liveCount').textContent = base + noise;
+      }
+      updateCount();
+      setInterval(updateCount, 8000);
+    })();
+
+    // ─── F36: FREE-ONLY FILTER ───
+    window.toggleFreeOnly = function () {
+      const key = 'pwl_free_only';
+      const on = localStorage.getItem(key) === '1';
+      localStorage.setItem(key, on ? '0' : '1');
+      document.querySelectorAll('.card').forEach(card => {
+        const limits = card.querySelector('.card-limits');
+        const hasLimits = limits?.classList.contains('has-limits');
+        card.style.display = (!on && hasLimits) ? 'none' : '';
+      });
+      showToast(on ? 'Showing all sites' : '✓ Free-only mode on');
+    };
+
+    // ─── F34+F35: SORT CHIPS ───
+    window.sortCards = function (mode) {
+      document.querySelectorAll('.card-grid').forEach(grid => {
+        const cards = Array.from(grid.children);
+        cards.sort((a, b) => {
+          if (mode === 'alpha') return a.querySelector('.card-name')?.textContent?.localeCompare(b.querySelector('.card-name')?.textContent || '') || 0;
+          if (mode === 'trending') {
+            const upvotes = JSON.parse(localStorage.getItem('pwl_upvotes') || '{}');
+            return (upvotes[b.dataset.favId] || 0) - (upvotes[a.dataset.favId] || 0);
+          }
+          return 0;
+        });
+        cards.forEach(c => grid.appendChild(c));
+      });
+      showToast('Sorted: ' + mode);
+    };
+
+    applySettings();
+    console.log('%c🚀 Powerful Websites Library v3.0 — 100 Features Loaded!', 'color:#dc2626;font-size:14px;font-weight:900;');
+  </script>
+
 </body>
 
 </html>
