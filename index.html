@@ -37,26 +37,39 @@
     }
 
     ::-webkit-scrollbar {
-      width: 8px;
-      height: 8px
+      width: 10px;
+      height: 10px;
     }
 
     ::-webkit-scrollbar-track {
-      background: transparent
+      background: rgba(255, 255, 255, 0.06);
+      border-radius: 10px;
     }
 
     ::-webkit-scrollbar-thumb {
       background: #e53e3e;
-      border-radius: 4px
+      border-radius: 10px;
+      min-height: 48px;
+      /* stays grabbable even on 124k+ px pages */
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
 
     ::-webkit-scrollbar-thumb:hover {
-      background: #c53030
+      background: #fc5858;
+      border: 2px solid transparent;
+      background-clip: padding-box;
+    }
+
+    ::-webkit-scrollbar-thumb:active {
+      background: #c53030;
+      border: 2px solid transparent;
+      background-clip: padding-box;
     }
 
     * {
       scrollbar-width: thin;
-      scrollbar-color: #e53e3e transparent
+      scrollbar-color: #e53e3e rgba(255, 255, 255, 0.06);
     }
 
     /* ===== THEME VARIABLES ===== */
