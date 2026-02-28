@@ -1955,10 +1955,30 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     border-bottom-color: var(--vpn-accent) !important;
 }
 
-/* ─── FEATURE 60: SEARCH BAR GLOW ON FOCUS ─── */
+/* ─── FEATURE 60: GEMINI-STYLE ANIMATED SEARCH GLOW ─── */
+@keyframes geminiGlow {
+    0% {
+        background-position: 0% 50%;
+    }
+
+    50% {
+        background-position: 100% 50%;
+    }
+
+    100% {
+        background-position: 0% 50%;
+    }
+}
+
 .search-wrap:focus-within {
-    box-shadow: 0 0 0 3px var(--accent), 0 0 30px rgba(220, 38, 38, 0.2) !important;
-    transition: box-shadow 0.3s ease !important;
+    background: linear-gradient(270deg,
+            #dc2626, #ff6b9d, #a855f7,
+            #3b82f6, #10b981, #ffd93d,
+            #dc2626) !important;
+    background-size: 400% 400% !important;
+    animation: geminiGlow 3s ease infinite !important;
+    box-shadow: 0 0 28px rgba(168, 85, 247, 0.25) !important;
+    transition: none !important;
 }
 
 /* ─── FEATURE 62: PWA INSTALL BANNER ─── */
