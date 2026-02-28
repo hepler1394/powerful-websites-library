@@ -1,1373 +1,2152 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
-<meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
-<meta name="theme-color" content="#faf5f5" media="(prefers-color-scheme: light)">
-<meta name="color-scheme" content="dark light">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<title>Site Tools — Powerful Free Websites Library</title>
-<meta name="description" content="Free browser-based tools: QR Code Generator, Password Generator, Color Picker, Text Counter, Base64 Encoder, and more.">
-<link rel="icon" href="https://fav.farm/🔧">
-<style>
-  *{margin:0;padding:0;box-sizing:border-box}
-  :root{
-    --bg:#0a0a0a;--surface:#141414;--card:#1a1a1a;--border:#2a2a2a;
-    --text:#f5f5f5;--text-dim:#a3a3a3;--text-muted:#737373;
-    --accent:#dc2626;--accent-hover:#ef4444;--accent-glow:rgba(220,38,38,.3);
-  }
-  body{
-    font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;
-    background:var(--bg);color:var(--text);min-height:100vh;
-    padding-bottom:env(safe-area-inset-bottom,0);
-    -webkit-text-size-adjust:100%;
-  }
-  a{color:var(--accent);text-decoration:none}
-  a:hover{text-decoration:underline}
-
-  /* Header */
-  .header{
-    text-align:center;padding:40px 20px 30px;
-    background:linear-gradient(180deg,rgba(220,38,38,.08) 0%,transparent 100%);
-  }
-  .header h1{
-    font-size:2.2rem;font-weight:800;margin-bottom:8px;
-    background:linear-gradient(135deg,#fff 30%,#dc2626 100%);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;
-    background-clip:text;
-  }
-  .header p{color:var(--text-dim);font-size:1rem;margin-bottom:20px}
-  .home-btn{
-    display:inline-flex;align-items:center;gap:8px;
-    padding:12px 28px;border-radius:50px;font-weight:600;font-size:.95rem;
-    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
-    text-decoration:none;transition:all .3s;box-shadow:0 4px 20px rgba(220,38,38,.3);
-  }
-  .home-btn:hover{transform:translateY(-2px);box-shadow:0 6px 30px rgba(220,38,38,.4);text-decoration:none}
-
-  /* Tools Grid */
-  .tools-grid{
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));
-    gap:24px;padding:0 24px 60px;max-width:1200px;margin:0 auto;
-  }
-  @media(max-width:400px){.tools-grid{grid-template-columns:1fr;padding:0 12px 60px;gap:16px}}
-  @media(min-width:401px) and (max-width:768px){.tools-grid{grid-template-columns:1fr;padding:0 16px 60px;gap:20px}}
-
-  /* Tool Card */
-  .tool-card{
-    background:var(--card);border:1px solid var(--border);border-radius:20px;
-    padding:28px;transition:all .3s;position:relative;overflow:hidden;
-  }
-  .tool-card:hover{border-color:rgba(220,38,38,.3);transform:translateY(-2px);box-shadow:0 8px 30px rgba(0,0,0,.3)}
-  .tool-card::before{
-    content:'';position:absolute;top:0;left:0;right:0;height:3px;
-    background:linear-gradient(90deg,#dc2626,#f59e0b,#10b981,#3b82f6,#8b5cf6);
-    opacity:0;transition:opacity .3s;
-  }
-  .tool-card:hover::before{opacity:1}
-  .tool-icon{font-size:2rem;margin-bottom:12px}
-  .tool-card h2{font-size:1.2rem;font-weight:700;margin-bottom:8px}
-  .tool-card .tool-desc{color:var(--text-dim);font-size:.85rem;margin-bottom:16px;line-height:1.5}
-
-  /* Form Elements */
-  .tool-input{
-    width:100%;padding:12px 16px;border-radius:12px;border:1px solid var(--border);
-    background:var(--surface);color:var(--text);font-size:16px;
-    outline:none;transition:border-color .2s;font-family:inherit;
-    -webkit-appearance:none;appearance:none;
-  }
-  .tool-input:focus{border-color:var(--accent)}
-  textarea.tool-input{resize:vertical;min-height:80px}
-  .tool-btn{
-    width:100%;padding:14px;border-radius:12px;border:none;
-    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
-    font-size:16px;font-weight:600;cursor:pointer;transition:all .2s;
-    margin-top:12px;-webkit-appearance:none;appearance:none;
-    touch-action:manipulation;
-  }
-  .tool-btn:hover{opacity:.9;transform:translateY(-1px)}
-  .tool-btn:active{transform:scale(.98);opacity:.85}
-  .tool-btn.secondary{background:var(--surface);border:1px solid var(--border);color:var(--text)}
-  .tool-btn.secondary:hover{border-color:var(--accent);color:var(--accent)}
-  .tool-btn.secondary:active{background:var(--border)}
-  .tool-output{
-    margin-top:12px;padding:14px;border-radius:12px;
-    background:var(--surface);border:1px solid var(--border);
-    font-family:'SF Mono',Monaco,Consolas,monospace;font-size:.85rem;
-    color:var(--text);word-break:break-all;min-height:44px;
-    display:none;position:relative;
-  }
-  .tool-output.show{display:block}
-  .tool-output .copy-out{
-    position:absolute;top:8px;right:8px;background:var(--card);
-    border:1px solid var(--border);border-radius:8px;padding:6px 12px;
-    color:var(--text-dim);font-size:.75rem;cursor:pointer;transition:all .2s;
-    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-    min-width:44px;min-height:32px;display:flex;align-items:center;justify-content:center;
-  }
-  .tool-output .copy-out:hover{color:var(--accent);border-color:var(--accent)}
-  .tool-output .copy-out:active{background:var(--border)}
-  .tool-row{display:flex;gap:10px;margin-top:12px}
-  .tool-row>*{flex:1}
-  .slider-row{display:flex;align-items:center;gap:12px;margin-top:12px}
-  .slider-row input[type=range]{flex:1;accent-color:var(--accent);height:24px}
-  .slider-row span{color:var(--text-dim);font-size:.85rem;min-width:30px}
-  .checkbox-row{display:flex;align-items:center;gap:10px;margin-top:10px;color:var(--text-dim);font-size:.9rem;min-height:44px}
-  .checkbox-row input[type=checkbox]{accent-color:var(--accent);width:20px;height:20px;cursor:pointer}
-  .checkbox-row label{cursor:pointer}
-
-  /* QR Code */
-  #qrOutput{text-align:center}
-  #qrOutput canvas,#qrOutput img{border-radius:12px;max-width:100%}
-
-  /* Color Picker */
-  .color-preview{
-    width:100%;height:80px;border-radius:12px;border:1px solid var(--border);
-    margin-top:12px;transition:background .2s;
-  }
-  .color-values{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px}
-  .color-val{
-    padding:10px 12px;border-radius:8px;background:var(--surface);
-    border:1px solid var(--border);font-family:monospace;font-size:.8rem;
-    color:var(--text-dim);text-align:center;cursor:pointer;
-    transition:all .2s;touch-action:manipulation;
-  }
-  .color-val:active{border-color:var(--accent);color:var(--accent)}
-
-  /* Word Counter */
-  .count-stats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin-top:12px}
-  .count-stat{
-    text-align:center;padding:12px 8px;border-radius:12px;
-    background:var(--surface);border:1px solid var(--border);
-  }
-  .count-stat .num{font-size:1.5rem;font-weight:700;color:var(--accent)}
-  .count-stat .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:4px}
-
-  /* JSON Formatter */
-  .json-output{
-    max-height:300px;overflow:auto;white-space:pre-wrap;
-    scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);
-    -webkit-overflow-scrolling:touch;
-  }
-
-  /* Timer */
-  .timer-display{
-    font-size:2.5rem;font-weight:700;text-align:center;
-    font-family:'SF Mono',Monaco,Consolas,monospace;
-    color:var(--accent);margin:16px 0;letter-spacing:2px;
-  }
-  .timer-btns{display:flex;gap:10px}
-  .timer-btns .tool-btn{flex:1}
-
-  /* Status message */
-  .tool-status{
-    margin-top:8px;padding:8px 12px;border-radius:8px;font-size:.8rem;
-    text-align:center;display:none;
-  }
-  .tool-status.error{display:block;background:rgba(220,38,38,.15);color:#ef4444;border:1px solid rgba(220,38,38,.3)}
-  .tool-status.success{display:block;background:rgba(16,185,129,.15);color:#10b981;border:1px solid rgba(16,185,129,.3)}
-  .tool-status.loading{display:block;background:rgba(59,130,246,.15);color:#3b82f6;border:1px solid rgba(59,130,246,.3)}
-
-  /* Scroll to Top Button */
-  .scroll-top-btn{
-    position:fixed;bottom:24px;right:24px;z-index:999;
-    width:52px;height:52px;border-radius:50%;border:none;
-    background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;
-    font-size:1.4rem;cursor:pointer;display:none;align-items:center;justify-content:center;
-    box-shadow:0 4px 20px rgba(220,38,38,.4);transition:all .3s;
-    touch-action:manipulation;-webkit-tap-highlight-color:transparent;
-  }
-  .scroll-top-btn.visible{display:flex}
-  .scroll-top-btn:hover{transform:translateY(-3px);box-shadow:0 6px 30px rgba(220,38,38,.5)}
-  .scroll-top-btn:active{transform:scale(.92)}
-  @media(max-width:768px){
-    .scroll-top-btn{bottom:20px;right:16px;width:48px;height:48px;font-size:1.2rem}
-  }
-
-  /* Emoji Grid */
-  .emoji-grid{
-    display:grid;grid-template-columns:repeat(8,1fr);gap:4px;margin-top:12px;
-    max-height:240px;overflow-y:auto;-webkit-overflow-scrolling:touch;
-    scrollbar-width:thin;scrollbar-color:var(--accent) var(--surface);
-  }
-  .emoji-cell{
-    font-size:1.5rem;text-align:center;padding:8px 0;border-radius:8px;
-    cursor:pointer;transition:all .15s;touch-action:manipulation;
-    background:transparent;border:none;
-  }
-  .emoji-cell:hover{background:var(--surface)}
-  .emoji-cell:active{transform:scale(1.3);background:var(--border)}
-  @media(max-width:400px){.emoji-grid{grid-template-columns:repeat(6,1fr)}}
-
-  /* Diff output */
-  .diff-output{white-space:pre-wrap;font-size:.8rem;line-height:1.6;max-height:300px;overflow:auto;-webkit-overflow-scrolling:touch}
-  .diff-add{background:rgba(16,185,129,.15);color:#10b981}
-  .diff-del{background:rgba(220,38,38,.15);color:#ef4444;text-decoration:line-through}
-  .diff-same{color:var(--text-muted)}
-
-  /* Regex matches */
-  .regex-match{background:rgba(220,38,38,.2);color:var(--accent);padding:1px 2px;border-radius:3px}
-
-  /* Countdown */
-  .countdown-display{
-    font-size:2rem;font-weight:700;text-align:center;
-    font-family:'SF Mono',Monaco,Consolas,monospace;
-    color:var(--accent);margin:12px 0;letter-spacing:1px;
-  }
-  @media(max-width:768px){.countdown-display{font-size:1.5rem}}
-
-  /* Tip calc result */
-  .tip-result{
-    display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:12px;
-  }
-  .tip-val{
-    text-align:center;padding:12px 8px;border-radius:12px;
-    background:var(--surface);border:1px solid var(--border);
-  }
-  .tip-val .num{font-size:1.3rem;font-weight:700;color:var(--accent)}
-  .tip-val .label{font-size:.7rem;color:var(--text-muted);text-transform:uppercase;margin-top:4px}
-
-  /* Footer */
-  .footer{
-    text-align:center;padding:30px 20px;color:var(--text-muted);font-size:.8rem;
-    border-top:1px solid var(--border);
-  }
-
-  /* Mobile-specific */
-  @media(max-width:768px){
-    .header{padding:30px 16px 20px}
-    .header h1{font-size:1.8rem}
-    .header p{font-size:.9rem}
-    .tool-card{padding:20px}
-    .tool-card h2{font-size:1.1rem}
-    .timer-display{font-size:2rem}
-    .count-stat .num{font-size:1.2rem}
-    .tool-row{gap:8px}
-    .footer{padding-bottom:calc(30px + env(safe-area-inset-bottom))}
-  }
-
-  /* Safe area insets for iPhone notch/Dynamic Island */
-  body{
-    padding-top:env(safe-area-inset-top);
-    padding-left:env(safe-area-inset-left);
-    padding-right:env(safe-area-inset-right);
-  }
-  #scrollTopBtn{
-    bottom:calc(30px + env(safe-area-inset-bottom))!important;
-    right:calc(20px + env(safe-area-inset-right))!important;
-  }
-
-  /* Reduced motion support */
-  @media(prefers-reduced-motion:reduce){
-    *,*::before,*::after{
-      animation-duration:0.01ms!important;
-      animation-iteration-count:1!important;
-      transition-duration:0.01ms!important;
-      scroll-behavior:auto!important;
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#0a0a0a" media="(prefers-color-scheme: dark)">
+  <meta name="theme-color" content="#faf5f5" media="(prefers-color-scheme: light)">
+  <meta name="color-scheme" content="dark light">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <link rel="icon" type="image/svg+xml"
+    href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZGMyNjI2Ii8+PHBvbHlnb24gcG9pbnRzPSIzNSwyNSA3NSw1MCAzNSw3NSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
+  <title>Site Tools — Powerful Free Websites Library</title>
+  <meta name="description"
+    content="Free browser-based tools: QR Code Generator, Password Generator, Color Picker, Text Counter, Base64 Encoder, and more.">
+  <link rel="icon" href="https://fav.farm/🔧">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box
     }
-  }
 
-  /* Performance: lazy render off-screen tool cards */
-  .tool-card{
-    contain:layout style;
-    content-visibility:auto;
-    contain-intrinsic-size:auto 400px;
-  }
+    :root {
+      --bg: #0a0a0a;
+      --surface: #141414;
+      --card: #1a1a1a;
+      --border: #2a2a2a;
+      --text: #f5f5f5;
+      --text-dim: #a3a3a3;
+      --text-muted: #737373;
+      --accent: #dc2626;
+      --accent-hover: #ef4444;
+      --accent-glow: rgba(220, 38, 38, .3);
+    }
 
-  /* Touch scrolling enhancements */
-  html{
-    overscroll-behavior-y:none;
-    -webkit-text-size-adjust:100%;
-    text-size-adjust:100%;
-  }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      padding-bottom: env(safe-area-inset-bottom, 0);
+      -webkit-text-size-adjust: 100%;
+    }
 
-  /* Better touch feedback on tool buttons */
-  @media(hover:none) and (pointer:coarse){
-    .tool-btn:active,.back-btn:active{transform:scale(.96);transition:transform .1s}
-    .tool-card:active{transform:scale(.99);transition:transform .15s}
-  }
+    a {
+      color: var(--accent);
+      text-decoration: none
+    }
 
-  /* Smaller screens get tighter layout */
-  @media(max-width:380px){
-    .header h1{font-size:1.5rem}
-    .tool-card{padding:16px}
-    .tool-card h2{font-size:1rem}
-    .tool-btn{padding:12px 16px;font-size:.85rem}
-    .tool-input,.tool-textarea{font-size:16px;padding:10px 12px}
-  }
-</style>
+    a:hover {
+      text-decoration: underline
+    }
+
+    /* Header */
+    .header {
+      text-align: center;
+      padding: 40px 20px 30px;
+      background: linear-gradient(180deg, rgba(220, 38, 38, .08) 0%, transparent 100%);
+    }
+
+    .header h1 {
+      font-size: 2.2rem;
+      font-weight: 800;
+      margin-bottom: 8px;
+      background: linear-gradient(135deg, #fff 30%, #dc2626 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .header p {
+      color: var(--text-dim);
+      font-size: 1rem;
+      margin-bottom: 20px
+    }
+
+    .home-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: .95rem;
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      text-decoration: none;
+      transition: all .3s;
+      box-shadow: 0 4px 20px rgba(220, 38, 38, .3);
+    }
+
+    .home-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 30px rgba(220, 38, 38, .4);
+      text-decoration: none
+    }
+
+    /* Tools Grid */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 24px;
+      padding: 0 24px 60px;
+      max-width: 1200px;
+      margin: 0 auto;
+      scroll-margin-top: 80px;
+    }
+
+    @media(max-width:400px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+        padding: 0 12px 60px;
+        gap: 16px
+      }
+    }
+
+    @media(min-width:401px) and (max-width:768px) {
+      .tools-grid {
+        grid-template-columns: 1fr;
+        padding: 0 16px 60px;
+        gap: 20px
+      }
+    }
+
+    /* Filter Bar (Mobile UX) */
+    .tools-filter {
+      display: flex;
+      gap: 8px;
+      padding: 12px 24px;
+      margin-bottom: 20px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(10, 10, 10, 0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .tools-filter::-webkit-scrollbar {
+      display: none
+    }
+
+    .filter-btn {
+      white-space: nowrap;
+      padding: 8px 16px;
+      border-radius: 50px;
+      font-size: .85rem;
+      font-weight: 600;
+      background: var(--surface);
+      color: var(--text-muted);
+      border: 1px solid var(--border);
+      cursor: pointer;
+      transition: all .2s;
+    }
+
+    .filter-btn:hover {
+      color: var(--text);
+      border-color: var(--text-dim)
+    }
+
+    .filter-btn.active {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent)
+    }
+
+    /* Tool Card */
+    .tool-card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 28px;
+      transition: all .3s;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tool-card:hover {
+      border-color: rgba(220, 38, 38, .3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 30px rgba(0, 0, 0, .3)
+    }
+
+    .tool-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 3px;
+      background: linear-gradient(90deg, #dc2626, #f59e0b, #10b981, #3b82f6, #8b5cf6);
+      opacity: 0;
+      transition: opacity .3s;
+    }
+
+    .tool-card:hover::before {
+      opacity: 1
+    }
+
+    .tool-icon {
+      font-size: 2rem;
+      margin-bottom: 12px
+    }
+
+    .tool-card h2 {
+      font-size: 1.2rem;
+      font-weight: 700;
+      margin-bottom: 8px
+    }
+
+    .tool-card .tool-desc {
+      color: var(--text-dim);
+      font-size: .85rem;
+      margin-bottom: 16px;
+      line-height: 1.5
+    }
+
+    /* Form Elements */
+    .tool-input {
+      width: 100%;
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--text);
+      font-size: 16px;
+      outline: none;
+      transition: border-color .2s;
+      font-family: inherit;
+      -webkit-appearance: none;
+      appearance: none;
+    }
+
+    .tool-input:focus {
+      border-color: var(--accent)
+    }
+
+    textarea.tool-input {
+      resize: vertical;
+      min-height: 80px
+    }
+
+    .tool-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 12px;
+      border: none;
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all .2s;
+      margin-top: 12px;
+      -webkit-appearance: none;
+      appearance: none;
+      touch-action: manipulation;
+    }
+
+    .tool-btn:hover {
+      opacity: .9;
+      transform: translateY(-1px)
+    }
+
+    .tool-btn:active {
+      transform: scale(.98);
+      opacity: .85
+    }
+
+    .tool-btn.secondary {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text)
+    }
+
+    .tool-btn.secondary:hover {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    .tool-btn.secondary:active {
+      background: var(--border)
+    }
+
+    .tool-output {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      font-size: .85rem;
+      color: var(--text);
+      word-break: break-all;
+      min-height: 44px;
+      display: none;
+      position: relative;
+    }
+
+    .tool-output.show {
+      display: block
+    }
+
+    .tool-output .copy-out {
+      position: absolute;
+      top: 8px;
+      right: 8px;
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 6px 12px;
+      color: var(--text-dim);
+      font-size: .75rem;
+      cursor: pointer;
+      transition: all .2s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+      min-width: 44px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .tool-output .copy-out:hover {
+      color: var(--accent);
+      border-color: var(--accent)
+    }
+
+    .tool-output .copy-out:active {
+      background: var(--border)
+    }
+
+    .tool-row {
+      display: flex;
+      gap: 10px;
+      margin-top: 12px
+    }
+
+    .tool-row>* {
+      flex: 1
+    }
+
+    .slider-row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 12px
+    }
+
+    .slider-row input[type=range] {
+      flex: 1;
+      accent-color: var(--accent);
+      height: 24px
+    }
+
+    .slider-row span {
+      color: var(--text-dim);
+      font-size: .85rem;
+      min-width: 30px
+    }
+
+    .checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-top: 10px;
+      color: var(--text-dim);
+      font-size: .9rem;
+      min-height: 44px
+    }
+
+    .checkbox-row input[type=checkbox] {
+      accent-color: var(--accent);
+      width: 20px;
+      height: 20px;
+      cursor: pointer
+    }
+
+    .checkbox-row label {
+      cursor: pointer
+    }
+
+    /* QR Code */
+    #qrOutput {
+      text-align: center
+    }
+
+    #qrOutput canvas,
+    #qrOutput img {
+      border-radius: 12px;
+      max-width: 100%
+    }
+
+    /* Color Picker */
+    .color-preview {
+      width: 100%;
+      height: 80px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      margin-top: 12px;
+      transition: background .2s;
+    }
+
+    .color-values {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .color-val {
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      font-family: monospace;
+      font-size: .8rem;
+      color: var(--text-dim);
+      text-align: center;
+      cursor: pointer;
+      transition: all .2s;
+      touch-action: manipulation;
+    }
+
+    .color-val:active {
+      border-color: var(--accent);
+      color: var(--accent)
+    }
+
+    /* Word Counter */
+    .count-stats {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 8px;
+      margin-top: 12px
+    }
+
+    .count-stat {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .count-stat .num {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent)
+    }
+
+    .count-stat .label {
+      font-size: .7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    /* JSON Formatter */
+    .json-output {
+      max-height: 300px;
+      overflow: auto;
+      white-space: pre-wrap;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--surface);
+      -webkit-overflow-scrolling: touch;
+    }
+
+    /* Timer */
+    .timer-display {
+      font-size: 2.5rem;
+      font-weight: 700;
+      text-align: center;
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      color: var(--accent);
+      margin: 16px 0;
+      letter-spacing: 2px;
+    }
+
+    .timer-btns {
+      display: flex;
+      gap: 10px
+    }
+
+    .timer-btns .tool-btn {
+      flex: 1
+    }
+
+    /* Status message */
+    .tool-status {
+      margin-top: 8px;
+      padding: 8px 12px;
+      border-radius: 8px;
+      font-size: .8rem;
+      text-align: center;
+      display: none;
+    }
+
+    .tool-status.error {
+      display: block;
+      background: rgba(220, 38, 38, .15);
+      color: #ef4444;
+      border: 1px solid rgba(220, 38, 38, .3)
+    }
+
+    .tool-status.success {
+      display: block;
+      background: rgba(16, 185, 129, .15);
+      color: #10b981;
+      border: 1px solid rgba(16, 185, 129, .3)
+    }
+
+    .tool-status.loading {
+      display: block;
+      background: rgba(59, 130, 246, .15);
+      color: #3b82f6;
+      border: 1px solid rgba(59, 130, 246, .3)
+    }
+
+    /* Scroll to Top Button */
+    .scroll-top-btn {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 999;
+      width: 52px;
+      height: 52px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #dc2626, #b91c1c);
+      color: #fff;
+      font-size: 1.4rem;
+      cursor: pointer;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 20px rgba(220, 38, 38, .4);
+      transition: all .3s;
+      touch-action: manipulation;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .scroll-top-btn.visible {
+      display: flex
+    }
+
+    .scroll-top-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 6px 30px rgba(220, 38, 38, .5)
+    }
+
+    .scroll-top-btn:active {
+      transform: scale(.92)
+    }
+
+    @media(max-width:768px) {
+      .scroll-top-btn {
+        bottom: 20px;
+        right: 16px;
+        width: 48px;
+        height: 48px;
+        font-size: 1.2rem
+      }
+    }
+
+    /* Emoji Grid */
+    .emoji-grid {
+      display: grid;
+      grid-template-columns: repeat(8, 1fr);
+      gap: 4px;
+      margin-top: 12px;
+      max-height: 240px;
+      overflow-y: auto;
+      -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
+      scrollbar-color: var(--accent) var(--surface);
+    }
+
+    .emoji-cell {
+      font-size: 1.5rem;
+      text-align: center;
+      padding: 8px 0;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all .15s;
+      touch-action: manipulation;
+      background: transparent;
+      border: none;
+    }
+
+    .emoji-cell:hover {
+      background: var(--surface)
+    }
+
+    .emoji-cell:active {
+      transform: scale(1.3);
+      background: var(--border)
+    }
+
+    @media(max-width:400px) {
+      .emoji-grid {
+        grid-template-columns: repeat(6, 1fr)
+      }
+    }
+
+    /* Diff output */
+    .diff-output {
+      white-space: pre-wrap;
+      font-size: .8rem;
+      line-height: 1.6;
+      max-height: 300px;
+      overflow: auto;
+      -webkit-overflow-scrolling: touch
+    }
+
+    .diff-add {
+      background: rgba(16, 185, 129, .15);
+      color: #10b981
+    }
+
+    .diff-del {
+      background: rgba(220, 38, 38, .15);
+      color: #ef4444;
+      text-decoration: line-through
+    }
+
+    .diff-same {
+      color: var(--text-muted)
+    }
+
+    /* Regex matches */
+    .regex-match {
+      background: rgba(220, 38, 38, .2);
+      color: var(--accent);
+      padding: 1px 2px;
+      border-radius: 3px
+    }
+
+    /* Countdown */
+    .countdown-display {
+      font-size: 2rem;
+      font-weight: 700;
+      text-align: center;
+      font-family: 'SF Mono', Monaco, Consolas, monospace;
+      color: var(--accent);
+      margin: 12px 0;
+      letter-spacing: 1px;
+    }
+
+    @media(max-width:768px) {
+      .countdown-display {
+        font-size: 1.5rem
+      }
+    }
+
+    /* Tip calc result */
+    .tip-result {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .tip-val {
+      text-align: center;
+      padding: 12px 8px;
+      border-radius: 12px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+    }
+
+    .tip-val .num {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: var(--accent)
+    }
+
+    .tip-val .label {
+      font-size: .7rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      margin-top: 4px
+    }
+
+    /* Footer */
+    .footer {
+      text-align: center;
+      padding: 30px 20px;
+      color: var(--text-muted);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+    }
+
+    /* Mobile-specific */
+    @media(max-width:768px) {
+      .header {
+        padding: 30px 16px 20px
+      }
+
+      .header h1 {
+        font-size: 1.8rem
+      }
+
+      .header p {
+        font-size: .9rem
+      }
+
+      .tool-card {
+        padding: 20px
+      }
+
+      .tool-card h2 {
+        font-size: 1.1rem
+      }
+
+      .timer-display {
+        font-size: 2rem
+      }
+
+      .count-stat .num {
+        font-size: 1.2rem
+      }
+
+      .tool-row {
+        gap: 8px
+      }
+
+      .footer {
+        padding-bottom: calc(30px + env(safe-area-inset-bottom))
+      }
+    }
+
+    /* Safe area insets for iPhone notch/Dynamic Island */
+    body {
+      padding-top: env(safe-area-inset-top);
+      padding-left: env(safe-area-inset-left);
+      padding-right: env(safe-area-inset-right);
+    }
+
+    #scrollTopBtn {
+      bottom: calc(30px + env(safe-area-inset-bottom)) !important;
+      right: calc(20px + env(safe-area-inset-right)) !important;
+    }
+
+    /* Reduced motion support */
+    @media(prefers-reduced-motion:reduce) {
+
+      *,
+      *::before,
+      *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+      }
+    }
+
+    /* Performance: lazy render off-screen tool cards */
+    .tool-card {
+      contain: layout style;
+      content-visibility: auto;
+      contain-intrinsic-size: auto 400px;
+    }
+
+    /* Touch scrolling enhancements */
+    html {
+      overscroll-behavior-y: none;
+      -webkit-text-size-adjust: 100%;
+      text-size-adjust: 100%;
+    }
+
+    /* Prevent iOS zoom on inputs */
+    @media screen and (max-width: 768px) {
+
+      input[type="text"],
+      input[type="number"],
+      input[type="url"],
+      input[type="email"],
+      textarea {
+        font-size: 16px !important;
+      }
+    }
+
+    /* Better touch feedback on tool buttons */
+    @media(hover:none) and (pointer:coarse) {
+
+      .tool-btn:active,
+      .back-btn:active {
+        transform: scale(.96);
+        transition: transform .1s
+      }
+
+      .tool-card:active {
+        transform: scale(.99);
+        transition: transform .15s
+      }
+    }
+
+    /* Smaller screens get tighter layout */
+    @media(max-width:380px) {
+      .header h1 {
+        font-size: 1.5rem
+      }
+
+      .tool-card {
+        padding: 16px
+      }
+
+      .tool-card h2 {
+        font-size: 1rem
+      }
+
+      .tool-btn {
+        padding: 12px 16px;
+        font-size: .85rem
+      }
+
+      .tool-input,
+      .tool-textarea {
+        font-size: 16px;
+        padding: 10px 12px
+      }
+    }
+  </style>
 </head>
+
 <body>
 
-<div class="header">
-  <h1>🔧 Site Tools</h1>
-  <p>Free browser-based utilities — no signup, no tracking, works offline.</p>
-  <a href="/" class="home-btn">🏠 Back to Library</a>
-</div>
-
-<div class="tools-grid">
-
-  <!-- QR Code Generator -->
-  <div class="tool-card">
-    <div class="tool-icon">📱</div>
-    <h2>QR Code Generator</h2>
-    <p class="tool-desc">Generate QR codes for any URL, text, or contact info. Download as PNG.</p>
-    <input type="text" class="tool-input" id="qrInput" placeholder="Enter URL or text..." value="https://powerful-websites-library.vercel.app">
-    <button class="tool-btn" id="qrBtn" onclick="generateQR()">Generate QR Code</button>
-    <div id="qrStatus" class="tool-status"></div>
-    <div class="tool-output" id="qrOutput"></div>
-    <button class="tool-btn secondary" id="qrDownload" style="display:none" onclick="downloadQR()">⬇ Download QR Code</button>
+  <div class="header">
+    <h1>🔧 Site Tools</h1>
+    <p>Free browser-based utilities — no signup, no tracking, works offline.</p>
+    <a href="/" class="home-btn">🏠 Back to Library</a>
   </div>
 
-  <!-- Password Generator -->
-  <div class="tool-card">
-    <div class="tool-icon">🔐</div>
-    <h2>Password Generator</h2>
-    <p class="tool-desc">Generate strong, random passwords with customizable length and character types.</p>
-    <div class="slider-row">
-      <span>Length:</span>
-      <input type="range" id="pwLen" min="8" max="64" value="16" oninput="document.getElementById('pwLenVal').textContent=this.value">
-      <span id="pwLenVal">16</span>
+  <!-- Mobile Filter Bar -->
+  <div class="tools-filter" id="toolsFilter">
+    <button class="filter-btn active" data-filter="all">All Tools</button>
+    <button class="filter-btn" data-filter="media">Media & Downloads</button>
+    <button class="filter-btn" data-filter="generators">Generators</button>
+    <button class="filter-btn" data-filter="text">Text & Code</button>
+    <button class="filter-btn" data-filter="calculators">Calculators</button>
+  </div>
+
+  <div class="tools-grid">
+
+    <!-- Media Downloader (Powered by Cobalt) -->
+    <div class="tool-card" data-cat="media">
+      <div class="tool-icon">⬇️</div>
+      <h2>Universal Media Downloader</h2>
+      <p class="tool-desc">Download videos/audio from YouTube, Instagram, Twitter, TikTok, and more. No Ads. Fast API.
+      </p>
+      <input type="url" class="tool-input" id="mediaUrl" placeholder="Paste video link here (https://...)">
+      <div class="tool-row" style="margin-top:12px">
+        <button class="tool-btn" onclick="downloadMedia('video')">Download Video</button>
+        <button class="tool-btn secondary" onclick="downloadMedia('audio')">Audio Only</button>
+      </div>
+      <div id="mediaStatus" class="tool-status"></div>
     </div>
-    <div class="checkbox-row"><input type="checkbox" id="pwUpper" checked><label for="pwUpper">Uppercase (A-Z)</label></div>
-    <div class="checkbox-row"><input type="checkbox" id="pwLower" checked><label for="pwLower">Lowercase (a-z)</label></div>
-    <div class="checkbox-row"><input type="checkbox" id="pwNumbers" checked><label for="pwNumbers">Numbers (0-9)</label></div>
-    <div class="checkbox-row"><input type="checkbox" id="pwSymbols" checked><label for="pwSymbols">Symbols (!@#$%)</label></div>
-    <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
-    <div class="tool-output" id="pwOutput"></div>
-  </div>
 
-  <!-- Color Picker -->
-  <div class="tool-card">
-    <div class="tool-icon">🎨</div>
-    <h2>Color Picker & Converter</h2>
-    <p class="tool-desc">Pick any color and get HEX, RGB, and HSL values. Tap a value to copy it.</p>
-    <input type="color" class="tool-input" id="colorInput" value="#dc2626" style="height:50px;padding:4px;cursor:pointer" oninput="updateColor(this.value)">
-    <div class="color-preview" id="colorPreview" style="background:#dc2626"></div>
-    <div class="color-values">
-      <div class="color-val" id="colorHex" onclick="copyColorVal(this)">#dc2626</div>
-      <div class="color-val" id="colorRgb" onclick="copyColorVal(this)">rgb(220, 38, 38)</div>
-      <div class="color-val" id="colorHsl" onclick="copyColorVal(this)">hsl(0, 72%, 51%)</div>
-      <div class="color-val" id="colorRgba" onclick="copyColorVal(this)">rgba(220, 38, 38, 1)</div>
+    <!-- QR Code Generator -->
+    <div class="tool-card" data-cat="generators">
+      <div class="tool-icon">📱</div>
+      <h2>QR Code Generator</h2>
+      <p class="tool-desc">Generate QR codes for any URL, text, or contact info. Download as PNG.</p>
+      <input type="text" class="tool-input" id="qrInput" placeholder="Enter URL or text..."
+        value="https://powerful-websites-library.vercel.app">
+      <button class="tool-btn" id="qrBtn" onclick="generateQR()">Generate QR Code</button>
+      <div id="qrStatus" class="tool-status"></div>
+      <div class="tool-output" id="qrOutput"></div>
+      <button class="tool-btn secondary" id="qrDownload" style="display:none" onclick="downloadQR()">⬇ Download QR
+        Code</button>
     </div>
-  </div>
 
-  <!-- Word & Character Counter -->
-  <div class="tool-card">
-    <div class="tool-icon">📝</div>
-    <h2>Word & Character Counter</h2>
-    <p class="tool-desc">Count words, characters, sentences, and paragraphs. Estimate reading time.</p>
-    <textarea class="tool-input" id="wcInput" placeholder="Paste or type your text here..." oninput="countWords()"></textarea>
-    <div class="count-stats">
-      <div class="count-stat"><div class="num" id="wcWords">0</div><div class="label">Words</div></div>
-      <div class="count-stat"><div class="num" id="wcChars">0</div><div class="label">Characters</div></div>
-      <div class="count-stat"><div class="num" id="wcSentences">0</div><div class="label">Sentences</div></div>
+    <!-- Password Generator -->
+    <div class="tool-card">
+      <div class="tool-icon">🔐</div>
+      <h2>Password Generator</h2>
+      <p class="tool-desc">Generate strong, random passwords with customizable length and character types.</p>
+      <div class="slider-row">
+        <span>Length:</span>
+        <input type="range" id="pwLen" min="8" max="64" value="16"
+          oninput="document.getElementById('pwLenVal').textContent=this.value">
+        <span id="pwLenVal">16</span>
+      </div>
+      <div class="checkbox-row"><input type="checkbox" id="pwUpper" checked><label for="pwUpper">Uppercase (A-Z)</label>
+      </div>
+      <div class="checkbox-row"><input type="checkbox" id="pwLower" checked><label for="pwLower">Lowercase (a-z)</label>
+      </div>
+      <div class="checkbox-row"><input type="checkbox" id="pwNumbers" checked><label for="pwNumbers">Numbers
+          (0-9)</label></div>
+      <div class="checkbox-row"><input type="checkbox" id="pwSymbols" checked><label for="pwSymbols">Symbols
+          (!@#$%)</label></div>
+      <button class="tool-btn" onclick="generatePassword()">Generate Password</button>
+      <div class="tool-output" id="pwOutput"></div>
     </div>
-    <div class="count-stats" style="margin-top:8px">
-      <div class="count-stat"><div class="num" id="wcParas">0</div><div class="label">Paragraphs</div></div>
-      <div class="count-stat"><div class="num" id="wcReadTime">0m</div><div class="label">Read Time</div></div>
-      <div class="count-stat"><div class="num" id="wcSpeakTime">0m</div><div class="label">Speak Time</div></div>
+
+    <!-- Color Picker -->
+    <div class="tool-card">
+      <div class="tool-icon">🎨</div>
+      <h2>Color Picker & Converter</h2>
+      <p class="tool-desc">Pick any color and get HEX, RGB, and HSL values. Tap a value to copy it.</p>
+      <input type="color" class="tool-input" id="colorInput" value="#dc2626"
+        style="height:50px;padding:4px;cursor:pointer" oninput="updateColor(this.value)">
+      <div class="color-preview" id="colorPreview" style="background:#dc2626"></div>
+      <div class="color-values">
+        <div class="color-val" id="colorHex" onclick="copyColorVal(this)">#dc2626</div>
+        <div class="color-val" id="colorRgb" onclick="copyColorVal(this)">rgb(220, 38, 38)</div>
+        <div class="color-val" id="colorHsl" onclick="copyColorVal(this)">hsl(0, 72%, 51%)</div>
+        <div class="color-val" id="colorRgba" onclick="copyColorVal(this)">rgba(220, 38, 38, 1)</div>
+      </div>
     </div>
-  </div>
 
-  <!-- Base64 Encoder/Decoder -->
-  <div class="tool-card">
-    <div class="tool-icon">🔄</div>
-    <h2>Base64 Encoder / Decoder</h2>
-    <p class="tool-desc">Encode text to Base64 or decode Base64 back to text.</p>
-    <textarea class="tool-input" id="b64Input" placeholder="Enter text to encode or Base64 to decode..."></textarea>
-    <div class="tool-row">
-      <button class="tool-btn" onclick="b64Encode()">Encode</button>
-      <button class="tool-btn secondary" onclick="b64Decode()">Decode</button>
+    <!-- Word & Character Counter -->
+    <div class="tool-card">
+      <div class="tool-icon">📝</div>
+      <h2>Word & Character Counter</h2>
+      <p class="tool-desc">Count words, characters, sentences, and paragraphs. Estimate reading time.</p>
+      <textarea class="tool-input" id="wcInput" placeholder="Paste or type your text here..."
+        oninput="countWords()"></textarea>
+      <div class="count-stats">
+        <div class="count-stat">
+          <div class="num" id="wcWords">0</div>
+          <div class="label">Words</div>
+        </div>
+        <div class="count-stat">
+          <div class="num" id="wcChars">0</div>
+          <div class="label">Characters</div>
+        </div>
+        <div class="count-stat">
+          <div class="num" id="wcSentences">0</div>
+          <div class="label">Sentences</div>
+        </div>
+      </div>
+      <div class="count-stats" style="margin-top:8px">
+        <div class="count-stat">
+          <div class="num" id="wcParas">0</div>
+          <div class="label">Paragraphs</div>
+        </div>
+        <div class="count-stat">
+          <div class="num" id="wcReadTime">0m</div>
+          <div class="label">Read Time</div>
+        </div>
+        <div class="count-stat">
+          <div class="num" id="wcSpeakTime">0m</div>
+          <div class="label">Speak Time</div>
+        </div>
+      </div>
     </div>
-    <div class="tool-output" id="b64Output"></div>
-  </div>
 
-  <!-- JSON Formatter -->
-  <div class="tool-card">
-    <div class="tool-icon">📋</div>
-    <h2>JSON Formatter & Validator</h2>
-    <p class="tool-desc">Paste messy JSON and get it beautifully formatted. Validates syntax too.</p>
-    <textarea class="tool-input" id="jsonInput" placeholder='Paste JSON here... e.g. {"name":"Cory","cool":true}'></textarea>
-    <button class="tool-btn" onclick="formatJSON()">Format & Validate</button>
-    <div class="tool-output json-output" id="jsonOutput"></div>
-  </div>
-
-  <!-- Lorem Ipsum Generator -->
-  <div class="tool-card">
-    <div class="tool-icon">📄</div>
-    <h2>Lorem Ipsum Generator</h2>
-    <p class="tool-desc">Generate placeholder text for your designs and mockups.</p>
-    <div class="slider-row">
-      <span>Paragraphs:</span>
-      <input type="range" id="loremCount" min="1" max="10" value="3" oninput="document.getElementById('loremCountVal').textContent=this.value">
-      <span id="loremCountVal">3</span>
+    <!-- Base64 Encoder/Decoder -->
+    <div class="tool-card">
+      <div class="tool-icon">🔄</div>
+      <h2>Base64 Encoder / Decoder</h2>
+      <p class="tool-desc">Encode text to Base64 or decode Base64 back to text.</p>
+      <textarea class="tool-input" id="b64Input" placeholder="Enter text to encode or Base64 to decode..."></textarea>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="b64Encode()">Encode</button>
+        <button class="tool-btn secondary" onclick="b64Decode()">Decode</button>
+      </div>
+      <div class="tool-output" id="b64Output"></div>
     </div>
-    <button class="tool-btn" onclick="generateLorem()">Generate Text</button>
-    <div class="tool-output" id="loremOutput" style="white-space:pre-wrap"></div>
-  </div>
 
-  <!-- Stopwatch / Timer -->
-  <div class="tool-card">
-    <div class="tool-icon">⏱</div>
-    <h2>Stopwatch & Timer</h2>
-    <p class="tool-desc">A simple stopwatch with lap tracking. Works even when you switch tabs.</p>
-    <div class="timer-display" id="timerDisplay">00:00:00.0</div>
-    <div class="timer-btns">
-      <button class="tool-btn" id="timerStartBtn" onclick="timerToggle()">▶ Start</button>
-      <button class="tool-btn secondary" onclick="timerLap()">🏁 Lap</button>
-      <button class="tool-btn secondary" onclick="timerReset()">↺ Reset</button>
+    <!-- JSON Formatter -->
+    <div class="tool-card">
+      <div class="tool-icon">📋</div>
+      <h2>JSON Formatter & Validator</h2>
+      <p class="tool-desc">Paste messy JSON and get it beautifully formatted. Validates syntax too.</p>
+      <textarea class="tool-input" id="jsonInput"
+        placeholder='Paste JSON here... e.g. {"name":"Cory","cool":true}'></textarea>
+      <button class="tool-btn" onclick="formatJSON()">Format & Validate</button>
+      <div class="tool-output json-output" id="jsonOutput"></div>
     </div>
-    <div class="tool-output" id="timerLaps" style="white-space:pre-wrap;font-size:.8rem"></div>
-  </div>
 
-  <!-- URL Encoder/Decoder -->
-  <div class="tool-card">
-    <div class="tool-icon">🔗</div>
-    <h2>URL Encoder / Decoder</h2>
-    <p class="tool-desc">Encode special characters in URLs or decode encoded URLs back to readable form.</p>
-    <textarea class="tool-input" id="urlInput" placeholder="Enter URL to encode or decode..."></textarea>
-    <div class="tool-row">
-      <button class="tool-btn" onclick="urlEncode()">Encode</button>
-      <button class="tool-btn secondary" onclick="urlDecode()">Decode</button>
+    <!-- Lorem Ipsum Generator -->
+    <div class="tool-card">
+      <div class="tool-icon">📄</div>
+      <h2>Lorem Ipsum Generator</h2>
+      <p class="tool-desc">Generate placeholder text for your designs and mockups.</p>
+      <div class="slider-row">
+        <span>Paragraphs:</span>
+        <input type="range" id="loremCount" min="1" max="10" value="3"
+          oninput="document.getElementById('loremCountVal').textContent=this.value">
+        <span id="loremCountVal">3</span>
+      </div>
+      <button class="tool-btn" onclick="generateLorem()">Generate Text</button>
+      <div class="tool-output" id="loremOutput" style="white-space:pre-wrap"></div>
     </div>
-    <div class="tool-output" id="urlOutput"></div>
-  </div>
 
-  <!-- Hash Generator -->
-  <div class="tool-card">
-    <div class="tool-icon">🛡</div>
-    <h2>Hash Generator (SHA-256)</h2>
-    <p class="tool-desc">Generate SHA-256 hashes for any text. Useful for verifying file integrity.</p>
-    <input type="text" class="tool-input" id="hashInput" placeholder="Enter text to hash...">
-    <button class="tool-btn" onclick="generateHash()">Generate Hash</button>
-    <div class="tool-output" id="hashOutput"></div>
-  </div>
-
-  <!-- Case Converter -->
-  <div class="tool-card">
-    <div class="tool-icon">🔠</div>
-    <h2>Text Case Converter</h2>
-    <p class="tool-desc">Convert text between UPPERCASE, lowercase, Title Case, and more.</p>
-    <textarea class="tool-input" id="caseInput" placeholder="Type or paste text here..."></textarea>
-    <div class="tool-row">
-      <button class="tool-btn" onclick="convertCase('upper')">UPPER</button>
-      <button class="tool-btn secondary" onclick="convertCase('lower')">lower</button>
+    <!-- Stopwatch / Timer -->
+    <div class="tool-card">
+      <div class="tool-icon">⏱</div>
+      <h2>Stopwatch & Timer</h2>
+      <p class="tool-desc">A simple stopwatch with lap tracking. Works even when you switch tabs.</p>
+      <div class="timer-display" id="timerDisplay">00:00:00.0</div>
+      <div class="timer-btns">
+        <button class="tool-btn" id="timerStartBtn" onclick="timerToggle()">▶ Start</button>
+        <button class="tool-btn secondary" onclick="timerLap()">🏁 Lap</button>
+        <button class="tool-btn secondary" onclick="timerReset()">↺ Reset</button>
+      </div>
+      <div class="tool-output" id="timerLaps" style="white-space:pre-wrap;font-size:.8rem"></div>
     </div>
-    <div class="tool-row">
-      <button class="tool-btn secondary" onclick="convertCase('title')">Title Case</button>
-      <button class="tool-btn secondary" onclick="convertCase('sentence')">Sentence case</button>
+
+    <!-- URL Encoder/Decoder -->
+    <div class="tool-card">
+      <div class="tool-icon">🔗</div>
+      <h2>URL Encoder / Decoder</h2>
+      <p class="tool-desc">Encode special characters in URLs or decode encoded URLs back to readable form.</p>
+      <textarea class="tool-input" id="urlInput" placeholder="Enter URL to encode or decode..."></textarea>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="urlEncode()">Encode</button>
+        <button class="tool-btn secondary" onclick="urlDecode()">Decode</button>
+      </div>
+      <div class="tool-output" id="urlOutput"></div>
     </div>
-    <div class="tool-output" id="caseOutput"></div>
-  </div>
 
-  <!-- Markdown Preview -->
-  <div class="tool-card">
-    <div class="tool-icon">📑</div>
-    <h2>Markdown Previewer</h2>
-    <p class="tool-desc">Write Markdown and see rendered HTML instantly. Supports headings, bold, italic, code, and lists.</p>
-    <textarea class="tool-input" id="mdInput" placeholder="# Hello World&#10;&#10;**Bold** and *italic* text.&#10;&#10;- List item 1&#10;- List item 2" oninput="previewMD()"></textarea>
-    <div class="tool-output show" id="mdOutput" style="color:var(--text);line-height:1.6"></div>
-  </div>
-
-  <!-- ===== NEW TOOLS ===== -->
-
-  <!-- 13. UUID Generator -->
-  <div class="tool-card">
-    <div class="tool-icon">🆔</div>
-    <h2>UUID Generator</h2>
-    <p class="tool-desc">Generate random UUIDs (v4) for database keys, API tokens, or unique identifiers.</p>
-    <button class="tool-btn" onclick="generateUUID()">Generate UUID</button>
-    <button class="tool-btn secondary" onclick="generateBulkUUID()">Generate 5 UUIDs</button>
-    <div class="tool-output" id="uuidOutput"></div>
-  </div>
-
-  <!-- 14. Emoji Picker -->
-  <div class="tool-card">
-    <div class="tool-icon">😀</div>
-    <h2>Emoji Picker & Search</h2>
-    <p class="tool-desc">Search and tap to copy any emoji. Works great on mobile — tap an emoji to copy it.</p>
-    <input type="text" class="tool-input" id="emojiSearch" placeholder="Search emojis... (e.g. fire, heart, star)" oninput="filterEmojis()">
-    <div class="emoji-grid" id="emojiGrid"></div>
-    <div id="emojiStatus" class="tool-status"></div>
-  </div>
-
-  <!-- 15. Timestamp Converter -->
-  <div class="tool-card">
-    <div class="tool-icon">🕐</div>
-    <h2>Timestamp Converter</h2>
-    <p class="tool-desc">Convert between Unix timestamps and human-readable dates. Get the current timestamp instantly.</p>
-    <button class="tool-btn" onclick="getCurrentTimestamp()">Get Current Timestamp</button>
-    <input type="text" class="tool-input" id="tsInput" placeholder="Enter Unix timestamp (e.g. 1708700000) or date..." style="margin-top:12px">
-    <div class="tool-row">
-      <button class="tool-btn" onclick="tsToDate()">Timestamp → Date</button>
-      <button class="tool-btn secondary" onclick="dateToTs()">Date → Timestamp</button>
+    <!-- Hash Generator -->
+    <div class="tool-card">
+      <div class="tool-icon">🛡</div>
+      <h2>Hash Generator (SHA-256)</h2>
+      <p class="tool-desc">Generate SHA-256 hashes for any text. Useful for verifying file integrity.</p>
+      <input type="text" class="tool-input" id="hashInput" placeholder="Enter text to hash...">
+      <button class="tool-btn" onclick="generateHash()">Generate Hash</button>
+      <div class="tool-output" id="hashOutput"></div>
     </div>
-    <div class="tool-output" id="tsOutput"></div>
+
+    <!-- Case Converter -->
+    <div class="tool-card">
+      <div class="tool-icon">🔠</div>
+      <h2>Text Case Converter</h2>
+      <p class="tool-desc">Convert text between UPPERCASE, lowercase, Title Case, and more.</p>
+      <textarea class="tool-input" id="caseInput" placeholder="Type or paste text here..."></textarea>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="convertCase('upper')">UPPER</button>
+        <button class="tool-btn secondary" onclick="convertCase('lower')">lower</button>
+      </div>
+      <div class="tool-row">
+        <button class="tool-btn secondary" onclick="convertCase('title')">Title Case</button>
+        <button class="tool-btn secondary" onclick="convertCase('sentence')">Sentence case</button>
+      </div>
+      <div class="tool-output" id="caseOutput"></div>
+    </div>
+
+    <!-- Markdown Preview -->
+    <div class="tool-card">
+      <div class="tool-icon">📑</div>
+      <h2>Markdown Previewer</h2>
+      <p class="tool-desc">Write Markdown and see rendered HTML instantly. Supports headings, bold, italic, code, and
+        lists.</p>
+      <textarea class="tool-input" id="mdInput"
+        placeholder="# Hello World&#10;&#10;**Bold** and *italic* text.&#10;&#10;- List item 1&#10;- List item 2"
+        oninput="previewMD()"></textarea>
+      <div class="tool-output show" id="mdOutput" style="color:var(--text);line-height:1.6"></div>
+    </div>
+
+    <!-- ===== NEW TOOLS ===== -->
+
+    <!-- 13. UUID Generator -->
+    <div class="tool-card">
+      <div class="tool-icon">🆔</div>
+      <h2>UUID Generator</h2>
+      <p class="tool-desc">Generate random UUIDs (v4) for database keys, API tokens, or unique identifiers.</p>
+      <button class="tool-btn" onclick="generateUUID()">Generate UUID</button>
+      <button class="tool-btn secondary" onclick="generateBulkUUID()">Generate 5 UUIDs</button>
+      <div class="tool-output" id="uuidOutput"></div>
+    </div>
+
+    <!-- 14. Emoji Picker -->
+    <div class="tool-card">
+      <div class="tool-icon">😀</div>
+      <h2>Emoji Picker & Search</h2>
+      <p class="tool-desc">Search and tap to copy any emoji. Works great on mobile — tap an emoji to copy it.</p>
+      <input type="text" class="tool-input" id="emojiSearch" placeholder="Search emojis... (e.g. fire, heart, star)"
+        oninput="filterEmojis()">
+      <div class="emoji-grid" id="emojiGrid"></div>
+      <div id="emojiStatus" class="tool-status"></div>
+    </div>
+
+    <!-- 15. Timestamp Converter -->
+    <div class="tool-card">
+      <div class="tool-icon">🕐</div>
+      <h2>Timestamp Converter</h2>
+      <p class="tool-desc">Convert between Unix timestamps and human-readable dates. Get the current timestamp
+        instantly.</p>
+      <button class="tool-btn" onclick="getCurrentTimestamp()">Get Current Timestamp</button>
+      <input type="text" class="tool-input" id="tsInput" placeholder="Enter Unix timestamp (e.g. 1708700000) or date..."
+        style="margin-top:12px">
+      <div class="tool-row">
+        <button class="tool-btn" onclick="tsToDate()">Timestamp → Date</button>
+        <button class="tool-btn secondary" onclick="dateToTs()">Date → Timestamp</button>
+      </div>
+      <div class="tool-output" id="tsOutput"></div>
+    </div>
+
+    <!-- 16. Regex Tester -->
+    <div class="tool-card">
+      <div class="tool-icon">🔍</div>
+      <h2>Regex Tester</h2>
+      <p class="tool-desc">Test regular expressions against text in real-time. See matches highlighted instantly.</p>
+      <input type="text" class="tool-input" id="regexPattern" placeholder="Enter regex pattern (e.g. \d+)"
+        oninput="testRegex()">
+      <input type="text" class="tool-input" id="regexFlags" placeholder="Flags (e.g. gi)" value="gi"
+        style="margin-top:8px;max-width:120px" oninput="testRegex()">
+      <textarea class="tool-input" id="regexText" placeholder="Enter test text here..." style="margin-top:8px"
+        oninput="testRegex()"></textarea>
+      <div class="tool-output show" id="regexOutput" style="color:var(--text);line-height:1.6;word-break:break-word">
+      </div>
+      <div class="tool-output" id="regexMatches" style="font-size:.8rem"></div>
+    </div>
+
+    <!-- 17. Text Diff Checker -->
+    <div class="tool-card">
+      <div class="tool-icon">📊</div>
+      <h2>Text Diff Checker</h2>
+      <p class="tool-desc">Compare two texts and see the differences highlighted. Great for code reviews.</p>
+      <textarea class="tool-input" id="diffText1" placeholder="Original text..."></textarea>
+      <textarea class="tool-input" id="diffText2" placeholder="Modified text..." style="margin-top:8px"></textarea>
+      <button class="tool-btn" onclick="computeDiff()">Compare Texts</button>
+      <div class="tool-output diff-output" id="diffOutput"></div>
+    </div>
+
+    <!-- 18. Pixel/REM Converter -->
+    <div class="tool-card">
+      <div class="tool-icon">📐</div>
+      <h2>PX ↔ REM Converter</h2>
+      <p class="tool-desc">Convert between pixels and REM units. Set your base font size for accurate conversion.</p>
+      <div class="slider-row">
+        <span>Base:</span>
+        <input type="range" id="remBase" min="10" max="24" value="16"
+          oninput="document.getElementById('remBaseVal').textContent=this.value+'px';convertPxRem()">
+        <span id="remBaseVal">16px</span>
+      </div>
+      <input type="number" class="tool-input" id="pxInput" placeholder="Enter pixels (e.g. 24)" style="margin-top:12px"
+        oninput="convertPxRem()">
+      <div class="tool-output show" id="remOutput"
+        style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
+      <input type="number" class="tool-input" id="remInput" placeholder="Enter REM (e.g. 1.5)" style="margin-top:12px"
+        oninput="convertRemPx()">
+      <div class="tool-output show" id="pxOutput"
+        style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
+    </div>
+
+    <!-- 19. Tip Calculator -->
+    <div class="tool-card">
+      <div class="tool-icon">💰</div>
+      <h2>Tip Calculator</h2>
+      <p class="tool-desc">Calculate tips and split bills between friends. Quick and easy.</p>
+      <input type="number" class="tool-input" id="tipBill" placeholder="Bill amount ($)" oninput="calcTip()">
+      <div class="slider-row">
+        <span>Tip:</span>
+        <input type="range" id="tipPercent" min="0" max="30" value="18"
+          oninput="document.getElementById('tipPercentVal').textContent=this.value+'%';calcTip()">
+        <span id="tipPercentVal">18%</span>
+      </div>
+      <div class="slider-row">
+        <span>Split:</span>
+        <input type="range" id="tipSplit" min="1" max="12" value="1"
+          oninput="document.getElementById('tipSplitVal').textContent=this.value;calcTip()">
+        <span id="tipSplitVal">1</span>
+      </div>
+      <div class="tip-result">
+        <div class="tip-val">
+          <div class="num" id="tipAmount">$0.00</div>
+          <div class="label">Tip</div>
+        </div>
+        <div class="tip-val">
+          <div class="num" id="tipTotal">$0.00</div>
+          <div class="label">Total</div>
+        </div>
+        <div class="tip-val">
+          <div class="num" id="tipPerPerson">$0.00</div>
+          <div class="label">Per Person</div>
+        </div>
+        <div class="tip-val">
+          <div class="num" id="tipTipPP">$0.00</div>
+          <div class="label">Tip/Person</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 20. BMI Calculator -->
+    <div class="tool-card">
+      <div class="tool-icon">⚖️</div>
+      <h2>BMI Calculator</h2>
+      <p class="tool-desc">Calculate your Body Mass Index. Supports both metric (kg/cm) and imperial (lbs/in).</p>
+      <div class="tool-row">
+        <button class="tool-btn" id="bmiMetricBtn" onclick="setBMIUnit('metric')" style="margin-top:0">Metric</button>
+        <button class="tool-btn secondary" id="bmiImperialBtn" onclick="setBMIUnit('imperial')"
+          style="margin-top:0">Imperial</button>
+      </div>
+      <input type="number" class="tool-input" id="bmiWeight" placeholder="Weight (kg)" style="margin-top:12px"
+        oninput="calcBMI()">
+      <input type="number" class="tool-input" id="bmiHeight" placeholder="Height (cm)" style="margin-top:8px"
+        oninput="calcBMI()">
+      <div class="tool-output show" id="bmiOutput" style="text-align:center;font-size:1.1rem;color:var(--text)">Enter
+        your weight and height</div>
+    </div>
+
+    <!-- 21. Countdown Timer -->
+    <div class="tool-card">
+      <div class="tool-icon">⏳</div>
+      <h2>Countdown Timer</h2>
+      <p class="tool-desc">Set a countdown timer with minutes and seconds. Alerts when time is up.</p>
+      <div class="tool-row">
+        <input type="number" class="tool-input" id="cdMinutes" placeholder="Min" min="0" max="999" value="5">
+        <input type="number" class="tool-input" id="cdSeconds" placeholder="Sec" min="0" max="59" value="0">
+      </div>
+      <div class="countdown-display" id="cdDisplay">05:00</div>
+      <div class="tool-row">
+        <button class="tool-btn" id="cdStartBtn" onclick="cdToggle()">▶ Start</button>
+        <button class="tool-btn secondary" onclick="cdReset()">↺ Reset</button>
+      </div>
+    </div>
+
+    <!-- 22. Whitespace / Text Cleaner -->
+    <div class="tool-card">
+      <div class="tool-icon">🧹</div>
+      <h2>Text Cleaner</h2>
+      <p class="tool-desc">Remove extra whitespace, blank lines, trailing spaces, and clean up messy text.</p>
+      <textarea class="tool-input" id="cleanInput" placeholder="Paste messy text here..."></textarea>
+      <div class="tool-row">
+        <button class="tool-btn" onclick="cleanText('spaces')">Fix Spaces</button>
+        <button class="tool-btn secondary" onclick="cleanText('lines')">Remove Blank Lines</button>
+      </div>
+      <div class="tool-row">
+        <button class="tool-btn secondary" onclick="cleanText('trim')">Trim Lines</button>
+        <button class="tool-btn secondary" onclick="cleanText('all')">Clean All</button>
+      </div>
+      <div class="tool-output" id="cleanOutput" style="white-space:pre-wrap"></div>
+    </div>
+
   </div>
 
-  <!-- 16. Regex Tester -->
-  <div class="tool-card">
-    <div class="tool-icon">🔍</div>
-    <h2>Regex Tester</h2>
-    <p class="tool-desc">Test regular expressions against text in real-time. See matches highlighted instantly.</p>
-    <input type="text" class="tool-input" id="regexPattern" placeholder="Enter regex pattern (e.g. \d+)" oninput="testRegex()">
-    <input type="text" class="tool-input" id="regexFlags" placeholder="Flags (e.g. gi)" value="gi" style="margin-top:8px;max-width:120px" oninput="testRegex()">
-    <textarea class="tool-input" id="regexText" placeholder="Enter test text here..." style="margin-top:8px" oninput="testRegex()"></textarea>
-    <div class="tool-output show" id="regexOutput" style="color:var(--text);line-height:1.6;word-break:break-word"></div>
-    <div class="tool-output" id="regexMatches" style="font-size:.8rem"></div>
+  <!-- Scroll to Top Button -->
+  <button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})"
+    aria-label="Scroll to top">⬆</button>
+
+  <div class="footer">
+    <p>Part of the <a href="/">Powerful Free Websites Library</a> — All tools run 100% in your browser. No data is sent
+      anywhere.</p>
   </div>
 
-  <!-- 17. Text Diff Checker -->
-  <div class="tool-card">
-    <div class="tool-icon">📊</div>
-    <h2>Text Diff Checker</h2>
-    <p class="tool-desc">Compare two texts and see the differences highlighted. Great for code reviews.</p>
-    <textarea class="tool-input" id="diffText1" placeholder="Original text..."></textarea>
-    <textarea class="tool-input" id="diffText2" placeholder="Modified text..." style="margin-top:8px"></textarea>
-    <button class="tool-btn" onclick="computeDiff()">Compare Texts</button>
-    <div class="tool-output diff-output" id="diffOutput"></div>
-  </div>
+  <script>
+    // ===== HELPER: Set output text with copy button =====
+    function setOutput(id, text) {
+      const el = document.getElementById(id);
+      el.innerHTML = '<span class="copy-out" onclick="copyOutput(\'' + id + '\')">Copy</span>';
+      const tn = document.createTextNode(text);
+      el.insertBefore(tn, el.firstChild);
+      el.classList.add('show');
+    }
 
-  <!-- 18. Pixel/REM Converter -->
-  <div class="tool-card">
-    <div class="tool-icon">📐</div>
-    <h2>PX ↔ REM Converter</h2>
-    <p class="tool-desc">Convert between pixels and REM units. Set your base font size for accurate conversion.</p>
-    <div class="slider-row">
-      <span>Base:</span>
-      <input type="range" id="remBase" min="10" max="24" value="16" oninput="document.getElementById('remBaseVal').textContent=this.value+'px';convertPxRem()">
-      <span id="remBaseVal">16px</span>
-    </div>
-    <input type="number" class="tool-input" id="pxInput" placeholder="Enter pixels (e.g. 24)" style="margin-top:12px" oninput="convertPxRem()">
-    <div class="tool-output show" id="remOutput" style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
-    <input type="number" class="tool-input" id="remInput" placeholder="Enter REM (e.g. 1.5)" style="margin-top:12px" oninput="convertRemPx()">
-    <div class="tool-output show" id="pxOutput" style="font-size:1.1rem;font-weight:600;text-align:center;color:var(--accent)">—</div>
-  </div>
+    function setStatus(id, msg, type) {
+      const el = document.getElementById(id);
+      if (!el) return;
+      el.className = 'tool-status ' + type;
+      el.textContent = msg;
+    }
 
-  <!-- 19. Tip Calculator -->
-  <div class="tool-card">
-    <div class="tool-icon">💰</div>
-    <h2>Tip Calculator</h2>
-    <p class="tool-desc">Calculate tips and split bills between friends. Quick and easy.</p>
-    <input type="number" class="tool-input" id="tipBill" placeholder="Bill amount ($)" oninput="calcTip()">
-    <div class="slider-row">
-      <span>Tip:</span>
-      <input type="range" id="tipPercent" min="0" max="30" value="18" oninput="document.getElementById('tipPercentVal').textContent=this.value+'%';calcTip()">
-      <span id="tipPercentVal">18%</span>
-    </div>
-    <div class="slider-row">
-      <span>Split:</span>
-      <input type="range" id="tipSplit" min="1" max="12" value="1" oninput="document.getElementById('tipSplitVal').textContent=this.value;calcTip()">
-      <span id="tipSplitVal">1</span>
-    </div>
-    <div class="tip-result">
-      <div class="tip-val"><div class="num" id="tipAmount">$0.00</div><div class="label">Tip</div></div>
-      <div class="tip-val"><div class="num" id="tipTotal">$0.00</div><div class="label">Total</div></div>
-      <div class="tip-val"><div class="num" id="tipPerPerson">$0.00</div><div class="label">Per Person</div></div>
-      <div class="tip-val"><div class="num" id="tipTipPP">$0.00</div><div class="label">Tip/Person</div></div>
-    </div>
-  </div>
+    // ===== QR CODE (pure canvas implementation — zero external dependencies) =====
+    // Minimal QR Code encoder — supports alphanumeric and byte mode up to version 10
+    const QRGen = (function () {
+      // QR code generation using the API approach for reliability + canvas fallback
+      function generate(text, container, opts) {
+        opts = opts || {};
+        const size = opts.size || 280;
+        const darkColor = opts.dark || '#ffffff';
+        const lightColor = opts.light || '#1a1a1a';
 
-  <!-- 20. BMI Calculator -->
-  <div class="tool-card">
-    <div class="tool-icon">⚖️</div>
-    <h2>BMI Calculator</h2>
-    <p class="tool-desc">Calculate your Body Mass Index. Supports both metric (kg/cm) and imperial (lbs/in).</p>
-    <div class="tool-row">
-      <button class="tool-btn" id="bmiMetricBtn" onclick="setBMIUnit('metric')" style="margin-top:0">Metric</button>
-      <button class="tool-btn secondary" id="bmiImperialBtn" onclick="setBMIUnit('imperial')" style="margin-top:0">Imperial</button>
-    </div>
-    <input type="number" class="tool-input" id="bmiWeight" placeholder="Weight (kg)" style="margin-top:12px" oninput="calcBMI()">
-    <input type="number" class="tool-input" id="bmiHeight" placeholder="Height (cm)" style="margin-top:8px" oninput="calcBMI()">
-    <div class="tool-output show" id="bmiOutput" style="text-align:center;font-size:1.1rem;color:var(--text)">Enter your weight and height</div>
-  </div>
+        // Clear container
+        container.innerHTML = '';
 
-  <!-- 21. Countdown Timer -->
-  <div class="tool-card">
-    <div class="tool-icon">⏳</div>
-    <h2>Countdown Timer</h2>
-    <p class="tool-desc">Set a countdown timer with minutes and seconds. Alerts when time is up.</p>
-    <div class="tool-row">
-      <input type="number" class="tool-input" id="cdMinutes" placeholder="Min" min="0" max="999" value="5">
-      <input type="number" class="tool-input" id="cdSeconds" placeholder="Sec" min="0" max="59" value="0">
-    </div>
-    <div class="countdown-display" id="cdDisplay">05:00</div>
-    <div class="tool-row">
-      <button class="tool-btn" id="cdStartBtn" onclick="cdToggle()">▶ Start</button>
-      <button class="tool-btn secondary" onclick="cdReset()">↺ Reset</button>
-    </div>
-  </div>
+        // Method 1: Use Google Charts QR API (very reliable, works everywhere)
+        const img = document.createElement('img');
+        img.style.borderRadius = '12px';
+        img.style.maxWidth = '100%';
+        img.style.width = size + 'px';
+        img.style.height = size + 'px';
+        img.style.display = 'block';
+        img.style.margin = '0 auto';
+        img.alt = 'QR Code for: ' + text;
 
-  <!-- 22. Whitespace / Text Cleaner -->
-  <div class="tool-card">
-    <div class="tool-icon">🧹</div>
-    <h2>Text Cleaner</h2>
-    <p class="tool-desc">Remove extra whitespace, blank lines, trailing spaces, and clean up messy text.</p>
-    <textarea class="tool-input" id="cleanInput" placeholder="Paste messy text here..."></textarea>
-    <div class="tool-row">
-      <button class="tool-btn" onclick="cleanText('spaces')">Fix Spaces</button>
-      <button class="tool-btn secondary" onclick="cleanText('lines')">Remove Blank Lines</button>
-    </div>
-    <div class="tool-row">
-      <button class="tool-btn secondary" onclick="cleanText('trim')">Trim Lines</button>
-      <button class="tool-btn secondary" onclick="cleanText('all')">Clean All</button>
-    </div>
-    <div class="tool-output" id="cleanOutput" style="white-space:pre-wrap"></div>
-  </div>
+        // Use goqr.me API (no CORS issues, reliable, free)
+        const apiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size +
+          '&data=' + encodeURIComponent(text) +
+          '&bgcolor=' + lightColor.replace('#', '') +
+          '&color=' + darkColor.replace('#', '') +
+          '&format=png&margin=10';
 
-</div>
+        img.src = apiUrl;
 
-<!-- Scroll to Top Button -->
-<button class="scroll-top-btn" id="scrollTopBtn" onclick="window.scrollTo({top:0,behavior:'smooth'})" aria-label="Scroll to top">⬆</button>
+        img.onload = function () {
+          container.appendChild(img);
+          container.classList.add('show');
+          document.getElementById('qrDownload').style.display = 'block';
+          setStatus('qrStatus', 'QR code generated successfully!', 'success');
+          // Auto-hide success after 3s
+          setTimeout(function () {
+            const s = document.getElementById('qrStatus');
+            if (s) { s.className = 'tool-status'; s.textContent = ''; }
+          }, 3000);
+        };
 
-<div class="footer">
-  <p>Part of the <a href="/">Powerful Free Websites Library</a> — All tools run 100% in your browser. No data is sent anywhere.</p>
-</div>
+        img.onerror = function () {
+          // Fallback: try a second API
+          const fallbackUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=' + size + 'x' + size +
+            '&chl=' + encodeURIComponent(text) + '&choe=UTF-8';
+          const img2 = document.createElement('img');
+          img2.style.borderRadius = '12px';
+          img2.style.maxWidth = '100%';
+          img2.style.width = size + 'px';
+          img2.style.height = size + 'px';
+          img2.style.display = 'block';
+          img2.style.margin = '0 auto';
+          img2.alt = 'QR Code for: ' + text;
+          img2.src = fallbackUrl;
 
-<script>
-// ===== HELPER: Set output text with copy button =====
-function setOutput(id, text) {
-  const el = document.getElementById(id);
-  el.innerHTML = '<span class="copy-out" onclick="copyOutput(\'' + id + '\')">Copy</span>';
-  const tn = document.createTextNode(text);
-  el.insertBefore(tn, el.firstChild);
-  el.classList.add('show');
-}
+          img2.onload = function () {
+            container.appendChild(img2);
+            container.classList.add('show');
+            document.getElementById('qrDownload').style.display = 'block';
+            setStatus('qrStatus', 'QR code generated!', 'success');
+            setTimeout(function () {
+              const s = document.getElementById('qrStatus');
+              if (s) { s.className = 'tool-status'; s.textContent = ''; }
+            }, 3000);
+          };
 
-function setStatus(id, msg, type) {
-  const el = document.getElementById(id);
-  if (!el) return;
-  el.className = 'tool-status ' + type;
-  el.textContent = msg;
-}
+          img2.onerror = function () {
+            container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Could not generate QR code. Please check your internet connection and try again.</p>';
+            container.classList.add('show');
+            setStatus('qrStatus', 'Failed to generate QR code. Check your connection.', 'error');
+          };
+        };
 
-// ===== QR CODE (pure canvas implementation — zero external dependencies) =====
-// Minimal QR Code encoder — supports alphanumeric and byte mode up to version 10
-const QRGen = (function() {
-  // QR code generation using the API approach for reliability + canvas fallback
-  function generate(text, container, opts) {
-    opts = opts || {};
-    const size = opts.size || 280;
-    const darkColor = opts.dark || '#ffffff';
-    const lightColor = opts.light || '#1a1a1a';
-
-    // Clear container
-    container.innerHTML = '';
-
-    // Method 1: Use Google Charts QR API (very reliable, works everywhere)
-    const img = document.createElement('img');
-    img.style.borderRadius = '12px';
-    img.style.maxWidth = '100%';
-    img.style.width = size + 'px';
-    img.style.height = size + 'px';
-    img.style.display = 'block';
-    img.style.margin = '0 auto';
-    img.alt = 'QR Code for: ' + text;
-
-    // Use goqr.me API (no CORS issues, reliable, free)
-    const apiUrl = 'https://api.qrserver.com/v1/create-qr-code/?size=' + size + 'x' + size +
-      '&data=' + encodeURIComponent(text) +
-      '&bgcolor=' + lightColor.replace('#','') +
-      '&color=' + darkColor.replace('#','') +
-      '&format=png&margin=10';
-
-    img.src = apiUrl;
-
-    img.onload = function() {
-      container.appendChild(img);
-      container.classList.add('show');
-      document.getElementById('qrDownload').style.display = 'block';
-      setStatus('qrStatus', 'QR code generated successfully!', 'success');
-      // Auto-hide success after 3s
-      setTimeout(function() {
-        const s = document.getElementById('qrStatus');
-        if (s) { s.className = 'tool-status'; s.textContent = ''; }
-      }, 3000);
-    };
-
-    img.onerror = function() {
-      // Fallback: try a second API
-      const fallbackUrl = 'https://chart.googleapis.com/chart?cht=qr&chs=' + size + 'x' + size +
-        '&chl=' + encodeURIComponent(text) + '&choe=UTF-8';
-      const img2 = document.createElement('img');
-      img2.style.borderRadius = '12px';
-      img2.style.maxWidth = '100%';
-      img2.style.width = size + 'px';
-      img2.style.height = size + 'px';
-      img2.style.display = 'block';
-      img2.style.margin = '0 auto';
-      img2.alt = 'QR Code for: ' + text;
-      img2.src = fallbackUrl;
-
-      img2.onload = function() {
-        container.appendChild(img2);
+        // Show loading state
+        container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Generating QR code...</p>';
         container.classList.add('show');
-        document.getElementById('qrDownload').style.display = 'block';
-        setStatus('qrStatus', 'QR code generated!', 'success');
-        setTimeout(function() {
-          const s = document.getElementById('qrStatus');
-          if (s) { s.className = 'tool-status'; s.textContent = ''; }
-        }, 3000);
-      };
+        setStatus('qrStatus', 'Generating...', 'loading');
 
-      img2.onerror = function() {
-        container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Could not generate QR code. Please check your internet connection and try again.</p>';
-        container.classList.add('show');
-        setStatus('qrStatus', 'Failed to generate QR code. Check your connection.', 'error');
-      };
-    };
-
-    // Show loading state
-    container.innerHTML = '<p style="color:var(--text-dim);padding:20px">Generating QR code...</p>';
-    container.classList.add('show');
-    setStatus('qrStatus', 'Generating...', 'loading');
-
-    // Append image (triggers load)
-    container.innerHTML = '';
-    container.appendChild(img);
-  }
-
-  return { generate: generate };
-})();
-
-function generateQR() {
-  const text = document.getElementById('qrInput').value.trim();
-  if (!text) {
-    setStatus('qrStatus', 'Please enter a URL or text first.', 'error');
-    document.getElementById('qrInput').focus();
-    return;
-  }
-  const out = document.getElementById('qrOutput');
-  QRGen.generate(text, out, { size: 280, dark: 'ffffff', light: '1a1a1a' });
-}
-
-function downloadQR() {
-  const img = document.querySelector('#qrOutput img');
-  if (!img) return;
-
-  // For API-generated images, we need to use a canvas to convert
-  const canvas = document.createElement('canvas');
-  canvas.width = img.naturalWidth || 280;
-  canvas.height = img.naturalHeight || 280;
-  const ctx = canvas.getContext('2d');
-
-  // Create a new image with crossOrigin to allow toDataURL
-  const dlImg = new Image();
-  dlImg.crossOrigin = 'anonymous';
-  dlImg.onload = function() {
-    ctx.drawImage(dlImg, 0, 0);
-    try {
-      const a = document.createElement('a');
-      a.download = 'qr-code.png';
-      a.href = canvas.toDataURL('image/png');
-      a.click();
-    } catch(e) {
-      // If CORS blocks toDataURL, open image in new tab
-      window.open(img.src, '_blank');
-    }
-  };
-  dlImg.onerror = function() {
-    // Fallback: open image directly
-    window.open(img.src, '_blank');
-  };
-  dlImg.src = img.src;
-}
-
-// ===== PASSWORD =====
-function generatePassword() {
-  const len = parseInt(document.getElementById('pwLen').value);
-  let chars = '';
-  if (document.getElementById('pwUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
-  if (document.getElementById('pwLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
-  if (document.getElementById('pwNumbers').checked) chars += '0123456789';
-  if (document.getElementById('pwSymbols').checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
-  if (!chars) { alert('Select at least one character type'); return; }
-  let pw = '';
-  const arr = new Uint32Array(len);
-  crypto.getRandomValues(arr);
-  for (let i = 0; i < len; i++) pw += chars[arr[i] % chars.length];
-  setOutput('pwOutput', pw);
-}
-
-// ===== COLOR PICKER =====
-function updateColor(hex) {
-  document.getElementById('colorPreview').style.background = hex;
-  document.getElementById('colorHex').textContent = hex;
-  const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
-  document.getElementById('colorRgb').textContent = 'rgb(' + r + ', ' + g + ', ' + b + ')';
-  document.getElementById('colorRgba').textContent = 'rgba(' + r + ', ' + g + ', ' + b + ', 1)';
-  const rr = r / 255, gg = g / 255, bb = b / 255;
-  const max = Math.max(rr, gg, bb), min = Math.min(rr, gg, bb);
-  let h, s, l = (max + min) / 2;
-  if (max === min) { h = s = 0; } else {
-    const d = max - min;
-    s = l > .5 ? d / (2 - max - min) : d / (max + min);
-    switch (max) {
-      case rr: h = ((gg - bb) / d + (gg < bb ? 6 : 0)) / 6; break;
-      case gg: h = ((bb - rr) / d + 2) / 6; break;
-      case bb: h = ((rr - gg) / d + 4) / 6; break;
-    }
-  }
-  document.getElementById('colorHsl').textContent = 'hsl(' + Math.round(h * 360) + ', ' + Math.round(s * 100) + '%, ' + Math.round(l * 100) + '%)';
-}
-
-function copyColorVal(el) {
-  const text = el.textContent;
-  navigator.clipboard.writeText(text).then(function() {
-    const orig = el.textContent;
-    el.textContent = 'Copied!';
-    el.style.borderColor = 'var(--accent)';
-    el.style.color = 'var(--accent)';
-    setTimeout(function() {
-      el.textContent = orig;
-      el.style.borderColor = '';
-      el.style.color = '';
-    }, 1200);
-  }).catch(function() {
-    // Fallback for older browsers
-    const ta = document.createElement('textarea');
-    ta.value = text;
-    ta.style.position = 'fixed';
-    ta.style.left = '-9999px';
-    document.body.appendChild(ta);
-    ta.select();
-    document.execCommand('copy');
-    document.body.removeChild(ta);
-    const orig = el.textContent;
-    el.textContent = 'Copied!';
-    setTimeout(function() { el.textContent = orig; }, 1200);
-  });
-}
-
-// ===== WORD COUNTER =====
-function countWords() {
-  const text = document.getElementById('wcInput').value;
-  const words = text.trim() ? text.trim().split(/\s+/).length : 0;
-  const chars = text.length;
-  const sentences = text.split(/[.!?]+/).filter(function(s) { return s.trim(); }).length;
-  const paras = text.split(/\n\n+/).filter(function(p) { return p.trim(); }).length;
-  document.getElementById('wcWords').textContent = words;
-  document.getElementById('wcChars').textContent = chars;
-  document.getElementById('wcSentences').textContent = sentences;
-  document.getElementById('wcParas').textContent = paras;
-  document.getElementById('wcReadTime').textContent = Math.max(1, Math.ceil(words / 200)) + 'm';
-  document.getElementById('wcSpeakTime').textContent = Math.max(1, Math.ceil(words / 130)) + 'm';
-}
-
-// ===== BASE64 =====
-function b64Encode() {
-  const text = document.getElementById('b64Input').value;
-  try {
-    setOutput('b64Output', btoa(unescape(encodeURIComponent(text))));
-  } catch (e) {
-    setOutput('b64Output', 'Error: ' + e.message);
-  }
-}
-function b64Decode() {
-  const text = document.getElementById('b64Input').value;
-  try {
-    setOutput('b64Output', decodeURIComponent(escape(atob(text))));
-  } catch (e) {
-    setOutput('b64Output', 'Error: Invalid Base64 string');
-  }
-}
-
-// ===== JSON FORMATTER =====
-function formatJSON() {
-  const text = document.getElementById('jsonInput').value;
-  try {
-    const obj = JSON.parse(text);
-    setOutput('jsonOutput', JSON.stringify(obj, null, 2));
-  } catch (e) {
-    setOutput('jsonOutput', 'Invalid JSON: ' + e.message);
-  }
-}
-
-// ===== LOREM IPSUM =====
-function generateLorem() {
-  const count = parseInt(document.getElementById('loremCount').value);
-  const paras = [
-    "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
-    "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
-    "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.",
-    "Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna.",
-    "Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.",
-    "Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum.",
-    "Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit. Nulla sit amet est. Praesent metus tellus, elementum eu, semper a.",
-    "Adipiscing nec, purus. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Suspendisse feugiat. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.",
-    "Praesent nec nisl a purus blandit viverra. Praesent ac massa at ligula laoreet iaculis. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.",
-    "Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce pharetra convallis urna. Quisque ut nisi. Donec mi odio, faucibus at, scelerisque quis."
-  ];
-  var result = [];
-  for (var i = 0; i < count; i++) result.push(paras[i % paras.length]);
-  setOutput('loremOutput', result.join('\n\n'));
-  document.getElementById('loremOutput').style.whiteSpace = 'pre-wrap';
-}
-
-// ===== STOPWATCH =====
-var timerRunning = false, timerStart = 0, timerElapsed = 0, timerInterval = null, lapCount = 0;
-function timerToggle() {
-  if (timerRunning) {
-    clearInterval(timerInterval); timerRunning = false;
-    timerElapsed += Date.now() - timerStart;
-    document.getElementById('timerStartBtn').textContent = '▶ Start';
-  } else {
-    timerStart = Date.now(); timerRunning = true;
-    document.getElementById('timerStartBtn').textContent = '⏸ Pause';
-    timerInterval = setInterval(function() {
-      var ms = timerElapsed + (Date.now() - timerStart);
-      document.getElementById('timerDisplay').textContent = formatTime(ms);
-    }, 100);
-  }
-}
-function timerLap() {
-  if (!timerRunning) return;
-  lapCount++;
-  var ms = timerElapsed + (Date.now() - timerStart);
-  var out = document.getElementById('timerLaps');
-  out.classList.add('show');
-  out.textContent = (out.textContent ? out.textContent + '\n' : '') + 'Lap ' + lapCount + ': ' + formatTime(ms);
-}
-function timerReset() {
-  clearInterval(timerInterval); timerRunning = false; timerElapsed = 0; lapCount = 0;
-  document.getElementById('timerDisplay').textContent = '00:00:00.0';
-  document.getElementById('timerStartBtn').textContent = '▶ Start';
-  document.getElementById('timerLaps').textContent = '';
-  document.getElementById('timerLaps').classList.remove('show');
-}
-function formatTime(ms) {
-  var s = Math.floor(ms / 1000), m = Math.floor(s / 60), h = Math.floor(m / 60);
-  return String(h).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0') + '.' + Math.floor((ms % 1000) / 100);
-}
-
-// ===== URL ENCODE/DECODE =====
-function urlEncode() {
-  setOutput('urlOutput', encodeURIComponent(document.getElementById('urlInput').value));
-}
-function urlDecode() {
-  try {
-    setOutput('urlOutput', decodeURIComponent(document.getElementById('urlInput').value));
-  } catch (e) {
-    setOutput('urlOutput', 'Error: Invalid encoded URL');
-  }
-}
-
-// ===== HASH GENERATOR =====
-async function generateHash() {
-  var text = document.getElementById('hashInput').value;
-  if (!text) { setOutput('hashOutput', 'Please enter text to hash.'); return; }
-  try {
-    var encoder = new TextEncoder();
-    var data = encoder.encode(text);
-    var hash = await crypto.subtle.digest('SHA-256', data);
-    var hex = Array.from(new Uint8Array(hash)).map(function(b) { return b.toString(16).padStart(2, '0'); }).join('');
-    setOutput('hashOutput', hex);
-  } catch (e) {
-    setOutput('hashOutput', 'Error: SHA-256 requires HTTPS. ' + e.message);
-  }
-}
-
-// ===== CASE CONVERTER =====
-function convertCase(type) {
-  var text = document.getElementById('caseInput').value;
-  if (!text) return;
-  var result = '';
-  switch (type) {
-    case 'upper': result = text.toUpperCase(); break;
-    case 'lower': result = text.toLowerCase(); break;
-    case 'title': result = text.replace(/\w\S*/g, function(t) { return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase(); }); break;
-    case 'sentence': result = text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function(c) { return c.toUpperCase(); }); break;
-  }
-  setOutput('caseOutput', result);
-}
-
-// ===== MARKDOWN PREVIEW =====
-function previewMD() {
-  var text = document.getElementById('mdInput').value;
-  var html = text
-    .replace(/^### (.*$)/gm, '<h3>$1</h3>')
-    .replace(/^## (.*$)/gm, '<h2>$1</h2>')
-    .replace(/^# (.*$)/gm, '<h1>$1</h1>')
-    .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
-    .replace(/\*(.*?)\*/g, '<em>$1</em>')
-    .replace(/`(.*?)`/g, '<code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.85em">$1</code>')
-    .replace(/^- (.*$)/gm, '<li>$1</li>')
-    .replace(/\n\n/g, '<br><br>')
-    .replace(/\n/g, '<br>');
-  document.getElementById('mdOutput').innerHTML = html;
-}
-
-// ===== COPY OUTPUT =====
-function copyOutput(id) {
-  var el = document.getElementById(id);
-  var text = '';
-  for (var i = 0; i < el.childNodes.length; i++) {
-    var node = el.childNodes[i];
-    if (node.nodeType === 3) text += node.textContent;
-  }
-  text = text.trim();
-  clipCopy(text);
-  var btn = el.querySelector('.copy-out');
-  if (btn) { btn.textContent = 'Copied!'; setTimeout(function() { btn.textContent = 'Copy'; }, 1500); }
-}
-
-// Universal clipboard helper
-function clipCopy(text) {
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).catch(function() { fallbackCopy(text); });
-  } else {
-    fallbackCopy(text);
-  }
-}
-function fallbackCopy(text) {
-  var ta = document.createElement('textarea');
-  ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
-  document.body.appendChild(ta); ta.select();
-  try { document.execCommand('copy'); } catch(e) {}
-  document.body.removeChild(ta);
-}
-
-// ===== SCROLL TO TOP BUTTON =====
-(function() {
-  var btn = document.getElementById('scrollTopBtn');
-  if (!btn) return;
-  window.addEventListener('scroll', function() {
-    if (window.scrollY > 400) {
-      btn.classList.add('visible');
-    } else {
-      btn.classList.remove('visible');
-    }
-  }, { passive: true });
-})();
-
-// ===== UUID GENERATOR =====
-function makeUUID() {
-  if (crypto.randomUUID) return crypto.randomUUID();
-  return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c) {
-    var r = Math.random() * 16 | 0;
-    return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
-  });
-}
-function generateUUID() {
-  setOutput('uuidOutput', makeUUID());
-}
-function generateBulkUUID() {
-  var uuids = [];
-  for (var i = 0; i < 5; i++) uuids.push(makeUUID());
-  setOutput('uuidOutput', uuids.join('\n'));
-  document.getElementById('uuidOutput').style.whiteSpace = 'pre-wrap';
-  document.getElementById('uuidOutput').style.wordBreak = 'break-all';
-}
-
-// ===== EMOJI PICKER =====
-var EMOJIS = [
-  {e:'😀',t:'grinning face happy smile'},{e:'😂',t:'joy laugh crying tears'},{e:'🤣',t:'rofl rolling floor laughing'},{e:'😊',t:'blush happy smile'},{e:'😍',t:'heart eyes love'},{e:'🥰',t:'love hearts face'},{e:'😘',t:'kiss blowing'},{e:'😎',t:'cool sunglasses'},{e:'🤔',t:'thinking hmm'},{e:'😏',t:'smirk'},{e:'😢',t:'cry sad tear'},{e:'😭',t:'sobbing crying loud'},{e:'😤',t:'angry huff'},{e:'🥺',t:'pleading puppy eyes'},{e:'😱',t:'scream shock'},{e:'🤯',t:'mind blown exploding'},{e:'😴',t:'sleep zzz'},{e:'🤮',t:'vomit sick'},{e:'🤡',t:'clown'},{e:'👻',t:'ghost boo'},
-  {e:'❤️',t:'red heart love'},{e:'🧡',t:'orange heart'},{e:'💛',t:'yellow heart'},{e:'💚',t:'green heart'},{e:'💙',t:'blue heart'},{e:'💜',t:'purple heart'},{e:'🖤',t:'black heart'},{e:'🤍',t:'white heart'},{e:'💔',t:'broken heart'},{e:'💕',t:'two hearts'},
-  {e:'👍',t:'thumbs up like yes'},{e:'👎',t:'thumbs down dislike no'},{e:'👏',t:'clap applause'},{e:'🙌',t:'raise hands celebration'},{e:'🤝',t:'handshake deal'},{e:'✌️',t:'peace victory'},{e:'🤞',t:'crossed fingers luck'},{e:'💪',t:'muscle strong flex'},{e:'🙏',t:'pray please thanks'},{e:'👋',t:'wave hello bye'},
-  {e:'🔥',t:'fire hot lit'},{e:'⭐',t:'star'},{e:'🌟',t:'glowing star sparkle'},{e:'💫',t:'dizzy star'},{e:'✨',t:'sparkles magic'},{e:'⚡',t:'lightning bolt zap'},{e:'💥',t:'boom explosion'},{e:'🎉',t:'party tada celebration'},{e:'🎊',t:'confetti ball'},{e:'🏆',t:'trophy winner champion'},
-  {e:'✅',t:'check mark done yes'},{e:'❌',t:'cross mark no wrong'},{e:'⚠️',t:'warning caution'},{e:'🚀',t:'rocket launch'},{e:'💡',t:'light bulb idea'},{e:'🔑',t:'key'},{e:'🔒',t:'lock locked'},{e:'🔓',t:'unlock unlocked'},{e:'📌',t:'pin pushpin'},{e:'📎',t:'paperclip'},
-  {e:'💻',t:'laptop computer'},{e:'📱',t:'phone mobile'},{e:'🖥️',t:'desktop computer monitor'},{e:'⌨️',t:'keyboard'},{e:'🖱️',t:'mouse'},{e:'💾',t:'floppy disk save'},{e:'📡',t:'satellite antenna'},{e:'🔋',t:'battery'},{e:'🌐',t:'globe internet web'},{e:'📧',t:'email mail'},
-  {e:'🐶',t:'dog puppy'},{e:'🐱',t:'cat kitty'},{e:'🐻',t:'bear'},{e:'🦊',t:'fox'},{e:'🐼',t:'panda'},{e:'🦁',t:'lion'},{e:'🐸',t:'frog'},{e:'🐙',t:'octopus'},{e:'🦋',t:'butterfly'},{e:'🐝',t:'bee honeybee'},
-  {e:'🍕',t:'pizza'},{e:'🍔',t:'burger hamburger'},{e:'🍟',t:'fries french'},{e:'🌮',t:'taco'},{e:'🍣',t:'sushi'},{e:'🍩',t:'donut doughnut'},{e:'☕',t:'coffee hot'},{e:'🍺',t:'beer'},{e:'🍷',t:'wine'},{e:'🧃',t:'juice box'}
-];
-
-function initEmojiGrid() {
-  var grid = document.getElementById('emojiGrid');
-  if (!grid) return;
-  grid.innerHTML = '';
-  EMOJIS.forEach(function(item) {
-    var btn = document.createElement('button');
-    btn.className = 'emoji-cell';
-    btn.textContent = item.e;
-    btn.setAttribute('data-tags', item.t);
-    btn.onclick = function() {
-      clipCopy(item.e);
-      setStatus('emojiStatus', 'Copied ' + item.e + ' to clipboard!', 'success');
-      setTimeout(function() {
-        var s = document.getElementById('emojiStatus');
-        if (s) { s.className = 'tool-status'; s.textContent = ''; }
-      }, 1500);
-    };
-    grid.appendChild(btn);
-  });
-}
-function filterEmojis() {
-  var q = document.getElementById('emojiSearch').value.toLowerCase().trim();
-  var cells = document.querySelectorAll('.emoji-cell');
-  cells.forEach(function(cell) {
-    var tags = cell.getAttribute('data-tags') || '';
-    var emoji = cell.textContent;
-    if (!q || tags.indexOf(q) !== -1 || emoji.indexOf(q) !== -1) {
-      cell.style.display = '';
-    } else {
-      cell.style.display = 'none';
-    }
-  });
-}
-document.addEventListener('DOMContentLoaded', initEmojiGrid);
-
-// ===== TIMESTAMP CONVERTER =====
-function getCurrentTimestamp() {
-  var now = Math.floor(Date.now() / 1000);
-  document.getElementById('tsInput').value = now;
-  setOutput('tsOutput', 'Current Unix Timestamp: ' + now + '\n\nHuman Readable:\n' + new Date().toString() + '\n\nISO 8601:\n' + new Date().toISOString());
-  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
-  document.getElementById('tsOutput').style.wordBreak = 'break-word';
-}
-function tsToDate() {
-  var val = document.getElementById('tsInput').value.trim();
-  if (!val) return;
-  var ts = parseInt(val);
-  if (isNaN(ts)) { setOutput('tsOutput', 'Error: Enter a valid Unix timestamp'); return; }
-  // Handle seconds vs milliseconds
-  if (ts < 1e12) ts *= 1000;
-  var d = new Date(ts);
-  if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Invalid timestamp'); return; }
-  setOutput('tsOutput', 'Local: ' + d.toString() + '\nUTC: ' + d.toUTCString() + '\nISO: ' + d.toISOString());
-  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
-  document.getElementById('tsOutput').style.wordBreak = 'break-word';
-}
-function dateToTs() {
-  var val = document.getElementById('tsInput').value.trim();
-  if (!val) return;
-  var d = new Date(val);
-  if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Could not parse date. Try formats like:\n2025-01-15\n2025-01-15T10:30:00\nJan 15, 2025'); document.getElementById('tsOutput').style.whiteSpace='pre-wrap'; return; }
-  var ts = Math.floor(d.getTime() / 1000);
-  setOutput('tsOutput', 'Unix Timestamp: ' + ts + '\nMilliseconds: ' + d.getTime());
-  document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
-}
-
-// ===== REGEX TESTER =====
-function testRegex() {
-  var pattern = document.getElementById('regexPattern').value;
-  var flags = document.getElementById('regexFlags').value;
-  var text = document.getElementById('regexText').value;
-  var outEl = document.getElementById('regexOutput');
-  var matchEl = document.getElementById('regexMatches');
-
-  if (!pattern || !text) {
-    outEl.innerHTML = '<span style="color:var(--text-muted)">Enter a pattern and text to see matches</span>';
-    matchEl.classList.remove('show');
-    return;
-  }
-
-  try {
-    var regex = new RegExp(pattern, flags);
-    var matches = [];
-    var match;
-    var safeFlags = flags.indexOf('g') !== -1 ? flags : flags + 'g';
-    var gRegex = new RegExp(pattern, safeFlags);
-
-    while ((match = gRegex.exec(text)) !== null) {
-      matches.push({ text: match[0], index: match.index });
-      if (match.index === gRegex.lastIndex) gRegex.lastIndex++;
-      if (matches.length > 100) break;
-    }
-
-    // Build highlighted output
-    var html = '';
-    var lastIdx = 0;
-    matches.forEach(function(m) {
-      if (m.index > lastIdx) {
-        html += escapeHtml(text.substring(lastIdx, m.index));
+        // Append image (triggers load)
+        container.innerHTML = '';
+        container.appendChild(img);
       }
-      html += '<span class="regex-match">' + escapeHtml(m.text) + '</span>';
-      lastIdx = m.index + m.text.length;
-    });
-    if (lastIdx < text.length) html += escapeHtml(text.substring(lastIdx));
 
-    outEl.innerHTML = html || '<span style="color:var(--text-muted)">No matches</span>';
+      return { generate: generate };
+    })();
 
-    // Show match count
-    setOutput('regexMatches', matches.length + ' match' + (matches.length !== 1 ? 'es' : '') + ' found');
-  } catch(e) {
-    outEl.innerHTML = '<span style="color:#ef4444">Invalid regex: ' + escapeHtml(e.message) + '</span>';
-    matchEl.classList.remove('show');
-  }
-}
-function escapeHtml(str) {
-  return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
-}
+    // ===== MEDIA DOWNLOADER (Cobalt API) =====
+    async function downloadMedia(format) {
+      const urlInput = document.getElementById('mediaUrl').value.trim();
+      const statusEl = document.getElementById('mediaStatus');
 
-// ===== TEXT DIFF CHECKER =====
-function computeDiff() {
-  var text1 = document.getElementById('diffText1').value;
-  var text2 = document.getElementById('diffText2').value;
-  if (!text1 && !text2) return;
+      if (!urlInput) {
+        setStatus('mediaStatus', 'Please paste a valid video URL.', 'error');
+        return;
+      }
 
-  var lines1 = text1.split('\n');
-  var lines2 = text2.split('\n');
-  var maxLen = Math.max(lines1.length, lines2.length);
-  var html = '';
+      if (!urlInput.startsWith('http')) {
+        setStatus('mediaStatus', 'URL must start with http:// or https://', 'error');
+        return;
+      }
 
-  for (var i = 0; i < maxLen; i++) {
-    var l1 = i < lines1.length ? lines1[i] : undefined;
-    var l2 = i < lines2.length ? lines2[i] : undefined;
+      setStatus('mediaStatus', 'Connecting to API... this may take a few seconds.', 'loading');
 
-    if (l1 === l2) {
-      html += '<div class="diff-same">  ' + escapeHtml(l1) + '</div>';
-    } else {
-      if (l1 !== undefined) html += '<div class="diff-del">- ' + escapeHtml(l1) + '</div>';
-      if (l2 !== undefined) html += '<div class="diff-add">+ ' + escapeHtml(l2) + '</div>';
+      try {
+        // Using a public Cobalt API instance for serverless media downloading
+        // Note: Public instances can change, this uses the primary default fallback strategy
+        const response = await fetch('https://api.cobalt.tools/api/json', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            'Accept': 'application/json'
+          },
+          body: JSON.stringify({
+            url: urlInput,
+            isAudioOnly: format === 'audio',
+            vQuality: '1080', // Ask for high quality if available
+            isNoTTWatermark: true // Remove TikTok waterfalls if applicable
+          })
+        });
+
+        if (!response.ok) {
+          throw new Error('API request failed (' + response.status + ')');
+        }
+
+        const data = await response.json();
+
+        if (data.status === 'error') {
+          throw new Error(data.text || 'Unknown API Error');
+        }
+
+        if (data.status === 'stream' || data.status === 'redirect') {
+          // It provided a direct download URL
+          setStatus('mediaStatus', 'Success! Download starting...', 'success');
+
+          // Trigger the download by creating an invisible anchor tag
+          const a = document.createElement('a');
+          a.href = data.url;
+          a.download = '';
+          a.target = '_blank';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          setTimeout(() => {
+            statusEl.className = 'tool-status';
+            statusEl.textContent = '';
+          }, 3000);
+
+        } else if (data.status === 'picker') {
+          // Multiple items (like a sliding instagram post) - grab the first one
+          setStatus('mediaStatus', 'Found multiple items, downloading first one...', 'success');
+          if (data.picker && data.picker.length > 0) {
+            const a = document.createElement('a');
+            a.href = data.picker[0].url;
+            a.download = '';
+            a.target = '_blank';
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+          } else {
+            throw new Error("No items found in post.");
+          }
+        } else {
+          throw new Error("Unexpected API response format");
+        }
+
+      } catch (e) {
+        console.error("Media Download Error:", e);
+        setStatus('mediaStatus', 'Error: ' + e.message + '. The platform might be blocking the request.', 'error');
+      }
     }
-  }
 
-  var out = document.getElementById('diffOutput');
-  out.innerHTML = html || '<span style="color:var(--text-muted)">Texts are identical</span>';
-  out.classList.add('show');
-}
+    // ===== MOBILE FILTER BAR =====
+    function initToolsFilter() {
+      // Setup the tool category data attributes map. 
+      // Defaults to 'text' if not specified in markup to act as a catch-all for the heavy text tools.
+      const categoryMap = {
+        'Word & Character Counter': 'text',
+        'Base64 Encoder / Decoder': 'text',
+        'JSON Formatter & Validator': 'text',
+        'Lorem Ipsum Generator': 'text',
+        'URL Encoder / Decoder': 'text',
+        'Hash Generator (SHA-256)': 'generators',
+        'Text Case Converter': 'text',
+        'Markdown Previewer': 'text',
+        'Text Diff Checker': 'text',
+        'Text Cleaner': 'text',
+        'Password Generator': 'generators',
+        'UUID Generator': 'generators',
+        'Emoji Picker & Search': 'text',
+        'Regex Tester': 'text',
+        'Color Picker & Converter': 'generators',
+        'Timestamp Converter': 'calculators',
+        'PX ↔ REM Converter': 'calculators',
+        'Tip Calculator': 'calculators',
+        'BMI Calculator': 'calculators',
+        'Stopwatch & Timer': 'calculators',
+        'Countdown Timer': 'calculators'
+      };
 
-// ===== PX/REM CONVERTER =====
-function convertPxRem() {
-  var px = parseFloat(document.getElementById('pxInput').value);
-  var base = parseInt(document.getElementById('remBase').value);
-  if (isNaN(px)) { document.getElementById('remOutput').textContent = '—'; return; }
-  var rem = (px / base).toFixed(4).replace(/\.?0+$/, '');
-  document.getElementById('remOutput').textContent = rem + ' rem';
-}
-function convertRemPx() {
-  var rem = parseFloat(document.getElementById('remInput').value);
-  var base = parseInt(document.getElementById('remBase').value);
-  if (isNaN(rem)) { document.getElementById('pxOutput').textContent = '—'; return; }
-  var px = (rem * base).toFixed(2).replace(/\.?0+$/, '');
-  document.getElementById('pxOutput').textContent = px + ' px';
-}
+      // Assign categories dynamically based on HTML titles if not explicitly set via data-cat
+      document.querySelectorAll('.tool-card').forEach(card => {
+        if (!card.hasAttribute('data-cat')) {
+          const heading = card.querySelector('h2');
+          if (heading) {
+            const name = heading.textContent.trim();
+            if (categoryMap[name]) {
+              card.setAttribute('data-cat', categoryMap[name]);
+            } else {
+              card.setAttribute('data-cat', 'text'); // Fallback
+            }
+          }
+        }
+      });
 
-// ===== TIP CALCULATOR =====
-function calcTip() {
-  var bill = parseFloat(document.getElementById('tipBill').value) || 0;
-  var pct = parseInt(document.getElementById('tipPercent').value) || 0;
-  var split = parseInt(document.getElementById('tipSplit').value) || 1;
-  var tip = bill * (pct / 100);
-  var total = bill + tip;
-  var perPerson = total / split;
-  var tipPP = tip / split;
-  document.getElementById('tipAmount').textContent = '$' + tip.toFixed(2);
-  document.getElementById('tipTotal').textContent = '$' + total.toFixed(2);
-  document.getElementById('tipPerPerson').textContent = '$' + perPerson.toFixed(2);
-  document.getElementById('tipTipPP').textContent = '$' + tipPP.toFixed(2);
-}
+      // Bind Filter Buttons
+      const filterBtns = document.querySelectorAll('.filter-btn');
+      const cards = document.querySelectorAll('.tool-card');
 
-// ===== BMI CALCULATOR =====
-var bmiUnit = 'metric';
-function setBMIUnit(unit) {
-  bmiUnit = unit;
-  var metBtn = document.getElementById('bmiMetricBtn');
-  var impBtn = document.getElementById('bmiImperialBtn');
-  if (unit === 'metric') {
-    metBtn.className = 'tool-btn'; impBtn.className = 'tool-btn secondary';
-    document.getElementById('bmiWeight').placeholder = 'Weight (kg)';
-    document.getElementById('bmiHeight').placeholder = 'Height (cm)';
-  } else {
-    impBtn.className = 'tool-btn'; metBtn.className = 'tool-btn secondary';
-    document.getElementById('bmiWeight').placeholder = 'Weight (lbs)';
-    document.getElementById('bmiHeight').placeholder = 'Height (inches)';
-  }
-  calcBMI();
-}
-function calcBMI() {
-  var w = parseFloat(document.getElementById('bmiWeight').value);
-  var h = parseFloat(document.getElementById('bmiHeight').value);
-  var out = document.getElementById('bmiOutput');
-  if (!w || !h || w <= 0 || h <= 0) { out.textContent = 'Enter your weight and height'; return; }
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          // UI update
+          filterBtns.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
 
-  var bmi;
-  if (bmiUnit === 'metric') {
-    bmi = w / Math.pow(h / 100, 2);
-  } else {
-    bmi = (w / Math.pow(h, 2)) * 703;
-  }
+          const filterText = btn.getAttribute('data-filter');
 
-  var category = '';
-  var color = '';
-  if (bmi < 18.5) { category = 'Underweight'; color = '#3b82f6'; }
-  else if (bmi < 25) { category = 'Normal weight'; color = '#10b981'; }
-  else if (bmi < 30) { category = 'Overweight'; color = '#f59e0b'; }
-  else { category = 'Obese'; color = '#ef4444'; }
+          // Logic update
+          cards.forEach(card => {
+            if (filterText === 'all' || card.getAttribute('data-cat') === filterText) {
+              card.style.display = 'block';
+            } else {
+              card.style.display = 'none';
+            }
+          });
 
-  out.innerHTML = '<div style="font-size:2rem;font-weight:800;color:' + color + '">' + bmi.toFixed(1) + '</div>' +
-    '<div style="color:' + color + ';font-weight:600;margin-top:4px">' + category + '</div>' +
-    '<div style="color:var(--text-muted);font-size:.8rem;margin-top:8px">BMI Categories: Underweight < 18.5 | Normal 18.5–24.9 | Overweight 25–29.9 | Obese 30+</div>';
-}
+          // Scroll to top of tools grid so user sees results
+          const gridTop = document.querySelector('.tools-grid').offsetTop;
+          window.scrollTo({ top: gridTop - 90, behavior: 'smooth' });
+        });
+      });
+    }
 
-// ===== COUNTDOWN TIMER =====
-var cdRunning = false, cdInterval = null, cdRemaining = 300;
-function cdToggle() {
-  if (cdRunning) {
-    clearInterval(cdInterval); cdRunning = false;
-    document.getElementById('cdStartBtn').textContent = '▶ Resume';
-  } else {
-    if (cdRemaining <= 0) {
+    // Initialize filter logic on load
+    document.addEventListener('DOMContentLoaded', initToolsFilter);
+
+    function generateQR() {
+      const text = document.getElementById('qrInput').value.trim();
+      if (!text) {
+        setStatus('qrStatus', 'Please enter a URL or text first.', 'error');
+        document.getElementById('qrInput').focus();
+        return;
+      }
+      const out = document.getElementById('qrOutput');
+      QRGen.generate(text, out, { size: 280, dark: 'ffffff', light: '1a1a1a' });
+    }
+
+    function downloadQR() {
+      const img = document.querySelector('#qrOutput img');
+      if (!img) return;
+
+      // For API-generated images, we need to use a canvas to convert
+      const canvas = document.createElement('canvas');
+      canvas.width = img.naturalWidth || 280;
+      canvas.height = img.naturalHeight || 280;
+      const ctx = canvas.getContext('2d');
+
+      // Create a new image with crossOrigin to allow toDataURL
+      const dlImg = new Image();
+      dlImg.crossOrigin = 'anonymous';
+      dlImg.onload = function () {
+        ctx.drawImage(dlImg, 0, 0);
+        try {
+          const a = document.createElement('a');
+          a.download = 'qr-code.png';
+          a.href = canvas.toDataURL('image/png');
+          a.click();
+        } catch (e) {
+          // If CORS blocks toDataURL, open image in new tab
+          window.open(img.src, '_blank');
+        }
+      };
+      dlImg.onerror = function () {
+        // Fallback: open image directly
+        window.open(img.src, '_blank');
+      };
+      dlImg.src = img.src;
+    }
+
+    // ===== PASSWORD =====
+    function generatePassword() {
+      const len = parseInt(document.getElementById('pwLen').value);
+      let chars = '';
+      if (document.getElementById('pwUpper').checked) chars += 'ABCDEFGHIJKLMNOPQRSTUVWXYZ';
+      if (document.getElementById('pwLower').checked) chars += 'abcdefghijklmnopqrstuvwxyz';
+      if (document.getElementById('pwNumbers').checked) chars += '0123456789';
+      if (document.getElementById('pwSymbols').checked) chars += '!@#$%^&*()_+-=[]{}|;:,.<>?';
+      if (!chars) { alert('Select at least one character type'); return; }
+      let pw = '';
+      const arr = new Uint32Array(len);
+      crypto.getRandomValues(arr);
+      for (let i = 0; i < len; i++) pw += chars[arr[i] % chars.length];
+      setOutput('pwOutput', pw);
+    }
+
+    // ===== COLOR PICKER =====
+    function updateColor(hex) {
+      document.getElementById('colorPreview').style.background = hex;
+      document.getElementById('colorHex').textContent = hex;
+      const r = parseInt(hex.slice(1, 3), 16), g = parseInt(hex.slice(3, 5), 16), b = parseInt(hex.slice(5, 7), 16);
+      document.getElementById('colorRgb').textContent = 'rgb(' + r + ', ' + g + ', ' + b + ')';
+      document.getElementById('colorRgba').textContent = 'rgba(' + r + ', ' + g + ', ' + b + ', 1)';
+      const rr = r / 255, gg = g / 255, bb = b / 255;
+      const max = Math.max(rr, gg, bb), min = Math.min(rr, gg, bb);
+      let h, s, l = (max + min) / 2;
+      if (max === min) { h = s = 0; } else {
+        const d = max - min;
+        s = l > .5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case rr: h = ((gg - bb) / d + (gg < bb ? 6 : 0)) / 6; break;
+          case gg: h = ((bb - rr) / d + 2) / 6; break;
+          case bb: h = ((rr - gg) / d + 4) / 6; break;
+        }
+      }
+      document.getElementById('colorHsl').textContent = 'hsl(' + Math.round(h * 360) + ', ' + Math.round(s * 100) + '%, ' + Math.round(l * 100) + '%)';
+    }
+
+    function copyColorVal(el) {
+      const text = el.textContent;
+      navigator.clipboard.writeText(text).then(function () {
+        const orig = el.textContent;
+        el.textContent = 'Copied!';
+        el.style.borderColor = 'var(--accent)';
+        el.style.color = 'var(--accent)';
+        setTimeout(function () {
+          el.textContent = orig;
+          el.style.borderColor = '';
+          el.style.color = '';
+        }, 1200);
+      }).catch(function () {
+        // Fallback for older browsers
+        const ta = document.createElement('textarea');
+        ta.value = text;
+        ta.style.position = 'fixed';
+        ta.style.left = '-9999px';
+        document.body.appendChild(ta);
+        ta.select();
+        document.execCommand('copy');
+        document.body.removeChild(ta);
+        const orig = el.textContent;
+        el.textContent = 'Copied!';
+        setTimeout(function () { el.textContent = orig; }, 1200);
+      });
+    }
+
+    // ===== WORD COUNTER =====
+    function countWords() {
+      const text = document.getElementById('wcInput').value;
+      const words = text.trim() ? text.trim().split(/\s+/).length : 0;
+      const chars = text.length;
+      const sentences = text.split(/[.!?]+/).filter(function (s) { return s.trim(); }).length;
+      const paras = text.split(/\n\n+/).filter(function (p) { return p.trim(); }).length;
+      document.getElementById('wcWords').textContent = words;
+      document.getElementById('wcChars').textContent = chars;
+      document.getElementById('wcSentences').textContent = sentences;
+      document.getElementById('wcParas').textContent = paras;
+      document.getElementById('wcReadTime').textContent = Math.max(1, Math.ceil(words / 200)) + 'm';
+      document.getElementById('wcSpeakTime').textContent = Math.max(1, Math.ceil(words / 130)) + 'm';
+    }
+
+    // ===== BASE64 =====
+    function b64Encode() {
+      const text = document.getElementById('b64Input').value;
+      try {
+        setOutput('b64Output', btoa(unescape(encodeURIComponent(text))));
+      } catch (e) {
+        setOutput('b64Output', 'Error: ' + e.message);
+      }
+    }
+    function b64Decode() {
+      const text = document.getElementById('b64Input').value;
+      try {
+        setOutput('b64Output', decodeURIComponent(escape(atob(text))));
+      } catch (e) {
+        setOutput('b64Output', 'Error: Invalid Base64 string');
+      }
+    }
+
+    // ===== JSON FORMATTER =====
+    function formatJSON() {
+      const text = document.getElementById('jsonInput').value;
+      try {
+        const obj = JSON.parse(text);
+        setOutput('jsonOutput', JSON.stringify(obj, null, 2));
+      } catch (e) {
+        setOutput('jsonOutput', 'Invalid JSON: ' + e.message);
+      }
+    }
+
+    // ===== LOREM IPSUM =====
+    function generateLorem() {
+      const count = parseInt(document.getElementById('loremCount').value);
+      const paras = [
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.",
+        "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
+        "Curabitur pretium tincidunt lacus. Nulla gravida orci a odio. Nullam varius, turpis et commodo pharetra, est eros bibendum elit, nec luctus magna felis sollicitudin mauris.",
+        "Integer in mauris eu nibh euismod gravida. Duis ac tellus et risus vulputate vehicula. Donec lobortis risus a elit. Etiam tempor. Ut ullamcorper, ligula ut dictum pharetra, nisi nunc fringilla magna.",
+        "Maecenas malesuada elit lectus felis, malesuada ultricies. Curabitur et ligula. Ut molestie a, ultricies porta urna. Vestibulum commodo volutpat a, convallis ac, laoreet enim.",
+        "Phasellus fermentum in, dolor. Pellentesque facilisis. Nulla imperdiet sit amet magna. Vestibulum dapibus, mauris nec malesuada fames ac turpis velit, rhoncus eu, luctus et interdum.",
+        "Fusce vel dui. Sed in libero ut nibh placerat accumsan. Proin faucibus arcu quis ante. In consectetuer turpis ut velit. Nulla sit amet est. Praesent metus tellus, elementum eu, semper a.",
+        "Adipiscing nec, purus. Cras risus ipsum, faucibus ut, ullamcorper id, varius ac, leo. Suspendisse feugiat. Suspendisse enim turpis, dictum sed, iaculis a, condimentum nec, nisi.",
+        "Praesent nec nisl a purus blandit viverra. Praesent ac massa at ligula laoreet iaculis. Nulla neque dolor, sagittis eget, iaculis quis, molestie non, velit.",
+        "Mauris turpis nunc, blandit et, volutpat molestie, porta ut, ligula. Fusce pharetra convallis urna. Quisque ut nisi. Donec mi odio, faucibus at, scelerisque quis."
+      ];
+      var result = [];
+      for (var i = 0; i < count; i++) result.push(paras[i % paras.length]);
+      setOutput('loremOutput', result.join('\n\n'));
+      document.getElementById('loremOutput').style.whiteSpace = 'pre-wrap';
+    }
+
+    // ===== STOPWATCH =====
+    var timerRunning = false, timerStart = 0, timerElapsed = 0, timerInterval = null, lapCount = 0;
+    function timerToggle() {
+      if (timerRunning) {
+        clearInterval(timerInterval); timerRunning = false;
+        timerElapsed += Date.now() - timerStart;
+        document.getElementById('timerStartBtn').textContent = '▶ Start';
+      } else {
+        timerStart = Date.now(); timerRunning = true;
+        document.getElementById('timerStartBtn').textContent = '⏸ Pause';
+        timerInterval = setInterval(function () {
+          var ms = timerElapsed + (Date.now() - timerStart);
+          document.getElementById('timerDisplay').textContent = formatTime(ms);
+        }, 100);
+      }
+    }
+    function timerLap() {
+      if (!timerRunning) return;
+      lapCount++;
+      var ms = timerElapsed + (Date.now() - timerStart);
+      var out = document.getElementById('timerLaps');
+      out.classList.add('show');
+      out.textContent = (out.textContent ? out.textContent + '\n' : '') + 'Lap ' + lapCount + ': ' + formatTime(ms);
+    }
+    function timerReset() {
+      clearInterval(timerInterval); timerRunning = false; timerElapsed = 0; lapCount = 0;
+      document.getElementById('timerDisplay').textContent = '00:00:00.0';
+      document.getElementById('timerStartBtn').textContent = '▶ Start';
+      document.getElementById('timerLaps').textContent = '';
+      document.getElementById('timerLaps').classList.remove('show');
+    }
+    function formatTime(ms) {
+      var s = Math.floor(ms / 1000), m = Math.floor(s / 60), h = Math.floor(m / 60);
+      return String(h).padStart(2, '0') + ':' + String(m % 60).padStart(2, '0') + ':' + String(s % 60).padStart(2, '0') + '.' + Math.floor((ms % 1000) / 100);
+    }
+
+    // ===== URL ENCODE/DECODE =====
+    function urlEncode() {
+      setOutput('urlOutput', encodeURIComponent(document.getElementById('urlInput').value));
+    }
+    function urlDecode() {
+      try {
+        setOutput('urlOutput', decodeURIComponent(document.getElementById('urlInput').value));
+      } catch (e) {
+        setOutput('urlOutput', 'Error: Invalid encoded URL');
+      }
+    }
+
+    // ===== HASH GENERATOR =====
+    async function generateHash() {
+      var text = document.getElementById('hashInput').value;
+      if (!text) { setOutput('hashOutput', 'Please enter text to hash.'); return; }
+      try {
+        var encoder = new TextEncoder();
+        var data = encoder.encode(text);
+        var hash = await crypto.subtle.digest('SHA-256', data);
+        var hex = Array.from(new Uint8Array(hash)).map(function (b) { return b.toString(16).padStart(2, '0'); }).join('');
+        setOutput('hashOutput', hex);
+      } catch (e) {
+        setOutput('hashOutput', 'Error: SHA-256 requires HTTPS. ' + e.message);
+      }
+    }
+
+    // ===== CASE CONVERTER =====
+    function convertCase(type) {
+      var text = document.getElementById('caseInput').value;
+      if (!text) return;
+      var result = '';
+      switch (type) {
+        case 'upper': result = text.toUpperCase(); break;
+        case 'lower': result = text.toLowerCase(); break;
+        case 'title': result = text.replace(/\w\S*/g, function (t) { return t.charAt(0).toUpperCase() + t.substr(1).toLowerCase(); }); break;
+        case 'sentence': result = text.toLowerCase().replace(/(^\s*\w|[.!?]\s*\w)/g, function (c) { return c.toUpperCase(); }); break;
+      }
+      setOutput('caseOutput', result);
+    }
+
+    // ===== MARKDOWN PREVIEW =====
+    function previewMD() {
+      var text = document.getElementById('mdInput').value;
+      var html = text
+        .replace(/^### (.*$)/gm, '<h3>$1</h3>')
+        .replace(/^## (.*$)/gm, '<h2>$1</h2>')
+        .replace(/^# (.*$)/gm, '<h1>$1</h1>')
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        .replace(/\*(.*?)\*/g, '<em>$1</em>')
+        .replace(/`(.*?)`/g, '<code style="background:var(--surface);padding:2px 6px;border-radius:4px;font-size:.85em">$1</code>')
+        .replace(/^- (.*$)/gm, '<li>$1</li>')
+        .replace(/\n\n/g, '<br><br>')
+        .replace(/\n/g, '<br>');
+      document.getElementById('mdOutput').innerHTML = html;
+    }
+
+    // ===== COPY OUTPUT =====
+    function copyOutput(id) {
+      var el = document.getElementById(id);
+      var text = '';
+      for (var i = 0; i < el.childNodes.length; i++) {
+        var node = el.childNodes[i];
+        if (node.nodeType === 3) text += node.textContent;
+      }
+      text = text.trim();
+      clipCopy(text);
+      var btn = el.querySelector('.copy-out');
+      if (btn) { btn.textContent = 'Copied!'; setTimeout(function () { btn.textContent = 'Copy'; }, 1500); }
+    }
+
+    // Universal clipboard helper
+    function clipCopy(text) {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        navigator.clipboard.writeText(text).catch(function () { fallbackCopy(text); });
+      } else {
+        fallbackCopy(text);
+      }
+    }
+    function fallbackCopy(text) {
+      var ta = document.createElement('textarea');
+      ta.value = text; ta.style.position = 'fixed'; ta.style.left = '-9999px';
+      document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); } catch (e) { }
+      document.body.removeChild(ta);
+    }
+
+    // ===== SCROLL TO TOP BUTTON =====
+    (function () {
+      var btn = document.getElementById('scrollTopBtn');
+      if (!btn) return;
+      window.addEventListener('scroll', function () {
+        if (window.scrollY > 400) {
+          btn.classList.add('visible');
+        } else {
+          btn.classList.remove('visible');
+        }
+      }, { passive: true });
+    })();
+
+    // ===== UUID GENERATOR =====
+    function makeUUID() {
+      if (crypto.randomUUID) return crypto.randomUUID();
+      return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0;
+        return (c === 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+      });
+    }
+    function generateUUID() {
+      setOutput('uuidOutput', makeUUID());
+    }
+    function generateBulkUUID() {
+      var uuids = [];
+      for (var i = 0; i < 5; i++) uuids.push(makeUUID());
+      setOutput('uuidOutput', uuids.join('\n'));
+      document.getElementById('uuidOutput').style.whiteSpace = 'pre-wrap';
+      document.getElementById('uuidOutput').style.wordBreak = 'break-all';
+    }
+
+    // ===== EMOJI PICKER =====
+    var EMOJIS = [
+      { e: '😀', t: 'grinning face happy smile' }, { e: '😂', t: 'joy laugh crying tears' }, { e: '🤣', t: 'rofl rolling floor laughing' }, { e: '😊', t: 'blush happy smile' }, { e: '😍', t: 'heart eyes love' }, { e: '🥰', t: 'love hearts face' }, { e: '😘', t: 'kiss blowing' }, { e: '😎', t: 'cool sunglasses' }, { e: '🤔', t: 'thinking hmm' }, { e: '😏', t: 'smirk' }, { e: '😢', t: 'cry sad tear' }, { e: '😭', t: 'sobbing crying loud' }, { e: '😤', t: 'angry huff' }, { e: '🥺', t: 'pleading puppy eyes' }, { e: '😱', t: 'scream shock' }, { e: '🤯', t: 'mind blown exploding' }, { e: '😴', t: 'sleep zzz' }, { e: '🤮', t: 'vomit sick' }, { e: '🤡', t: 'clown' }, { e: '👻', t: 'ghost boo' },
+      { e: '❤️', t: 'red heart love' }, { e: '🧡', t: 'orange heart' }, { e: '💛', t: 'yellow heart' }, { e: '💚', t: 'green heart' }, { e: '💙', t: 'blue heart' }, { e: '💜', t: 'purple heart' }, { e: '🖤', t: 'black heart' }, { e: '🤍', t: 'white heart' }, { e: '💔', t: 'broken heart' }, { e: '💕', t: 'two hearts' },
+      { e: '👍', t: 'thumbs up like yes' }, { e: '👎', t: 'thumbs down dislike no' }, { e: '👏', t: 'clap applause' }, { e: '🙌', t: 'raise hands celebration' }, { e: '🤝', t: 'handshake deal' }, { e: '✌️', t: 'peace victory' }, { e: '🤞', t: 'crossed fingers luck' }, { e: '💪', t: 'muscle strong flex' }, { e: '🙏', t: 'pray please thanks' }, { e: '👋', t: 'wave hello bye' },
+      { e: '🔥', t: 'fire hot lit' }, { e: '⭐', t: 'star' }, { e: '🌟', t: 'glowing star sparkle' }, { e: '💫', t: 'dizzy star' }, { e: '✨', t: 'sparkles magic' }, { e: '⚡', t: 'lightning bolt zap' }, { e: '💥', t: 'boom explosion' }, { e: '🎉', t: 'party tada celebration' }, { e: '🎊', t: 'confetti ball' }, { e: '🏆', t: 'trophy winner champion' },
+      { e: '✅', t: 'check mark done yes' }, { e: '❌', t: 'cross mark no wrong' }, { e: '⚠️', t: 'warning caution' }, { e: '🚀', t: 'rocket launch' }, { e: '💡', t: 'light bulb idea' }, { e: '🔑', t: 'key' }, { e: '🔒', t: 'lock locked' }, { e: '🔓', t: 'unlock unlocked' }, { e: '📌', t: 'pin pushpin' }, { e: '📎', t: 'paperclip' },
+      { e: '💻', t: 'laptop computer' }, { e: '📱', t: 'phone mobile' }, { e: '🖥️', t: 'desktop computer monitor' }, { e: '⌨️', t: 'keyboard' }, { e: '🖱️', t: 'mouse' }, { e: '💾', t: 'floppy disk save' }, { e: '📡', t: 'satellite antenna' }, { e: '🔋', t: 'battery' }, { e: '🌐', t: 'globe internet web' }, { e: '📧', t: 'email mail' },
+      { e: '🐶', t: 'dog puppy' }, { e: '🐱', t: 'cat kitty' }, { e: '🐻', t: 'bear' }, { e: '🦊', t: 'fox' }, { e: '🐼', t: 'panda' }, { e: '🦁', t: 'lion' }, { e: '🐸', t: 'frog' }, { e: '🐙', t: 'octopus' }, { e: '🦋', t: 'butterfly' }, { e: '🐝', t: 'bee honeybee' },
+      { e: '🍕', t: 'pizza' }, { e: '🍔', t: 'burger hamburger' }, { e: '🍟', t: 'fries french' }, { e: '🌮', t: 'taco' }, { e: '🍣', t: 'sushi' }, { e: '🍩', t: 'donut doughnut' }, { e: '☕', t: 'coffee hot' }, { e: '🍺', t: 'beer' }, { e: '🍷', t: 'wine' }, { e: '🧃', t: 'juice box' }
+    ];
+
+    function initEmojiGrid() {
+      var grid = document.getElementById('emojiGrid');
+      if (!grid) return;
+      grid.innerHTML = '';
+      EMOJIS.forEach(function (item) {
+        var btn = document.createElement('button');
+        btn.className = 'emoji-cell';
+        btn.textContent = item.e;
+        btn.setAttribute('data-tags', item.t);
+        btn.onclick = function () {
+          clipCopy(item.e);
+          setStatus('emojiStatus', 'Copied ' + item.e + ' to clipboard!', 'success');
+          setTimeout(function () {
+            var s = document.getElementById('emojiStatus');
+            if (s) { s.className = 'tool-status'; s.textContent = ''; }
+          }, 1500);
+        };
+        grid.appendChild(btn);
+      });
+    }
+    function filterEmojis() {
+      var q = document.getElementById('emojiSearch').value.toLowerCase().trim();
+      var cells = document.querySelectorAll('.emoji-cell');
+      cells.forEach(function (cell) {
+        var tags = cell.getAttribute('data-tags') || '';
+        var emoji = cell.textContent;
+        if (!q || tags.indexOf(q) !== -1 || emoji.indexOf(q) !== -1) {
+          cell.style.display = '';
+        } else {
+          cell.style.display = 'none';
+        }
+      });
+    }
+    document.addEventListener('DOMContentLoaded', initEmojiGrid);
+
+    // ===== TIMESTAMP CONVERTER =====
+    function getCurrentTimestamp() {
+      var now = Math.floor(Date.now() / 1000);
+      document.getElementById('tsInput').value = now;
+      setOutput('tsOutput', 'Current Unix Timestamp: ' + now + '\n\nHuman Readable:\n' + new Date().toString() + '\n\nISO 8601:\n' + new Date().toISOString());
+      document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+      document.getElementById('tsOutput').style.wordBreak = 'break-word';
+    }
+    function tsToDate() {
+      var val = document.getElementById('tsInput').value.trim();
+      if (!val) return;
+      var ts = parseInt(val);
+      if (isNaN(ts)) { setOutput('tsOutput', 'Error: Enter a valid Unix timestamp'); return; }
+      // Handle seconds vs milliseconds
+      if (ts < 1e12) ts *= 1000;
+      var d = new Date(ts);
+      if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Invalid timestamp'); return; }
+      setOutput('tsOutput', 'Local: ' + d.toString() + '\nUTC: ' + d.toUTCString() + '\nISO: ' + d.toISOString());
+      document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+      document.getElementById('tsOutput').style.wordBreak = 'break-word';
+    }
+    function dateToTs() {
+      var val = document.getElementById('tsInput').value.trim();
+      if (!val) return;
+      var d = new Date(val);
+      if (isNaN(d.getTime())) { setOutput('tsOutput', 'Error: Could not parse date. Try formats like:\n2025-01-15\n2025-01-15T10:30:00\nJan 15, 2025'); document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap'; return; }
+      var ts = Math.floor(d.getTime() / 1000);
+      setOutput('tsOutput', 'Unix Timestamp: ' + ts + '\nMilliseconds: ' + d.getTime());
+      document.getElementById('tsOutput').style.whiteSpace = 'pre-wrap';
+    }
+
+    // ===== REGEX TESTER =====
+    function testRegex() {
+      var pattern = document.getElementById('regexPattern').value;
+      var flags = document.getElementById('regexFlags').value;
+      var text = document.getElementById('regexText').value;
+      var outEl = document.getElementById('regexOutput');
+      var matchEl = document.getElementById('regexMatches');
+
+      if (!pattern || !text) {
+        outEl.innerHTML = '<span style="color:var(--text-muted)">Enter a pattern and text to see matches</span>';
+        matchEl.classList.remove('show');
+        return;
+      }
+
+      try {
+        var regex = new RegExp(pattern, flags);
+        var matches = [];
+        var match;
+        var safeFlags = flags.indexOf('g') !== -1 ? flags : flags + 'g';
+        var gRegex = new RegExp(pattern, safeFlags);
+
+        while ((match = gRegex.exec(text)) !== null) {
+          matches.push({ text: match[0], index: match.index });
+          if (match.index === gRegex.lastIndex) gRegex.lastIndex++;
+          if (matches.length > 100) break;
+        }
+
+        // Build highlighted output
+        var html = '';
+        var lastIdx = 0;
+        matches.forEach(function (m) {
+          if (m.index > lastIdx) {
+            html += escapeHtml(text.substring(lastIdx, m.index));
+          }
+          html += '<span class="regex-match">' + escapeHtml(m.text) + '</span>';
+          lastIdx = m.index + m.text.length;
+        });
+        if (lastIdx < text.length) html += escapeHtml(text.substring(lastIdx));
+
+        outEl.innerHTML = html || '<span style="color:var(--text-muted)">No matches</span>';
+
+        // Show match count
+        setOutput('regexMatches', matches.length + ' match' + (matches.length !== 1 ? 'es' : '') + ' found');
+      } catch (e) {
+        outEl.innerHTML = '<span style="color:#ef4444">Invalid regex: ' + escapeHtml(e.message) + '</span>';
+        matchEl.classList.remove('show');
+      }
+    }
+    function escapeHtml(str) {
+      return str.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
+    }
+
+    // ===== TEXT DIFF CHECKER =====
+    function computeDiff() {
+      var text1 = document.getElementById('diffText1').value;
+      var text2 = document.getElementById('diffText2').value;
+      if (!text1 && !text2) return;
+
+      var lines1 = text1.split('\n');
+      var lines2 = text2.split('\n');
+      var maxLen = Math.max(lines1.length, lines2.length);
+      var html = '';
+
+      for (var i = 0; i < maxLen; i++) {
+        var l1 = i < lines1.length ? lines1[i] : undefined;
+        var l2 = i < lines2.length ? lines2[i] : undefined;
+
+        if (l1 === l2) {
+          html += '<div class="diff-same">  ' + escapeHtml(l1) + '</div>';
+        } else {
+          if (l1 !== undefined) html += '<div class="diff-del">- ' + escapeHtml(l1) + '</div>';
+          if (l2 !== undefined) html += '<div class="diff-add">+ ' + escapeHtml(l2) + '</div>';
+        }
+      }
+
+      var out = document.getElementById('diffOutput');
+      out.innerHTML = html || '<span style="color:var(--text-muted)">Texts are identical</span>';
+      out.classList.add('show');
+    }
+
+    // ===== PX/REM CONVERTER =====
+    function convertPxRem() {
+      var px = parseFloat(document.getElementById('pxInput').value);
+      var base = parseInt(document.getElementById('remBase').value);
+      if (isNaN(px)) { document.getElementById('remOutput').textContent = '—'; return; }
+      var rem = (px / base).toFixed(4).replace(/\.?0+$/, '');
+      document.getElementById('remOutput').textContent = rem + ' rem';
+    }
+    function convertRemPx() {
+      var rem = parseFloat(document.getElementById('remInput').value);
+      var base = parseInt(document.getElementById('remBase').value);
+      if (isNaN(rem)) { document.getElementById('pxOutput').textContent = '—'; return; }
+      var px = (rem * base).toFixed(2).replace(/\.?0+$/, '');
+      document.getElementById('pxOutput').textContent = px + ' px';
+    }
+
+    // ===== TIP CALCULATOR =====
+    function calcTip() {
+      var bill = parseFloat(document.getElementById('tipBill').value) || 0;
+      var pct = parseInt(document.getElementById('tipPercent').value) || 0;
+      var split = parseInt(document.getElementById('tipSplit').value) || 1;
+      var tip = bill * (pct / 100);
+      var total = bill + tip;
+      var perPerson = total / split;
+      var tipPP = tip / split;
+      document.getElementById('tipAmount').textContent = '$' + tip.toFixed(2);
+      document.getElementById('tipTotal').textContent = '$' + total.toFixed(2);
+      document.getElementById('tipPerPerson').textContent = '$' + perPerson.toFixed(2);
+      document.getElementById('tipTipPP').textContent = '$' + tipPP.toFixed(2);
+    }
+
+    // ===== BMI CALCULATOR =====
+    var bmiUnit = 'metric';
+    function setBMIUnit(unit) {
+      bmiUnit = unit;
+      var metBtn = document.getElementById('bmiMetricBtn');
+      var impBtn = document.getElementById('bmiImperialBtn');
+      if (unit === 'metric') {
+        metBtn.className = 'tool-btn'; impBtn.className = 'tool-btn secondary';
+        document.getElementById('bmiWeight').placeholder = 'Weight (kg)';
+        document.getElementById('bmiHeight').placeholder = 'Height (cm)';
+      } else {
+        impBtn.className = 'tool-btn'; metBtn.className = 'tool-btn secondary';
+        document.getElementById('bmiWeight').placeholder = 'Weight (lbs)';
+        document.getElementById('bmiHeight').placeholder = 'Height (inches)';
+      }
+      calcBMI();
+    }
+    function calcBMI() {
+      var w = parseFloat(document.getElementById('bmiWeight').value);
+      var h = parseFloat(document.getElementById('bmiHeight').value);
+      var out = document.getElementById('bmiOutput');
+      if (!w || !h || w <= 0 || h <= 0) { out.textContent = 'Enter your weight and height'; return; }
+
+      var bmi;
+      if (bmiUnit === 'metric') {
+        bmi = w / Math.pow(h / 100, 2);
+      } else {
+        bmi = (w / Math.pow(h, 2)) * 703;
+      }
+
+      var category = '';
+      var color = '';
+      if (bmi < 18.5) { category = 'Underweight'; color = '#3b82f6'; }
+      else if (bmi < 25) { category = 'Normal weight'; color = '#10b981'; }
+      else if (bmi < 30) { category = 'Overweight'; color = '#f59e0b'; }
+      else { category = 'Obese'; color = '#ef4444'; }
+
+      out.innerHTML = '<div style="font-size:2rem;font-weight:800;color:' + color + '">' + bmi.toFixed(1) + '</div>' +
+        '<div style="color:' + color + ';font-weight:600;margin-top:4px">' + category + '</div>' +
+        '<div style="color:var(--text-muted);font-size:.8rem;margin-top:8px">BMI Categories: Underweight < 18.5 | Normal 18.5–24.9 | Overweight 25–29.9 | Obese 30+</div>';
+    }
+
+    // ===== COUNTDOWN TIMER =====
+    var cdRunning = false, cdInterval = null, cdRemaining = 300;
+    function cdToggle() {
+      if (cdRunning) {
+        clearInterval(cdInterval); cdRunning = false;
+        document.getElementById('cdStartBtn').textContent = '▶ Resume';
+      } else {
+        if (cdRemaining <= 0) {
+          var m = parseInt(document.getElementById('cdMinutes').value) || 0;
+          var s = parseInt(document.getElementById('cdSeconds').value) || 0;
+          cdRemaining = m * 60 + s;
+        }
+        if (cdRemaining <= 0) return;
+        cdRunning = true;
+        document.getElementById('cdStartBtn').textContent = '⏸ Pause';
+        cdInterval = setInterval(function () {
+          cdRemaining--;
+          if (cdRemaining <= 0) {
+            cdRemaining = 0;
+            clearInterval(cdInterval); cdRunning = false;
+            document.getElementById('cdStartBtn').textContent = '▶ Start';
+            document.getElementById('cdDisplay').textContent = '00:00';
+            document.getElementById('cdDisplay').style.color = '#10b981';
+            // Alert
+            try { if (Notification.permission === 'granted') new Notification('Timer Done!', { body: 'Your countdown has finished.' }); } catch (e) { }
+            alert('⏰ Time is up!');
+            return;
+          }
+          updateCdDisplay();
+        }, 1000);
+      }
+    }
+    function cdReset() {
+      clearInterval(cdInterval); cdRunning = false;
       var m = parseInt(document.getElementById('cdMinutes').value) || 0;
       var s = parseInt(document.getElementById('cdSeconds').value) || 0;
       cdRemaining = m * 60 + s;
-    }
-    if (cdRemaining <= 0) return;
-    cdRunning = true;
-    document.getElementById('cdStartBtn').textContent = '⏸ Pause';
-    cdInterval = setInterval(function() {
-      cdRemaining--;
-      if (cdRemaining <= 0) {
-        cdRemaining = 0;
-        clearInterval(cdInterval); cdRunning = false;
-        document.getElementById('cdStartBtn').textContent = '▶ Start';
-        document.getElementById('cdDisplay').textContent = '00:00';
-        document.getElementById('cdDisplay').style.color = '#10b981';
-        // Alert
-        try { if (Notification.permission === 'granted') new Notification('Timer Done!', {body:'Your countdown has finished.'}); } catch(e) {}
-        alert('⏰ Time is up!');
-        return;
-      }
+      document.getElementById('cdStartBtn').textContent = '▶ Start';
+      document.getElementById('cdDisplay').style.color = 'var(--accent)';
       updateCdDisplay();
-    }, 1000);
-  }
-}
-function cdReset() {
-  clearInterval(cdInterval); cdRunning = false;
-  var m = parseInt(document.getElementById('cdMinutes').value) || 0;
-  var s = parseInt(document.getElementById('cdSeconds').value) || 0;
-  cdRemaining = m * 60 + s;
-  document.getElementById('cdStartBtn').textContent = '▶ Start';
-  document.getElementById('cdDisplay').style.color = 'var(--accent)';
-  updateCdDisplay();
-}
-function updateCdDisplay() {
-  var m = Math.floor(cdRemaining / 60);
-  var s = cdRemaining % 60;
-  document.getElementById('cdDisplay').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
-}
+    }
+    function updateCdDisplay() {
+      var m = Math.floor(cdRemaining / 60);
+      var s = cdRemaining % 60;
+      document.getElementById('cdDisplay').textContent = String(m).padStart(2, '0') + ':' + String(s).padStart(2, '0');
+    }
 
-// ===== TEXT CLEANER =====
-function cleanText(mode) {
-  var text = document.getElementById('cleanInput').value;
-  if (!text) return;
-  var result = text;
-  switch(mode) {
-    case 'spaces':
-      result = text.replace(/[ \t]+/g, ' ');
-      break;
-    case 'lines':
-      result = text.replace(/\n{3,}/g, '\n\n').replace(/^\s*\n/gm, '');
-      break;
-    case 'trim':
-      result = text.split('\n').map(function(l) { return l.trim(); }).join('\n');
-      break;
-    case 'all':
-      result = text
-        .replace(/[ \t]+/g, ' ')
-        .split('\n').map(function(l) { return l.trim(); }).join('\n')
-        .replace(/\n{3,}/g, '\n\n')
-        .replace(/^\s*\n/gm, '')
-        .trim();
-      break;
-  }
-  setOutput('cleanOutput', result);
-  document.getElementById('cleanOutput').style.whiteSpace = 'pre-wrap';
-  document.getElementById('cleanOutput').style.wordBreak = 'break-word';
-}
-</script>
+    // ===== TEXT CLEANER =====
+    function cleanText(mode) {
+      var text = document.getElementById('cleanInput').value;
+      if (!text) return;
+      var result = text;
+      switch (mode) {
+        case 'spaces':
+          result = text.replace(/[ \t]+/g, ' ');
+          break;
+        case 'lines':
+          result = text.replace(/\n{3,}/g, '\n\n').replace(/^\s*\n/gm, '');
+          break;
+        case 'trim':
+          result = text.split('\n').map(function (l) { return l.trim(); }).join('\n');
+          break;
+        case 'all':
+          result = text
+            .replace(/[ \t]+/g, ' ')
+            .split('\n').map(function (l) { return l.trim(); }).join('\n')
+            .replace(/\n{3,}/g, '\n\n')
+            .replace(/^\s*\n/gm, '')
+            .trim();
+          break;
+      }
+      setOutput('cleanOutput', result);
+      document.getElementById('cleanOutput').style.whiteSpace = 'pre-wrap';
+      document.getElementById('cleanOutput').style.wordBreak = 'break-word';
+    }
+  </script>
 </body>
+
 </html>

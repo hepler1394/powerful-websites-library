@@ -1,0 +1,24 @@
+{
+  "name": "powerful-websites-library",
+  "version": "1.0.0",
+  "description": "",
+  "main": "data-extra-2.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hepler1394/powerful-websites-library.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs",
+  "bugs": {
+    "url": "https://github.com/hepler1394/powerful-websites-library/issues"
+  },
+  "homepage": "https://github.com/hepler1394/powerful-websites-library#readme",
+  "dependencies": {
+    "firebase": "^12.9.0"
+  }
+}

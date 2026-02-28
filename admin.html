@@ -4,6 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+    <link rel="icon" type="image/svg+xml"
+        href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZGMyNjI2Ii8+PHBvbHlnb24gcG9pbnRzPSIzNSwyNSA3NSw1MCAzNSw3NSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
     <title>Admin Dashboard — WebsLib</title>
     <meta name="robots" content="noindex, nofollow">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -587,8 +589,8 @@
                         </div>
                         <div class="stat-card blue">
                             <div class="sc-label">Data Files</div>
-                            <div class="sc-value">5</div>
-                            <div class="sc-sub">data-extra-1 through 4</div>
+                            <div class="sc-value">6</div>
+                            <div class="sc-sub">data-extra-1 through 5</div>
                         </div>
                         <div class="stat-card yellow">
                             <div class="sc-label">Local Favs</div>
@@ -689,6 +691,12 @@
                                         <td>data-extra-4.js</td>
                                         <td>6</td>
                                         <td>90</td>
+                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra-5.js</td>
+                                        <td>5</td>
+                                        <td>100</td>
                                         <td><span class="badge-pill badge-blue">2026 New</span></td>
                                     </tr>
                                 </tbody>
@@ -888,7 +896,7 @@
         function loadDataFiles() {
             return new Promise(resolve => {
                 if (typeof DATA !== 'undefined') { resolve(); return; }
-                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js'];
+                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js'];
                 // Inject a minimal DATA array first
                 window.DATA = [];
                 let loaded = 0;
