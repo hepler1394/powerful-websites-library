@@ -625,8 +625,23 @@
         geminiPulse 1.5s ease-in-out infinite;
     }
 
+    .search-wrap input {
+      width: 100%;
+      padding: 16px 20px 16px 52px;
+      border-radius: 50px;
+      border: none;
+      background: var(--card);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      color: var(--text);
+      font-size: 1rem;
+      outline: none;
+      transition: background .3s;
+    }
+
     .search-wrap input:focus {
       box-shadow: none;
+      background: var(--card);
     }
 
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
