@@ -7292,10 +7292,11 @@
     </div>
   </div>
 
-  <!-- F15: Offline Indicator -->
   <div id="offlineIndicator">
     <span class="offline-dot"></span>
     <span>You're offline — showing cached content</span>
+    <button class="offline-close" onclick="document.getElementById('offlineIndicator').classList.remove('show')"
+      title="Dismiss">✕</button>
   </div>
 
   <!-- F12: Multi-Select Bar -->

@@ -1955,46 +1955,38 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     border-bottom-color: var(--vpn-accent) !important;
 }
 
-/* ─── FEATURE 60: GEMINI ANIMATED SEARCH GLOW ─── */
-@property --search-glow-angle {
-    syntax: '<angle>';
-    initial-value: 0deg;
-    inherits: false;
-}
+/* ─── FEATURE 60: SEARCH GLOW — subtle pulsating ring only ─── */
+@keyframes searchRingPulse {
+    0% {
+        box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.75), 0 0 10px rgba(220, 38, 38, 0.25);
+    }
 
-@keyframes searchGlowSpin {
-    to {
-        --search-glow-angle: 360deg;
+    33% {
+        box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.85), 0 0 14px rgba(168, 85, 247, 0.35);
+    }
+
+    66% {
+        box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.80), 0 0 12px rgba(34, 211, 238, 0.3);
+    }
+
+    100% {
+        box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.75), 0 0 10px rgba(220, 38, 38, 0.25);
     }
 }
 
-/* Make the wrapper a stacking context so ::before stays behind */
+/* Clean isolation reset — remove ::before */
 .search-wrap {
-    isolation: isolate;
+    isolation: auto;
+}
+
+.search-wrap:focus-within::before {
+    display: none !important;
 }
 
 .search-wrap:focus-within {
-    box-shadow: 0 0 0 1px transparent !important;
-}
-
-/* The animated rainbow ring sits BEHIND the card-bg input */
-.search-wrap:focus-within::before {
-    content: '';
-    position: absolute;
-    inset: -2px;
-    border-radius: 55px;
-    z-index: -1;
-    background: conic-gradient(from var(--search-glow-angle),
-            #dc2626 0%,
-            #ff6b9d 14%,
-            #a855f7 28%,
-            #6366f1 42%,
-            #3b82f6 56%,
-            #10b981 70%,
-            #ffd93d 84%,
-            #dc2626 100%);
-    animation: searchGlowSpin 3s linear infinite;
-    filter: blur(1px);
+    animation: searchRingPulse 3s ease-in-out infinite !important;
+    filter: none !important;
+    transition: none !important;
 }
 
 /* ─── FEATURE 62: PWA INSTALL BANNER ─── */
@@ -2773,3 +2765,48 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
         display: none !important;
     }
 }
+/* ══════════════════════════════════════════════════════
+   GLASS THEME — Hero title & Surprise Me button red fix
+   ══════════════════════════════════════════════════════ */
+
+/* Hero h1 gradient: in glass --accent=#fff making it white, force red gradient */
+[data-theme="glass"] .hero h1 {
+    background: linear-gradient(135deg, #ffffff 0%, #dc2626 50%, #ff6b9d 100%) !important;
+    -webkit-background-clip: text !important;
+    -webkit-text-fill-color: transparent !important;
+    background-clip: text !important;
+}
+
+/* Surprise Me button — force red on glass */
+[data-theme="glass"] .btn-surprise,
+[data-theme="glass"] [data-action="surprise"],
+[data-theme="glass"] button[onclick*="surprise"] {
+    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+    border-color: transparent !important;
+}
+
+/* General: any button using var(--accent) text in glass = white → force red */
+[data-theme="glass"] .btn-primary,
+[data-theme="glass"] .btn-accent {
+    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
+    color: #fff !important;
+    -webkit-text-fill-color: #fff !important;
+}
+
+/* ══════════════════════════════════════════════════════
+   OFFLINE INDICATOR — Add close button styles
+   ══════════════════════════════════════════════════════ */
+#offlineIndicator .offline-close {
+    margin-left: auto;
+    background: none;
+    border: none;
+    color: inherit;
+    font-size: 1rem;
+    cursor: pointer;
+    opacity: 0.7;
+    padding: 0 4px;
+    line-height: 1;
+}
+#offlineIndicator .offline-close:hover { opacity: 1; }
