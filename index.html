@@ -622,10 +622,7 @@
         geminiPulse 3s ease-in-out infinite;
     }
 
-    /* Ring is always the same speed — no jolt on focus */
-    .search-wrap:focus-within {
-      /* keep same animation — no speed change */
-    }
+    /* Ring speed is constant — :focus-within deliberately has no overrides */
 
     .search-wrap input {
       width: 100%;
@@ -6282,8 +6279,7 @@
       const overlay = document.getElementById('promoOverlay');
       if (overlay) {
         overlay.classList.add('open');
-        document.body.style.overflow = 'hidden';
-        // NO auto-dismiss — user must explicitly close it
+        // NOTE: do NOT touch body.style.overflow here — it breaks page scroll
       }
     }
     function dismissPromo() {
@@ -6292,6 +6288,7 @@
       const overlay = document.getElementById('promoOverlay');
       if (overlay) {
         overlay.classList.remove('open');
+        // Always ensure body scroll is restored
         document.body.style.overflow = '';
       }
     }
@@ -8374,6 +8371,13 @@
         lastY = window.scrollY; // prevent re-hide on next scroll tick
       };
     })();
+
+    // Safety: always ensure body scroll is never locked on load
+    document.body.style.overflow = '';
+    document.body.style.overflowY = '';
+    document.addEventListener('visibilitychange', () => {
+      if (!document.hidden) document.body.style.overflow = '';
+    });
 
     applySettings();
     console.log('%c🚀 Powerful Websites Library v3.0 — 100 Features Loaded!', 'color:#dc2626;font-size:14px;font-weight:900;');
