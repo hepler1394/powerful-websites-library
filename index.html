@@ -2233,6 +2233,64 @@
       opacity: .7;
     }
 
+    /* PROFILE DROPDOWN */
+    .profile-dropdown-wrap {
+      position: relative;
+    }
+
+    .profile-dropdown {
+      position: absolute;
+      top: calc(100% + 12px);
+      left: 0;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 8px;
+      width: 220px;
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      visibility: hidden;
+      transform: translateY(-10px);
+      transition: all 0.2s;
+      z-index: 999;
+    }
+
+    .profile-dropdown.open {
+      opacity: 1;
+      visibility: visible;
+      transform: translateY(0);
+    }
+
+    .profile-dropdown-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 14px;
+      color: var(--text);
+      text-decoration: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: background 0.2s;
+    }
+
+    .profile-dropdown-item:hover {
+      background: rgba(255, 255, 255, 0.05);
+    }
+
+    .profile-dropdown-item svg {
+      width: 16px;
+      height: 16px;
+      opacity: 0.7;
+    }
+
+    .profile-divider {
+      height: 1px;
+      background: var(--border);
+      margin: 6px 0;
+    }
+
     /* Hero needs top padding to clear fixed top-bar */
     .hero {
       padding-top: calc(80px + 60px) !important
@@ -3105,6 +3163,96 @@
         order: -1;
       }
     }
+
+    /* --- FLOATING GUEST BANNER --- */
+    .guest-promo-banner {
+      position: fixed;
+      bottom: 80px;
+      /* Above mobile bottom nav */
+      left: 50%;
+      transform: translateX(-50%) translateY(200%);
+      width: 90%;
+      max-width: 600px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+      z-index: 1000;
+      transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    }
+
+    .guest-promo-banner.show {
+      transform: translateX(-50%) translateY(0);
+    }
+
+    .guest-promo-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .guest-promo-title {
+      font-weight: 800;
+      color: var(--text);
+      font-size: 1.05rem;
+    }
+
+    .guest-promo-desc {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .guest-promo-actions {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+    }
+
+    .guest-promo-btn {
+      background: linear-gradient(135deg, var(--accent), #b91c1c);
+      color: #fff;
+      border: none;
+      padding: 8px 16px;
+      border-radius: 20px;
+      font-weight: 700;
+      font-size: 0.85rem;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: transform 0.2s;
+    }
+
+    .guest-promo-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .guest-promo-close {
+      background: none;
+      border: none;
+      color: var(--text-muted);
+      cursor: pointer;
+      padding: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: color 0.2s;
+    }
+
+    .guest-promo-close:hover {
+      color: var(--text);
+    }
+
+    @media (min-width: 768px) {
+      .guest-promo-banner {
+        bottom: 30px;
+        /* Desktop doesn't have bottom nav */
+      }
+    }
   </style>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -3121,13 +3269,45 @@
 
   <!-- TOP BAR: auth + theme in one clean row -->
   <div class="top-bar">
-    <button class="auth-btn" id="authBtn" onclick="openAuthModal()" title="Sign In / Create Account">
-      <svg class="auth-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-        <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
-        <circle cx="12" cy="7" r="4" />
-      </svg>
-      <span id="authBtnLabel">Sign In</span>
-    </button>
+    <div class="profile-dropdown-wrap" id="authBtnWrap">
+      <button class="auth-btn" id="authBtn" onclick="handleTopAuthClick()" title="Sign In / Profile">
+        <svg class="auth-icon" id="authBtnIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2" />
+          <circle cx="12" cy="7" r="4" />
+        </svg>
+        <img class="auth-avatar" id="authBtnAvatar" src="" style="display:none;" />
+        <span id="authBtnLabel">Sign In</span>
+      </button>
+      <div class="profile-dropdown" id="profileDropdown">
+        <a class="profile-dropdown-item"
+          onclick="showDashboardTab(); document.getElementById('profileDropdown').classList.remove('open')">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <rect x="3" y="3" width="7" height="7"></rect>
+            <rect x="14" y="3" width="7" height="7"></rect>
+            <rect x="14" y="14" width="7" height="7"></rect>
+            <rect x="3" y="14" width="7" height="7"></rect>
+          </svg>
+          My Dashboard
+        </a>
+        <a class="profile-dropdown-item" onclick="exportCloudData()">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+          Export My Data
+        </a>
+        <div class="profile-divider"></div>
+        <a class="profile-dropdown-item" onclick="signOutUser()" style="color:#ff4444">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4"></path>
+            <polyline points="16 17 21 12 16 7"></polyline>
+            <line x1="21" y1="12" x2="9" y2="12"></line>
+          </svg>
+          Sign Out
+        </a>
+      </div>
+    </div>
     <div class="theme-switcher">
       <button class="theme-btn active" data-theme-btn="dark" title="Dark Mode" onclick="setTheme('dark')">
         <svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor">
@@ -3204,7 +3384,12 @@
         <!-- Search Dropdown Menu -->
         <div class="search-dropdown" id="searchDropdown">
           <div class="search-dropdown-section" id="recentSearches" style="display:none;">
-            <div class="dropdown-title">Recent Searches</div>
+            <div class="dropdown-title" style="display:flex;justify-content:space-between;align-items:center;">
+              Recent Searches
+              <button onclick="clearAllSearchHistory();event.stopPropagation();"
+                style="background:none;border:none;color:var(--text-muted);font-size:0.75rem;cursor:pointer;text-decoration:underline;padding:0;">Clear
+                All</button>
+            </div>
             <div class="suggest-list" id="recentSearchesList"></div>
           </div>
           <div class="search-dropdown-section" id="popularSearches">
@@ -3269,6 +3454,13 @@
     <div class="card-sheet-category" id="csCategory"></div>
     <p class="card-sheet-desc" id="csDesc"></p>
     <div class="card-sheet-limits" id="csLimits" style="display:none"></div>
+    <div id="csNotesWrap" style="display:none;margin:12px 0;">
+      <label style="font-size:0.75rem;font-weight:700;color:var(--text-muted);display:block;margin-bottom:6px;">Personal
+        Note (Cloud Saved)</label>
+      <textarea id="csNotesInput" placeholder="Add a private note about this site..."
+        style="width:100%;box-sizing:border-box;background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:10px;color:var(--text);font-family:inherit;font-size:0.85rem;resize:none;height:60px;"
+        oninput="savePersonalNote(this.value)"></textarea>
+    </div>
     <div class="card-sheet-actions">
       <a class="card-sheet-visit" id="csVisit" href="#" target="_blank" rel="noopener">
         Visit Site
@@ -3329,7 +3521,8 @@
   <header class="hero">
     <div class="hero-content">
       <div class="hero-badge"><span
-          style="display:inline-block;width:7px;height:7px;background:#22c55e;border-radius:50%;margin-right:6px;animation:livePulse 1.8s ease-in-out infinite;vertical-align:middle;"></span>800+
+          style="display:inline-block;width:7px;height:7px;background:#22c55e;border-radius:50%;margin-right:6px;animation:livePulse 1.8s ease-in-out infinite;vertical-align:middle;"></span><span
+          id="heroBadgeCount">800+</span>
         Free Tools &bull; 2026</div>
       <h1>Powerful Free Websites Library</h1>
       <p><span id="heroSiteCount" style="font-weight:900;color:var(--accent)">700+</span> websites that feel illegal to
@@ -3353,8 +3546,8 @@
             <h3>Best Practices Guide</h3>
           </div>
         </a>
-        <a href="tools.html" class="quick-link ql-tools">
-          <div class="quick-link-icon">🛠️</div>
+        <a href="tools.html" class="quick-link ql-tools auth-restricted" style="display:none;">
+          <div class="quick-link-icon">⚡</div>
           <div class="quick-link-text">
             <h3>Site Tools</h3>
           </div>
@@ -3371,7 +3564,8 @@
             <div class="num" style="font-size:1.6rem">🛡</div>
             <div class="label">Best Practices</div>
           </a></div>
-        <div class="hero-stat"><a href="tools.html" style="text-decoration:none;color:inherit">
+        <div class="hero-stat auth-restricted" style="display:none;"><a href="tools.html"
+            style="text-decoration:none;color:inherit">
             <div class="num" style="font-size:1.6rem">🛠️</div>
             <div class="label">Site Tools</div>
           </a></div>
@@ -3484,15 +3678,43 @@
       <p>Try a different search term or category filter.</p>
     </div>
     <div class="no-favorites" id="noFavorites">
-      <div class="nf-heart">❤️</div>
-      <h3>No favorites yet</h3>
-      <p>Tap the heart icon on any card to save it here. Your favorites are stored on this device and persist across
-        visits.</p>
+      <div class="nf-heart" style="font-size:3rem;margin-bottom:12px;animation:pulse 2s infinite">❤️</div>
+      <h3 style="font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:8px">No favorites yet</h3>
+      <p style="color:var(--text-muted);font-size:0.95rem;max-width:350px;margin:0 auto 20px;line-height:1.5">Tap the
+        heart icon on any card to save it here. Your favorites are stored securely on this device.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+        <button onclick="document.querySelector('[data-section=all]').click()"
+          style="background:var(--surface);border:1px solid var(--border);color:var(--text);padding:10px 20px;border-radius:24px;font-weight:700;cursor:pointer;transition:all 0.2s"
+          onmouseover="this.style.borderColor='var(--accent)'"
+          onmouseout="this.style.borderColor='var(--border)'">Browse All</button>
+        <button onclick="loadSurpriseMe()"
+          style="background:linear-gradient(135deg,var(--accent),#b91c1c);border:none;color:#fff;padding:10px 20px;border-radius:24px;font-weight:700;cursor:pointer;transition:all 0.2s"
+          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🎲 Surprise
+          Me</button>
+      </div>
     </div>
 
     <!-- AUTH HOME CONTENT (For logged in users) -->
     <div id="authHomeContent" style="display:none;width:100%;max-width:1400px;margin:0 auto;padding:20px 0;">
       <!-- Search, Favorites, and Recommendations will be moved/rendered here via JS -->
+    </div>
+  </div>
+
+  <!-- FLOATING GUEST BANNER -->
+  <div class="guest-promo-banner" id="guestPromoBanner">
+    <div class="guest-promo-content">
+      <div class="guest-promo-title">Unlock the Full Library</div>
+      <div class="guest-promo-desc">Save favorites, sync themes across devices, and access personalized
+        recommendations—100% free.</div>
+    </div>
+    <div class="guest-promo-actions">
+      <button class="guest-promo-btn" onclick="openAuthModal()">Create Account</button>
+      <button class="guest-promo-close" onclick="dismissGuestBanner()" aria-label="Dismiss">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
     </div>
   </div>
 
@@ -3517,8 +3739,15 @@
         concerns, please contact us at <a href="mailto:Crimetimesnacks@gmail.com"
           style="color:#ff4444;font-weight:600;">Crimetimesnacks@gmail.com</a> and we will promptly address your
         request.</p>
-      <p style="margin-top:16px;"><a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go
-          Home</a></p>
+      <p style="margin-top:16px;">
+        <a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go Home</a>
+        &nbsp;&bull;&nbsp;
+        <a href="javascript:void(0)" onclick="exportLocalData()"
+          style="color:var(--text-muted);text-decoration:underline;">Export Data</a> &nbsp;&bull;&nbsp;
+        <a href="javascript:void(0)" onclick="document.getElementById('importDataFile').click()"
+          style="color:var(--text-muted);text-decoration:underline;">Import Data</a>
+        <input type="file" id="importDataFile" style="display:none" accept=".json" onchange="importLocalData(event)">
+      </p>
     </div>
   </footer>
 
@@ -4210,6 +4439,7 @@
   <script src="data-extra-2.js"></script>
   <script src="data-extra-3.js"></script>
   <script src="data-extra-4.js"></script>
+  <script src="data-extra-5.js"></script>
   <script>
     // DOM Elements
     const navEl = document.getElementById('navFilters');
@@ -4225,12 +4455,15 @@
     let activeSectionType = 'all';
 
     // Theme toggle Logic
-    function setTheme(theme) {
+    function setTheme(theme, skipSync = false) {
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.themeBtn === theme);
       });
+      if (!skipSync && window._authUser && window.firebase && firebase.firestore) {
+        firebase.firestore().collection('users').doc(window._authUser.uid).set({ theme: theme }, { merge: true }).catch(() => { });
+      }
     }
     // Load saved theme
     const savedTheme = localStorage.getItem('theme') || 'dark';
@@ -4299,6 +4532,49 @@
           if (start >= end) clearInterval(timer);
         }, 16);
       }
+
+      const heroBadgeCount = document.getElementById('heroBadgeCount');
+      if (heroBadgeCount) heroBadgeCount.textContent = display;
+    }
+
+    function exportLocalData() {
+      const data = {
+        favorites: JSON.parse(localStorage.getItem('pwl_favorites') || '[]'),
+        searchHistory: JSON.parse(localStorage.getItem('searchHistory') || '[]'),
+        recentlyViewed: JSON.parse(localStorage.getItem('pwl_recently_viewed') || '[]'),
+        guestSitesDiscovered: localStorage.getItem('guestSitesDiscovered') || '0',
+        theme: localStorage.getItem('theme') || 'dark',
+        exportedAt: new Date().toISOString()
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `weblib_guest_export_${new Date().getTime()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    function importLocalData(event) {
+      const file = event.target.files[0];
+      if (!file) return;
+      const reader = new FileReader();
+      reader.onload = e => {
+        try {
+          const data = JSON.parse(e.target.result);
+          if (data.favorites) localStorage.setItem('pwl_favorites', JSON.stringify(data.favorites));
+          if (data.searchHistory) localStorage.setItem('searchHistory', JSON.stringify(data.searchHistory));
+          if (data.recentlyViewed) localStorage.setItem('pwl_recently_viewed', JSON.stringify(data.recentlyViewed));
+          if (data.guestSitesDiscovered) localStorage.setItem('guestSitesDiscovered', data.guestSitesDiscovered);
+          if (data.theme) { localStorage.setItem('theme', data.theme); setTheme(data.theme, true); }
+          showToast('Data imported successfully! Reloading...', 'success');
+          setTimeout(() => location.reload(), 1500);
+        } catch (err) {
+          showToast('Failed to parse file. Invalid format.', 'error');
+        }
+      };
+      reader.readAsText(file);
+      event.target.value = '';
     }
 
     function loadSurpriseMe() {
@@ -4312,7 +4588,10 @@
       document.body.appendChild(toast);
       requestAnimationFrame(() => { toast.style.opacity = '1'; toast.style.transform = 'translateX(-50%) translateY(0)'; });
       setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2500);
-      setTimeout(() => window.open(site.u, '_blank', 'noopener'), 300);
+      setTimeout(() => {
+        window.open(site.u, '_blank');
+        if (typeof trackSiteView === 'function') trackSiteView(site.u, site.n);
+      }, 800);
     }
     window.loadSurpriseMe = loadSurpriseMe;
 
@@ -4386,6 +4665,23 @@
       return MAP[catId] || catType || 'free';
     }
     function init() {
+      // Show Skeleton Loaders initially
+      mainEl.innerHTML = Array(3).fill(0).map(() => `
+        <section class="category-section is-visible">
+          <div class="cat-header"><div style="width:200px;height:28px;background:var(--border);border-radius:12px;animation:pulse 1.5s infinite"></div></div>
+          <div class="card-grid">
+            ${Array(6).fill(0).map(() => `
+              <div class="card" style="height:160px;background:var(--surface);border-color:var(--border);display:flex;flex-direction:column;gap:12px;padding:16px;">
+                <div style="width:50%;height:20px;background:var(--border);border-radius:10px;animation:pulse 1.5s infinite"></div>
+                <div style="width:100%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
+                <div style="width:80%;height:14px;background:var(--border);border-radius:6px;animation:pulse 1.5s infinite"></div>
+                <div style="margin-top:auto;width:30%;height:20px;background:var(--border);border-radius:8px;animation:pulse 1.5s infinite"></div>
+              </div>
+            `).join('')}
+          </div>
+        </section>
+      `).join('');
+
       // Build nav buttons
       DATA.forEach(cat => {
         const btn = document.createElement('button');
@@ -4408,44 +4704,49 @@
         navEl.appendChild(btn);
       });
 
-      // Build sections
-      DATA.forEach(cat => {
-        const section = document.createElement('section');
-        section.className = 'category-section'; // removed .visible initially for intersection observer
-        section.dataset.category = cat.id;
-        section.dataset.type = cat.type;
-        section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
-        const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
-        section.innerHTML = `
-      <div class="cat-header">
-        <span class="cat-icon">${cat.icon}</span>
-        <h2 class="cat-title">${cat.name}</h2>
-        <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
-      </div>
-      <p class="cat-desc">${cat.desc}</p>
-      <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
-    `;
-        mainEl.appendChild(section);
-      });
-
-      // Implement Intersection Observer for lazy section rendering
-      if ('IntersectionObserver' in window) {
-        const sectionObserver = new IntersectionObserver((entries, observer) => {
-          entries.forEach(entry => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('is-visible');
-              observer.unobserve(entry.target); // Optional: only animate once
-            }
-          });
-        }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
-
-        document.querySelectorAll('.category-section').forEach(sec => {
-          sectionObserver.observe(sec);
+      // Build sections after a short delay to allow skeleton to paint
+      setTimeout(() => {
+        mainEl.innerHTML = '';
+        DATA.forEach(cat => {
+          const section = document.createElement('section');
+          section.className = 'category-section'; // removed .visible initially for intersection observer
+          section.dataset.category = cat.id;
+          section.dataset.type = cat.type;
+          section.dataset.mappedSection = getSectionTypeForCategory(cat.id, cat.type);
+          const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
+          section.innerHTML = `
+        <div class="cat-header">
+          <span class="cat-icon">${cat.icon}</span>
+          <h2 class="cat-title">${cat.name}</h2>
+          <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
+        </div>
+        <p class="cat-desc">${cat.desc}</p>
+        <div class="card-grid">${cat.sites.map(s => renderCard(s, cat.name, cat.type)).join('')}</div>
+      `;
+          mainEl.appendChild(section);
         });
-      } else {
-        // Fallback for older browsers
-        document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
-      }
+
+        // Implement Intersection Observer for lazy section rendering
+        if ('IntersectionObserver' in window) {
+          const sectionObserver = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+              if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                observer.unobserve(entry.target);
+              }
+            });
+          }, { rootMargin: "0px 0px 200px 0px", threshold: 0.1 });
+
+          document.querySelectorAll('.category-section').forEach(sec => {
+            sectionObserver.observe(sec);
+          });
+        } else {
+          document.querySelectorAll('.category-section').forEach(sec => sec.classList.add('is-visible'));
+        }
+
+        applyFilters(); // Re-apply current filter in case it was set before setTimeout finished
+      }, 50);
+
     }
 
     function getFaviconUrl(url) {
@@ -4495,6 +4796,9 @@
         ${catType === 'labs' ? '<span class="badge badge-labs-exp"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 3h6v4l3 8H6l3-8V3zM5 19h14M8 22h8"/></svg>Experimental</span>' : ''}
       </div>
       <div class="card-actions" style="display:flex;gap:8px;align-items:center;">
+        <button class="btn-upvote" onclick="handleUpvote('${s.u}', event)" data-upvote-url="${s.u}" title="Upvote" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;transition:all .2s;">
+          <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+        </button>
         <button class="btn-copy-link" data-url="${s.u}" title="Copy link" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;gap:5px;transition:all .2s;white-space:nowrap;">📋 Copy</button>
         <button class="btn-native-share" onclick="nativeShare('${s.n.replace(/'/g, "\\'")}', '${s.u}')" title="Share">
           <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
@@ -4556,6 +4860,13 @@
       catch (e) { return []; }
     }
 
+    function clearAllSearchHistory() {
+      localStorage.removeItem('searchHistory');
+      renderSearchHistory();
+      document.getElementById('searchInput').focus();
+      if (typeof syncSearchToFirestore === 'function') syncSearchToFirestore();
+    }
+
     function saveSearchHistory(term) {
       if (!term || term.length < 3) return;
       let history = getSearchHistory();
@@ -4564,6 +4875,7 @@
       if (history.length > MAX_RECENT_SEARCHES) history.pop();
       localStorage.setItem('searchHistory', JSON.stringify(history));
       renderSearchHistory();
+      if (typeof syncSearchToFirestore === 'function') syncSearchToFirestore();
     }
 
     function removeSearchHistoryNode(e, term) {
@@ -4573,6 +4885,7 @@
       localStorage.setItem('searchHistory', JSON.stringify(history));
       renderSearchHistory();
       searchInput.focus();
+      if (typeof syncSearchToFirestore === 'function') syncSearchToFirestore();
     }
 
     function renderSearchHistory() {
@@ -4879,12 +5192,35 @@
         toast.className = 'toast';
         document.body.appendChild(toast);
       }
-      toast.textContent = msg;
+      toast.innerHTML = msg;
       toast.className = `toast show ${type}`;
       clearTimeout(window._toastTimer);
       window._toastTimer = setTimeout(() => {
         toast.classList.remove('show');
-      }, 2500);
+      }, type === 'action' ? 5000 : 2500);
+    }
+
+    function handleUpvote(url, e) {
+      if (e) e.stopPropagation();
+      if (!window._authUser) { showToast('Please sign in to upvote tools!'); return; }
+      if (!window.firebase || !firebase.firestore) return;
+      const btn = e.currentTarget;
+      btn.style.color = '#10b981'; btn.style.borderColor = '#10b981';
+      if (navigator.vibrate) navigator.vibrate(10);
+      firebase.firestore().collection('upvotes').doc(encodeURIComponent(url)).set({
+        url: url, count: firebase.firestore.FieldValue.increment(1), lastUpvote: firebase.firestore.FieldValue.serverTimestamp()
+      }, { merge: true }).then(() => showToast('Upvoted! 🚀')).catch(() => { btn.style.color = ''; btn.style.borderColor = ''; });
+    }
+
+    let _sheetNotesDebounce;
+    function savePersonalNote(val) {
+      if (!window._authUser || !window.firebase || !_sheetSiteUrl) return;
+      clearTimeout(_sheetNotesDebounce);
+      _sheetNotesDebounce = setTimeout(() => {
+        firebase.firestore().collection('users').doc(window._authUser.uid).collection('notes').doc(encodeURIComponent(_sheetSiteUrl))
+          .set({ note: val, updated: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
+          .then(() => showToast('Note saved ☁️'));
+      }, 500);
     }
 
     function toggleFav(btn, e) {
@@ -4914,7 +5250,11 @@
 
         // Haptic feedback on mobile
         if (navigator.vibrate) navigator.vibrate(8);
-        showToast('Saved to favorites! 💖');
+        if (window._authUser) {
+          showToast('Saved to favorites! 💖');
+        } else {
+          showToast('Saved to device! <a href="#" onclick="openAuthModal();return false" style="color:var(--accent);margin-left:8px;font-weight:800;text-decoration:underline;">Sign In to Sync</a>', 'action');
+        }
       }
       saveFavs(favs);
       updateFavCounts();
@@ -5208,6 +5548,48 @@
     }
 
     // --- AUTHENTICATED USER DASHBOARD ENHANCEMENTS ---
+    function handleTopAuthClick() {
+      if (window._authUser) {
+        document.getElementById('profileDropdown').classList.toggle('open');
+      } else {
+        openAuthModal();
+      }
+    }
+
+    document.addEventListener('click', e => {
+      const dropdown = document.getElementById('profileDropdown');
+      const wrap = document.getElementById('authBtnWrap');
+      if (dropdown && wrap && dropdown.classList.contains('open') && !wrap.contains(e.target)) {
+        dropdown.classList.remove('open');
+      }
+    });
+
+    function showDashboardTab() {
+      showAuthHome();
+    }
+
+    function exportCloudData() {
+      if (!window._authUser) return;
+      document.getElementById('profileDropdown').classList.remove('open');
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const searches = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+      const viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      const data = {
+        exportedAt: new Date().toISOString(),
+        user: window._authUser.email,
+        favorites: favs,
+        searches: searches,
+        history: viewed
+      };
+      const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `weblib_export_${new Date().getTime()}.json`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
     function showAuthHome() {
       const hero = document.querySelector('.hero');
       let authHome = document.getElementById('authHomeContent');
@@ -5300,8 +5682,28 @@
         const bnHome = document.getElementById('bnHome');
 
         if (user) {
+          const promoBanner = document.getElementById('guestPromoBanner');
+          if (promoBanner) promoBanner.classList.remove('show');
           const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
           label.textContent = name;
+
+          const icon = document.getElementById('authBtnIcon');
+          const avatar = document.getElementById('authBtnAvatar');
+          if (user.photoURL && avatar && icon) {
+            icon.style.display = 'none';
+            avatar.src = user.photoURL;
+            avatar.style.display = 'block';
+          } else if (avatar && icon) {
+            icon.style.display = 'block';
+            avatar.style.display = 'none';
+          }
+
+          if (window.firebase && firebase.firestore) {
+            firebase.firestore().collection('users').doc(user.uid).get().then(doc => {
+              if (doc.exists && doc.data().theme) { setTheme(doc.data().theme, true); }
+            }).catch(() => { });
+          }
+
           if (bnAccount) bnAccount.querySelector('span').textContent = name;
           if (logoutWrap) logoutWrap.style.display = 'block';
           if (bnCategories) bnCategories.style.display = 'flex';
@@ -5310,6 +5712,7 @@
             bnHome.removeAttribute('href');
             bnHome.onclick = () => showAuthHome();
           }
+          document.querySelectorAll('.auth-restricted').forEach(el => el.style.display = '');
           showAuthHome();
           // Admin check
           const isAdmin = ADMIN_EMAILS.includes(user.email);
@@ -5343,17 +5746,28 @@
             closeAuthModal();
           }
         } else {
-          label.textContent = 'Sign In';
-          if (bnAccount) bnAccount.querySelector('span').textContent = 'Account';
-          if (logoutWrap) logoutWrap.style.display = 'none';
+          window._authUser = null;
+          label.textContent = 'Account / Sign In';
 
-          const bnCategories = document.getElementById('bnCategories');
+          const icon = document.getElementById('authBtnIcon');
+          const avatar = document.getElementById('authBtnAvatar');
+          if (icon) icon.style.display = 'block';
+          if (avatar) avatar.style.display = 'none';
+
+          if (bnAccount) bnAccount.querySelector('span').textContent = 'Profile';
+          if (logoutWrap) logoutWrap.style.display = 'none';
           if (bnCategories) bnCategories.style.display = 'none';
-          const bnHome = document.getElementById('bnHome');
+          const adminLink = document.getElementById('adminLinkWrap');
+          if (adminLink) adminLink.style.display = 'none';
+          sessionStorage.removeItem('isAdmin');
+          const adminBadge = document.getElementById('adminBadge');
+          if (adminBadge) adminBadge.remove();
+
           if (bnHome) {
             bnHome.href = 'index.html';
             bnHome.onclick = null;
           }
+          document.querySelectorAll('.auth-restricted').forEach(el => el.style.display = 'none');
           document.getElementById('authHomeContent').style.display = 'none';
           document.getElementById('mainContent').style.display = 'block';
 
@@ -5467,19 +5881,26 @@
     // ===== MOBILE ENHANCEMENTS =====
     // Scroll-to-hide toggle bar (not nav wrap, just the toggle button)
     let _lastScrollY = window.scrollY;
-    let _scrollDir = 0;
+    let _tickingMobile = false;
     const _navToggleEl = document.getElementById('mobileNavToggle');
     window.addEventListener('scroll', () => {
-      const cur = window.scrollY;
-      const delta = cur - _lastScrollY;
-      if (window.innerWidth <= 768) {
-        if (delta > 4 && cur > 200) {
-          _navToggleEl.classList.add('nav-slide-up');
-        } else if (delta < -4) {
-          _navToggleEl.classList.remove('nav-slide-up');
-        }
+      _lastScrollY = window.scrollY;
+      if (!_tickingMobile) {
+        window.requestAnimationFrame(() => {
+          const cur = _lastScrollY;
+          if (window.innerWidth <= 768) {
+            // Hardware accelerated hide logic
+            if (cur > 200 && cur > (_navToggleEl.dataset.lastY || 0)) {
+              _navToggleEl.classList.add('nav-slide-up');
+            } else if (cur < (_navToggleEl.dataset.lastY || 0)) {
+              _navToggleEl.classList.remove('nav-slide-up');
+            }
+            _navToggleEl.dataset.lastY = cur;
+          }
+          _tickingMobile = false;
+        });
+        _tickingMobile = true;
       }
-      _lastScrollY = cur;
     }, { passive: true });
 
     // Touch ripple on cards
@@ -5510,6 +5931,30 @@
 
     // Auto-load Firebase so auth state is checked immediately on page load
     loadFirebase().catch(() => { });
+
+    // ===== GUEST PROMO BANNER LOGIC =====
+    function checkGuestBanner() {
+      const banner = document.getElementById('guestPromoBanner');
+      if (!banner) return;
+      if (window._authUser || localStorage.getItem('guestBannerDismissed') === 'true') {
+        banner.classList.remove('show');
+        return;
+      }
+      // Show banner after 8 seconds of browsing
+      setTimeout(() => {
+        if (!window._authUser && localStorage.getItem('guestBannerDismissed') !== 'true') {
+          banner.classList.add('show');
+        }
+      }, 8000);
+    }
+
+    function dismissGuestBanner() {
+      localStorage.setItem('guestBannerDismissed', 'true');
+      const banner = document.getElementById('guestPromoBanner');
+      if (banner) banner.classList.remove('show');
+    }
+
+    // Auth callback will update visibility
 
     // ===== SERVICE WORKER (PWA) =====
     if ('serviceWorker' in navigator) {
@@ -5598,6 +6043,23 @@
         limEl.textContent = '⚠️ ' + siteData.l; limEl.style.display = '';
       } else { limEl.style.display = 'none'; }
       document.getElementById('csVisit').href = siteData.u;
+
+      const notesWrap = document.getElementById('csNotesWrap');
+      const notesInput = document.getElementById('csNotesInput');
+      if (window._authUser && window.firebase && firebase.firestore) {
+        notesWrap.style.display = 'block';
+        notesInput.value = '';
+        notesInput.placeholder = 'Loading note...';
+        firebase.firestore().collection('users').doc(window._authUser.uid).collection('notes').doc(encodeURIComponent(siteData.u))
+          .get().then(doc => {
+            notesInput.placeholder = 'Add a private note about this site...';
+            if (doc.exists && doc.data().note) { notesInput.value = doc.data().note; }
+          }).catch(() => { notesInput.placeholder = 'Add a private note about this site...'; });
+      } else {
+        notesWrap.style.display = 'none';
+        notesInput.value = '';
+      }
+
       updateSheetFavBtn();
 
       const sheet = document.getElementById('cardSheet');
@@ -5622,14 +6084,25 @@
       _sStartY = e.touches[0].clientY;
       _sheetEl.style.transition = 'none';
     }, { passive: true });
+
+    let _tickingDrag = false;
     _sheetEl.addEventListener('touchmove', e => {
       _sCurY = e.touches[0].clientY;
       const dy = Math.max(0, _sCurY - _sStartY);
-      _sheetEl.style.transform = `translateY(${dy}px)`;
+      if (!_tickingDrag) {
+        window.requestAnimationFrame(() => {
+          _sheetEl.style.transform = `translateY(${dy}px)`;
+          _tickingDrag = false;
+        });
+        _tickingDrag = true;
+      }
     }, { passive: true });
+
     _sheetEl.addEventListener('touchend', e => {
-      _sheetEl.style.transition = '';
-      if (_sCurY > 0 && (_sCurY - _sStartY > 150)) {
+      _sheetEl.style.transition = 'transform 0.4s cubic-bezier(0.25, 1, 0.5, 1)';
+      const dy = _sCurY - _sStartY;
+      const dismissThreshold = Math.min(window.innerHeight * 0.3, 150); // 30% or 150px
+      if (_sCurY > 0 && dy > dismissThreshold) {
         closeCardSheet();
       } else {
         _sheetEl.style.transform = '';
@@ -5707,15 +6180,36 @@
         const merged = [...new Set([...local, ...cloudFavs])];
         saveFavs(merged);
         updateFavCounts();
+
+        const localSearch = JSON.parse(localStorage.getItem('searchHistory') || '[]');
+        const cloudSearch = doc.exists ? (doc.data().searchHistory || []) : [];
+        const mergedSearch = [...new Set([...localSearch, ...cloudSearch])].slice(0, 10);
+        localStorage.setItem('searchHistory', JSON.stringify(mergedSearch));
+
+        const RV_KEY = 'pwl_recently_viewed';
+        const localViewed = JSON.parse(localStorage.getItem(RV_KEY) || '[]');
+        const cloudViewed = doc.exists ? (doc.data().recentlyViewed || []) : [];
+        const viewedMap = new Map();
+        [...cloudViewed, ...localViewed].forEach(v => viewedMap.set(v.u, v));
+        const mergedViewed = Array.from(viewedMap.values()).sort((a, b) => b.t - a.t).slice(0, 20);
+        localStorage.setItem(RV_KEY, JSON.stringify(mergedViewed));
+
+        if (typeof renderSearchHistory === 'function') renderSearchHistory();
+
         // Save profile + email to Firestore
         userRef.set({
           email: user.email,
           displayName: user.displayName || '',
           photoURL: user.photoURL || '',
           favorites: merged,
+          searchHistory: mergedSearch,
+          recentlyViewed: mergedViewed,
           lastSeen: firebase.firestore.FieldValue.serverTimestamp(),
           createdAt: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true });
+
+        const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+        if (typeof showWelcomeToast === 'function') showWelcomeToast(name);
       }).catch(() => { });
     }
     function syncFavsToFirestore() {
@@ -5723,6 +6217,18 @@
       const db = firebase.firestore();
       db.collection('users').doc(window._authUser.uid)
         .set({ favorites: getFavs() }, { merge: true })
+        .catch(() => { });
+    }
+    function syncSearchToFirestore() {
+      if (!window._authUser || !window.firebase || !firebase.firestore) return;
+      firebase.firestore().collection('users').doc(window._authUser.uid)
+        .set({ searchHistory: JSON.parse(localStorage.getItem('searchHistory') || '[]') }, { merge: true })
+        .catch(() => { });
+    }
+    function syncViewedToFirestore() {
+      if (!window._authUser || !window.firebase || !firebase.firestore) return;
+      firebase.firestore().collection('users').doc(window._authUser.uid)
+        .set({ recentlyViewed: JSON.parse(localStorage.getItem('pwl_recently_viewed') || '[]') }, { merge: true })
         .catch(() => { });
     }
 
@@ -5777,12 +6283,44 @@
     function trackSiteView(url, name) {
       try {
         let rv = JSON.parse(localStorage.getItem(RV_KEY) || '[]');
+        if (!window._authUser && !rv.find(x => x.u === url)) {
+          let count = parseInt(localStorage.getItem('guestSitesDiscovered') || '0', 10);
+          count++;
+          localStorage.setItem('guestSitesDiscovered', count);
+          updateGuestCounter(count);
+        }
         rv = rv.filter(x => x.u !== url);
         rv.unshift({ u: url, n: name, t: Date.now() });
         if (rv.length > 20) rv = rv.slice(0, 20);
         localStorage.setItem(RV_KEY, JSON.stringify(rv));
+        if (typeof syncViewedToFirestore === 'function') syncViewedToFirestore();
       } catch (e) { }
     }
+
+    function updateGuestCounter(count) {
+      if (window._authUser) {
+        const wrap = document.getElementById('guestCounterWrap');
+        if (wrap) wrap.remove();
+        return;
+      }
+      let counterWrap = document.getElementById('guestCounterWrap');
+      if (!counterWrap) {
+        counterWrap = document.createElement('div');
+        counterWrap.id = 'guestCounterWrap';
+        counterWrap.style.cssText = 'font-size:0.75rem;font-weight:700;color:var(--text-muted);display:flex;align-items:center;background:var(--surface);padding:4px 10px;border-radius:20px;border:1px solid var(--border);';
+        const topBar = document.querySelector('.top-bar');
+        if (topBar) topBar.insertBefore(counterWrap, topBar.querySelector('.theme-switcher'));
+      }
+      counterWrap.innerHTML = `🌍 <span style="color:var(--accent);margin-left:5px;">${count} Discoveries</span>`;
+    }
+
+    window.addEventListener('DOMContentLoaded', () => {
+      setTimeout(() => {
+        const gCount = parseInt(localStorage.getItem('guestSitesDiscovered') || '0', 10);
+        if (gCount > 0 && !window._authUser) updateGuestCounter(gCount);
+      }, 500);
+      checkGuestBanner();
+    });
 
     // ===== VOICE SEARCH =====
     function initVoiceSearch() {

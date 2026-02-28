@@ -589,8 +589,8 @@
                         </div>
                         <div class="stat-card blue">
                             <div class="sc-label">Data Files</div>
-                            <div class="sc-value">5</div>
-                            <div class="sc-sub">data-extra-1 through 4</div>
+                            <div class="sc-value">6</div>
+                            <div class="sc-sub">data-extra-1 through 5</div>
                         </div>
                         <div class="stat-card yellow">
                             <div class="sc-label">Local Favs</div>
@@ -691,6 +691,12 @@
                                         <td>data-extra-4.js</td>
                                         <td>6</td>
                                         <td>90</td>
+                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>data-extra-5.js</td>
+                                        <td>5</td>
+                                        <td>100</td>
                                         <td><span class="badge-pill badge-blue">2026 New</span></td>
                                     </tr>
                                 </tbody>
@@ -890,7 +896,7 @@
         function loadDataFiles() {
             return new Promise(resolve => {
                 if (typeof DATA !== 'undefined') { resolve(); return; }
-                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js'];
+                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js'];
                 // Inject a minimal DATA array first
                 window.DATA = [];
                 let loaded = 0;
