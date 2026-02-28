@@ -1189,6 +1189,20 @@
       display: block
     }
 
+    /* ===== CARD GRID — multi-column responsive layout ===== */
+    .card-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+      gap: 18px;
+    }
+
+    @media (max-width: 700px) {
+      .card-grid {
+        grid-template-columns: 1fr;
+        gap: 12px;
+      }
+    }
+
     .cat-header {
       display: flex;
       align-items: center;
@@ -4507,7 +4521,7 @@
 
         // Auto-scroll to the first visible category section
         setTimeout(() => {
-          const firstVisible = document.querySelector('.category-section.visible');
+          const firstVisible = document.querySelector('.category-section.is-visible');
           if (firstVisible) {
             const rect = firstVisible.getBoundingClientRect();
             const offset = rect.top + window.scrollY - 160; // 160px above so title+desc are fully visible
@@ -4831,7 +4845,7 @@
       // Auto-scroll to the first visible category section so user sees the title + cards
       // Wait for nav collapse transition (400ms) to finish so      // Auto-scroll logic...
       setTimeout(() => {
-        const firstVisible = document.querySelector('.category-section.visible');
+        const firstVisible = document.querySelector('.category-section.is-visible');
         if (firstVisible) {
           const rect = firstVisible.getBoundingClientRect();
           const offset = rect.top + window.scrollY - 160;
