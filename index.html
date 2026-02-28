@@ -246,6 +246,26 @@
       border: 1px solid var(--border);
     }
 
+    /* Glass theme: search bar should be opaque dark, not translucent (stops rainbow body bleed-through) */
+    [data-theme="glass"] .search-wrap {
+      background: rgba(20, 20, 30, 0.85) !important;
+      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+    }
+
+    [data-theme="glass"] .search-wrap input {
+      background: rgba(20, 20, 30, 0.9);
+    }
+
+    /* Glass theme: active section tabs need dark text to be readable on colored backgrounds */
+    [data-theme="glass"] .section-tab.active {
+      color: #fff !important;
+      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
+    }
+
+    [data-theme="glass"] .section-tab[data-section="all"].active {
+      color: #fff !important;
+    }
+
 
     html {
       scroll-behavior: smooth;
