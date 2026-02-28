@@ -24,6 +24,10 @@
   <link rel="stylesheet" href="mobile.css">
   <link rel="stylesheet" href="mobile-extra.css">
   <link rel="apple-touch-icon" href="icon-192.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZGMyNjI2Ii8+PHBvbHlnb24gcG9pbnRzPSIzNSwyNSA3NSw1MCAzNSw3NSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
   <title>Powerful Free Websites Library</title>
@@ -131,56 +135,56 @@
     }
 
     [data-theme="light"] {
-      --bg: #faf5f5;
-      --bg2: #f5eeee;
+      --bg: #f0eaf0;
+      --bg2: #e8e0e8;
       --surface: #ffffff;
       --card: #ffffff;
-      --card-hover: #fff5f5;
-      --border: rgba(0, 0, 0, .08);
-      --border-hover: rgba(220, 38, 38, .3);
-      --text: #1a1a2e;
-      --text-muted: #5a5a7a;
-      --text-dim: #8888a0;
+      --card-hover: #f8f0f8;
+      --border: rgba(0, 0, 0, .15);
+      --border-hover: rgba(180, 30, 30, .35);
+      --text: #111122;
+      --text-muted: #444460;
+      --text-dim: #777790;
       --accent: #c0392b;
       --accent-glow: rgba(192, 57, 43, .15);
       --accent2: #e74c3c;
       --accent3: #e84393;
       --green: #00a884;
       --red: #e74c3c;
-      --yellow: #f39c12;
-      --orange: #e67e22;
+      --yellow: #e67e00;
+      --orange: #d45f00;
       --radius: 16px;
       --radius-sm: 10px;
       --radius-xs: 6px;
       --glass: rgba(255, 255, 255, .85);
-      --glass-border: rgba(0, 0, 0, .08);
-      --shadow: 0 4px 24px rgba(0, 0, 0, .08);
-      --hero-bg: linear-gradient(135deg, #faf5f5 0%, #ffe8e8 35%, #fff0f0 65%, #faf5f5 100%);
-      --nav-bg: rgba(250, 245, 245, .92);
-      --card-gradient: linear-gradient(135deg, rgba(220, 38, 38, .04), rgba(255, 68, 68, .03));
+      --glass-border: rgba(0, 0, 0, .12);
+      --shadow: 0 4px 24px rgba(0, 0, 0, .10);
+      --hero-bg: linear-gradient(135deg, #e8ddf0 0%, #d0c0e8 30%, #e8d8f0 65%, #f0e8f8 100%);
+      --nav-bg: rgba(230, 220, 240, .95);
+      --card-gradient: linear-gradient(135deg, rgba(180, 30, 30, .05), rgba(200, 50, 50, .03));
       --piracy-accent: #e84393;
       --piracy-glow: rgba(232, 67, 147, .1);
-      --sports-accent: #f39c12;
-      --sports-glow: rgba(243, 156, 18, .1);
-      --labs-accent: #4285f4;
-      --labs-glow: rgba(66, 133, 244, .12);
-      --agent-accent: #00b8d4;
-      --agent-glow: rgba(0, 184, 212, .1);
-      --vpn-accent: #10b981;
-      --vpn-glow: rgba(16, 185, 129, .1);
-      --llm-accent: #9333ea;
-      --llm-glow: rgba(147, 51, 234, .12);
-      --edu-accent: #d97706;
-      --edu-glow: rgba(217, 119, 6, .1);
-      --privacy-accent: #0891b2;
-      --privacy-glow: rgba(8, 145, 178, .1);
+      --sports-accent: #d97706;
+      --sports-glow: rgba(217, 119, 6, .1);
+      --labs-accent: #2563eb;
+      --labs-glow: rgba(37, 99, 235, .12);
+      --agent-accent: #0891b2;
+      --agent-glow: rgba(8, 145, 178, .1);
+      --vpn-accent: #059669;
+      --vpn-glow: rgba(5, 150, 105, .1);
+      --llm-accent: #7c3aed;
+      --llm-glow: rgba(124, 58, 237, .12);
+      --edu-accent: #b45309;
+      --edu-glow: rgba(180, 83, 9, .1);
+      --privacy-accent: #0369a1;
+      --privacy-glow: rgba(3, 105, 161, .1);
       --adblock-accent: #dc2626;
       --adblock-glow: rgba(220, 38, 38, .1);
-      --creator-accent: #db2777;
-      --creator-glow: rgba(219, 39, 119, .1);
-      --podcast-accent: #7c3aed;
-      --podcast-glow: rgba(124, 58, 237, .1);
-      --logo-text: #1a1a2e;
+      --creator-accent: #be185d;
+      --creator-glow: rgba(190, 24, 93, .1);
+      --podcast-accent: #6d28d9;
+      --podcast-glow: rgba(109, 40, 217, .1);
+      --logo-text: #111122;
     }
 
     /* ===== iOS 26 LIQUID GLASS THEME ===== */
@@ -642,6 +646,16 @@
     .search-wrap input:focus {
       box-shadow: none;
       background: var(--card);
+    }
+
+    /* Glass theme: use white/silver/blue ring to match glass aesthetic */
+    [data-theme="glass"] .search-wrap {
+      background: conic-gradient(from var(--gemini-angle),
+          rgba(255, 255, 255, 0.9) 0%,
+          rgba(120, 200, 255, 1) 25%,
+          rgba(200, 160, 255, 1) 50%,
+          rgba(255, 255, 255, 0.9) 75%,
+          rgba(120, 200, 255, 1) 100%);
     }
 
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
@@ -2446,12 +2460,12 @@
     }
 
     /* ===== AUTH MODAL ===== */
-    /* ===== INSTANT THEME SWITCHING — suppress all transitions for one frame ===== */
+    /* ===== INSTANT THEME SWITCHING — suppress color transitions only ===== */
     .theme-switching *,
     .theme-switching *::before,
     .theme-switching *::after {
       transition: none !important;
-      animation: none !important;
+      /* NOTE: do NOT kill animation here — it blocks scroll momentum and Gemini ring */
     }
 
     .modal-overlay {
@@ -4197,12 +4211,13 @@
       <div class="auth-divider">or</div>
       <!-- Email/Password -->
       <div class="search-wrap" id="searchWrap">
-        <svg class="search-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"
-          stroke-linecap="round" stroke-linejoin="round">
+        <svg class="search-icon" viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor"
+          stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
           <circle cx="11" cy="11" r="8"></circle>
           <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
         </svg>
-        <input type="text" id="searchInput" class="search-input" placeholder="Loading websites..." autocomplete="off">
+        <input type="text" id="authEmailSearch" class="search-input" placeholder="Loading websites..."
+          autocomplete="off">
 
         <button id="searchClearBtn" class="search-clear" aria-label="Clear search" title="Clear">
           <svg viewBox="0 0 24 24" width="18" height="18" stroke="currentColor" stroke-width="2.5" fill="none"
@@ -4423,7 +4438,7 @@
           </a></div>
       </div>
       <div class="search-wrap" role="search" title="Tip: Press / to search • R for random • Esc to clear">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
           <circle cx="11" cy="11" r="8" />
           <path d="m21 21-4.35-4.35" />
         </svg>
@@ -7612,9 +7627,14 @@
     }
     document.getElementById('cmdInput')?.addEventListener('input', e => renderCmdResults(e.target.value));
     document.addEventListener('keydown', e => {
-      if ((e.ctrlKey || e.metaKey) && e.key === 'k') { e.preventDefault(); openCmdPalette(); }
+      // Ctrl+K / Cmd+K → focus the search bar (not command palette)
+      if ((e.ctrlKey || e.metaKey) && e.key === 'k') {
+        e.preventDefault();
+        const si = document.getElementById('searchInput');
+        if (si) { si.focus(); si.select(); }
+        return;
+      }
       if (e.key === 'Escape') closeCmdPalette();
-      if (e.key === '?') { e.preventDefault(); openCmdPalette(); }
     });
     window.openCmdPalette = openCmdPalette;
     window.closeCmdPalette = closeCmdPalette;
@@ -8075,22 +8095,9 @@
       }
     }
     window.toggleAudio = toggleAudio;
-    // Add audio button to footer
-    (function () {
-      const footer = document.querySelector('footer');
-      if (!footer) return;
-      const wrap = document.createElement('div');
-      wrap.style.cssText = 'margin-top:16px;display:flex;justify-content:center;gap:12px;flex-wrap:wrap;';
-      wrap.innerHTML = `
-    <button id="audioToggleBtn" onclick="toggleAudio()">
-      <div class="audio-wave"><span style="height:4px"></span><span style="height:8px"></span><span style="height:6px"></span></div>
-      Ambient Audio
-    </button>
-    <button onclick="openLeaderboard()" style="background:none;border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s">🏆 Leaderboard</button>
-    <button onclick="openCmdPalette()" style="background:none;border:1px solid var(--border);border-radius:50px;padding:6px 14px;font-size:0.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s">⌨️ Cmd+K</button>
-  `;
-      footer.appendChild(wrap);
-    })();
+    // Audio and extra buttons are available in Settings
+    // Footer button injection removed to keep footer clean
+
 
     // ─── F6: HERO COUNTER (live update) ───
     (function () {
