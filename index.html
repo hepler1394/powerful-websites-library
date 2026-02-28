@@ -273,15 +273,16 @@
       -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
     }
 
-    /* Glass theme: search bar should be opaque dark, not translucent (stops rainbow body bleed-through) */
+    /* Glass theme: wrapper transparent so conic ring shows; input stays opaque */
     [data-theme="glass"] .search-wrap {
-      background: rgba(20, 20, 30, 0.85) !important;
-      box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.15) !important;
+      background: transparent !important;
+      box-shadow: none !important;
     }
 
     [data-theme="glass"] .search-wrap input {
-      background: rgba(20, 20, 30, 0.9);
+      background: rgba(12, 12, 20, 0.92) !important;
     }
+
 
     /* Glass theme: active section tabs need dark text to be readable on colored backgrounds */
     [data-theme="glass"] .section-tab.active {
@@ -468,7 +469,7 @@
     .hero h1 {
       font-size: clamp(2.2rem, 5.5vw, 3.8rem);
       font-weight: 900;
-      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 50%, var(--accent2) 100%);
+      background: linear-gradient(135deg, #e8e8f0 0%, #dc2626 50%, #ff4444 100%);
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
       background-clip: text;
@@ -547,10 +548,13 @@
       max-width: 580px;
       margin: 36px auto 0;
       position: relative;
-      padding: 3px;
+      padding: 2px;
       border-radius: 53px;
       background: var(--border);
-      box-shadow: 0 0 0 2px var(--border);
+    }
+
+    .search-wrap:focus-within {
+      background: transparent;
     }
 
     .search-wrap input {
@@ -568,7 +572,7 @@
     }
 
     .search-wrap input:focus {
-      box-shadow: 0 0 0 3px var(--accent), 0 0 20px rgba(229, 62, 62, 0.25);
+      box-shadow: none;
     }
 
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */

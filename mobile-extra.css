@@ -1949,40 +1949,46 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     border-bottom-color: var(--vpn-accent) !important;
 }
 
-/* ─── FEATURE 60: SEARCH GLOW — subtle pulsating ring only ─── */
-@keyframes searchRingPulse {
-    0% {
-        box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.75), 0 0 10px rgba(220, 38, 38, 0.25);
-    }
-
-    33% {
-        box-shadow: 0 0 0 2px rgba(168, 85, 247, 0.85), 0 0 14px rgba(168, 85, 247, 0.35);
-    }
-
-    66% {
-        box-shadow: 0 0 0 2px rgba(34, 211, 238, 0.80), 0 0 12px rgba(34, 211, 238, 0.3);
-    }
-
-    100% {
-        box-shadow: 0 0 0 2px rgba(220, 38, 38, 0.75), 0 0 10px rgba(220, 38, 38, 0.25);
-    }
+/* ─── FEATURE 60: SEARCH GLOW — rotating conic gradient ring ─── */
+@property --sg-angle {
+    syntax: '<angle>';
+    initial-value: 0deg;
+    inherits: false;
 }
 
-/* Clean isolation reset — remove ::before */
-.search-wrap {
-    isolation: auto;
+@keyframes sgSpin { to { --sg-angle: 360deg; } }
+@keyframes sgPulse {
+    0%, 100% { opacity: 0.85; }
+    50%       { opacity: 1; }
 }
+
+.search-wrap { isolation: auto; }
 
 .search-wrap:focus-within::before {
-    display: none !important;
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: 53px;
+    background: conic-gradient(
+        from var(--sg-angle),
+        #dc2626, #ff6b9d, #a855f7, #22d3ee, #10b981, #dc2626
+    );
+    animation: sgSpin 3s linear infinite, sgPulse 1.8s ease-in-out infinite;
+    z-index: 0;
+}
+
+/* Input covers the conic gradient inside the ring */
+.search-wrap:focus-within .search-input-wrap {
+    position: relative;
+    z-index: 1;
+    background: var(--bg2);
+    border-radius: 51px;
 }
 
 .search-wrap:focus-within {
-    animation: searchRingPulse 3s ease-in-out infinite !important;
-    filter: none !important;
-    transition: none !important;
+    box-shadow: none !important;
+    animation: none !important;
 }
-
 /* ─── FEATURE 62: PWA INSTALL BANNER ─── */
 #pwaInstallBanner {
     position: fixed;
