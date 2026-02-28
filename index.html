@@ -622,11 +622,9 @@
         geminiPulse 3s ease-in-out infinite;
     }
 
-    /* On focus: speed up spin + intensify glow */
+    /* Ring is always the same speed — no jolt on focus */
     .search-wrap:focus-within {
-      animation:
-        geminiSpin 2s linear infinite,
-        geminiPulse 1.5s ease-in-out infinite;
+      /* keep same animation — no speed change */
     }
 
     .search-wrap input {
@@ -634,18 +632,33 @@
       padding: 16px 20px 16px 52px;
       border-radius: 50px;
       border: none;
-      background: var(--card);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
+      /* Always solid — prevents gradient bleeding through on glass/semi-transparent themes */
+      background: #1a1a1a;
       color: var(--text);
       font-size: 1rem;
       outline: none;
-      transition: background .3s;
+      transition: color .3s;
+    }
+
+    /* Light theme: white input interior */
+    [data-theme="light"] .search-wrap input {
+      background: #f0eaf0;
+    }
+
+    [data-theme="light"] .search-wrap input:focus {
+      background: #f0eaf0;
     }
 
     .search-wrap input:focus {
       box-shadow: none;
-      background: var(--card);
+      background: #1a1a1a;
+    }
+
+    /* Glass theme input: slightly lighter dark */
+    [data-theme="glass"] .search-wrap input,
+    [data-theme="glass"] .search-wrap input:focus {
+      background: #111;
+      color: #fff;
     }
 
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
@@ -3396,6 +3409,41 @@
        ===================================================================== */
 
     /* ── BATCH 1: DESIGN TOKENS ──────────────────────────────────────── */
+    /* === OVERLAY / MODAL DEFAULTS: all hidden by default ===*/
+    #cmdPalette {
+      display: none;
+      position: fixed;
+      inset: 0;
+      z-index: 9000;
+      align-items: flex-start;
+      justify-content: center;
+      padding-top: 80px;
+    }
+
+    #cmdPalette.open {
+      display: flex;
+    }
+
+    #cmdPaletteOverlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .5);
+      backdrop-filter: blur(8px);
+      cursor: default;
+    }
+
+    #cmdPaletteBox {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 580px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .6);
+    }
+
     :root {
       --transition-fast: 0.12s cubic-bezier(.4, 0, .2, 1);
       --transition-mid: 0.22s cubic-bezier(.4, 0, .2, 1);
