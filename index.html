@@ -567,7 +567,12 @@
     }
 
     .search-wrap input:focus {
-      box-shadow: 0 0 0 4px var(--accent-glow)
+      box-shadow: 0 0 0 3px var(--accent), 0 0 20px rgba(229, 62, 62, 0.25);
+    }
+
+    /* Hide search bar visually when auth modal is open (stops bleed-through) */
+    body.modal-open .search-wrap {
+      visibility: hidden;
     }
 
     .search-wrap input::placeholder {
@@ -839,7 +844,7 @@
     .nav-wrap {
       position: sticky;
       top: 0;
-      z-index: 100;
+      z-index: 150;
       background: var(--nav-bg);
       backdrop-filter: blur(24px);
       -webkit-backdrop-filter: blur(24px);
@@ -1203,7 +1208,8 @@
     .main {
       max-width: 1280px;
       margin: 0 auto;
-      padding: 40px 24px 100px
+      padding: 40px 24px 120px
+        /* 120px bottom = 60px nav + 60px breathing room */
     }
 
     /* ===== CATEGORY SECTIONS ===== */
@@ -2369,10 +2375,18 @@
     }
 
     /* ===== AUTH MODAL ===== */
+    /* ===== INSTANT THEME SWITCHING — suppress all transitions for one frame ===== */
+    .theme-switching *,
+    .theme-switching *::before,
+    .theme-switching *::after {
+      transition: none !important;
+      animation: none !important;
+    }
+
     .modal-overlay {
       position: fixed;
       inset: 0;
-      z-index: 500;
+      z-index: 2000;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -3643,7 +3657,7 @@
           <path d="m21 21-4.35-4.35" />
         </svg>
         <input type="text" id="searchInput" name="q" aria-label="Search websites"
-          placeholder="Search 700+ websites, categories, or descriptions..." spellcheck="false" autocorrect="off"
+          placeholder="Search 990+ websites, categories, or descriptions..." spellcheck="false" autocorrect="off"
           autocapitalize="off" autocomplete="off" inputmode="search">
       </div>
       <div class="search-count" id="searchCount"></div>
@@ -4513,7 +4527,13 @@
 
     // Theme toggle Logic
     function setTheme(theme, skipSync = false) {
+      // Suppress all transitions so 990+ cards switch instantly (no 300ms crawl)
+      document.documentElement.classList.add('theme-switching');
       document.documentElement.setAttribute('data-theme', theme);
+      // Re-enable transitions after 2 frames
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        document.documentElement.classList.remove('theme-switching');
+      }));
       localStorage.setItem('theme', theme);
       document.querySelectorAll('.theme-btn').forEach(btn => {
         btn.classList.toggle('active', btn.dataset.themeBtn === theme);
@@ -4990,19 +5010,19 @@
         searchInput.value = transcript;
         searchInput.dispatchEvent(new Event('input'));
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
       };
 
       recognition.onerror = function (event) {
         console.error('Speech recognition error:', event.error);
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
         showToast('Voice search failed. Try again.', 'error');
       };
 
       recognition.onend = function () {
         voiceSearchBtn.classList.remove('listening');
-        searchInput.placeholder = 'Search 700+ websites, categories, or descriptions...';
+        searchInput.placeholder = 'Search 990+ websites, categories, or descriptions...';
       };
 
       voiceSearchBtn.style.display = 'flex'; // Show voice search button if supported
@@ -5465,10 +5485,12 @@
       if (forceSignup) _authMode = 'signup';
       updateAuthModalUI();
       document.getElementById('authModal').classList.add('open');
+      document.body.classList.add('modal-open');
       setTimeout(() => document.getElementById('authEmail').focus(), 400);
     }
     function closeAuthModal() {
       document.getElementById('authModal').classList.remove('open');
+      document.body.classList.remove('modal-open');
     }
     function toggleAuthMode() {
       _authMode = _authMode === 'signin' ? 'signup' : 'signin';
