@@ -5192,10 +5192,12 @@
         window.requestAnimationFrame(() => {
           const currentY = window.scrollY;
           const delta = currentY - lastScrollY;
-          // Only auto-hide on scroll down — no scroll-up auto-expand (user toggles manually)
+          // Auto-hide on scroll down, auto-show on scroll up
           if (!userManualToggle) {
             if (delta > 15 && currentY > 300 && !navWrap.classList.contains('collapsed')) {
               collapseNav();
+            } else if (delta < -10 && navWrap.classList.contains('collapsed')) {
+              expandNav();
             }
           }
           lastScrollY = currentY;
