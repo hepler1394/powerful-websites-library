@@ -4519,7 +4519,7 @@
             <div class="label">My Favorites</div>
           </a></div>
         <div class="hero-stat"><a href="javascript:void(0)"
-            onclick="document.getElementById('navFilters')?.scrollIntoView({behavior:'smooth'})"
+            onclick="setFilter('all');document.querySelectorAll('.section-tab').forEach(t=>t.classList.toggle('active',t.dataset.section==='all'));activeSectionType='all';applyFilters();setTimeout(()=>{const s=document.querySelector('.category-section');if(s){const o=s.getBoundingClientRect().top+window.scrollY-120;window.scrollTo({top:Math.max(0,o),behavior:'smooth'})}},300)"
             style="text-decoration:none;color:inherit">
             <div class="num" style="font-size:1.6rem">🗂️</div>
             <div class="label">All Categories</div>
