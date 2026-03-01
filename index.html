@@ -6031,6 +6031,13 @@
     const mobileNavToggle = document.getElementById('mobileNavToggle');
     const mobileNavLabel = document.getElementById('mobileNavLabel');
 
+    // Always start expanded so cards are visible
+    if (navWrap) {
+      navWrap.classList.remove('collapsed');
+      if (mobileNavToggle) mobileNavToggle.classList.add('open');
+      if (mobileNavLabel) mobileNavLabel.innerHTML = '<span>Hide Categories</span>';
+    }
+
     function getActiveFilterName() {
       const activeBtn = document.querySelector('.nav-btn.active');
       if (activeBtn) return activeBtn.textContent.trim();
@@ -6056,21 +6063,7 @@
     let manualToggleTimer = null;
     window.addEventListener('scroll', () => {
       backTop.classList.toggle('visible', window.scrollY > 400);
-      if (!scrollTicking) {
-        window.requestAnimationFrame(() => {
-          const currentY = window.scrollY;
-          const delta = currentY - lastScrollY;
-          // Auto-hide on scroll down only — manual button to pull back up
-          if (!userManualToggle) {
-            if (delta > 15 && currentY > 300 && !navWrap.classList.contains('collapsed')) {
-              collapseNav();
-            }
-          }
-          lastScrollY = currentY;
-          scrollTicking = false;
-        });
-        scrollTicking = true;
-      }
+      // NOTE: collapseNav() removed from scroll — it was hiding category cards
     });
     mobileNavToggle.addEventListener('click', () => {
       // Set manual override so scroll doesn't immediately undo the user's action
@@ -6084,13 +6077,9 @@
       }
     });
 
-    // Also collapse when search has text, expand when cleared
+    // Search input: do NOT collapse nav — collapsing hides cards and makes search return 0 results
     searchInput.addEventListener('input', () => {
-      if (searchInput.value.trim()) {
-        collapseNav();
-      } else if (!searchInput.value.trim()) {
-        expandNav();
-      }
+      // just let the search filter work without hiding categories
     });
 
     // ===== FAVORITES SYSTEM =====

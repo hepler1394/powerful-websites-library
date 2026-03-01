@@ -285,12 +285,14 @@
     gap: 0;
   }
 
-  /* Section tabs: large pill style */
+  /* Section tabs: horizontal scroll strip, first tab always visible */
   .section-tabs {
     display: flex;
+    justify-content: flex-start !important;
+    flex-wrap: nowrap !important;
     gap: 8px;
     overflow-x: auto;
-    padding: 0 16px 8px;
+    padding: 0 16px 8px 16px;
     scroll-padding-left: 16px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
