@@ -13,11 +13,11 @@
         href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
     <style>
         :root {
-            --bg: #0f0f0f;
-            --surface: #1a1a1a;
-            --card: #222;
-            --card-hover: #2a2a2a;
-            --border: rgba(255, 255, 255, .08);
+            --bg: #0a0a12;
+            --surface: #14141f;
+            --card: #1a1a2a;
+            --card-hover: #222236;
+            --border: rgba(255, 255, 255, .06);
             --text: #f0f0f0;
             --text-muted: #888;
             --text-dim: #555;
@@ -26,6 +26,7 @@
             --green: #22c55e;
             --yellow: #f59e0b;
             --blue: #3b82f6;
+            --purple: #a855f7;
         }
 
         * {
@@ -76,7 +77,7 @@
         /* ── LAYOUT ── */
         .admin-wrap {
             display: grid;
-            grid-template-columns: 220px 1fr;
+            grid-template-columns: 240px 1fr;
             min-height: 100vh;
         }
 
@@ -89,6 +90,7 @@
             height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-y: auto;
         }
 
         .admin-logo {
@@ -200,6 +202,11 @@
             border: 1px solid var(--border);
             border-radius: 16px;
             padding: 20px;
+            transition: border-color .2s;
+        }
+
+        .stat-card:hover {
+            border-color: rgba(255, 255, 255, .12);
         }
 
         .stat-card .sc-label {
@@ -239,6 +246,10 @@
             color: var(--yellow);
         }
 
+        .stat-card.purple .sc-value {
+            color: var(--purple);
+        }
+
         /* ── SECTION ── */
         .admin-section {
             margin-bottom: 32px;
@@ -262,7 +273,53 @@
             font-weight: 700;
         }
 
-        /* ── DATA FILES TABLE ── */
+        /* ── ACTION BUTTONS ── */
+        .action-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 12px;
+        }
+
+        .action-btn {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px 18px;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+            color: var(--text);
+        }
+
+        .action-btn:hover {
+            border-color: var(--accent);
+            background: rgba(220, 38, 38, .06);
+        }
+
+        .action-btn .ab-icon {
+            font-size: 1.4rem;
+        }
+
+        .action-btn .ab-text strong {
+            display: block;
+            font-size: .88rem;
+            font-weight: 700;
+        }
+
+        .action-btn .ab-text span {
+            font-size: .72rem;
+            color: var(--text-muted);
+        }
+
+        .action-btn.danger:hover {
+            border-color: #ef4444;
+            background: rgba(239, 68, 68, .08);
+        }
+
+        /* ── TABLE ── */
         .data-table {
             width: 100%;
             border-collapse: collapse;
@@ -317,54 +374,134 @@
             color: var(--blue);
         }
 
-        /* ── ACTION BUTTONS ── */
-        .action-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 12px;
+        .badge-purple {
+            background: rgba(168, 85, 247, .12);
+            color: var(--purple);
         }
 
-        .action-btn {
+        /* ── LIKE ROW ── */
+        .like-row {
             display: flex;
             align-items: center;
             gap: 12px;
             background: var(--surface);
             border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px 18px;
+            border-radius: 12px;
+            padding: 12px 16px;
+            transition: border-color .2s;
+        }
+
+        .like-row:hover {
+            border-color: rgba(255, 255, 255, .12);
+        }
+
+        .like-row .lr-rank {
+            font-size: 1.1rem;
+            font-weight: 900;
+            color: var(--text-dim);
+            min-width: 28px;
+        }
+
+        .like-row .lr-favicon {
+            width: 20px;
+            height: 20px;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .like-row .lr-name {
+            flex: 1;
+            font-size: .88rem;
+            font-weight: 600;
+        }
+
+        .like-row .lr-count {
+            font-weight: 800;
+            color: var(--accent);
+            font-size: .9rem;
+        }
+
+        .like-row .lr-actions {
+            display: flex;
+            gap: 6px;
+        }
+
+        .like-row .lr-actions button {
+            background: none;
+            border: 1px solid var(--border);
+            border-radius: 6px;
+            padding: 4px 10px;
+            font-size: .7rem;
+            color: var(--text-muted);
             cursor: pointer;
             transition: all .2s;
-            text-decoration: none;
-            color: var(--text);
+            font-weight: 600;
         }
 
-        .action-btn:hover {
+        .like-row .lr-actions button:hover {
             border-color: var(--accent);
-            background: rgba(220, 38, 38, .06);
+            color: var(--accent);
         }
 
-        .action-btn .ab-icon {
-            font-size: 1.4rem;
+        .like-row .lr-actions button.danger:hover {
+            border-color: #ef4444;
+            color: #ef4444;
         }
 
-        .action-btn .ab-text strong {
+        /* ── USER ROW ── */
+        .user-row {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 12px 16px;
+        }
+
+        .user-row .ur-avatar {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--card);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: .85rem;
+            flex-shrink: 0;
+        }
+
+        .user-row .ur-avatar img {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
+        .user-row .ur-info {
+            flex: 1;
+        }
+
+        .user-row .ur-info strong {
             display: block;
             font-size: .88rem;
-            font-weight: 700;
         }
 
-        .action-btn .ab-text span {
+        .user-row .ur-info span {
             font-size: .72rem;
             color: var(--text-muted);
         }
 
-        /* ── CATEGORY BREAKDOWN ── */
-        .cat-list {
+        .user-row .ur-stats {
             display: flex;
-            flex-direction: column;
-            gap: 8px;
+            gap: 12px;
+            font-size: .72rem;
+            color: var(--text-muted);
+            font-weight: 600;
         }
 
+        /* ── CAT ROW ── */
         .cat-row {
             display: flex;
             align-items: center;
@@ -411,53 +548,6 @@
             border-radius: 2px;
         }
 
-        /* ── RECENT SEARCHES ── */
-        .search-list {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 8px;
-        }
-
-        .search-chip {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 50px;
-            padding: 5px 14px;
-            font-size: .8rem;
-            color: var(--text-muted);
-        }
-
-        /* ── ADMIN LOG ── */
-        .admin-log {
-            background: var(--surface);
-            border: 1px solid var(--border);
-            border-radius: 14px;
-            padding: 16px;
-            font-size: .82rem;
-            color: var(--text-muted);
-            font-family: monospace;
-            max-height: 200px;
-            overflow-y: auto;
-        }
-
-        .log-line {
-            padding: 3px 0;
-            border-bottom: 1px solid rgba(255, 255, 255, .03);
-        }
-
-        .log-line .ts {
-            color: var(--text-dim);
-            margin-right: 8px;
-        }
-
-        .log-line .level-info {
-            color: var(--blue);
-        }
-
-        .log-line .level-warn {
-            color: var(--yellow);
-        }
-
         /* ── TOAST ── */
         #adminToast {
             position: fixed;
@@ -479,7 +569,42 @@
             transform: translateX(-50%) translateY(0);
         }
 
-        /* ── RESPONSIVE MOBILE ── */
+        /* ── ADMIN LOG ── */
+        .admin-log {
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            padding: 16px;
+            font-size: .82rem;
+            color: var(--text-muted);
+            font-family: monospace;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .log-line {
+            padding: 3px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+        }
+
+        .log-line .ts {
+            color: var(--text-dim);
+            margin-right: 8px;
+        }
+
+        .log-line .level-info {
+            color: var(--blue);
+        }
+
+        .log-line .level-warn {
+            color: var(--yellow);
+        }
+
+        .log-line .level-error {
+            color: var(--accent);
+        }
+
+        /* ── RESPONSIVE ── */
         @media (max-width: 768px) {
             .admin-wrap {
                 grid-template-columns: 1fr;
@@ -524,7 +649,6 @@
 </head>
 
 <body>
-
     <!-- ── AUTH GATE ── -->
     <div id="authGate">
         <div class="gate-icon">🔐</div>
@@ -533,25 +657,27 @@
         <p id="gateMsg" style="display:none">Not authorized. <a href="index.html">← Go back</a></p>
     </div>
 
-    <!-- ── ADMIN APP (hidden until auth verified) ── -->
+    <!-- ── ADMIN APP ── -->
     <div id="adminApp" style="display:none">
         <div class="admin-wrap">
-
             <!-- SIDEBAR -->
             <aside class="admin-sidebar">
                 <div class="admin-logo">
                     <span>WebsLib</span>
                     <span class="badge">Admin</span>
                 </div>
-                <button class="sidebar-link active" onclick="showSection('overview')"><span class="sl-icon">📊</span>
-                    Overview</button>
-                <button class="sidebar-link" onclick="showSection('library')"><span class="sl-icon">📚</span>
+                <button class="sidebar-link active" onclick="showSection('overview', this)"><span
+                        class="sl-icon">📊</span> Overview</button>
+                <button class="sidebar-link" onclick="showSection('users', this)"><span class="sl-icon">👥</span>
+                    Users</button>
+                <button class="sidebar-link" onclick="showSection('likes', this)"><span class="sl-icon">👍</span> Global
+                    Likes</button>
+                <button class="sidebar-link" onclick="showSection('library', this)"><span class="sl-icon">📚</span>
                     Library</button>
-                <button class="sidebar-link" onclick="showSection('analytics')"><span class="sl-icon">📈</span>
-                    Analytics</button>
-                <button class="sidebar-link" onclick="showSection('actions')"><span class="sl-icon">⚡</span>
+                <button class="sidebar-link" onclick="showSection('actions', this)"><span class="sl-icon">⚡</span>
                     Actions</button>
-                <button class="sidebar-link" onclick="showSection('log')"><span class="sl-icon">🗒️</span> Log</button>
+                <button class="sidebar-link" onclick="showSection('log', this)"><span class="sl-icon">🗒️</span>
+                    Log</button>
                 <hr style="border:none;border-top:1px solid var(--border);margin:8px 16px;">
                 <a class="sidebar-link" href="index.html"><span class="sl-icon">← </span> Back to Library</a>
                 <div class="sidebar-footer">
@@ -569,13 +695,12 @@
             <!-- MAIN -->
             <main class="admin-main">
 
-                <!-- OVERVIEW SECTION -->
+                <!-- OVERVIEW -->
                 <div id="section-overview" class="admin-panel">
                     <div class="admin-header">
                         <h1>📊 Admin Overview</h1>
                         <p id="adminWelcome">Welcome back. Here's your library at a glance.</p>
                     </div>
-
                     <div class="stat-grid">
                         <div class="stat-card green">
                             <div class="sc-label">Total Sites</div>
@@ -588,194 +713,157 @@
                             <div class="sc-sub">Active sections</div>
                         </div>
                         <div class="stat-card blue">
-                            <div class="sc-label">Data Files</div>
-                            <div class="sc-value">6</div>
-                            <div class="sc-sub">data-extra-1 through 5</div>
+                            <div class="sc-label">Registered Users</div>
+                            <div class="sc-value" id="statUsers">—</div>
+                            <div class="sc-sub">Firebase accounts</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="sc-label">Total Likes</div>
+                            <div class="sc-value" id="statLikes">—</div>
+                            <div class="sc-sub">Global upvotes</div>
                         </div>
                         <div class="stat-card yellow">
-                            <div class="sc-label">Local Favs</div>
+                            <div class="sc-label">Your Favs</div>
                             <div class="sc-value" id="statFavs">—</div>
-                            <div class="sc-sub">Your saved favorites</div>
+                            <div class="sc-sub">Saved favorites</div>
                         </div>
                         <div class="stat-card">
-                            <div class="sc-label">Searches Done</div>
-                            <div class="sc-value" id="statSearches">—</div>
-                            <div class="sc-sub">From your history</div>
-                        </div>
-                        <div class="stat-card">
-                            <div class="sc-label">Sites Visited</div>
-                            <div class="sc-value" id="statVisited">—</div>
-                            <div class="sc-sub">Recently viewed</div>
+                            <div class="sc-label">Data Files</div>
+                            <div class="sc-value">6</div>
+                            <div class="sc-sub">data.js + 5 extras</div>
                         </div>
                     </div>
-
                     <div class="admin-section">
-                        <h2>⚡ Quick Actions <span class="s2-count">Common tasks</span></h2>
+                        <h2>⚡ Quick Actions</h2>
                         <div class="action-grid">
-                            <a href="index.html" class="action-btn">
-                                <span class="ab-icon">🏠</span>
+                            <a href="index.html" class="action-btn"><span class="ab-icon">🏠</span>
                                 <div class="ab-text"><strong>View Library</strong><span>Open main site</span></div>
                             </a>
-                            <button class="action-btn" onclick="clearPromoFlag()">
-                                <span class="ab-icon">🔄</span>
-                                <div class="ab-text"><strong>Reset Promo</strong><span>Show popup again</span></div>
-                            </button>
-                            <button class="action-btn" onclick="clearVisited()">
-                                <span class="ab-icon">🗑️</span>
-                                <div class="ab-text"><strong>Clear History</strong><span>Wipe recently viewed</span>
+                            <button class="action-btn" onclick="refreshAllData()"><span class="ab-icon">🔄</span>
+                                <div class="ab-text"><strong>Refresh Data</strong><span>Reload from Firebase</span>
                                 </div>
                             </button>
-                            <button class="action-btn" onclick="exportFavCSV()">
-                                <span class="ab-icon">⬇️</span>
-                                <div class="ab-text"><strong>Export Favs</strong><span>Download as CSV</span></div>
+                            <button class="action-btn" onclick="clearAllCache()"><span class="ab-icon">💨</span>
+                                <div class="ab-text"><strong>Clear Cache</strong><span>Bust SW cache</span></div>
                             </button>
-                            <button class="action-btn" onclick="clearAllCache()">
-                                <span class="ab-icon">💨</span>
-                                <div class="ab-text"><strong>Clear SW Cache</strong><span>Force update all files</span>
-                                </div>
+                            <button class="action-btn" onclick="exportFavCSV()"><span class="ab-icon">⬇️</span>
+                                <div class="ab-text"><strong>Export Favs</strong><span>Download CSV</span></div>
                             </button>
-                            <a href="onboarding.html" class="action-btn">
-                                <span class="ab-icon">🎉</span>
+                            <a href="onboarding.html" class="action-btn"><span class="ab-icon">🎉</span>
                                 <div class="ab-text"><strong>Onboarding</strong><span>View onboarding page</span></div>
+                            </a>
+                            <a href="tools.html" class="action-btn"><span class="ab-icon">🔧</span>
+                                <div class="ab-text"><strong>Site Tools</strong><span>Open tools page</span></div>
                             </a>
                         </div>
                     </div>
                 </div>
 
-                <!-- LIBRARY SECTION -->
+                <!-- USERS -->
+                <div id="section-users" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>👥 Registered Users</h1>
+                        <p>All users who have signed up via Firebase Auth.</p>
+                    </div>
+                    <div class="stat-grid" style="margin-bottom:20px;">
+                        <div class="stat-card blue">
+                            <div class="sc-label">Total Users</div>
+                            <div class="sc-value" id="usersTotalCount">—</div>
+                        </div>
+                        <div class="stat-card green">
+                            <div class="sc-label">With Favorites</div>
+                            <div class="sc-value" id="usersWithFavs">—</div>
+                        </div>
+                        <div class="stat-card purple">
+                            <div class="sc-label">With Likes</div>
+                            <div class="sc-value" id="usersWithLikes">—</div>
+                        </div>
+                    </div>
+                    <div class="admin-section">
+                        <h2>📋 User List <span class="s2-count" id="userListCount">Loading...</span></h2>
+                        <div id="userList" style="display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:.85rem;">Loading users from Firestore...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- GLOBAL LIKES -->
+                <div id="section-likes" class="admin-panel" style="display:none">
+                    <div class="admin-header">
+                        <h1>👍 Global Likes</h1>
+                        <p>Sites upvoted by logged-in users. These influence the weekly Top Picks rotation.</p>
+                    </div>
+                    <div class="stat-grid" style="margin-bottom:20px;">
+                        <div class="stat-card red">
+                            <div class="sc-label">Total Upvotes</div>
+                            <div class="sc-value" id="likesTotalCount">—</div>
+                        </div>
+                        <div class="stat-card blue">
+                            <div class="sc-label">Unique Sites</div>
+                            <div class="sc-value" id="likesUniqueCount">—</div>
+                        </div>
+                    </div>
+                    <div class="admin-section">
+                        <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;">
+                            <h2 style="margin-bottom:0;">🏆 Most Liked Sites</h2>
+                            <button class="action-btn" style="padding:8px 14px;" onclick="resetAllLikes()"><span
+                                    class="ab-icon" style="font-size:1rem;">🗑️</span>
+                                <div class="ab-text"><strong style="font-size:.78rem;">Reset All</strong></div>
+                            </button>
+                        </div>
+                        <div id="likesList" style="display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:.85rem;">Loading likes from Firestore...</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- LIBRARY -->
                 <div id="section-library" class="admin-panel" style="display:none">
                     <div class="admin-header">
                         <h1>📚 Library Breakdown</h1>
                         <p>All categories and site counts by data file.</p>
                     </div>
-
-                    <div class="admin-section">
-                        <h2>📁 Data Files</h2>
-                        <div
-                            style="background:var(--surface);border:1px solid var(--border);border-radius:14px;overflow:hidden;">
-                            <table class="data-table">
-                                <thead>
-                                    <tr>
-                                        <th>File</th>
-                                        <th>Categories</th>
-                                        <th>Sites</th>
-                                        <th>Status</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    <tr>
-                                        <td>data.js (built-in)</td>
-                                        <td id="dCats0">—</td>
-                                        <td id="dSites0">—</td>
-                                        <td><span class="badge-pill badge-green">Loaded</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>data-extra.js</td>
-                                        <td id="dCats1">—</td>
-                                        <td id="dSites1">—</td>
-                                        <td><span class="badge-pill badge-green">Loaded</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>data-extra-2.js</td>
-                                        <td>15</td>
-                                        <td>225</td>
-                                        <td><span class="badge-pill badge-green">Loaded</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>data-extra-3.js</td>
-                                        <td>10</td>
-                                        <td>100</td>
-                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>data-extra-4.js</td>
-                                        <td>6</td>
-                                        <td>90</td>
-                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
-                                    </tr>
-                                    <tr>
-                                        <td>data-extra-5.js</td>
-                                        <td>5</td>
-                                        <td>100</td>
-                                        <td><span class="badge-pill badge-blue">2026 New</span></td>
-                                    </tr>
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-
                     <div class="admin-section">
                         <h2>📂 All Categories <span class="s2-count" id="catCount">—</span></h2>
-                        <div class="cat-list" id="catList">
-                            <p style="color:var(--text-muted);font-size:.85rem;">Loading categories from library...</p>
+                        <div class="cat-list" id="catList" style="display:flex;flex-direction:column;gap:8px;">
+                            <p style="color:var(--text-muted);font-size:.85rem;">Loading categories...</p>
                         </div>
                     </div>
                 </div>
 
-                <!-- ANALYTICS SECTION -->
-                <div id="section-analytics" class="admin-panel" style="display:none">
-                    <div class="admin-header">
-                        <h1>📈 Your Analytics</h1>
-                        <p>Based on your local browser data.</p>
-                    </div>
-
-                    <div class="admin-section">
-                        <h2>🔍 Recent Searches</h2>
-                        <div class="search-list" id="searchHistoryList">
-                            <p style="color:var(--text-muted);font-size:.85rem;">No searches recorded yet.</p>
-                        </div>
-                    </div>
-
-                    <div class="admin-section" style="margin-top:24px;">
-                        <h2>⏱️ Recently Viewed Sites</h2>
-                        <div id="recentlyViewedList" style="display:flex;flex-direction:column;gap:8px;">
-                            <p style="color:var(--text-muted);font-size:.85rem;">No recently viewed sites.</p>
-                        </div>
-                    </div>
-
-                    <div class="admin-section" style="margin-top:24px;">
-                        <h2>❤️ Saved Favorites <span class="s2-count" id="favCount">0</span></h2>
-                        <div id="favListAdmin" style="display:flex;flex-direction:column;gap:8px;">
-                            <p style="color:var(--text-muted);font-size:.85rem;">No favorites saved yet.</p>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- ACTIONS SECTION -->
+                <!-- ACTIONS -->
                 <div id="section-actions" class="admin-panel" style="display:none">
                     <div class="admin-header">
                         <h1>⚡ All Actions</h1>
-                        <p>Admin tools and controls.</p>
+                        <p>Admin tools and controls. Actions marked ⚠️ affect all users globally.</p>
                     </div>
                     <div class="action-grid">
                         <button class="action-btn" onclick="clearPromoFlag()"><span class="ab-icon">🔄</span>
-                            <div class="ab-text"><strong>Reset Promo Popup</strong><span>Show save-favorites popup
-                                    again</span></div>
+                            <div class="ab-text"><strong>Reset Promo</strong><span>Show popup again</span></div>
                         </button>
                         <button class="action-btn" onclick="clearVisited()"><span class="ab-icon">🗑️</span>
-                            <div class="ab-text"><strong>Clear Visited History</strong><span>Wipe recently viewed saved
-                                    data</span></div>
+                            <div class="ab-text"><strong>Clear History</strong><span>Wipe recently viewed</span></div>
                         </button>
                         <button class="action-btn" onclick="clearSearchHistory()"><span class="ab-icon">🔍</span>
-                            <div class="ab-text"><strong>Clear Search History</strong><span>Remove saved search
-                                    terms</span></div>
+                            <div class="ab-text"><strong>Clear Searches</strong><span>Remove search terms</span></div>
                         </button>
                         <button class="action-btn" onclick="exportFavCSV()"><span class="ab-icon">⬇️</span>
-                            <div class="ab-text"><strong>Export Favorites CSV</strong><span>Download all saved
-                                    favorites</span></div>
+                            <div class="ab-text"><strong>Export Favorites</strong><span>Download CSV</span></div>
                         </button>
                         <button class="action-btn" onclick="clearAllCache()"><span class="ab-icon">💨</span>
-                            <div class="ab-text"><strong>Bust Service Worker Cache</strong><span>Force refresh all
-                                    cached files</span></div>
+                            <div class="ab-text"><strong>Bust SW Cache</strong><span>Force refresh</span></div>
                         </button>
-                        <button class="action-btn" onclick="clearAllLocalStorage()"><span class="ab-icon">⚠️</span>
-                            <div class="ab-text"><strong>Clear ALL Local Data</strong><span>Reset everything
-                                    (careful!)</span></div>
+                        <button class="action-btn danger" onclick="resetAllLikes()"><span class="ab-icon">⚠️</span>
+                            <div class="ab-text"><strong>Reset All Likes</strong><span>Clear global upvotes</span></div>
+                        </button>
+                        <button class="action-btn danger" onclick="clearAllLocalStorage()"><span
+                                class="ab-icon">⚠️</span>
+                            <div class="ab-text"><strong>Clear ALL Local</strong><span>Reset everything</span></div>
                         </button>
                     </div>
                 </div>
 
-                <!-- LOG SECTION -->
+                <!-- LOG -->
                 <div id="section-log" class="admin-panel" style="display:none">
                     <div class="admin-header">
                         <h1>🗒️ Admin Log</h1>
@@ -790,7 +878,6 @@
                         style="margin-top:12px;background:none;border:1px solid var(--border);border-radius:8px;padding:8px 16px;color:var(--text-muted);cursor:pointer;font-size:.8rem;">Clear
                         Log</button>
                 </div>
-
             </main>
         </div>
     </div>
@@ -799,8 +886,9 @@
 
     <script>
         const ADMIN_EMAILS = ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
+        let _db = null;
 
-        // ── FIREBASE LOAD ─────────────────────────────────────────────────────
+        // ── FIREBASE LOAD ──
         const FIREBASE_CONFIG = {
             apiKey: "AIzaSyCftljTkWcA2-CyojsF40Dpjm9rAiSlKNc",
             authDomain: "plexmovies-530e4.firebaseapp.com",
@@ -811,17 +899,23 @@
             measurementId: "G-ZBZ7YQ1GYR"
         };
 
-        function loadFirebaseAuth() {
+        function loadFirebase() {
             return new Promise(resolve => {
                 if (window.firebase && window.firebase.auth) { resolve(); return; }
                 const s1 = document.createElement('script');
-                s1.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-app-compat.js';
+                s1.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js';
                 s1.onload = () => {
                     const s2 = document.createElement('script');
-                    s2.src = 'https://www.gstatic.com/firebasejs/9.23.0/firebase-auth-compat.js';
+                    s2.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js';
                     s2.onload = () => {
-                        try { firebase.initializeApp(FIREBASE_CONFIG); } catch (e) { }
-                        resolve();
+                        const s3 = document.createElement('script');
+                        s3.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
+                        s3.onload = () => {
+                            try { firebase.initializeApp(FIREBASE_CONFIG); } catch (e) { }
+                            _db = firebase.firestore();
+                            resolve();
+                        };
+                        document.head.appendChild(s3);
                     };
                     document.head.appendChild(s2);
                 };
@@ -829,12 +923,11 @@
             });
         }
 
-        loadFirebaseAuth().then(() => {
+        loadFirebase().then(() => {
             firebase.auth().onAuthStateChanged(user => {
                 const gate = document.getElementById('authGate');
                 const app = document.getElementById('adminApp');
                 if (user && ADMIN_EMAILS.includes(user.email)) {
-                    // Admin verified
                     gate.style.display = 'none';
                     app.style.display = 'block';
                     document.getElementById('adminUserName').textContent = user.displayName || 'Admin';
@@ -842,42 +935,28 @@
                     document.getElementById('adminWelcome').textContent = `Welcome back, ${user.displayName || 'Cory'}! Last login: ${new Date().toLocaleString()}`;
                     document.getElementById('logTs').textContent = new Date().toLocaleTimeString();
                     initAdminData();
-                } else if (user && !ADMIN_EMAILS.includes(user.email)) {
-                    // Signed in but not admin
+                } else if (user) {
                     document.getElementById('gateMsg').style.display = 'block';
-                    document.querySelector('#authGate p:first-of-type').textContent = 'You are not authorized to view this page.';
+                    document.querySelector('#authGate p:first-of-type').textContent = 'You are not authorized.';
                 } else {
-                    // Not signed in
                     document.querySelector('#authGate p:first-of-type').textContent = 'You must be signed in as an admin.';
                     document.getElementById('gateMsg').style.display = 'block';
                 }
             });
         }).catch(() => {
-            // Firebase load failed — show not authorized
-            document.querySelector('#authGate p:first-of-type').textContent = 'Authentication service unavailable.';
+            document.querySelector('#authGate p:first-of-type').textContent = 'Auth service unavailable.';
             document.getElementById('gateMsg').style.display = 'block';
         });
 
         function signOut() {
-            if (window.firebase && window.firebase.auth) {
-                firebase.auth().signOut().then(() => window.location.href = 'index.html');
-            }
+            if (window.firebase && firebase.auth) firebase.auth().signOut().then(() => window.location.href = 'index.html');
         }
 
-        // ── DATA INIT ─────────────────────────────────────────────────────────
+        // ── DATA INIT ──
         function initAdminData() {
-            // Stats
             const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-            const searched = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-            const visited = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
-
             document.getElementById('statFavs').textContent = favs.length;
-            document.getElementById('statSearches').textContent = searched.length;
-            document.getElementById('statVisited').textContent = visited.length;
-            document.getElementById('favCount').textContent = favs.length;
 
-            // Load DATA from parent page context (defer to iframe or direct access)
-            // Since admin.html loads data files from index context, we load them here
             loadDataFiles().then(() => {
                 if (typeof DATA !== 'undefined') {
                     const total = DATA.reduce((a, c) => a + (c.sites ? c.sites.length : 0), 0);
@@ -888,17 +967,17 @@
                 }
             });
 
-            renderSearchHistory(searched);
-            renderRecentlyViewed(visited);
-            renderFavorites(favs);
+            // Load Firebase data
+            loadUsersFromFirestore();
+            loadLikesFromFirestore();
+            logAction('INFO', 'Admin data initialized');
         }
 
         function loadDataFiles() {
             return new Promise(resolve => {
-                if (typeof DATA !== 'undefined') { resolve(); return; }
-                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js'];
-                // Inject a minimal DATA array first
+                if (typeof DATA !== 'undefined' && DATA.length) { resolve(); return; }
                 window.DATA = [];
+                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js'];
                 let loaded = 0;
                 files.forEach(src => {
                     const s = document.createElement('script');
@@ -909,118 +988,198 @@
             });
         }
 
+        // ── USERS FROM FIRESTORE ──
+        function loadUsersFromFirestore() {
+            if (!_db) { document.getElementById('statUsers').textContent = '?'; return; }
+            _db.collection('users').get().then(snap => {
+                const users = [];
+                let withFavs = 0, withLikes = 0;
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    d.uid = doc.id;
+                    if (d.favorites && d.favorites.length) withFavs++;
+                    if (d.likes && d.likes.length) withLikes++;
+                    users.push(d);
+                });
+                document.getElementById('statUsers').textContent = users.length;
+                document.getElementById('usersTotalCount').textContent = users.length;
+                document.getElementById('usersWithFavs').textContent = withFavs;
+                document.getElementById('usersWithLikes').textContent = withLikes;
+                document.getElementById('userListCount').textContent = users.length + ' users';
+                renderUserList(users);
+                logAction('INFO', `Loaded ${users.length} users from Firestore`);
+            }).catch(err => {
+                document.getElementById('statUsers').textContent = '?';
+                logAction('ERROR', 'Failed to load users: ' + err.message);
+            });
+        }
+
+        function renderUserList(users) {
+            const el = document.getElementById('userList');
+            if (!users.length) { el.innerHTML = '<p style="color:var(--text-muted)">No users found.</p>'; return; }
+            el.innerHTML = users.map(u => {
+                const name = u.displayName || u.email?.split('@')[0] || 'Unknown';
+                const email = u.email || '—';
+                const favCount = u.favorites ? u.favorites.length : 0;
+                const initial = name.charAt(0).toUpperCase();
+                const photo = u.photoURL ? `<img src="${u.photoURL}">` : initial;
+                const theme = u.theme || 'default';
+                return `<div class="user-row">
+                    <div class="ur-avatar">${photo}</div>
+                    <div class="ur-info"><strong>${name}</strong><span>${email}</span></div>
+                    <div class="ur-stats">
+                        <span>❤️ ${favCount}</span>
+                        <span>🎨 ${theme}</span>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        // ── GLOBAL LIKES FROM FIRESTORE ──
+        function loadLikesFromFirestore() {
+            if (!_db) return;
+            _db.collection('globalLikes').orderBy('likeCount', 'desc').get().then(snap => {
+                const likes = [];
+                let totalUpvotes = 0;
+                snap.forEach(doc => {
+                    const d = doc.data();
+                    d.docId = doc.id;
+                    totalUpvotes += d.likeCount || 0;
+                    likes.push(d);
+                });
+                document.getElementById('statLikes').textContent = totalUpvotes;
+                document.getElementById('likesTotalCount').textContent = totalUpvotes;
+                document.getElementById('likesUniqueCount').textContent = likes.length;
+                renderLikesList(likes);
+                logAction('INFO', `Loaded ${likes.length} liked sites (${totalUpvotes} total upvotes)`);
+            }).catch(err => {
+                logAction('ERROR', 'Failed to load likes: ' + err.message);
+            });
+        }
+
+        function renderLikesList(likes) {
+            const el = document.getElementById('likesList');
+            if (!likes.length) { el.innerHTML = '<p style="color:var(--text-muted)">No likes yet.</p>'; return; }
+            el.innerHTML = likes.map((l, i) => {
+                const domain = (() => { try { return new URL(l.url).hostname; } catch (e) { return l.url; } })();
+                const fav = `https://www.google.com/s2/favicons?domain=${domain}&sz=24`;
+                const likedByCount = l.likedBy ? l.likedBy.length : 0;
+                return `<div class="like-row">
+                    <span class="lr-rank">#${i + 1}</span>
+                    <img class="lr-favicon" src="${fav}" onerror="this.style.display='none'">
+                    <span class="lr-name">${l.name || domain}</span>
+                    <span class="lr-count">👍 ${l.likeCount || 0}</span>
+                    <span style="font-size:.68rem;color:var(--text-dim)">${likedByCount} users</span>
+                    <div class="lr-actions">
+                        <button onclick="resetSiteLikes('${l.docId}', '${(l.name || domain).replace(/'/g, "\\'")}')">Reset</button>
+                        <button class="danger" onclick="deleteSiteLikes('${l.docId}', '${(l.name || domain).replace(/'/g, "\\'")}')">Delete</button>
+                    </div>
+                </div>`;
+            }).join('');
+        }
+
+        function resetSiteLikes(docId, name) {
+            if (!confirm(`Reset likes for "${name}" to 0?`)) return;
+            _db.collection('globalLikes').doc(docId).update({
+                likeCount: 0, likedBy: []
+            }).then(() => {
+                toast(`✅ Reset likes for ${name}`);
+                loadLikesFromFirestore();
+            }).catch(err => toast('❌ Error: ' + err.message));
+        }
+
+        function deleteSiteLikes(docId, name) {
+            if (!confirm(`Permanently delete like data for "${name}"?`)) return;
+            _db.collection('globalLikes').doc(docId).delete().then(() => {
+                toast(`🗑️ Deleted likes for ${name}`);
+                loadLikesFromFirestore();
+            }).catch(err => toast('❌ Error: ' + err.message));
+        }
+
+        function resetAllLikes() {
+            if (!confirm('⚠️ This will reset ALL global likes to 0. Are you sure?')) return;
+            if (!_db) return;
+            _db.collection('globalLikes').get().then(snap => {
+                const batch = _db.batch();
+                snap.forEach(doc => batch.delete(doc.ref));
+                return batch.commit();
+            }).then(() => {
+                toast('🗑️ All global likes reset');
+                loadLikesFromFirestore();
+                logAction('WARN', 'All global likes reset by admin');
+            }).catch(err => toast('❌ Error: ' + err.message));
+        }
+
+        // ── CATEGORY LIST ──
         function renderCategoryList() {
             const list = document.getElementById('catList');
-            if (!DATA || !DATA.length) { list.innerHTML = '<p style="color:var(--text-muted)">No data loaded.</p>'; return; }
+            if (!DATA || !DATA.length) { list.innerHTML = '<p style="color:var(--text-muted)">No data.</p>'; return; }
             const maxSites = Math.max(...DATA.map(c => c.sites ? c.sites.length : 0));
             list.innerHTML = DATA.map(cat => {
                 const count = cat.sites ? cat.sites.length : 0;
                 const pct = Math.round((count / maxSites) * 100);
                 return `<div class="cat-row">
-        <span style="font-size:1.2rem">${cat.icon || '📁'}</span>
-        <span class="cr-name">${cat.name}</span>
-        <span class="cr-type">${cat.type || '—'}</span>
-        <div class="cr-bar"><div class="cr-bar-fill" style="width:${pct}%"></div></div>
-        <span class="cr-count">${count}</span>
-      </div>`;
+                    <span style="font-size:1.2rem">${cat.icon || '📁'}</span>
+                    <span class="cr-name">${cat.name}</span>
+                    <span class="cr-type">${cat.type || '—'}</span>
+                    <div class="cr-bar"><div class="cr-bar-fill" style="width:${pct}%"></div></div>
+                    <span class="cr-count">${count}</span>
+                </div>`;
             }).join('');
         }
 
-        function renderSearchHistory(searches) {
-            const el = document.getElementById('searchHistoryList');
-            if (!searches.length) return;
-            el.innerHTML = searches.map(q => `<span class="search-chip">🔍 ${q}</span>`).join('');
-        }
-
-        function renderRecentlyViewed(visited) {
-            const el = document.getElementById('recentlyViewedList');
-            if (!visited.length) return;
-            el.innerHTML = visited.map(v => {
-                const domain = (() => { try { return new URL(v.u).hostname; } catch (e) { return v.u; } })();
-                const fav = `https://www.google.com/s2/favicons?domain=${domain}&sz=24`;
-                const time = new Date(v.t).toLocaleString();
-                return `<div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;">
-        <img src="${fav}" width="20" height="20" style="border-radius:4px" onerror="this.style.display='none'">
-        <span style="flex:1;font-size:.85rem;font-weight:600;">${v.n}</span>
-        <span style="font-size:.7rem;color:var(--text-muted)">${time}</span>
-        <a href="${v.u}" target="_blank" rel="noopener" style="color:var(--accent);font-size:.75rem;font-weight:700;text-decoration:none;">Visit →</a>
-      </div>`;
-            }).join('');
-        }
-
-        function renderFavorites(favs) {
-            const el = document.getElementById('favListAdmin');
-            if (!favs.length) return;
-            el.innerHTML = favs.map(url => {
-                const domain = (() => { try { return new URL(url).hostname; } catch (e) { return url; } })();
-                return `<div style="display:flex;align-items:center;gap:10px;background:var(--surface);border:1px solid var(--border);border-radius:10px;padding:10px 14px;">
-        <img src="https://www.google.com/s2/favicons?domain=${domain}&sz=24" width="20" height="20" style="border-radius:4px" onerror="this.style.display='none'">
-        <span style="flex:1;font-size:.85rem;color:var(--text-muted)">${url}</span>
-        <a href="${url}" target="_blank" rel="noopener" style="color:var(--accent);font-size:.75rem;font-weight:700;text-decoration:none;">Visit →</a>
-      </div>`;
-            }).join('');
-        }
-
-        // ── SECTION NAV ────────────────────────────────────────────────────────
-        function showSection(id) {
+        // ── NAV ──
+        function showSection(id, btn) {
             document.querySelectorAll('.admin-panel').forEach(p => p.style.display = 'none');
             document.querySelectorAll('.sidebar-link').forEach(l => l.classList.remove('active'));
             document.getElementById('section-' + id).style.display = 'block';
-            event.currentTarget.classList.add('active');
+            if (btn) btn.classList.add('active');
         }
 
-        // ── ACTIONS ────────────────────────────────────────────────────────────
-        function clearPromoFlag() {
-            localStorage.removeItem('promoShown');
-            toast('✅ Promo flag cleared — popup will show on next visit');
+        function refreshAllData() {
+            toast('🔄 Refreshing...');
+            loadUsersFromFirestore();
+            loadLikesFromFirestore();
         }
-        function clearVisited() {
-            localStorage.removeItem('recentlyViewed');
-            toast('✅ Recently viewed history cleared');
-            document.getElementById('statVisited').textContent = '0';
-        }
-        function clearSearchHistory() {
-            localStorage.removeItem('searchHistory');
-            toast('✅ Search history cleared');
-            document.getElementById('statSearches').textContent = '0';
-        }
+
+        // ── ACTIONS ──
+        function clearPromoFlag() { localStorage.removeItem('promoShown'); toast('✅ Promo flag cleared'); }
+        function clearVisited() { localStorage.removeItem('recentlyViewed'); localStorage.removeItem('pwl_recently_viewed'); toast('✅ History cleared'); }
+        function clearSearchHistory() { localStorage.removeItem('searchHistory'); toast('✅ Search history cleared'); }
         function exportFavCSV() {
             const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
-            if (!favs.length) { toast('⚠️ No favorites to export'); return; }
+            if (!favs.length) { toast('⚠️ No favorites'); return; }
             const csv = 'URL\n' + favs.join('\n');
             const blob = new Blob([csv], { type: 'text/csv' });
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(blob);
-            a.download = 'favorites-' + Date.now() + '.csv';
-            a.click();
-            toast('⬇️ Favorites exported as CSV');
+            const a = document.createElement('a'); a.href = URL.createObjectURL(blob);
+            a.download = 'favorites-' + Date.now() + '.csv'; a.click();
+            toast('⬇️ Exported');
         }
         function clearAllCache() {
-            if ('caches' in window) {
-                caches.keys().then(keys => { keys.forEach(k => caches.delete(k)); });
-            }
-            if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
-            }
-            toast('💨 SW cache cleared — reload to refetch all files');
+            if ('caches' in window) caches.keys().then(keys => keys.forEach(k => caches.delete(k)));
+            if ('serviceWorker' in navigator) navigator.serviceWorker.getRegistrations().then(regs => regs.forEach(r => r.unregister()));
+            toast('💨 Cache cleared');
         }
         function clearAllLocalStorage() {
-            if (!confirm('⚠️ This will clear ALL local data including favorites. Are you sure?')) return;
-            localStorage.clear();
-            toast('🗑️ All local data cleared');
-            initAdminData();
+            if (!confirm('⚠️ Clear ALL local data?')) return;
+            localStorage.clear(); toast('🗑️ All local data cleared'); initAdminData();
         }
 
+        // ── TOAST & LOG ──
         function toast(msg) {
             const t = document.getElementById('adminToast');
-            t.textContent = msg;
-            t.classList.add('show');
+            t.textContent = msg; t.classList.add('show');
             setTimeout(() => t.classList.remove('show'), 3000);
-            // Log it
+            logAction('ACTION', msg);
+        }
+
+        function logAction(level, msg) {
             const log = document.getElementById('adminLog');
+            if (!log) return;
             const line = document.createElement('div');
             line.className = 'log-line';
-            line.innerHTML = `<span class="ts">${new Date().toLocaleTimeString()}</span><span class="level-info">[ACTION]</span> ${msg}`;
+            const cls = level === 'ERROR' ? 'level-error' : level === 'WARN' ? 'level-warn' : 'level-info';
+            line.innerHTML = `<span class="ts">${new Date().toLocaleTimeString()}</span><span class="${cls}">[${level}]</span> ${msg}`;
             log.prepend(line);
         }
     </script>
