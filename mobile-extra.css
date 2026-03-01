@@ -2897,3 +2897,250 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 [data-theme="glass"] .bottom-nav a.active::before {
     background: linear-gradient(90deg, #dc2626, #ff4444) !important;
 }
+
+/* ═══ 25 MOBILE IMPROVEMENTS ═══ */
+
+/* M1: Touch target minimum 44px */
+@media (max-width: 768px) {
+
+    .fav-btn,
+    .btn-upvote,
+    .btn-copy-link,
+    .btn-native-share {
+        min-width: 44px;
+        min-height: 44px;
+    }
+}
+
+/* M2: Bottom nav smoother transitions */
+.bottom-nav a {
+    transition: color .2s ease, transform .15s ease;
+}
+
+.bottom-nav a:active {
+    transform: scale(.92);
+}
+
+/* M3: Horizontal strip momentum scrolling  */
+@media (max-width: 768px) {
+    .dash-strip {
+        scroll-padding-left: 20px;
+        padding-left: 4px;
+        padding-right: 20px;
+    }
+
+    .dash-card {
+        min-width: 220px;
+        max-width: 260px;
+    }
+}
+
+/* M4: Bottom nav active indicator dot */
+.bottom-nav a.active::after {
+    content: '';
+    position: absolute;
+    bottom: 4px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--accent);
+}
+
+/* M5: Card press feedback */
+@media (max-width: 768px) {
+    .card:active {
+        transform: scale(.98);
+        transition: transform .1s;
+    }
+}
+
+/* M6: Bottom nav icon spacing */
+@media (max-width: 768px) {
+    .bottom-nav a .nav-label {
+        margin-top: 3px;
+        font-size: .62rem;
+        letter-spacing: .3px;
+    }
+}
+
+/* M7: Toast above bottom nav on mobile */
+@media (max-width: 768px) {
+    .toast {
+        bottom: 90px !important;
+    }
+}
+
+/* M8: Card border-radius boost on mobile */
+@media (max-width: 768px) {
+    .card {
+        border-radius: 18px;
+    }
+}
+
+/* M9: Smooth hero section */
+@media (max-width: 768px) {
+    .hero {
+        transition: opacity .3s ease, transform .3s ease;
+    }
+}
+
+/* M10: Section tab horizontal scroll */
+@media (max-width: 768px) {
+    .section-tabs {
+        -webkit-overflow-scrolling: touch;
+        scroll-snap-type: x mandatory;
+    }
+
+    .section-tab {
+        scroll-snap-align: start;
+        flex-shrink: 0;
+    }
+}
+
+/* M11: Card action row bigger touch targets */
+@media (max-width: 768px) {
+    .card-actions {
+        gap: 6px;
+    }
+
+    .card-actions button,
+    .card-actions a {
+        padding: 10px 12px;
+    }
+}
+
+/* M12: Better mobile card spacing */
+@media (max-width: 768px) {
+    .grid {
+        gap: 14px;
+        padding: 0 12px;
+    }
+}
+
+/* M13: Nav button active scale */
+.nav-btn:active {
+    transform: scale(.95);
+    transition: transform .1s;
+}
+
+/* M14: Font rendering on mobile */
+@media (max-width: 768px) {
+    body {
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
+    }
+}
+
+/* M15: Card shadow on touch */
+@media (max-width: 768px) {
+    .card:active {
+        box-shadow: 0 2px 12px rgba(0, 0, 0, .25);
+    }
+}
+
+/* M16: Mobile header  blur */
+@media (max-width: 768px) {
+    .top-bar {
+        backdrop-filter: blur(16px) saturate(150%);
+        -webkit-backdrop-filter: blur(16px) saturate(150%);
+    }
+}
+
+/* M17: Smoother grid transitions */
+@media (max-width: 768px) {
+    .grid {
+        transition: opacity .3s ease;
+    }
+}
+
+/* M18: Mobile badge sizing */
+@media (max-width: 768px) {
+    .badge {
+        font-size: .62rem;
+        padding: 3px 7px;
+    }
+}
+
+/* M19: Better mobile footer */
+@media (max-width: 768px) {
+    .footer {
+        padding: 32px 16px 100px;
+    }
+}
+
+/* M20: Dashboard greeting on mobile */
+@media (max-width: 768px) {
+    .dash-greeting {
+        margin: 12px 12px;
+        padding: 24px 18px 20px;
+        border-radius: 16px;
+    }
+
+    .dash-greeting h2 {
+        font-size: 1.2rem;
+    }
+
+    .dash-section {
+        padding: 0 12px;
+    }
+}
+
+/* M21: Better spaced action buttons on mobile */
+@media (max-width: 768px) {
+    .card-actions {
+        flex-wrap: wrap;
+    }
+
+    .btn-visit {
+        flex: 1;
+        justify-content: center;
+    }
+}
+
+/* M22: Category section mobile padding */
+@media (max-width: 768px) {
+    .category-section {
+        padding: 0 8px;
+    }
+}
+
+/* M23: Better mobile auth button */
+@media (max-width: 768px) {
+    #authBtn {
+        padding: 6px 12px;
+        border-radius: 10px;
+    }
+
+    #authBtnLabel {
+        max-width: 80px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+}
+
+/* M24: Improved mobile scroll-to-top */
+@media (max-width: 768px) {
+    .back-top {
+        bottom: 76px;
+        right: 12px;
+        width: 36px;
+        height: 36px;
+    }
+
+    .back-top svg {
+        width: 24px;
+        height: 24px;
+    }
+}
+
+/* M25: Card limits text on mobile */
+@media (max-width: 768px) {
+    .card-limits.has-limits {
+        font-size: .7rem;
+        padding: 6px 10px;
+        border-radius: 8px;
+    }
+}

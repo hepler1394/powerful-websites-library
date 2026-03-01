@@ -4362,6 +4362,221 @@
       border-color: var(--accent);
       background: rgba(220, 38, 38, .06);
     }
+
+    /* ═══ 25 DESKTOP IMPROVEMENTS ═══ */
+    /* D1: Smoother transitions globally */
+    .card,
+    .nav-btn,
+    .section-tab,
+    .fav-btn,
+    .btn-upvote,
+    .btn-visit,
+    .badge {
+      transition: all .25s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    /* D2: Card shimmer background for loading favicons */
+    .card-favicon {
+      background: linear-gradient(90deg, var(--surface) 25%, var(--card-hover) 50%, var(--surface) 75%);
+      background-size: 200% 100%;
+    }
+
+    .card-favicon[src] {
+      background: none;
+    }
+
+    /* D3: Gradient border on card hover */
+    .card:hover {
+      border-color: rgba(220, 38, 38, .35);
+    }
+
+    /* D4: Section headers accent border */
+    .cat-header h2 {
+      border-left: 3px solid var(--accent);
+      padding-left: 12px;
+    }
+
+    /* D5: Better badge contrast */
+    .badge-verified {
+      backdrop-filter: blur(4px);
+    }
+
+    /* D6: Footer gradient separator */
+    .footer::before {
+      content: '';
+      display: block;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin-bottom: 24px;
+    }
+
+    /* D7: Better focus rings */
+    button:focus-visible,
+    a:focus-visible,
+    input:focus-visible {
+      outline: 2px solid var(--accent);
+      outline-offset: 2px;
+      border-radius: 4px;
+    }
+
+    /* D8: Hero subtitle text shadow */
+    .hero p {
+      text-shadow: 0 1px 8px rgba(0, 0, 0, .4);
+    }
+
+    /* D9: Nav button hover glow */
+    .nav-btn:hover {
+      box-shadow: 0 0 12px rgba(220, 38, 38, .15);
+    }
+
+    /* D10: Favicon fallback styling */
+    .card-favicon-fallback {
+      background: var(--surface);
+      border-radius: 6px;
+      padding: 2px 6px;
+    }
+
+    /* D11: Toast slide-up bounce */
+    .toast {
+      animation: toastIn .4s cubic-bezier(.34, 1.56, .64, 1);
+    }
+
+    @keyframes toastIn {
+      from {
+        transform: translateY(40px);
+        opacity: 0;
+      }
+
+      to {
+        transform: translateY(0);
+        opacity: 1;
+      }
+    }
+
+    /* D12: Visit button hover gradient */
+    .btn-visit:hover {
+      background: linear-gradient(135deg, var(--accent), #ff4444) !important;
+      transform: translateY(-1px);
+    }
+
+    /* D13: Copy button success */
+    .btn-copy-link.copied {
+      color: var(--green) !important;
+      border-color: var(--green) !important;
+    }
+
+    /* D14: Smoother modal backdrop */
+    .modal-overlay {
+      backdrop-filter: blur(8px);
+    }
+
+    /* D15: Better dropdown shadow */
+    #profileDropdown.open {
+      box-shadow: 0 12px 48px rgba(0, 0, 0, .5), 0 0 0 1px var(--border);
+    }
+
+    /* D16: Section tab underline animation */
+    .section-tab {
+      position: relative;
+    }
+
+    .section-tab.active::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 20%;
+      right: 20%;
+      height: 2px;
+      background: var(--accent);
+      border-radius: 2px;
+    }
+
+    /* D17: Card action separator */
+    .card-actions {
+      border-top: 1px solid var(--border);
+      padding-top: 12px;
+      margin-top: 4px;
+    }
+
+    /* D18: Theme toggle rotation */
+    .theme-toggle svg {
+      transition: transform .4s cubic-bezier(.4, 0, .2, 1);
+    }
+
+    .theme-toggle:hover svg {
+      transform: rotate(30deg);
+    }
+
+    /* D19: Category entrance animation */
+    .category-section.is-visible {
+      animation: fadeUp .4s ease both;
+    }
+
+    @keyframes fadeUp {
+      from {
+        opacity: 0;
+        transform: translateY(16px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* D20: Better card description readability */
+    .card-desc {
+      line-height: 1.55;
+      letter-spacing: .01em;
+    }
+
+    /* D21: Badge depth shadow */
+    .badge {
+      text-shadow: 0 1px 2px rgba(0, 0, 0, .15);
+    }
+
+    /* D22: Footer link underline animation */
+    .footer a {
+      position: relative;
+      display: inline-block;
+    }
+
+    .footer a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 0;
+      height: 1px;
+      background: var(--accent);
+      transition: width .3s;
+    }
+
+    .footer a:hover::after {
+      width: 100%;
+    }
+
+    /* D23: Card meta alignment */
+    .card-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      align-items: center;
+    }
+
+    /* D24: Hero stat hover scale */
+    .hero-stat:hover {
+      transform: scale(1.05);
+    }
+
+    .hero-stat {
+      transition: transform .2s ease;
+    }
+
+    /* D25: Piracy warning improved animation */
+    .piracy-warning {
+      transition: all .4s cubic-bezier(.4, 0, .2, 1);
+    }
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
