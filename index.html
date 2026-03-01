@@ -7355,8 +7355,12 @@
             content-visibility: auto;
             contain-intrinsic-size: 0 500px;
           }
-          * {
-            animation-duration: 0.15s !important;
+          /* Only kill heavy hero/particle animations, NOT the search ring */
+          .hero-particle, .hero::before, .hero::after {
+            animation-duration: 0s !important;
+          }
+          #favoritesGrid {
+            background: transparent !important;
           }
         `;
       document.head.appendChild(perfStyle);
