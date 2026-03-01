@@ -1307,8 +1307,10 @@
       margin-bottom: 64px;
     }
 
-    .category-section.visible {
-      display: block
+    .category-section.visible,
+    .category-section.is-visible {
+      display: block;
+      pointer-events: auto;
     }
 
     /* ===== CARD GRID — multi-column responsive layout ===== */
@@ -1332,6 +1334,7 @@
       margin-bottom: 24px;
       padding-bottom: 16px;
       border-bottom: 1px solid var(--border);
+      background: transparent;
     }
 
     .cat-icon {
@@ -3839,6 +3842,14 @@
     }
 
     /* Glass: category section titles readable on gradient bg */
+    [data-theme="glass"] .category-section {
+      background: transparent !important;
+    }
+
+    [data-theme="glass"] .cat-header {
+      background: transparent !important;
+    }
+
     [data-theme="glass"] .cat-title {
       color: #fff;
       text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
@@ -5613,7 +5624,7 @@
         section.innerHTML = `
       <div class="cat-header">
         <span class="cat-icon">${cat.icon}</span>
-        <h2 class="cat-title">${cat.name}</h2>
+        <h2 class="cat-title">${cat.name.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\u200d\uFE0F]+\s*/u, '')}</h2>
         <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
       </div>
       <p class="cat-desc">${cat.desc}</p>
