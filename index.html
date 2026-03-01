@@ -4164,6 +4164,35 @@
     html {
       scrollbar-gutter: stable;
     }
+
+    /* Hidden panels (styled in mobile-extra.css, need defaults here) */
+    #onboardingChecklist,
+    #changelogModal,
+    #leaderboardModal,
+    #settingsDrawer,
+    .settings-overlay {
+      display: none;
+    }
+
+    #onboardingChecklist.show {
+      display: block;
+    }
+
+    #changelogModal.show {
+      display: flex;
+    }
+
+    #leaderboardModal.show {
+      display: flex;
+    }
+
+    #settingsDrawer.show {
+      display: block;
+    }
+
+    .settings-overlay.show {
+      display: block;
+    }
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -5707,8 +5736,9 @@
         <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" aria-label="Favorite ${s.n}" onclick="toggleFav(this,event)" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;">
           <svg viewBox="0 0 24 24" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         </button>
-        <button class="btn-upvote" onclick="handleUpvote('${s.u}', event)" data-upvote-url="${s.u}" title="Upvote" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;transition:all .2s;">
+        <button class="btn-upvote" onclick="handleUpvote('${s.u}', event)" data-upvote-url="${s.u}" title="Upvote" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .2s;">
           <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"></path></svg>
+          <span class="upvote-count" data-count-url="${s.u}" style="font-size:.72rem;font-weight:700;min-width:12px;"></span>
         </button>
         <button class="btn-copy-link" data-url="${s.u}" title="Copy link" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;white-space:nowrap;">Copy</button>
         <button class="btn-native-share" onclick="nativeShare('${s.n.replace(/'/g, "\\'")}',' ${s.u}')" title="Share">
@@ -6402,6 +6432,7 @@
               firebase.initializeApp(FIREBASE_CONFIG);
               _firebaseReady = true;
               setupAuthListener();
+              setTimeout(loadGlobalLikes, 1500);
               resolve();
             };
             s3.onerror = () => {
@@ -6409,6 +6440,7 @@
               firebase.initializeApp(FIREBASE_CONFIG);
               _firebaseReady = true;
               setupAuthListener();
+              setTimeout(loadGlobalLikes, 1500);
               resolve();
             };
             document.head.appendChild(s3);
@@ -6423,35 +6455,43 @@
 
     // --- BOTTOM NAV ROUTING ---
     function showFavoritesTab() {
-      if (window._authUser) {
-        showAuthHome();
-        setTimeout(() => {
-          const favGrid = document.getElementById('favoritesGrid');
-          if (favGrid) {
-            const offset = favGrid.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-          }
-        }, 100);
-      } else {
-        document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
-        const favTab = document.querySelector('[data-section="favorites"]');
-        if (favTab) favTab.classList.add('active');
-        activeSectionType = 'favorites';
-        activeFilter = 'all';
-        applyFilters();
+      // Always show main content view with favorites visible
+      const authHome = document.getElementById('authHomeContent');
+      const mainContent = document.getElementById('mainContent');
+      if (authHome) authHome.style.display = 'none';
+      if (mainContent) mainContent.style.display = 'block';
 
-        document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
-        const bnFavs = document.getElementById('bnFavs');
-        if (bnFavs) bnFavs.classList.add('active');
-
-        setTimeout(() => {
-          const favGrid = document.getElementById('favoritesGrid');
-          if (favGrid) {
-            const offset = favGrid.getBoundingClientRect().top + window.scrollY - 80;
-            window.scrollTo({ top: offset, behavior: 'smooth' });
-          }
-        }, 400);
+      // Show favorites grid
+      const favGrid = document.getElementById('favoritesGrid');
+      if (favGrid) {
+        favGrid.style.display = 'block';
+        // Make sure it's in the main content area
+        const mainDiv = document.querySelector('.main');
+        if (mainDiv && !mainDiv.contains(favGrid)) {
+          mainDiv.insertBefore(favGrid, mainDiv.firstChild);
+        }
       }
+
+      // Activate favorites section tab
+      document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
+      const favTab = document.querySelector('[data-section="favorites"]');
+      if (favTab) favTab.classList.add('active');
+      activeSectionType = 'favorites';
+      activeFilter = 'all';
+      applyFilters();
+
+      // Activate bottom nav
+      document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+      const bnFavs = document.getElementById('bnFavs');
+      if (bnFavs) bnFavs.classList.add('active');
+
+      // Scroll to favorites
+      setTimeout(() => {
+        if (favGrid) {
+          const offset = favGrid.getBoundingClientRect().top + window.scrollY - 80;
+          window.scrollTo({ top: Math.max(0, offset), behavior: 'smooth' });
+        }
+      }, 300);
     }
 
     // --- AUTHENTICATED USER DASHBOARD ENHANCEMENTS ---
@@ -8227,11 +8267,90 @@
     })();
 
     // ─── F16+F17: UPVOTE COUNT + TRENDING ───
-    // Already partially implemented; enhance to fire XP on upvote
-    const _origUpvote = window.handleUpvote;
+    // ═══ GLOBAL LIKE SYSTEM (Firebase Firestore) ═══
+    const _likeCache = {}; // url -> { count, likedBy[] }
+    const _userLikes = new Set(); // URLs the current user has liked
+
+    function _urlHash(url) {
+      return btoa(url).replace(/[^a-zA-Z0-9]/g, '').substring(0, 40);
+    }
+
+    // Load all global like counts (called once on init)
+    function loadGlobalLikes() {
+      if (!window.firebase || !firebase.firestore) return;
+      firebase.firestore().collection('globalLikes').get().then(snap => {
+        snap.forEach(doc => {
+          const d = doc.data();
+          _likeCache[d.url] = { count: d.likeCount || 0, likedBy: d.likedBy || [] };
+          // Update UI
+          document.querySelectorAll(`[data-count-url="${CSS.escape(d.url)}"]`).forEach(el => {
+            el.textContent = d.likeCount > 0 ? d.likeCount : '';
+          });
+        });
+        // Highlight user's own likes
+        if (window._authUser) {
+          Object.entries(_likeCache).forEach(([url, data]) => {
+            if (data.likedBy.includes(window._authUser.uid)) {
+              _userLikes.add(url);
+              document.querySelectorAll(`[data-upvote-url="${CSS.escape(url)}"]`).forEach(btn => {
+                btn.style.color = '#dc2626';
+                btn.style.borderColor = '#dc2626';
+                btn.querySelector('svg').setAttribute('fill', '#dc2626');
+              });
+            }
+          });
+        }
+      }).catch(() => { });
+    }
+
+    // Toggle like on a site
     window.handleUpvote = function (url, e) {
-      if (_origUpvote) _origUpvote(url, e);
-      addXP(2, 'upvote');
+      if (e) { e.stopPropagation(); e.preventDefault(); }
+      if (!window._authUser) {
+        showToast('Sign in to upvote tools! 👍');
+        return;
+      }
+      if (!window.firebase || !firebase.firestore) return;
+
+      const uid = window._authUser.uid;
+      const hash = _urlHash(url);
+      const docRef = firebase.firestore().collection('globalLikes').doc(hash);
+      const btn = document.querySelector(`[data-upvote-url="${CSS.escape(url)}"]`);
+      const countEl = document.querySelector(`[data-count-url="${CSS.escape(url)}"]`);
+      const alreadyLiked = _userLikes.has(url);
+
+      if (alreadyLiked) {
+        // Unlike
+        _userLikes.delete(url);
+        if (_likeCache[url]) _likeCache[url].count = Math.max(0, (_likeCache[url].count || 1) - 1);
+        if (btn) { btn.style.color = 'var(--text-muted)'; btn.style.borderColor = 'var(--border)'; btn.querySelector('svg').setAttribute('fill', 'none'); }
+        if (countEl) countEl.textContent = (_likeCache[url]?.count || 0) > 0 ? _likeCache[url].count : '';
+        docRef.set({
+          url, likeCount: firebase.firestore.FieldValue.increment(-1),
+          likedBy: firebase.firestore.FieldValue.arrayRemove(uid),
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).catch(() => { });
+        showToast('Upvote removed');
+      } else {
+        // Like
+        _userLikes.add(url);
+        if (!_likeCache[url]) _likeCache[url] = { count: 0, likedBy: [] };
+        _likeCache[url].count++;
+        if (btn) { btn.style.color = '#dc2626'; btn.style.borderColor = '#dc2626'; btn.querySelector('svg').setAttribute('fill', '#dc2626'); }
+        if (countEl) countEl.textContent = _likeCache[url].count;
+        // Find site name for storage
+        let siteName = '';
+        const card = btn?.closest('.card');
+        if (card) siteName = card.querySelector('.card-name')?.textContent || '';
+        docRef.set({
+          url, name: siteName,
+          likeCount: firebase.firestore.FieldValue.increment(1),
+          likedBy: firebase.firestore.FieldValue.arrayUnion(uid),
+          lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
+        }, { merge: true }).catch(() => { });
+        showToast('👍 Upvoted!');
+        addXP(2, 'upvote');
+      }
     };
 
     // ─── F96: SITE OF THE DAY ───
