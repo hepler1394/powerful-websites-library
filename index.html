@@ -282,14 +282,15 @@
       -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
     }
 
-    /* Glass theme: wrapper transparent so conic ring shows; input stays opaque */
+    /* Glass theme: search-wrap gets solid dark bg to prevent hero teal from bleeding through */
     [data-theme="glass"] .search-wrap {
-      background: transparent !important;
-      box-shadow: none !important;
+      background: rgba(5, 5, 15, 0.9) !important;
+      box-shadow: 0 0 0 2px rgba(0, 212, 200, 0.25) !important;
     }
 
     [data-theme="glass"] .search-wrap input {
-      background: rgba(12, 12, 20, 0.92) !important;
+      background: rgba(10, 10, 22, 0.95) !important;
+      color: #fff !important;
     }
 
 
@@ -4447,7 +4448,7 @@
           id="heroBadgeCount">800+</span>
         Free Tools &bull; 2026</div>
       <h1>Powerful Free Websites Library</h1>
-      <p><span id="heroSiteCount" style="font-weight:900;color:var(--accent)">700+</span> websites that feel illegal to
+      <p><span id="heroSiteCount" style="font-weight:900;color:var(--accent)">990+</span> websites that feel illegal to
         know — free tools, AI, streaming, gaming, music, books, and more. Sourced from
         <a href="https://bsky.app/profile/powerfulwebsites.bsky.social" target="_blank" rel="noopener noreferrer"
           style="color:var(--accent);font-weight:700">@powerfulwebsites.bsky.social</a>, <a
@@ -7454,8 +7455,8 @@
   <!-- F5: Pinch Zoom Toast -->
   <div class="zoom-level-toast" id="zoomToast"></div>
 
-  <!-- F62: PWA Install Banner -->
-  <div id="pwaInstallBanner">
+  <!-- F62: PWA Install Banner (disabled - let browser handle natively) -->
+  <div id="pwaInstallBanner" style="display:none !important">
     <div class="pwa-icon">🌐</div>
     <div class="pwa-text">
       <div class="pwa-title">Add to Home Screen</div>
