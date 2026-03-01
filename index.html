@@ -6235,7 +6235,8 @@
     };
 
     // Hero favorites link clicks to favorites tab
-    document.getElementById('heroFavLink').addEventListener('click', () => {
+    const heroFavLink = document.getElementById('heroFavLink');
+    if (heroFavLink) heroFavLink.addEventListener('click', () => {
       document.querySelectorAll('.section-tab').forEach(t => t.classList.remove('active'));
       const favTab = document.querySelector('[data-section="favorites"]');
       if (favTab) favTab.classList.add('active');
