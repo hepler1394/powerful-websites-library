@@ -6655,14 +6655,14 @@
           }
         } else {
           window._authUser = null;
-          label.textContent = 'Account / Sign In';
+          label.textContent = 'Sign In';
 
           const icon = document.getElementById('authBtnIcon');
           const avatar = document.getElementById('authBtnAvatar');
           if (icon) icon.style.display = 'block';
           if (avatar) avatar.style.display = 'none';
 
-          if (bnAccount) bnAccount.querySelector('span').textContent = 'Profile';
+          if (bnAccount) bnAccount.querySelector('span').textContent = 'Account';
           if (logoutWrap) logoutWrap.style.display = 'none';
           if (bnCategories) bnCategories.style.display = 'none';
           const adminLink = document.getElementById('adminLinkWrap');
