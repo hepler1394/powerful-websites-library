@@ -4461,26 +4461,7 @@
           onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🎲 Surprise
           Me</button>
       </p>
-      <div class="quick-links">
-        <a href="best-practices.html" class="quick-link ql-guide">
-          <div class="quick-link-icon">🛡</div>
-          <div class="quick-link-text">
-            <h3>Best Practices Guide</h3>
-          </div>
-        </a>
-        <a href="tools.html" class="quick-link ql-tools auth-restricted" style="display:none;">
-          <div class="quick-link-icon">⚡</div>
-          <div class="quick-link-text">
-            <h3>Site Tools</h3>
-          </div>
-        </a>
-        <a href="faq.html" class="quick-link ql-faq">
-          <div class="quick-link-icon">❓</div>
-          <div class="quick-link-text">
-            <h3>FAQ &amp; Help</h3>
-          </div>
-        </a>
-      </div>
+      <!-- quick-links removed: hero-stats below now has all 4 navigation items -->
       <div class="hero-stats" aria-label="Library statistics">
         <div class="hero-stat"><a href="best-practices.html" style="text-decoration:none;color:inherit">
             <div class="num" style="font-size:1.6rem">🛡</div>
@@ -7462,8 +7443,8 @@
 
 
 
-  <!-- F12: Multi-Select Bar -->
-  <div class="multi-select-bar" id="multiSelectBar">
+  <!-- F12: Multi-Select Bar (hidden until items selected) -->
+  <div class="multi-select-bar" id="multiSelectBar" style="display:none;">
     <span class="multi-select-count" id="msCount">0 selected</span>
     <button class="ms-btn" onclick="msBatchFavorite()">❤️ Favorite All</button>
     <button class="ms-btn" onclick="msBatchShare()">📤 Share</button>
@@ -8053,14 +8034,18 @@
     let _msItems = new Set();
     function enterMultiSelect() {
       document.body.classList.add('multi-select-mode');
-      document.getElementById('multiSelectBar').classList.add('visible');
+      const bar = document.getElementById('multiSelectBar');
+      bar.style.display = 'flex';
+      bar.classList.add('visible');
       _msItems.clear();
       updateMsCount();
       showToast('Multi-select mode — tap cards to select');
     }
     function exitMultiSelect() {
       document.body.classList.remove('multi-select-mode');
-      document.getElementById('multiSelectBar').classList.remove('visible');
+      const bar = document.getElementById('multiSelectBar');
+      bar.classList.remove('visible');
+      bar.style.display = 'none';
       document.querySelectorAll('.card.ms-selected').forEach(c => c.classList.remove('ms-selected'));
       _msItems.clear();
     }
