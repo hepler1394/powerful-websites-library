@@ -91,6 +91,30 @@
       --hero-bg: linear-gradient(135deg, #faf5f5 0%, #ffe8e8 35%, #fff0f0 65%, #faf5f5 100%);
     }
 
+    [data-theme="glass"] {
+      --bg: #0a0a12;
+      --bg2: #0e0e18;
+      --surface: rgba(20, 20, 35, .7);
+      --card: rgba(26, 26, 46, .6);
+      --card-hover: rgba(34, 34, 56, .7);
+      --border: rgba(255, 255, 255, .08);
+      --border-hover: rgba(220, 38, 38, .4);
+      --text: #e8e8f0;
+      --text-muted: #8a8a9a;
+      --text-dim: #55556a;
+      --accent: #dc2626;
+      --accent-glow: rgba(220, 38, 38, .2);
+      --accent2: #ff4444;
+      --accent3: #ff6b9d;
+      --radius: 16px;
+      --radius-sm: 10px;
+      --radius-xs: 6px;
+      --glass: rgba(10, 10, 20, .7);
+      --glass-border: rgba(255, 255, 255, .08);
+      --shadow: 0 8px 32px rgba(0, 0, 0, .5);
+      --hero-bg: linear-gradient(135deg, #0a0a12 0%, #1a0510 35%, #0a0a12 65%, #120810 100%);
+    }
+
     html {
       scroll-behavior: smooth;
       font-size: 16px
@@ -1281,17 +1305,20 @@
   <script>
     // Theme toggle
     const themeToggle = document.getElementById('themeToggle');
+    const themes = ['dark', 'light', 'glass'];
     function setTheme(theme) {
+      if (!themes.includes(theme)) theme = 'dark';
       document.documentElement.setAttribute('data-theme', theme);
       localStorage.setItem('theme', theme);
       const moonIcon = themeToggle.querySelector('.moon-icon');
       const sunIcon = themeToggle.querySelector('.sun-icon');
-      if (theme === 'dark') { moonIcon.style.display = 'inline'; sunIcon.style.display = 'none' }
-      else { moonIcon.style.display = 'none'; sunIcon.style.display = 'inline' }
+      if (theme === 'light') { moonIcon.style.display = 'none'; sunIcon.style.display = 'inline' }
+      else { moonIcon.style.display = 'inline'; sunIcon.style.display = 'none' }
     }
     themeToggle.addEventListener('click', () => {
       const current = document.documentElement.getAttribute('data-theme');
-      setTheme(current === 'dark' ? 'light' : 'dark');
+      const idx = themes.indexOf(current);
+      setTheme(themes[(idx + 1) % themes.length]);
     });
     const savedTheme = localStorage.getItem('theme') || 'dark';
     setTheme(savedTheme);
