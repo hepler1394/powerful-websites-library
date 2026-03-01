@@ -2904,8 +2904,6 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 @media (max-width: 768px) {
 
     .fav-btn,
-    .btn-upvote,
-    .btn-copy-link,
     .btn-native-share {
         min-width: 44px;
         min-height: 44px;
