@@ -127,7 +127,7 @@
         top: calc(52px + 44px);
         /* top-bar height + nav height */
         z-index: 50;
-        background: var(--bg);
+        background: rgba(var(--bg-rgb, 10, 10, 18), 0.7);
         padding: 10px 0 8px;
         margin-bottom: 12px;
         border-bottom: 1px solid var(--border);
