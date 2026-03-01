@@ -4193,6 +4193,175 @@
     .settings-overlay.show {
       display: block;
     }
+
+    /* ═══ LOGGED-IN DASHBOARD ═══ */
+    .dash-greeting {
+      padding: 32px 24px 24px;
+      background: linear-gradient(135deg, rgba(220, 38, 38, .12), rgba(168, 85, 247, .08));
+      border-radius: 20px;
+      margin: 16px 20px;
+    }
+
+    .dash-greeting h2 {
+      font-size: 1.4rem;
+      font-weight: 900;
+      margin-bottom: 4px;
+    }
+
+    .dash-greeting .dash-stats {
+      display: flex;
+      gap: 16px;
+      font-size: .78rem;
+      color: var(--text-muted);
+      font-weight: 600;
+      margin-top: 8px;
+    }
+
+    .dash-greeting .dash-stats span {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+    }
+
+    .dash-section {
+      padding: 0 20px;
+      margin-bottom: 28px;
+    }
+
+    .dash-section-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .dash-section-header h3 {
+      font-size: 1rem;
+      font-weight: 800;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .dash-section-header .dash-see-all {
+      font-size: .75rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      cursor: pointer;
+      border: none;
+      background: none;
+      padding: 4px 10px;
+      border-radius: 50px;
+      border: 1px solid rgba(220, 38, 38, .2);
+      transition: all .2s;
+    }
+
+    .dash-section-header .dash-see-all:hover {
+      background: rgba(220, 38, 38, .1);
+    }
+
+    .dash-strip {
+      display: flex;
+      gap: 14px;
+      overflow-x: auto;
+      padding-bottom: 8px;
+      scrollbar-width: none;
+      -webkit-overflow-scrolling: touch;
+      scroll-snap-type: x mandatory;
+    }
+
+    .dash-strip::-webkit-scrollbar {
+      display: none;
+    }
+
+    .dash-card {
+      min-width: 260px;
+      max-width: 300px;
+      scroll-snap-align: start;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 16px;
+      cursor: pointer;
+      transition: all .25s;
+      flex-shrink: 0;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .dash-card:hover {
+      border-color: rgba(220, 38, 38, .3);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, .3);
+    }
+
+    .dash-card .dc-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .dash-card .dc-favicon {
+      width: 20px;
+      height: 20px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+
+    .dash-card .dc-name {
+      font-size: .88rem;
+      font-weight: 700;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .dash-card .dc-desc {
+      font-size: .75rem;
+      color: var(--text-muted);
+      line-height: 1.4;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+
+    .dash-card .dc-tag {
+      font-size: .65rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .dash-browse-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      width: 100%;
+      padding: 14px;
+      margin: 0 20px 20px;
+      max-width: calc(100% - 40px);
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      color: var(--text);
+      font-weight: 700;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: all .2s;
+      text-decoration: none;
+    }
+
+    .dash-browse-btn:hover {
+      border-color: var(--accent);
+      background: rgba(220, 38, 38, .06);
+    }
   </style>
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -6538,61 +6707,128 @@
     }
 
     function showAuthHome() {
-      const hero = document.querySelector('.hero');
-      let authHome = document.getElementById('authHomeContent');
-      if (!authHome) {
-        authHome = document.createElement('div');
-        authHome.id = 'authHomeContent';
-        authHome.style.display = 'none';
-        hero.parentNode.insertBefore(authHome, hero.nextSibling);
+      const user = window._authUser;
+      if (!user) return;
+      const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
+      const hour = new Date().getHours();
+      const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
+      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const viewed = JSON.parse(localStorage.getItem('pwl_recently_viewed') || '[]');
+      const allSites = window.DATA ? window.DATA.flatMap(c => c.sites.map(s => ({ ...s, _cat: c.name, _type: c.type }))) : [];
+      const totalSites = allSites.length;
 
-        const welcomeHeader = document.createElement('div');
-        welcomeHeader.id = 'authWelcomeHeader';
-        welcomeHeader.style.padding = '30px 20px 20px';
-        authHome.appendChild(welcomeHeader);
-
-        // --- QUICK TOOLS WIDGET ---
-        const quickTools = document.createElement('div');
-        quickTools.id = 'authQuickTools';
-        quickTools.style.padding = '0 20px 20px';
-        quickTools.innerHTML = `
-          <h3 style="font-size:1.1rem;color:var(--text);margin:20px 0 12px;font-weight:700">Quick Tools</h3>
-          <div style="display:flex;gap:12px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:10px">
-            <a href="tools.html" class="card" style="min-width:140px;text-decoration:none;padding:16px;text-align:center">
-              <div style="font-size:1.8rem;margin-bottom:8px">📥</div>
-              <strong style="font-size:.9rem">Media Downloader</strong>
-            </a>
-            <a href="tools.html" class="card" style="min-width:140px;text-decoration:none;padding:16px;text-align:center">
-              <div style="font-size:1.8rem;margin-bottom:8px">🔐</div>
-              <strong style="font-size:.9rem">Password Gen</strong>
-            </a>
-            <a href="tools.html" class="card" style="min-width:140px;text-decoration:none;padding:16px;text-align:center">
-              <div style="font-size:1.8rem;margin-bottom:8px">📱</div>
-              <strong style="font-size:.9rem">QR Code Gen</strong>
-            </a>
+      // Helper: render a dash-card
+      function dashCard(site) {
+        const domain = (() => { try { return new URL(site.u).hostname; } catch (e) { return ''; } })();
+        const fav = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=32` : '';
+        return `<a class="dash-card" href="${site.u}" target="_blank" rel="noopener noreferrer">
+          <div class="dc-top">
+            ${fav ? `<img class="dc-favicon" src="${fav}" onerror="this.style.display='none'">` : ''}
+            <span class="dc-name">${site.n}</span>
           </div>
-        `;
-        authHome.appendChild(quickTools);
+          <div class="dc-desc">${site.d || ''}</div>
+          <div class="dc-tag">${site._cat || ''}</div>
+        </a>`;
+      }
 
-        // --- RECOMMENDED SHELF ---
-        const recommendedShelf = document.createElement('div');
-        recommendedShelf.id = 'authRecommended';
-        recommendedShelf.style.padding = '0 20px 40px';
-        recommendedShelf.innerHTML = `
-          <h3 style="font-size:1.1rem;color:var(--text);margin:30px 0 16px;font-weight:700">Recommended For You</h3>
-          <div id="authRecommendedGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px"></div>
-        `;
-        authHome.appendChild(recommendedShelf);
+      let authHome = document.getElementById('authHomeContent');
+      // Always rebuild content
+      authHome.innerHTML = '';
 
-        // Move the original favorites grid here
-        const favSec = document.getElementById('favoritesGrid'); // Changed from favoritesSection to favoritesGrid
-        if (favSec) {
-          authHome.appendChild(favSec);
+      // 1. Greeting
+      authHome.innerHTML += `<div class="dash-greeting">
+        <h2>${greeting}, ${name}! 👋</h2>
+        <p style="font-size:.85rem;color:var(--text-muted);margin-top:2px;">Your personalized dashboard</p>
+        <div class="dash-stats">
+          <span>🌐 ${totalSites} sites</span>
+          <span>❤️ ${favs.length} favorites</span>
+          <span>🕐 ${viewed.length} viewed</span>
+        </div>
+      </div>`;
+
+      // 2. Favorites Strip
+      if (favs.length > 0) {
+        const favSites = allSites.filter(s => favs.includes(s.u)).slice(0, 15);
+        if (favSites.length > 0) {
+          authHome.innerHTML += `<div class="dash-section">
+            <div class="dash-section-header">
+              <h3>❤️ Your Favorites</h3>
+              <button class="dash-see-all" onclick="showFavoritesTab()">See All ${favs.length}</button>
+            </div>
+            <div class="dash-strip">${favSites.map(dashCard).join('')}</div>
+          </div>`;
         }
       }
 
-      // Populate data for Widgets
-      const name = window._authUser && window._authUser.displayName ? window._authUser.displayName.split(' ')[0] : (window._authUser ? window._authUser.email.split('@')[0] : 'there');
+      // 3. Recommended For You (based on favorite categories)
+      const favCats = {};
+      allSites.filter(s => favs.includes(s.u)).forEach(s => { favCats[s._cat] = (favCats[s._cat] || 0) + 1; });
+      const topCats = Object.entries(favCats).sort((a, b) => b[1] - a[1]).slice(0, 3).map(e => e[0]);
+      let recommended = [];
+      if (topCats.length > 0) {
+        recommended = allSites.filter(s => topCats.includes(s._cat) && !favs.includes(s.u));
+        recommended = recommended.sort(() => Math.random() - .5).slice(0, 12);
+      }
+      if (recommended.length < 6) {
+        // Fallback: random from top picks
+        const topPicks = allSites.filter(s => s._type === 'top' && !favs.includes(s.u));
+        recommended = [...recommended, ...topPicks.sort(() => Math.random() - .5)].slice(0, 12);
+      }
+      if (recommended.length > 0) {
+        authHome.innerHTML += `<div class="dash-section">
+          <div class="dash-section-header">
+            <h3>⭐ Recommended For You</h3>
+          </div>
+          <div class="dash-strip">${recommended.map(dashCard).join('')}</div>
+        </div>`;
+      }
+
+      // 4. Most Liked (from global like cache)
+      if (typeof _likeCache !== 'undefined') {
+        const topLiked = Object.entries(_likeCache)
+          .filter(([_, d]) => d.count > 0)
+          .sort((a, b) => b[1].count - a[1].count)
+          .slice(0, 12);
+        if (topLiked.length > 0) {
+          const likedSites = topLiked.map(([url, data]) => {
+            const found = allSites.find(s => s.u === url);
+            return found || { u: url, n: url, d: `${data.count} upvotes`, _cat: 'Popular' };
+          });
+          authHome.innerHTML += `<div class="dash-section">
+            <div class="dash-section-header">
+              <h3>🔥 Most Liked</h3>
+            </div>
+            <div class="dash-strip">${likedSites.map(dashCard).join('')}</div>
+          </div>`;
+        }
+      }
+
+      // 5. Recently Viewed
+      if (viewed.length > 0) {
+        const recentSites = viewed.slice(0, 12).map(v => {
+          const found = allSites.find(s => s.u === v.u);
+          return found || { u: v.u, n: v.n || v.u, d: '', _cat: '' };
+        });
+        authHome.innerHTML += `<div class="dash-section">
+          <div class="dash-section-header">
+            <h3>🕐 Recently Viewed</h3>
+          </div>
+          <div class="dash-strip">${recentSites.map(dashCard).join('')}</div>
+        </div>`;
+      }
+
+      // 6. Browse All button
+      authHome.innerHTML += `<button class="dash-browse-btn" onclick="showCategoriesTab()">📂 Browse All ${totalSites} Sites</button>`;
+
+      // Show dashboard, hide main
+      authHome.style.display = 'block';
+      document.getElementById('mainContent').style.display = 'none';
+
+      // Bottom nav
+      document.querySelectorAll('.bottom-nav a').forEach(a => a.classList.remove('active'));
+      const bnHome = document.getElementById('bnHome');
+      if (bnHome) bnHome.classList.add('active');
+
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
@@ -6614,7 +6850,9 @@
       const allTab = document.querySelector('[data-section="all"]');
       if (allTab) allTab.classList.add('active');
 
-      setFilter('', null);
+      activeSectionType = 'all';
+      activeFilter = 'all';
+      applyFilters();
       window.scrollTo({ top: 0, behavior: 'smooth' });
     }
 
