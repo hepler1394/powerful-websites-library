@@ -282,11 +282,8 @@
       -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
     }
 
-    /* Glass theme: search-wrap gets solid dark bg to prevent hero teal from bleeding through */
-    [data-theme="glass"] .search-wrap {
-      background: rgba(5, 5, 15, 0.9) !important;
-      box-shadow: 0 0 0 2px rgba(0, 212, 200, 0.25) !important;
-    }
+    /* Glass theme: search-wrap keeps the Gemini gradient ring — only override the inner input bg */
+    /* (No background/box-shadow override here — let the conic-gradient ring show through) */
 
     [data-theme="glass"] .search-wrap input {
       background: rgba(10, 10, 22, 0.95) !important;
@@ -2246,14 +2243,10 @@
       }
 
       .section-tabs {
-        overflow-x: auto;
-        -webkit-overflow-scrolling: touch;
-        scrollbar-width: none;
-        -ms-overflow-style: none;
+        overflow-x: visible;
         padding: 0 12px 2px;
-        justify-content: flex-start;
         gap: 6px;
-        flex-wrap: wrap;
+        flex-wrap: wrap !important;
         justify-content: center
       }
 
@@ -2901,20 +2894,10 @@
 
     /* Swipeable horizontal scroll for nav tabs */
     .section-tabs {
-      overflow-x: auto;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-      padding-bottom: 2px;
-      justify-content: flex-start;
-      flex-wrap: nowrap !important;
-      overflow-x: auto;
-      scroll-snap-type: x mandatory;
-      -webkit-overflow-scrolling: touch;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
+      overflow-x: visible;
       padding-bottom: 4px;
-      justify-content: flex-start !important;
+      flex-wrap: wrap !important;
+      justify-content: center !important;
     }
 
     .section-tabs::-webkit-scrollbar {
@@ -3777,13 +3760,11 @@
       font-size: var(--font-base);
     }
 
-    /* Glass theme search stronger background */
-    [data-theme="glass"] .search-wrap {
-      background: rgba(255, 255, 255, 0.15) !important;
-    }
+    /* Glass theme search: let Gemini gradient ring show through, only override inner input */
+    /* .search-wrap background NOT overridden — conic-gradient ring is visible */
 
     [data-theme="glass"] .search-wrap input {
-      background: rgba(255, 255, 255, 0.08) !important;
+      background: #111 !important;
       color: #fff !important;
     }
 

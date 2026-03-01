@@ -285,18 +285,14 @@
     gap: 0;
   }
 
-  /* Section tabs: horizontal scroll strip, first tab always visible */
+  /* Section tabs: wrap so all tabs are visible without clipping */
   .section-tabs {
     display: flex;
-    justify-content: flex-start !important;
-    flex-wrap: nowrap !important;
+    justify-content: center !important;
+    flex-wrap: wrap !important;
     gap: 8px;
-    overflow-x: auto;
+    overflow-x: visible;
     padding: 0 16px 8px 16px;
-    scroll-padding-left: 16px;
-    scrollbar-width: none;
-    -webkit-overflow-scrolling: touch;
-    scroll-snap-type: x mandatory;
   }
 
   .section-tabs::-webkit-scrollbar {
@@ -304,8 +300,7 @@
   }
 
   .section-tab {
-    scroll-snap-align: start;
-    flex-shrink: 0;
+    flex-shrink: 1;
     padding: 8px 18px;
     font-size: .8rem;
     border-radius: 50px;
@@ -325,16 +320,16 @@
     box-shadow: 0 3px 12px rgba(220, 38, 38, .3);
   }
 
-  /* Category filter buttons: horizontal scroll strip */
+  /* Category filter buttons: wrap to show all categories */
   .nav-filters-wrap,
   #navFilters {
     display: flex;
     gap: 8px;
-    overflow-x: auto;
+    overflow-x: visible;
     padding: 4px 16px 4px;
     scrollbar-width: none;
     -webkit-overflow-scrolling: touch;
-    flex-wrap: nowrap !important;
+    flex-wrap: wrap !important;
   }
 
   #navFilters::-webkit-scrollbar {
