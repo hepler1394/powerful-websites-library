@@ -187,6 +187,11 @@
       --logo-text: #111122;
     }
 
+    /* Light theme: thin red card border for visibility */
+    [data-theme="light"] .card {
+      border-color: rgba(192, 57, 43, .25) !important;
+    }
+
     /* ===== iOS 26 LIQUID GLASS THEME ===== */
     [data-theme="glass"] {
       --bg: #000;
@@ -629,33 +634,33 @@
       padding: 16px 20px 16px 52px;
       border-radius: 50px;
       border: none;
-      /* Always solid — prevents gradient bleeding through on glass/semi-transparent themes */
-      background: #1a1a1a;
+      /* !important prevents any external CSS from making it transparent */
+      background: #1a1a1a !important;
       color: var(--text);
       font-size: 1rem;
       outline: none;
       transition: color .3s;
+      /* No backdrop-filter — causes bleed-through on glass theme */
     }
 
-    /* Light theme: white input interior */
-    [data-theme="light"] .search-wrap input {
-      background: #f0eaf0;
-    }
-
+    /* Light theme: visible light interior */
+    [data-theme="light"] .search-wrap input,
     [data-theme="light"] .search-wrap input:focus {
-      background: #f0eaf0;
+      background: #f0eaf0 !important;
+      color: #1a1024 !important;
     }
 
     .search-wrap input:focus {
       box-shadow: none;
-      background: #1a1a1a;
     }
 
-    /* Glass theme input: slightly lighter dark */
+    /* Glass and dark — always solid dark interior */
     [data-theme="glass"] .search-wrap input,
-    [data-theme="glass"] .search-wrap input:focus {
-      background: #111;
-      color: #fff;
+    [data-theme="glass"] .search-wrap input:focus,
+    [data-theme="dark"] .search-wrap input,
+    [data-theme="dark"] .search-wrap input:focus {
+      background: #111 !important;
+      color: #fff !important;
     }
 
     /* Hide search bar when auth modal is open (prevents bleed-through AND removes empty space) */
@@ -2706,10 +2711,10 @@
     .promo-popup-overlay {
       position: fixed;
       inset: 0;
-      background: rgba(0, 0, 0, .65);
-      backdrop-filter: blur(6px);
-      -webkit-backdrop-filter: blur(6px);
-      z-index: 600;
+      background: rgba(0, 0, 0, .72);
+      backdrop-filter: blur(8px);
+      -webkit-backdrop-filter: blur(8px);
+      z-index: 1500;
       display: flex;
       align-items: center;
       justify-content: center;
@@ -2728,17 +2733,42 @@
       position: relative;
       width: 100%;
       max-width: 440px;
-      background: var(--surface);
-      border: 1px solid rgba(220, 38, 38, .3);
+      /* Always solid dark — readable on all themes including glass */
+      background: #18181b;
+      border: 1px solid rgba(220, 38, 38, .4);
       border-radius: 24px;
       padding: 32px 28px 28px;
-      box-shadow: 0 24px 80px rgba(0, 0, 0, .5), 0 0 0 1px rgba(255, 255, 255, .05);
+      box-shadow: 0 24px 80px rgba(0, 0, 0, .7), 0 0 0 1px rgba(255, 255, 255, .08);
       transform: scale(.92) translateY(16px);
       transition: transform .4s cubic-bezier(.34, 1.2, .64, 1);
     }
 
+    [data-theme="light"] .promo-popup {
+      background: #fff;
+      border-color: rgba(192, 57, 43, .3);
+      color: #111;
+    }
+
     .promo-popup-overlay.open .promo-popup {
       transform: scale(1) translateY(0);
+    }
+
+    /* On mobile: pin at bottom for easy dismissal */
+    @media (max-width: 768px) {
+      .promo-popup-overlay {
+        align-items: flex-end;
+        padding: 0 0 calc(72px + env(safe-area-inset-bottom));
+      }
+
+      .promo-popup {
+        border-radius: 24px 24px 0 0;
+        max-width: 100%;
+        transform: translateY(40px);
+      }
+
+      .promo-popup-overlay.open .promo-popup {
+        transform: translateY(0);
+      }
     }
 
     .promo-popup-handle {
@@ -4465,11 +4495,24 @@
             <div class="num" style="font-size:1.6rem">❓</div>
             <div class="label">FAQ &amp; Help</div>
           </a></div>
-        <div class="hero-stat"><a href="javascript:void(0)" id="heroFavLink" style="text-decoration:none;color:inherit">
-            <div class="num" id="heroFavCount" style="cursor:pointer"
-              onclick="document.querySelector('[data-section=favorites]').click()" title="View favorites"
-              style="font-size:1.6rem">❤️ 0</div>
+        <div class="hero-stat" id="heroFavStat"><a href="javascript:void(0)"
+            onclick="document.querySelector('[data-section=favorites]').click()"
+            style="text-decoration:none;color:inherit">
+            <div class="num" style="font-size:1.6rem;position:relative;display:inline-flex;align-items:center;gap:4px;">
+              <svg viewBox="0 0 24 24" width="22" height="22" fill="none" stroke="currentColor" stroke-width="2"
+                style="vertical-align:middle;">
+                <path
+                  d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z" />
+              </svg>
+              <span id="heroFavCount" style="font-size:1rem;font-weight:800;">0</span>
+            </div>
             <div class="label">My Favorites</div>
+          </a></div>
+        <div class="hero-stat"><a href="javascript:void(0)"
+            onclick="document.getElementById('navFilters')?.scrollIntoView({behavior:'smooth'})"
+            style="text-decoration:none;color:inherit">
+            <div class="num" style="font-size:1.6rem">🗂️</div>
+            <div class="label">All Categories</div>
           </a></div>
       </div>
       <div class="search-wrap" role="search" title="Tip: Press / to search • R for random • Esc to clear">
@@ -5563,6 +5606,11 @@
       return MAP[catId] || catType || 'free';
     }
     function init() {
+      // Sort categories alphabetically by name (preserve types hierarchy)
+      DATA.sort((a, b) => a.name.localeCompare(b.name));
+      // Sort sites within each category alphabetically
+      DATA.forEach(cat => { if (cat.sites) cat.sites.sort((a, b) => a.n.localeCompare(b.n)); });
+
       // Build nav buttons
       DATA.forEach(cat => {
         const btn = document.createElement('button');
@@ -5654,7 +5702,7 @@
       const trendingBadge = isTrending ? `<span class="badge badge-trending" style="margin-right:6px">🔥 TRENDING</span>` : '';
 
       return `
-    <div class="card ${cardClass}" data-search="${(s.n + ' ' + s.d + ' ' + catName + ' ' + s.s + ' ' + s.u).toLowerCase()}" data-fav-id="${s.u}">
+    <div class="card ${cardClass}" data-search="${(s.n + ' ' + s.d + ' ' + catName + ' ' + s.s + ' ' + s.u).toLowerCase()}" data-fav-id="${s.u}" onclick="if(!event.target.closest('button')&&!event.target.closest('a'))window.open('${s.u}','_blank','noopener,noreferrer')" style="cursor:pointer">
       <div class="card-top">
         ${faviconSrc ? `<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">` : ''}${faviconSrc ? `<span class="card-favicon-fallback" style="display:none;font-size:16px;flex-shrink:0">${fallbackEmoji}</span>` : ''}
           <span class="card-name">${s.n}</span>
@@ -6158,7 +6206,8 @@
       const tabCount = document.getElementById('favTabCount');
       const heroCount = document.getElementById('heroFavCount');
       if (tabCount) tabCount.textContent = count;
-      if (heroCount) heroCount.textContent = '\u2764\uFE0F ' + count;
+      // heroFavCount is now just the number <span>, not the whole div
+      if (heroCount) heroCount.textContent = count;
     }
 
     function syncFavButtons() {

@@ -579,13 +579,15 @@
     }
 }
 
-/* ═══════════════════ 31. CARD CSS CONTAINMENT FOR PERFORMANCE ═══════════════════ */
+/* ═══════════════════ 31. CARD CSS CONTAINMENT ═══════════════════ */
+/* NOTE: contain:layout style removed — it blocks event propagation to buttons */
 .card {
-    contain: layout style;
+    contain: paint;
+    /* paint-only is safe; layout+style breaks click events */
 }
 
 .category-section {
-    contain: layout;
+    contain: paint;
 }
 
 /* ═══════════════════ 32. REDUCE MOTION SUPPORT ═══════════════════ */
@@ -911,7 +913,9 @@
 
 /* ═══════════════════ 48. SEARCH BAR FOCUS GLOW — see global rule below ═══════════════════ */
 @media (max-width: 768px) {
-    .search-input-wrap input:focus { outline: none; }
+    .search-input-wrap input:focus {
+        outline: none;
+    }
 }
 
 /* ═══════════════════ 49. HERO STATS TICKER (SIGNED IN) ═══════════════════ */
@@ -1072,13 +1076,11 @@ body {
 }
 
 /* 2. Hardware Accelerated 'Liquid Glass' Stress Test fixes */
-.hero,
+/* NOTE: .hero removed — backdrop-filter on hero bleeds through glass theme search bar */
 .bottom-nav,
-.auth-modal,
-.theme-btn {
+.auth-modal {
     will-change: transform, opacity;
     transform: translateZ(0);
-    /* Force GPU acceleration for background filters */
     -webkit-backdrop-filter: blur(20px) saturate(180%);
     backdrop-filter: blur(20px) saturate(180%);
 }
@@ -1956,23 +1958,35 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     inherits: false;
 }
 
-@keyframes sgSpin { to { --sg-angle: 360deg; } }
-@keyframes sgPulse {
-    0%, 100% { opacity: 0.85; }
-    50%       { opacity: 1; }
+@keyframes sgSpin {
+    to {
+        --sg-angle: 360deg;
+    }
 }
 
-.search-wrap { isolation: auto; }
+@keyframes sgPulse {
+
+    0%,
+    100% {
+        opacity: 0.85;
+    }
+
+    50% {
+        opacity: 1;
+    }
+}
+
+.search-wrap {
+    isolation: auto;
+}
 
 .search-wrap:focus-within::before {
     content: "";
     position: absolute;
     inset: 0;
     border-radius: 53px;
-    background: conic-gradient(
-        from var(--sg-angle),
-        #dc2626, #ff6b9d, #a855f7, #22d3ee, #10b981, #dc2626
-    );
+    background: conic-gradient(from var(--sg-angle),
+            #dc2626, #ff6b9d, #a855f7, #22d3ee, #10b981, #dc2626);
     animation: sgSpin 3s linear infinite, sgPulse 1.8s ease-in-out infinite;
     z-index: 0;
 }
@@ -1989,6 +2003,7 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     box-shadow: none !important;
     animation: none !important;
 }
+
 /* ─── FEATURE 62: PWA INSTALL BANNER ─── */
 #pwaInstallBanner {
     position: fixed;
@@ -2765,6 +2780,7 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
         display: none !important;
     }
 }
+
 /* ══════════════════════════════════════════════════════
    GLASS THEME — Hero title & Surprise Me button red fix
    ══════════════════════════════════════════════════════ */
@@ -2809,7 +2825,10 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     padding: 0 4px;
     line-height: 1;
 }
-#offlineIndicator .offline-close:hover { opacity: 1; }
+
+#offlineIndicator .offline-close:hover {
+    opacity: 1;
+}
 
 /* ══════════════════════════════════════════════════════
    SCROLL FIX — ensure off-screen fixed elements don't
@@ -2876,8 +2895,8 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 
 /* Glass theme nav-btn hover text — ensure visible */
 [data-theme="glass"] .nav-btn {
-    color: rgba(255,255,255,0.8) !important;
-    border-color: rgba(255,255,255,0.15) !important;
+    color: rgba(255, 255, 255, 0.8) !important;
+    border-color: rgba(255, 255, 255, 0.15) !important;
 }
 
 /* Glass active nav btn indicator line */
