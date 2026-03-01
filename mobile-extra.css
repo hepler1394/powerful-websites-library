@@ -1075,15 +1075,9 @@ body {
     /* Prevents rubber-banding on modal open */
 }
 
-/* 2. Hardware Accelerated 'Liquid Glass' Stress Test fixes */
-/* NOTE: .hero removed — backdrop-filter on hero bleeds through glass theme search bar */
-.bottom-nav,
-.auth-modal {
-    will-change: transform, opacity;
-    transform: translateZ(0);
-    -webkit-backdrop-filter: blur(20px) saturate(180%);
-    backdrop-filter: blur(20px) saturate(180%);
-}
+/* 2. Hardware Accelerated — NOTE: DO NOT add transform to .bottom-nav or .auth-modal
+   transform on a position:fixed element breaks its viewport anchoring (creates new stacking context) */
+/* .bottom-nav and .auth-modal intentionally excluded from transform/will-change */
 
 /* 3. Card Action Flex Wrapping & Safe Areas */
 .card-actions,
