@@ -2483,7 +2483,7 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 /* ─── FEATURE 100: SETTINGS DRAWER ─── */
 #settingsDrawer {
     position: fixed;
-    right: -320px;
+    right: 0;
     top: 0;
     bottom: 0;
     width: 300px;
@@ -2492,12 +2492,15 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     z-index: 8000;
     padding: 24px 20px;
     overflow-y: auto;
-    transition: right 0.35s cubic-bezier(0.25, 1, 0.5, 1);
+    transition: transform 0.35s cubic-bezier(0.25, 1, 0.5, 1), visibility 0.35s;
     box-shadow: -8px 0 40px rgba(0, 0, 0, 0.4);
+    transform: translateX(110%);
+    visibility: hidden;
 }
 
 #settingsDrawer.open {
-    right: 0;
+    transform: translateX(0);
+    visibility: visible;
 }
 
 .settings-overlay {
@@ -3122,15 +3125,15 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
 /* M24: Improved mobile scroll-to-top */
 @media (max-width: 768px) {
     .back-top {
-        bottom: 76px;
-        right: 12px;
-        width: 36px;
-        height: 36px;
+        bottom: 90px;
+        right: 14px;
+        width: 44px;
+        height: 44px;
     }
 
     .back-top svg {
-        width: 24px;
-        height: 24px;
+        width: 26px;
+        height: 26px;
     }
 }
 
@@ -3140,5 +3143,252 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
         font-size: .7rem;
         padding: 6px 10px;
         border-radius: 8px;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M26: GLASS THEME — MOBILE FIX
+   Problem: Glass theme renders an opaque red/dark screen on mobile.
+   Root cause: background-attachment:fixed is broken on iOS/Android,
+   radial-gradient opacities (0.4) are too intense, and heavy
+   backdrop-filter on 990+ cards overloads mobile GPU.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Fix 1: Replace fixed-attachment gradients with scroll-friendly version */
+    [data-theme="glass"] body {
+        background: #0a0a12 !important;
+        background-image:
+            radial-gradient(ellipse at 20% 0%, rgba(94, 92, 230, 0.18) 0%, transparent 50%),
+            radial-gradient(ellipse at 80% 100%, rgba(255, 55, 95, 0.15) 0%, transparent 50%),
+            radial-gradient(ellipse at 70% 20%, rgba(48, 209, 88, 0.10) 0%, transparent 45%) !important;
+        background-attachment: scroll !important;
+        background-size: 100% 100% !important;
+    }
+
+    /* Fix 2: Cards — fallback opaque background instead of heavy blur */
+    [data-theme="glass"] .card {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+        background: rgba(18, 18, 28, 0.88) !important;
+        border: 1px solid rgba(255, 255, 255, 0.10) !important;
+    }
+
+    /* Fix 3: Nav / header — reduce blur intensity */
+    [data-theme="glass"] .nav-wrapper,
+    [data-theme="glass"] .nav-wrap,
+    [data-theme="glass"] .top-bar {
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        background: rgba(5, 5, 12, 0.90) !important;
+    }
+
+    /* Fix 4: Bottom nav — solid dark with subtle blur */
+    [data-theme="glass"] .bottom-nav {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(5, 5, 12, 0.95) !important;
+    }
+
+    /* Fix 5: Auth modal and overlays — ensure visibility */
+    [data-theme="glass"] .auth-modal,
+    [data-theme="glass"] .promo-popup,
+    [data-theme="glass"] .search-dropdown {
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        background: rgba(18, 18, 28, 0.92) !important;
+    }
+
+    /* Fix 6: Hero transparent on glass — let body gradient show */
+    [data-theme="glass"] .hero {
+        background: transparent !important;
+    }
+
+    [data-theme="glass"] .hero::before {
+        opacity: 0.3 !important;
+    }
+
+    /* Fix 7: Section tabs — readable on glass */
+    [data-theme="glass"] .section-tab {
+        background: rgba(18, 18, 28, 0.80) !important;
+        border-color: rgba(255, 255, 255, 0.12) !important;
+    }
+
+    [data-theme="glass"] .section-tab.active {
+        background: linear-gradient(135deg, #dc2626, #ff4444) !important;
+        border-color: #dc2626 !important;
+    }
+
+    /* Fix 8: Category sections — visible on glass */
+    [data-theme="glass"] .category-section {
+        background: rgba(18, 18, 28, 0.60) !important;
+        border: 1px solid rgba(255, 255, 255, 0.08) !important;
+        border-radius: 16px;
+    }
+
+    /* Fix 9: Card sheet (bottom sheet) — solid bg */
+    [data-theme="glass"] .card-sheet {
+        backdrop-filter: blur(16px) !important;
+        -webkit-backdrop-filter: blur(16px) !important;
+        background: rgba(14, 14, 22, 0.96) !important;
+    }
+
+    /* Fix 10: Context menu — solid bg */
+    [data-theme="glass"] #context-menu {
+        backdrop-filter: blur(12px) !important;
+        -webkit-backdrop-filter: blur(12px) !important;
+        background: rgba(18, 18, 28, 0.95) !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M26b: HERO PSEUDO-ELEMENT FIX — THE ROOT CAUSE OF RED SCREEN
+   .hero::before is width:200% height:200% with red gradients,
+   creating a 980px element on mobile that floods the viewport red.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Constrain hero and clip its overflow */
+    .hero {
+        overflow: hidden !important;
+        max-width: 100vw !important;
+        position: relative !important;
+    }
+
+    /* Kill the oversized ::before (was width:200% height:200% top:-50% left:-50%) */
+    .hero::before {
+        width: 100% !important;
+        height: 100% !important;
+        top: 0 !important;
+        left: 0 !important;
+        opacity: 0.25 !important;
+        transform: none !important;
+    }
+
+    /* ::after gradient overlay also needs constraining */
+    .hero::after {
+        max-width: 100% !important;
+        width: 100% !important;
+    }
+
+    /* Glass theme: dim the hero pseudo even further */
+    [data-theme="glass"] .hero::before {
+        opacity: 0.1 !important;
+    }
+
+    /* Glass theme: ensure hero bg is transparent so body gradient shows */
+    [data-theme="glass"] .hero {
+        background: transparent !important;
+    }
+}
+
+/* ═══════════════════════════════════════════════════════════════════
+   M27: HORIZONTAL OVERFLOW FIX — MOBILE
+   Problem: Multiple elements exceed 375px viewport width,
+   causing unwanted horizontal scroll on mobile.
+   ═══════════════════════════════════════════════════════════════════ */
+@media (max-width: 768px) {
+
+    /* Nuclear overflow prevention */
+    html {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+    }
+
+    body {
+        overflow-x: hidden !important;
+        max-width: 100vw !important;
+        width: 100% !important;
+    }
+
+    /* Clamp all major containers */
+    .main,
+    .main-content,
+    #mainContent,
+    .hero,
+    .hero-content,
+    .nav-wrap,
+    .top-bar,
+    .section-tabs,
+    .card-grid {
+        max-width: 100vw !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Bottom nav: force full viewport width, no wider */
+    .bottom-nav {
+        width: 100vw !important;
+        max-width: 100vw !important;
+        left: 0 !important;
+        right: 0 !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Bottom nav inner container */
+    .bottom-nav .nav-inner,
+    .bottom-nav>div,
+    .bottom-nav>nav {
+        max-width: 100% !important;
+        display: flex !important;
+        justify-content: space-around !important;
+        overflow-x: hidden !important;
+    }
+
+    /* Hero stats: wrap on small screens */
+    .hero-stats {
+        gap: 24px !important;
+        justify-content: center !important;
+    }
+
+    /* Prevent search wrap from exceeding viewport */
+    .search-wrap {
+        max-width: calc(100vw - 32px) !important;
+    }
+
+    /* Category nav filters: allow horizontal scroll but within viewport */
+    .nav-filters-wrap,
+    #navFilters {
+        max-width: 100vw !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch;
+    }
+
+    /* Theme switcher: compact on mobile */
+    .theme-switcher {
+        max-width: 100% !important;
+        flex-shrink: 1 !important;
+    }
+
+    /* Top bar: prevent overflow from too many buttons */
+    .top-bar {
+        flex-wrap: nowrap !important;
+        overflow: hidden !important;
+    }
+}
+
+/* ══════════════════════════════════════════════════════
+   M28 — MOBILE PERFORMANCE: content-visibility + containment
+   Skips rendering for off-screen cards (991 cards total).
+   Dramatically reduces initial paint cost and memory usage.
+   ══════════════════════════════════════════════════════ */
+
+/* Each card: skip rendering when off-screen */
+@media (max-width: 768px) {
+    .card {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 320px;
+    }
+
+    /* Category sections: skip off-screen sections entirely */
+    .category-group,
+    [data-category-section] {
+        content-visibility: auto;
+        contain-intrinsic-size: auto 600px;
+    }
+
+    /* Contain layout for major containers */
+    .main-content,
+    .cards-container {
+        contain: layout style;
     }
 }

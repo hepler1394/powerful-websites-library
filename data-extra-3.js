@@ -131,7 +131,7 @@
             ]
         },
         {
-            id: "ai-website-builders", name: "🌐 AI Website Builders 2026", icon: "🌐", type: "free",
+            id: "ai-website-builders", name: "AI Website Builders 2026", icon: "🌐", type: "free",
             desc: "AI that builds complete, deployable websites from text prompts — no code required.",
             sites: [
                 { n: "Framer AI", u: "https://www.framer.com/ai", d: "Describe your site and Framer AI builds it live. Published in seconds. Best AI site quality.", l: "Free with Framer domain", s: "Viral X no-code community" },
