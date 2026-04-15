@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
@@ -5821,6 +5821,7 @@
   <script src="data-extra-3.js"></script>
   <script src="data-extra-4.js"></script>
   <script src="data-extra-5.js"></script>
+  <script src="data-extra-6.js"></script>
   <script src="merge-categories.js?v=3"></script>
   <script>
     // DOM Elements
@@ -6149,7 +6150,7 @@
       const trendingBadge = isTrending ? `<span class="badge badge-trending" style="margin-right:6px">🔥 TRENDING</span>` : '';
 
       return `
-    <div class="card ${cardClass}" data-search="${(s.n + ' ' + s.d + ' ' + catName + ' ' + s.s + ' ' + s.u).toLowerCase()}" data-fav-id="${s.u}" onclick="if(!event.target.closest('button')&&!event.target.closest('a'))window.open('${s.u}','_blank','noopener,noreferrer')" style="cursor:pointer">
+    <div class="card ${cardClass}" data-search="${(s.n + ' ' + s.d + ' ' + catName + ' ' + s.s + ' ' + s.u + ' ' + (s.k || '')).toLowerCase()}" data-fav-id="${s.u}" onclick="if(!event.target.closest('button')&&!event.target.closest('a'))window.open('${s.u}','_blank','noopener,noreferrer')" style="cursor:pointer">
       <div class="card-top">
         ${faviconSrc ? `<img class="card-favicon" src="${faviconSrc}" alt="" loading="lazy" decoding="async" fetchpriority="low" onerror="this.style.display='none';this.nextElementSibling.style.display='inline'">` : ''}${faviconSrc ? `<span class="card-favicon-fallback" style="display:none;font-size:16px;flex-shrink:0">${fallbackEmoji}</span>` : ''}
           <span class="card-name">${s.n}</span>
@@ -6414,8 +6415,96 @@
       return bestMatch || 'movies';
     }
 
+    // ==========================================
+    // SMART SEMANTIC KEYWORD MAP
+    // Maps user intent / brand names → searchable terms
+    // e.g., "youtube" expands to "creator tools video content channel"
+    // ==========================================
+    const KEYWORD_ALIASES = {
+      // Platforms → what they're for
+      'youtube': 'creator tools video content channel streaming upload download',
+      'netflix': 'movies tv shows streaming watch film series',
+      'spotify': 'music audio streaming songs playlist podcast',
+      'instagram': 'social media photos creator tools visual content',
+      'tiktok': 'short video creator tools social media viral clips',
+      'twitter': 'social media news real-time x posts',
+      'x': 'social media news real-time twitter posts',
+      'reddit': 'community forums discussion news subreddit',
+      'discord': 'chat community voice gaming servers',
+      'twitch': 'live streaming gaming creator tools',
+      'facebook': 'social media community groups ads page',
+      'linkedin': 'professional networking jobs career resume',
+      'github': 'code developer git repository open source programming',
+      'google': 'search ai tools docs sheets slides productivity',
+      'amazon': 'shopping deals price tracker affiliate',
+      'openai': 'chatgpt ai llm gpt4 chatbot writing',
+      'chatgpt': 'ai chatbot writing llm gpt openai assistant',
+      'claude': 'ai chatbot writing llm anthropic assistant',
+      'gemini': 'ai chatbot google llm assistant',
+      'midjourney': 'ai image art generation design',
+      // Intent keywords
+      'download': 'downloader media video audio youtube tiktok instagram',
+      'free movies': 'streaming piracy watch film',
+      'free music': 'audio music streaming download mp3',
+      'vpn': 'privacy security anonymous browsing hide ip',
+      'ad blocker': 'block ads privacy browser extension',
+      'creator': 'creator tools youtube tiktok content video editing design',
+      'creator tools': 'youtube tiktok video editing design canva thumbnails',
+      'content creator': 'youtube tiktok video editing design canva thumbnails',
+      'faceless': 'ai video avatar heygen creator youtube automation',
+      'productivity': 'task management notes automation focus timer pomodoro',
+      'coding': 'developer programming ai code editor ide',
+      'make money': 'monetize creator income ai automation affiliate',
+      'learn coding': 'programming developer education freecodecamp',
+      'study': 'learning education flashcards notes ai research',
+      'anime': 'watch streaming japan cartoon manga',
+      'game': 'gaming emulator play browser games',
+      'password': 'security manager bitwarden generator',
+      'email': 'disposable temp mail newsletter',
+      'design': 'canva figma ui ux visual creative graphic',
+      'money': 'finance crypto investing budget saving',
+      'invest': 'stocks crypto trading finance portfolio',
+      'startup': 'entrepreneur business tools launch',
+      'resume': 'cv job career linkedin template',
+      'health': 'fitness workout nutrition diet exercise body',
+      'recipe': 'food cooking meal ingredients kitchen',
+      'travel': 'flights hotel booking maps nomad',
+      'news': 'current events politics media article reading',
+      'book': 'ebooks reading library literature audiobook',
+      'podcast': 'audio listen show episode interview',
+      'photo': 'image edit camera filter upscale remove background',
+      'privacy': 'secure anonymous vpn no tracking safe',
+      'hack': 'useful secret trick power user hidden',
+      'free tools': 'utilities browser tools useful productivity generator',
+      'ai tools': 'artificial intelligence llm chatgpt claude gemini',
+      'piracy': 'movies free streaming watch film tv shows',
+      'sports': 'nfl nba soccer football live stream watch',
+      'nfl': 'football sports streaming live watch',
+      'nba': 'basketball sports streaming live watch',
+      'soccer': 'football sports streaming live watch premier league',
+      'compress': 'image video file size reduce optimize png jpg pdf'
+    };
+
+    function expandSearchQuery(q) {
+      if (!q || q.length < 2) return q;
+      const lower = q.toLowerCase().trim();
+      // Direct alias match
+      if (KEYWORD_ALIASES[lower]) {
+        return lower + ' ' + KEYWORD_ALIASES[lower];
+      }
+      // Partial: check if q starts with any alias key
+      for (const [key, val] of Object.entries(KEYWORD_ALIASES)) {
+        if (lower.includes(key) || key.includes(lower)) {
+          return lower + ' ' + val;
+        }
+      }
+      return lower;
+    }
+
     function applyFilters() {
-      const q = searchInput.value.toLowerCase().trim();
+      const rawQ = searchInput.value.toLowerCase().trim();
+      // Expand single-word queries into semantic synonym set
+      const expandedTerms = rawQ ? expandSearchQuery(rawQ).split(' ').filter(t => t.length > 1) : [];
       let totalVisible = 0;
 
       document.querySelectorAll('.category-section').forEach(section => {
@@ -6437,13 +6526,23 @@
         let sectionVisible = 0;
         section.querySelectorAll('.card').forEach(card => {
           const text = (card.dataset.search || '').toLowerCase();
-          const matchesSearch = !q || text.includes(q);
+          let matchesSearch = !rawQ;
+          if (rawQ && !matchesSearch) {
+            // Direct substring match first (fast path)
+            if (text.includes(rawQ)) {
+              matchesSearch = true;
+            } else if (expandedTerms.length > 0) {
+              // Semantic: match if ANY expanded term appears in card text
+              // Score: more matches = higher relevance; show if ≥1 matches
+              matchesSearch = expandedTerms.some(term => text.includes(term));
+            }
+          }
           card.style.display = matchesSearch ? '' : 'none';
           if (matchesSearch) sectionVisible++;
         });
 
         // Hide section only when a search term produces zero results
-        if (q && sectionVisible === 0) {
+        if (rawQ && sectionVisible === 0) {
           section.classList.remove('is-visible');
           section.style.display = 'none';
         }
@@ -6454,11 +6553,11 @@
       if (noResults) {
         if (totalVisible === 0) {
           noResults.classList.add('visible');
-          const suggestion = getDidYouMean(q);
+          const suggestion = getDidYouMean(rawQ);
           noResults.innerHTML = `
             <h3>No websites found</h3>
             <p style="margin-bottom:12px;">Try a different search term or category filter.</p>
-            ${q.length >= 2 ? `<p>Did you mean: <span class="pop-chip" onclick="applySearchTag('${suggestion}')" style="display:inline-block;margin-left:8px;">${suggestion}</span> ?</p>` : ''}
+            ${rawQ.length >= 2 ? `<p>Did you mean: <span class="pop-chip" onclick="applySearchTag('${suggestion}')" style="display:inline-block;margin-left:8px;">${suggestion}</span> ?</p>` : ''}
           `;
         } else {
           noResults.classList.remove('visible');
@@ -6466,7 +6565,7 @@
       }
       const searchCount = document.getElementById('searchCount');
       if (searchCount) {
-        searchCount.textContent = q ? totalVisible + ' result' + (totalVisible !== 1 ? 's' : '') + ' found' : '';
+        searchCount.textContent = rawQ ? totalVisible + ' result' + (totalVisible !== 1 ? 's' : '') + ' found' : '';
       }
     }
 
@@ -8046,7 +8145,7 @@
     <div id="changelogBox">
       <div class="cl-header">
         <span class="cl-title">✨ What's New</span>
-        <span class="cl-version">v3.0 — Feb 2026</span>
+        <span class="cl-version">v3.1 — April 2026</span>
       </div>
       <div id="changelogList">
         <div class="cl-item">
