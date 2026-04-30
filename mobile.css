@@ -1,4 +1,4 @@
-﻿/* ============================================================
+/* ============================================================
    mobile.css — 10x Mobile Overhaul for Powerful Websites Library
    Applied on top of index.html styles for maximum enhancement
    ============================================================ */
@@ -313,6 +313,20 @@
     cursor: pointer;
   }
 
+  /* Extra tight on very small phones (iPhone SE, 320px) */
+  @media (max-width: 380px) {
+    .section-tab {
+      padding: 6px 12px;
+      font-size: .73rem;
+    }
+    .hero h1 {
+      font-size: clamp(1.4rem, 6.5vw, 2rem);
+    }
+    .search-wrap input {
+      font-size: max(14px, 0.85em) !important;
+    }
+  }
+
   .section-tab.active {
     background: linear-gradient(135deg, #dc2626, #ff4444);
     color: #fff;
@@ -365,6 +379,11 @@
   .card-desc {
     font-size: .85rem;
     line-height: 1.55;
+    /* Clamp to 3 lines — prevents giant card walls on mobile */
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
   }
 
   /* Full-width visit button on mobile */
