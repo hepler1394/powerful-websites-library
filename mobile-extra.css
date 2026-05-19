@@ -3392,3 +3392,237 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
         contain: layout style;
     }
 }
+
+/* ═══════════════════ v3.3 — May 2026 Mobile Polish ═══════════════════ */
+
+/* Reduced motion respect — kills decorative animations for users who ask */
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+        scroll-behavior: auto !important;
+    }
+    .ptr-spinner,
+    .bn-badge,
+    .badge-new {
+        animation: none !important;
+    }
+}
+
+/* Accessible focus rings (keyboard users on mobile w/ external KB) */
+@media (max-width: 768px) {
+    a:focus-visible,
+    button:focus-visible,
+    [role="button"]:focus-visible,
+    input:focus-visible {
+        outline: 2px solid #ff4444;
+        outline-offset: 2px;
+        border-radius: 8px;
+    }
+}
+
+/* Card description: bump to 4 lines on tablet-sized phones (≥430px) for more info-density */
+@media (min-width: 430px) and (max-width: 768px) {
+    .card-desc {
+        -webkit-line-clamp: 4 !important;
+    }
+}
+
+/* Extra-small phone optimization (<360px) — iPhone SE 1st gen, older Androids */
+@media (max-width: 360px) {
+    .hero {
+        padding: 70px 12px 24px;
+    }
+    .hero h1 {
+        font-size: clamp(1.25rem, 6.2vw, 1.7rem) !important;
+        line-height: 1.15;
+    }
+    .card {
+        padding: 14px 12px;
+        border-radius: 12px;
+    }
+    .card-name {
+        font-size: .92rem;
+    }
+    .section-tab {
+        padding: 6px 10px;
+        font-size: .7rem;
+    }
+    .nav-btn {
+        padding: 6px 11px;
+        font-size: .72rem;
+    }
+    .bottom-nav a {
+        font-size: .54rem;
+    }
+}
+
+/* Fresh-this-week rail — featured strip at top of main on mobile */
+.fresh-rail {
+    margin: 0 auto 24px;
+    max-width: 1280px;
+    padding: 0 16px;
+    animation: fadeUp .5s ease both;
+}
+
+.fresh-rail-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+}
+
+.fresh-rail-title {
+    font-size: 1.05rem;
+    font-weight: 800;
+    color: var(--text);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.fresh-rail-title .pulse-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #ff4444;
+    box-shadow: 0 0 0 0 rgba(255, 68, 68, .6);
+    animation: freshPulse 2s ease-in-out infinite;
+}
+
+@keyframes freshPulse {
+    0%,
+    100% { box-shadow: 0 0 0 0 rgba(255, 68, 68, .6); }
+    50%  { box-shadow: 0 0 0 8px rgba(255, 68, 68, 0); }
+}
+
+.fresh-rail-sub {
+    font-size: .78rem;
+    color: var(--text-muted);
+    margin-left: auto;
+}
+
+.fresh-rail-scroll {
+    display: flex;
+    gap: 12px;
+    overflow-x: auto;
+    scroll-snap-type: x mandatory;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding: 4px 4px 12px;
+}
+
+.fresh-rail-scroll::-webkit-scrollbar {
+    display: none;
+}
+
+.fresh-card {
+    flex: 0 0 240px;
+    scroll-snap-align: start;
+    background: var(--card, #181818);
+    border: 1px solid var(--border, #2a2a2a);
+    border-radius: 14px;
+    padding: 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    text-decoration: none;
+    color: inherit;
+    position: relative;
+    transition: transform .15s ease, border-color .2s, box-shadow .2s;
+    -webkit-tap-highlight-color: transparent;
+}
+
+.fresh-card:hover,
+.fresh-card:focus-visible {
+    transform: translateY(-2px);
+    border-color: rgba(220, 38, 38, .5);
+    box-shadow: 0 6px 24px rgba(220, 38, 38, .15);
+}
+
+.fresh-card:active {
+    transform: scale(.98);
+}
+
+.fresh-card-top {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.fresh-card-favicon {
+    width: 28px;
+    height: 28px;
+    border-radius: 6px;
+    background: var(--surface, #0e0e0e);
+    flex-shrink: 0;
+}
+
+.fresh-card-name {
+    font-size: .95rem;
+    font-weight: 700;
+    color: var(--text);
+    line-height: 1.2;
+    margin: 0;
+}
+
+.fresh-card-cat {
+    font-size: .65rem;
+    font-weight: 700;
+    color: var(--accent, #ff4444);
+    text-transform: uppercase;
+    letter-spacing: .6px;
+}
+
+.fresh-card-desc {
+    font-size: .78rem;
+    color: var(--text-muted);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    margin: 0;
+}
+
+.fresh-card-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    background: linear-gradient(135deg, #dc2626, #ff4444);
+    color: #fff;
+    font-size: .58rem;
+    font-weight: 800;
+    padding: 2px 7px;
+    border-radius: 50px;
+    letter-spacing: .5px;
+    text-transform: uppercase;
+}
+
+@media (max-width: 480px) {
+    .fresh-card {
+        flex: 0 0 220px;
+        padding: 12px;
+    }
+    .fresh-rail-sub {
+        display: none;
+    }
+}
+
+/* Better safe-area handling — covers landscape notch */
+@media (max-width: 1024px) and (orientation: landscape) {
+    body {
+        padding-left: env(safe-area-inset-left);
+        padding-right: env(safe-area-inset-right);
+    }
+}
+
+/* Tap area for share button — was sometimes too small */
+@media (max-width: 768px) {
+    .card-share-btn {
+        min-height: 36px;
+    }
+}

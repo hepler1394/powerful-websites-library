@@ -5053,6 +5053,8 @@
         style="display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding-bottom:4px;">
       </div>
     </div>
+    <!-- Fresh This Week rail — v3.3 -->
+    <div id="freshRail" class="fresh-rail" style="display:none" aria-label="Fresh picks this week"></div>
     <div id="mainContent" role="main" style="min-height:60vh;"></div>
     <div class="no-results" id="noResults" role="status" aria-live="polite">
       <h3>No websites found</h3>
@@ -5823,7 +5825,8 @@
   <script src="data-extra-5.js"></script>
   <script src="data-extra-6.js"></script>
   <script src="data-extra-7.js"></script>
-  <script src="merge-categories.js?v=3"></script>
+  <script src="data-extra-8.js?v=1"></script>
+  <script src="merge-categories.js?v=4"></script>
   <script>
     // DOM Elements
     const navEl = document.getElementById('navFilters');
@@ -5837,6 +5840,55 @@
 
     let activeFilter = 'all';
     let activeSectionType = 'all';
+
+    /* ─── Fresh-This-Week rail (v3.3) ──────────────────────────────── */
+    function renderFreshRail() {
+      try {
+        const picks = window.FRESH_PICKS;
+        const el = document.getElementById('freshRail');
+        if (!el || !picks || !picks.length || typeof DATA === 'undefined') return;
+        // Build URL→site index from current DATA
+        const idx = {};
+        DATA.forEach(cat => (cat.sites || []).forEach(s => {
+          if (s && s.u) idx[String(s.u).replace(/\/+$/, '').toLowerCase()] = s;
+        }));
+        const cards = picks.map(p => {
+          const key = String(p.u).replace(/\/+$/, '').toLowerCase();
+          const site = idx[key];
+          if (!site) return '';
+          const host = (() => { try { return new URL(site.u).hostname; } catch { return ''; } })();
+          const fav = host ? `https://www.google.com/s2/favicons?domain=${host}&sz=64` : '';
+          const desc = (site.d || '').replace(/</g, '&lt;');
+          const name = (site.n || p.n || '').replace(/</g, '&lt;');
+          const cat  = (p.cat || '').replace(/</g, '&lt;');
+          return `<a class="fresh-card" href="${site.u}" target="_blank" rel="noopener noreferrer" data-fresh-url="${site.u}">
+            <span class="fresh-card-badge">NEW</span>
+            <div class="fresh-card-top">
+              <img class="fresh-card-favicon" src="${fav}" alt="" loading="lazy" onerror="this.style.visibility='hidden'">
+              <div>
+                <div class="fresh-card-cat">${cat}</div>
+                <h3 class="fresh-card-name">${name}</h3>
+              </div>
+            </div>
+            <p class="fresh-card-desc">${desc}</p>
+          </a>`;
+        }).filter(Boolean).join('');
+        if (!cards) return;
+        el.innerHTML = `<div class="fresh-rail-header">
+            <span class="fresh-rail-title"><span class="pulse-dot"></span>🔥 Fresh This Week</span>
+            <span class="fresh-rail-sub">Swipe → see all new picks</span>
+          </div>
+          <div class="fresh-rail-scroll">${cards}</div>`;
+        el.style.display = '';
+      } catch (e) {
+        console.warn('[fresh-rail] render failed', e);
+      }
+    }
+    // Hide the rail when the user is filtering, searching, or viewing favorites — restore on reset
+    function setFreshRailVisible(visible) {
+      const el = document.getElementById('freshRail');
+      if (el) el.style.display = visible ? '' : 'none';
+    }
 
     // Theme toggle Logic
     function setTheme(theme, skipSync = false) {
@@ -6507,6 +6559,10 @@
       // Expand single-word queries into semantic synonym set
       const expandedTerms = rawQ ? expandSearchQuery(rawQ).split(' ').filter(t => t.length > 1) : [];
       let totalVisible = 0;
+      // Hide Fresh-rail when narrowing; show only on the unfiltered home view
+      if (typeof setFreshRailVisible === 'function') {
+        setFreshRailVisible(!rawQ && activeFilter === 'all' && activeSectionType === 'all');
+      }
 
       document.querySelectorAll('.category-section').forEach(section => {
         const catId = section.dataset.category;
@@ -7876,6 +7932,8 @@
         if (gCount > 0 && !window._authUser) updateGuestCounter(gCount);
       }, 500);
       checkGuestBanner();
+      // Render Fresh-This-Week rail (v3.3)
+      renderFreshRail();
     });
 
     // ===== VOICE SEARCH =====
@@ -8146,32 +8204,32 @@
     <div id="changelogBox">
       <div class="cl-header">
         <span class="cl-title">✨ What's New</span>
-        <span class="cl-version">v3.2 &mdash; April 29, 2026</span>
+        <span class="cl-version">v3.3 &mdash; May 19, 2026</span>
       </div>
       <div id="changelogList">
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F680;</div>
-          <div class="cl-desc"><strong>1,000+ Sites Milestone</strong> &mdash; Wave 7: DeepSeek, Suno, ElevenLabs, Gamma, Mistral, Kagi &amp; more</div>
-        </div>
-        <div class="cl-item">
-          <div class="cl-emoji">&#x1F3B5;</div>
-          <div class="cl-desc"><strong>AI Music Tools Added</strong> &mdash; Suno &amp; Udio in Creators. Full songs from text prompts</div>
-        </div>
-        <div class="cl-item">
-          <div class="cl-emoji">&#x1F512;</div>
-          <div class="cl-desc"><strong>Privacy Tools Expanded</strong> &mdash; Kagi Search, Proton Drive, SimpleLogin &amp; Privacy.com</div>
+          <div class="cl-emoji">&#x1F525;</div>
+          <div class="cl-desc"><strong>Fresh This Week Rail</strong> &mdash; Swipeable strip of the newest picks at the top of the home page</div>
         </div>
         <div class="cl-item">
           <div class="cl-emoji">&#x1F916;</div>
-          <div class="cl-desc"><strong>New LLMs Added</strong> &mdash; DeepSeek, Mistral Le Chat, Qwen, Claude &amp; OpenRouter</div>
+          <div class="cl-desc"><strong>Wave 8: 25 New Sites</strong> &mdash; Manus, Sora, Zed, Aider, Genspark, Granola, Flux, Hailuo, Submagic &amp; more</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">&#x1F9F9;</div>
+          <div class="cl-desc"><strong>Global Duplicate Cleanup</strong> &mdash; Same site no longer appears in multiple categories</div>
         </div>
         <div class="cl-item">
           <div class="cl-emoji">&#x1F4F1;</div>
-          <div class="cl-desc"><strong>Mobile Readability</strong> &mdash; Card descriptions clamped on mobile. Cleaner nav</div>
+          <div class="cl-desc"><strong>Mobile Polish</strong> &mdash; Smaller phones (&lt;360px), reduced-motion support, better focus rings, tighter cards</div>
+        </div>
+        <div class="cl-item">
+          <div class="cl-emoji">&#x1F680;</div>
+          <div class="cl-desc"><strong>Previous: 1,000+ Sites</strong> &mdash; Wave 7: DeepSeek, Suno, ElevenLabs, Gamma, Mistral, Kagi</div>
         </div>
         <div class="cl-item">
           <div class="cl-emoji">&#x1F3AE;</div>
-          <div class="cl-desc"><strong>Previous: Command Palette</strong> &mdash; Press Ctrl+K to search everything</div>
+          <div class="cl-desc"><strong>Power tip</strong> &mdash; Press Ctrl+K anywhere to search everything</div>
         </div>
       </div>
       <button onclick="closeChangelog()"
@@ -8226,7 +8284,7 @@
       </div>
     </div>
     <div style="margin-top:20px;text-align:center;font-size:0.72rem;color:var(--text-dim)">
-      Powerful Websites Library v3.0<br>by Cory Hepler UI 🚀
+      Powerful Websites Library v3.3<br>by Cory Hepler UI 🚀
     </div>
   </div>
 
@@ -8275,7 +8333,7 @@
       { icon: '🎲', label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
       { icon: '🔊', label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
       { icon: '📱', label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
-      { icon: '✨', label: "What's New (Changelog)", hint: 'v3.0', action: openChangelog },
+      { icon: '✨', label: "What's New (Changelog)", hint: 'v3.3', action: openChangelog },
       { icon: '🚀', label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
     ];
 
@@ -9131,7 +9189,7 @@
     });
 
     applySettings();
-    console.log('%c🚀 Powerful Websites Library v3.2 — April 29, 2026 — 1,000+ Sites!', 'color:#dc2626;font-size:14px;font-weight:900;');
+    console.log('%c🚀 Powerful Websites Library v3.3 — May 19, 2026 — Fresh Picks Rail + Wave 8!', 'color:#dc2626;font-size:14px;font-weight:900;');
   </script>
 
 </body>

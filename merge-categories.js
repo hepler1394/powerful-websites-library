@@ -176,7 +176,22 @@
         }
     });
 
+    // ─── Step 4: Global URL dedup — first occurrence wins ───
+    var seenUrls = new Set();
+    var dupCount = 0;
+    DATA.forEach(function (cat) {
+        if (!cat.sites) return;
+        cat.sites = cat.sites.filter(function (site) {
+            if (!site || !site.u) return false;
+            var key = String(site.u).replace(/\/+$/, '').toLowerCase();
+            if (seenUrls.has(key)) { dupCount++; return false; }
+            seenUrls.add(key);
+            return true;
+        });
+    });
+
     // ─── Debug log ───
     console.log('[merge-categories] Final: ' + DATA.length + ' categories, ' +
-        DATA.reduce(function (sum, c) { return sum + c.sites.length; }, 0) + ' total sites');
+        DATA.reduce(function (sum, c) { return sum + c.sites.length; }, 0) + ' total sites' +
+        (dupCount ? ' (' + dupCount + ' duplicates removed)' : ''));
 })();
