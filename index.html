@@ -6189,6 +6189,16 @@
       } catch (e) { return ''; }
     }
 
+    // Memoized lookup of the curated "Fresh This Week" picks (window.FRESH_PICKS),
+    // used to award a meaningful NEW badge instead of the old random one.
+    let _freshUrlSet = null;
+    function isFreshPick(u) {
+      if (!_freshUrlSet) {
+        _freshUrlSet = new Set((window.FRESH_PICKS || []).map(p => String(p.u).replace(/\/+$/, '').toLowerCase()));
+      }
+      return _freshUrlSet.has(String(u).replace(/\/+$/, '').toLowerCase());
+    }
+
     function renderCard(s, catName, catType) {
       const hasLimits = s.l && !s.l.startsWith('None');
       const cardClass = catType === 'top' ? 'top-card' : catType === 'piracy' ? 'piracy-card' : catType === 'sports' ? 'sports-card' : catType === 'labs' ? 'labs-card' : catType === 'agent' ? 'agent-card' : catType === 'llm' ? 'llm-card' : catType === 'vpn' ? 'vpn-card' : catType === 'edu' ? 'edu-card' : catType === 'privacy' ? 'privacy-card' : catType === 'adblock' ? 'adblock-card' : catType === 'creator' ? 'creator-card' : catType === 'podcast' ? 'podcast-card' : '';
@@ -6198,8 +6208,11 @@
 
       const dotColor = catType === 'top' ? '#fbbf24' : catType === 'piracy' ? '#ef4444' : catType === 'sports' ? '#3b82f6' : catType === 'labs' ? '#a855f7' : catType === 'agent' ? '#ec4899' : catType === 'llm' ? '#14b8a6' : catType === 'video' ? '#f43f5e' : catType === 'design' ? '#d946ef' : catType === 'dev' ? '#06b6d4' : catType === 'music' ? '#eab308' : '#8b5cf6';
 
-      const isNew = s.new || Math.random() > 0.95;
-      const isTrending = s.trending || (!s.new && Math.random() > 0.95);
+      // Badges reflect real signals only (previously ~5% of cards got random
+      // NEW/TRENDING badges that changed on every render). NEW = explicit flag
+      // or a curated Fresh-This-Week pick; TRENDING = explicit flag only.
+      const isNew = !!s.new || isFreshPick(s.u);
+      const isTrending = !!s.trending && !isNew;
       const newBadge = isNew ? `<span class="badge badge-new" style="margin-right:6px">🎉 NEW</span>` : '';
       const trendingBadge = isTrending ? `<span class="badge badge-trending" style="margin-right:6px">🔥 TRENDING</span>` : '';
 
@@ -6228,12 +6241,12 @@
         <button class="fav-btn" data-fav-url="${s.u}" title="Add to favorites" aria-label="Favorite ${s.n}" onclick="toggleFav(this,event)" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;flex-shrink:0;">
           <svg viewBox="0 0 24 24" width="16" height="16"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
         </button>
-        <button class="btn-upvote" onclick="handleUpvote('${s.u}', event)" data-upvote-url="${s.u}" title="Upvote" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .2s;">
+        <button class="btn-upvote" onclick="handleUpvote('${s.u}', event)" data-upvote-url="${s.u}" title="Upvote" aria-label="Upvote ${s.n}" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;gap:4px;transition:all .2s;">
           <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;min-width:18px"><path d="M14 9V5a3 3 0 0 0-3-3l-4 9v11h11.28a2 2 0 0 0 2-1.7l1.38-9a2 2 0 0 0-2-2.3H14zM7 22H4a2 2 0 0 1-2-2v-7a2 2 0 0 1 2-2h3"/></svg>
           <span class="upvote-count" data-count-url="${s.u}" style="font-size:.72rem;font-weight:700;min-width:12px;"></span>
         </button>
-        <button class="btn-copy-link" data-url="${s.u}" title="Copy link" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;white-space:nowrap;">Copy</button>
-        <button class="btn-native-share" onclick="nativeShare('${s.n.replace(/'/g, "\\'")}',' ${s.u}')" title="Share">
+        <button class="btn-copy-link" data-url="${s.u}" title="Copy link" aria-label="Copy link to ${s.n}" style="background:var(--surface);border:1px solid var(--border);border-radius:8px;padding:9px 13px;font-size:.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all .2s;white-space:nowrap;">Copy</button>
+        <button class="btn-native-share" onclick="nativeShare('${s.n.replace(/'/g, "\\'")}',' ${s.u}')" title="Share" aria-label="Share ${s.n}">
           <svg viewBox="0 0 24 24" width="16" height="16" stroke="currentColor" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"><circle cx="18" cy="5" r="3"></circle><circle cx="6" cy="12" r="3"></circle><circle cx="18" cy="19" r="3"></circle><line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line><line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line></svg>
         </button>
         <a href="${s.u}" target="_blank" rel="noopener noreferrer" class="btn-visit">

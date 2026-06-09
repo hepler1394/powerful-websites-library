@@ -1,0 +1,68 @@
+rules_version = '2';
+
+// Security rules for the Powerful Websites Library Firestore database.
+//
+// Deploy: Firebase Console -> Firestore Database -> Rules -> paste -> Publish.
+// (Or with the CLI: `firebase deploy --only firestore:rules`.)
+//
+// Model:
+//   users/{uid}              private per-user doc (favorites, profile, history)
+//   users/{uid}/notes/{id}   private per-user notes
+//   upvotes/{url}            public-read counters, signed-in users increment
+//   globalLikes/{hash}       public-read like counts/likedBy, signed-in users toggle
+//
+// The client apiKey is intentionally public — THESE RULES are what actually
+// protect the data. Everything not explicitly allowed below is denied.
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    // ── helpers ──
+    function isSignedIn() {
+      return request.auth != null;
+    }
+    function isOwner(uid) {
+      return request.auth != null && request.auth.uid == uid;
+    }
+    // Matches the ADMIN_EMAILS list in admin.html.
+    function isAdmin() {
+      return request.auth != null &&
+        request.auth.token.email in ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
+    }
+
+    // ── per-user private data ──
+    // Owner has full access to their own doc; admins may read for the dashboard.
+    match /users/{uid} {
+      allow read:  if isOwner(uid) || isAdmin();
+      allow write: if isOwner(uid);
+
+      // Any subcollection (notes, etc.) is owner-only.
+      match /{document=**} {
+        allow read, write: if isOwner(uid);
+      }
+    }
+
+    // ── public vanity counters ──
+    // Counts are world-readable so guests see them. Only signed-in users may
+    // write. (Trade-off: a signed-in user could set an arbitrary count rather
+    // than a strict +1 — acceptable for non-critical counters. Admins can clean up.)
+    match /upvotes/{doc} {
+      allow read:           if true;
+      allow create, update: if isSignedIn();
+      allow delete:         if isAdmin();
+    }
+
+    match /globalLikes/{doc} {
+      allow read:           if true;
+      allow create, update: if isSignedIn();
+      allow delete:         if isAdmin();
+    }
+
+    // ── default deny ──
+    // Anything not matched above is denied (this is also Firestore's default,
+    // stated explicitly for clarity).
+    match /{document=**} {
+      allow read, write: if false;
+    }
+  }
+}
