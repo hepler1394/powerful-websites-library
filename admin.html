@@ -954,7 +954,7 @@
 
         // ── DATA INIT ──
         function initAdminData() {
-            const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const favs = JSON.parse(localStorage.getItem('pwl_favorites') || '[]');
             document.getElementById('statFavs').textContent = favs.length;
 
             loadDataFiles().then(() => {
@@ -977,7 +977,7 @@
             return new Promise(resolve => {
                 if (typeof DATA !== 'undefined' && DATA.length) { resolve(); return; }
                 window.DATA = [];
-                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js'];
+                const files = ['data-extra.js', 'data-extra-2.js', 'data-extra-3.js', 'data-extra-4.js', 'data-extra-5.js', 'data-extra-6.js', 'data-extra-7.js', 'data-extra-8.js'];
                 let loaded = 0;
                 files.forEach(src => {
                     const s = document.createElement('script');
@@ -1147,7 +1147,7 @@
         function clearVisited() { localStorage.removeItem('recentlyViewed'); localStorage.removeItem('pwl_recently_viewed'); toast('✅ History cleared'); }
         function clearSearchHistory() { localStorage.removeItem('searchHistory'); toast('✅ Search history cleared'); }
         function exportFavCSV() {
-            const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+            const favs = JSON.parse(localStorage.getItem('pwl_favorites') || '[]');
             if (!favs.length) { toast('⚠️ No favorites'); return; }
             const csv = 'URL\n' + favs.join('\n');
             const blob = new Blob([csv], { type: 'text/csv' });

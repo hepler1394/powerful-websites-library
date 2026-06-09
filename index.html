@@ -9,7 +9,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="apple-mobile-web-app-title" content="WebsLib">
   <meta name="robots" content="index, follow, max-image-preview:large">
-  <link rel="canonical" href="https://powerfulwebsites.me/">
+  <link rel="canonical" href="https://powerful-websites-library.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:title" content="Powerful Free Websites Library">
   <meta name="twitter:description" content="800+ free tools, AI apps, and websites curated for you.">
@@ -6708,7 +6708,12 @@
     // ===== FAVORITES SYSTEM =====
     const FAVS_KEY = 'pwl_favorites';
     function getFavs() { try { return JSON.parse(localStorage.getItem(FAVS_KEY)) || []; } catch (e) { return []; } }
-    function saveFavs(favs) { localStorage.setItem(FAVS_KEY, JSON.stringify(favs)); }
+    function saveFavs(favs) {
+      localStorage.setItem(FAVS_KEY, JSON.stringify(favs));
+      // Push to the cloud immediately for signed-in users (was previously only
+      // synced on next sign-in, which broke cross-device favorites).
+      if (typeof syncFavsToFirestore === 'function') syncFavsToFirestore();
+    }
     function isFav(url) { return getFavs().includes(url); }
 
     function showToast(msg, type = 'success') {
@@ -7112,9 +7117,9 @@
     function exportCloudData() {
       if (!window._authUser) return;
       document.getElementById('profileDropdown').classList.remove('open');
-      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const favs = getFavs();
       const searches = JSON.parse(localStorage.getItem('searchHistory') || '[]');
-      const viewed = JSON.parse(localStorage.getItem('recentlyViewed') || '[]');
+      const viewed = JSON.parse(localStorage.getItem('pwl_recently_viewed') || '[]');
       const data = {
         exportedAt: new Date().toISOString(),
         user: window._authUser.email,
@@ -7137,7 +7142,7 @@
       const name = user.displayName ? user.displayName.split(' ')[0] : user.email.split('@')[0];
       const hour = new Date().getHours();
       const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening';
-      const favs = JSON.parse(localStorage.getItem('favorites') || '[]');
+      const favs = getFavs();
       const viewed = JSON.parse(localStorage.getItem('pwl_recently_viewed') || '[]');
       const allSites = window.DATA ? window.DATA.flatMap(c => c.sites.map(s => ({ ...s, _cat: c.name, _type: c.type }))) : [];
       const totalSites = allSites.length;
@@ -7799,6 +7804,7 @@
         const merged = [...new Set([...local, ...cloudFavs])];
         saveFavs(merged);
         updateFavCounts();
+        if (typeof syncFavButtons === 'function') syncFavButtons();
 
         const localSearch = JSON.parse(localStorage.getItem('searchHistory') || '[]');
         const cloudSearch = doc.exists ? (doc.data().searchHistory || []) : [];
