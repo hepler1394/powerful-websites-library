@@ -9192,6 +9192,80 @@
     console.log('%c🚀 Powerful Websites Library v3.3 — May 19, 2026 — Fresh Picks Rail + Wave 8!', 'color:#dc2626;font-size:14px;font-weight:900;');
   </script>
 
+  <!-- ===========================================
+       GLASSMORPHISM OVERHAUL (v2) — dark theme only
+       Visual layer only. No markup/JS changed.
+       Scoped to [data-theme="dark"] so the glass/light
+       themes and all existing behavior stay intact.
+       =========================================== -->
+  <style id="glass-overhaul-v2">
+    [data-theme="dark"] body {
+      background:
+        radial-gradient(1200px 800px at 12% -8%, rgba(220,38,38,.12), transparent 55%),
+        radial-gradient(1000px 700px at 110% 8%, rgba(255,107,157,.10), transparent 55%),
+        radial-gradient(900px 900px at 50% 120%, rgba(0,229,255,.07), transparent 55%),
+        var(--bg) !important;
+      background-attachment: fixed !important;
+    }
+    [data-theme="dark"] body::before {
+      content: ""; position: fixed; inset: -20%; z-index: -2; pointer-events: none;
+      background:
+        radial-gradient(40% 40% at 20% 30%, rgba(220,38,38,.18), transparent 60%),
+        radial-gradient(45% 45% at 80% 20%, rgba(255,107,157,.14), transparent 60%),
+        radial-gradient(50% 50% at 60% 90%, rgba(0,229,255,.10), transparent 60%);
+      filter: blur(32px) saturate(120%);
+      animation: glassAurora 24s ease-in-out infinite alternate;
+    }
+    @keyframes glassAurora {
+      0%   { transform: translate3d(0,0,0) scale(1); }
+      50%  { transform: translate3d(2%,-2%,0) scale(1.06); }
+      100% { transform: translate3d(-2%,2%,0) scale(1.03); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      [data-theme="dark"] body::before { animation: none; }
+    }
+    /* Frosted surfaces */
+    [data-theme="dark"] .top-bar,
+    [data-theme="dark"] .nav-wrap,
+    [data-theme="dark"] .nav-inner,
+    [data-theme="dark"] .search-wrap,
+    [data-theme="dark"] .search-dropdown,
+    [data-theme="dark"] .modal-overlay > *,
+    [data-theme="dark"] .modal {
+      backdrop-filter: blur(22px) saturate(135%) !important;
+      -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
+    }
+    [data-theme="dark"] .search-dropdown,
+    [data-theme="dark"] .modal {
+      background: rgba(16,16,20,.72) !important;
+      border: 1px solid rgba(255,255,255,.08) !important;
+    }
+    /* Glass cards (category accent colors preserved) */
+    [data-theme="dark"] .card {
+      background: rgba(255,255,255,.045) !important;
+      -webkit-backdrop-filter: blur(14px) saturate(130%);
+      backdrop-filter: blur(14px) saturate(130%);
+      box-shadow: 0 8px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
+      transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .32s, border-color .32s !important;
+    }
+    [data-theme="dark"] .card:hover {
+      transform: translateY(-6px) scale(1.012) !important;
+      border-color: rgba(220,38,38,.55) !important;
+      box-shadow: 0 18px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(220,38,38,.22), 0 0 36px rgba(220,38,38,.16) !important;
+    }
+    [data-theme="dark"] .card-favicon { transition: transform .4s ease; }
+    [data-theme="dark"] .card:hover .card-favicon { transform: scale(1.08) rotate(-2deg); }
+    /* Search focus ring */
+    [data-theme="dark"] .search-wrap:focus-within {
+      box-shadow: 0 0 0 3px rgba(220,38,38,.18), 0 10px 34px rgba(0,0,0,.45) !important;
+      border-color: rgba(220,38,38,.6) !important;
+    }
+    /* Primary visit buttons get a touch of glow on hover */
+    [data-theme="dark"] .btn-visit:hover {
+      box-shadow: 0 8px 26px rgba(220,38,38,.32) !important;
+    }
+  </style>
+
 </body>
 
 </html>
