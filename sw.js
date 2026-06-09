@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'webslib-v4';
+﻿const CACHE_NAME = 'webslib-v5';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
@@ -11,7 +11,14 @@ const STATIC_ASSETS = [
   '/data-extra.js',
   '/data-extra-2.js',
   '/data-extra-3.js',
-  '/data-extra-4.js'
+  '/data-extra-4.js',
+  '/data-extra-5.js',
+  '/data-extra-6.js',
+  '/data-extra-7.js',
+  '/data-extra-8.js',
+  '/merge-categories.js',
+  '/icon-192.png',
+  '/icon-512.png'
 ];
 
 // Install: cache core shell
