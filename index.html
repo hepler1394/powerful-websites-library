@@ -76,6 +76,18 @@
       padding: 0
     }
 
+    /* Critical safety net: keep the tap-to-open card sheet hidden and its icons
+       sized even before mobile.css loads, so it can't flash full-screen with a
+       ballooned "Visit Site" icon on first paint. */
+    .card-sheet {
+      transform: translateY(100%);
+    }
+
+    .card-sheet svg {
+      width: 18px;
+      height: 18px;
+    }
+
     ::-webkit-scrollbar {
       width: 10px;
       height: 10px;
@@ -4888,7 +4900,7 @@
     <div class="card-sheet-actions">
       <a class="card-sheet-visit" id="csVisit" href="#" target="_blank" rel="noopener">
         Visit Site
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+        <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5">
           <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6M15 3h6v6M10 14L21 3" />
         </svg>
       </a>
