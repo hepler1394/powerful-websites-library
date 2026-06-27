@@ -316,3 +316,11 @@ window.DATA.push(
         ]
     }
 );
+
+// Mirror these categories into the main DATA array the renderer + merge-categories.js
+// use (data-extra-3..10 push into DATA directly). Without this, data-extra-2's sites
+// only lived in window.DATA and never rendered — and the MERGE map entries for them
+// (game-emulators→gaming, books-reading→learning, etc.) were dead no-ops.
+if (typeof DATA !== 'undefined') {
+    window.DATA.forEach(function (cat) { DATA.push(cat); });
+}

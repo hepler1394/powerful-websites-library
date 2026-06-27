@@ -190,6 +190,12 @@
         });
     });
 
+    // ─── Unify the global reference ───
+    // Several features (search, Surprise Me, dashboard, footer count, title ticker)
+    // historically read window.DATA, which was a stale 14-category snapshot from
+    // data-extra-2.js. Point it at the final merged array so they see every site.
+    window.DATA = DATA;
+
     // ─── Debug log ───
     console.log('[merge-categories] Final: ' + DATA.length + ' categories, ' +
         DATA.reduce(function (sum, c) { return sum + c.sites.length; }, 0) + ' total sites' +
