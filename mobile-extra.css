@@ -3447,10 +3447,8 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     .card-name {
         font-size: .92rem;
     }
-    .section-tab {
-        padding: 6px 10px;
-        font-size: .7rem;
-    }
+    /* .section-tab base styling consolidated into index.html inline <style>
+       (this ≤360 override was dead — the inline rules win by source order). */
     .nav-btn {
         padding: 6px 11px;
         font-size: .72rem;

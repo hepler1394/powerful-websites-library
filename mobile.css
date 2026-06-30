@@ -299,32 +299,13 @@
     display: none;
   }
 
-  .section-tab {
-    flex-shrink: 1;
-    padding: 8px 18px;
-    /* 44px min tap target (Apple/Google); content stays centered */
-    min-height: 44px;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    box-sizing: border-box;
-    font-size: .8rem;
-    border-radius: 50px;
-    border: 1.5px solid var(--border);
-    white-space: nowrap;
-    background: var(--card);
-    color: var(--text-muted);
-    font-weight: 600;
-    transition: all .2s;
-    cursor: pointer;
-  }
+  /* NOTE: base .section-tab styling lives in the inline <style> in index.html
+     (the inline rules win by source order, so the duplicate that used to be
+     here was dead). Kept out to avoid the 3-file scatter that made tab tweaks
+     error-prone. The .active / [data-theme] tab rules below are still live. */
 
   /* Extra tight on very small phones (iPhone SE, 320px) */
   @media (max-width: 380px) {
-    .section-tab {
-      padding: 6px 12px;
-      font-size: .73rem;
-    }
     .hero h1 {
       font-size: clamp(1.4rem, 6.5vw, 2rem);
     }
