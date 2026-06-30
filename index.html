@@ -4211,6 +4211,16 @@
       will-change: auto;
     }
 
+    /* Mobile: drop the per-card badge blur (~1,090 GPU layers) so scrolling
+       the full catalog stays smooth on phones. The badge keeps its background
+       tint, so there is no visible change — just far less work per frame. */
+    @media (max-width: 768px) {
+      .badge-verified {
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+      }
+    }
+
     /* ── MISC FIXES ───────────────────────────────────────────────────── */
 
     /* Fix duplicate justify-content on section-tabs */
@@ -4497,7 +4507,12 @@
       padding-left: 12px;
     }
 
-    /* D5: Better badge contrast */
+    /* D5: Better badge contrast (desktop).
+       backdrop-filter is one of the most GPU-expensive properties, and every
+       card carries a .badge-verified (~1,090 of them) = ~1,090 live blur
+       layers. That's fine on desktop GPUs but tanks scroll FPS on phones for
+       zero visual gain (the badge already has its own background tint), so it
+       is removed at the mobile breakpoint below. */
     .badge-verified {
       backdrop-filter: blur(4px);
     }
