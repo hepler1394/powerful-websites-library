@@ -816,6 +816,13 @@
       white-space: nowrap;
       flex-shrink: 0;
       padding: 10px 24px;
+      /* Guarantee a 44px tap target (Apple/Google min) without changing the
+         visual height much — content stays vertically centered. */
+      min-height: 44px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
       border-radius: 50px;
       font-size: .88rem;
       font-weight: 700;
@@ -2371,7 +2378,8 @@
         flex-shrink: 0;
         padding: 8px 14px;
         font-size: .75rem;
-        min-height: 38px;
+        /* 44px min tap target (Apple/Google); content centered via flex above */
+        min-height: 44px;
         -webkit-tap-highlight-color: transparent;
         touch-action: manipulation
       }
@@ -4187,6 +4195,13 @@
     }
 
     /* ── BATCH 12: PERFORMANCE OPTIMISATIONS ─────────────────────────── */
+
+    /* Kill the default blue tap-flash globally for a native-app feel.
+       -webkit-tap-highlight-color is inherited, so setting it on html
+       cascades to every element that doesn't already override it. */
+    html {
+      -webkit-tap-highlight-color: transparent;
+    }
 
     /* content-visibility on off-screen category sections */
     .category-section {
@@ -6527,7 +6542,7 @@
         updateNavButtons();
         piracyWarning.classList.remove('visible');
       }
-      applyFilters();
+      scheduleFilters();
     });
 
     function getDidYouMean(query) {
@@ -6631,6 +6646,16 @@
         }
       }
       return lower;
+    }
+
+    // Debounced wrapper for keystroke-driven filtering. applyFilters() loops
+    // every card in the DOM, so running it on each keystroke caused typing lag
+    // on low-end phones. Coalesce rapid input into one pass. Direct callers
+    // (tab/nav clicks) still call applyFilters() for instant response.
+    let _filterDebounce;
+    function scheduleFilters(delay = 150) {
+      clearTimeout(_filterDebounce);
+      _filterDebounce = setTimeout(applyFilters, delay);
     }
 
     function applyFilters() {

@@ -302,6 +302,12 @@
   .section-tab {
     flex-shrink: 1;
     padding: 8px 18px;
+    /* 44px min tap target (Apple/Google); content stays centered */
+    min-height: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    box-sizing: border-box;
     font-size: .8rem;
     border-radius: 50px;
     border: 1.5px solid var(--border);
