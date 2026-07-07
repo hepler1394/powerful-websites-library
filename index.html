@@ -7670,12 +7670,19 @@
         banner.classList.remove('show');
         return;
       }
-      // Show banner after 8 seconds of browsing
-      setTimeout(() => {
-        if (!window._authUser && localStorage.getItem('guestBannerDismissed') !== 'true') {
-          banner.classList.add('show');
+      // Show banner after 8 seconds of browsing — but never on top of the
+      // onboarding checklist (they stacked on phones). If the checklist is
+      // open, retry every 10s until it's dismissed.
+      function tryShowBanner() {
+        if (window._authUser || localStorage.getItem('guestBannerDismissed') === 'true') return;
+        const ob = document.getElementById('onboardingChecklist');
+        if (ob && ob.classList.contains('show')) {
+          setTimeout(tryShowBanner, 10000);
+          return;
         }
-      }, 8000);
+        banner.classList.add('show');
+      }
+      setTimeout(tryShowBanner, 8000);
     }
 
     function dismissGuestBanner() {
