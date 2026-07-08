@@ -315,10 +315,10 @@
   }
 
   .section-tab.active {
-    background: linear-gradient(135deg, #dc2626, #ff4444);
+    background: var(--accent);
     color: #fff;
-    border-color: #dc2626;
-    box-shadow: 0 3px 12px rgba(220, 38, 38, .3);
+    border-color: var(--accent);
+    box-shadow: none;
   }
 
   /* Category filter buttons: wrap to show all categories */

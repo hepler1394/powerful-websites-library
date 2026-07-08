@@ -1,71 +1,87 @@
-# Powerful Websites Library — theme.md
+# theme.md — Powerful Free Websites Library
 
-> Design contract for the static catalog (`index.html`, plain HTML/CSS/JS, ~1,090 tools).
-> Source of truth. The de-slop is applied as an override `<style>` layer at the end of
-> `index.html` (last in the cascade) plus an emoji-strip step in `merge-categories.js`.
+The durable design contract. Read before touching the shell/UI. Do **not** edit the
+catalog data (`data-extra-*.js`, the `DATA` array) — this file governs the *shell*.
 
-## Scene
+> History: a 2026-07-07 pass wrote de-slop intentions here but never actually shipped
+> them — a trailing `<style id="glass-overhaul-v2">` block (last in the cascade, all
+> `!important`) re-added the aurora + glassmorphism onto the default dark theme, and the
+> Gemini ring / gradient text / emoji tabs were still live. The `antislop-2026-07` pass
+> below is the one that was actually implemented and verified in the browser.
 
-Someone hunting for the right free tool among a thousand — scanning, comparing, clicking
-through. The site is a **reference directory / almanac**: its job is to get out of the way
-and let the *content* (the tools) be the interface. It should feel like a well-kept catalog,
-not a carnival. Dark is fine (it reads as a "power-user tools" index), but calm and unified.
+---
 
-## Identity in one line
+## Scene sentence
 
-**A clean, calm reference directory — one confident red, content-first, no carnival.**
+It's 1 a.m. A power user is hunched over a dark screen hunting the one free tool that
+does the thing — a no-signup AI, a way past a paywall, a stream. This site is their
+**reference desk for the free web**: a plain, fast, faintly clandestine card catalog of
+"sites that feel illegal to know." A librarian's index, not a SaaS landing page. It
+should feel like a tool a power user keeps bookmarked, not a product being sold to them.
 
-The old look piled on every 2023 tell at once: a spinning rainbow "Gemini" ring around
-search, aurora blobs, gradient-clipped headline, **emoji category icons**, and a different
-neon **gradient "Visit" button per category** (cyan, magenta, purple, gold, green). That
-rainbow *is* the slop. Unify everything under one accent; let the cards carry the interest.
+## Identity — "The Index"
 
-## Color — strategy: Restrained (neutral surfaces + ONE accent)
+Utilitarian dark catalog. The distinctive axis is **typographic, not chromatic**:
+metadata (counts, category labels, tags, the badge line) is set in a **monospace** —
+read it as the call-numbers of a card catalog — while site names and prose stay in a
+clean sans. Category identity is carried by a **line icon + a mono label**, never by
+color. Exactly one accent color, and it earns its keep.
 
-Keep the existing dark neutral scale; **collapse the per-category rainbow to a single red.**
+Color strategy: **Restrained → Committed.** Near-black flat ground, one red accent used
+only for the active state, primary action, focus ring, and the live indicator. No
+rainbow, no glow, no glass.
 
-| Role | Token | Value |
-|---|---|---|
-| Page bg | `--bg` | `#0a0a0a` |
-| Section bg | `--bg2` | `#0e0e0e` |
-| Surface | `--surface` | `#141414` |
-| Card | `--card` / hover | `#1a1a1a` / `#222` |
-| Border | `--border` | `rgba(255,255,255,.06)` |
-| Ink | `--text` | `#e8e8f0` |
-| Muted | `--text-muted` | `#8a8a9a` |
-| **Accent** | `--accent` | `#dc2626` — THE single signal (visit buttons, active state, focus) |
+## Color tokens (OKLCH; hex is the shipped value; dark is the default theme)
 
-Per-category colors survive **only** as small informational tag/dot hints — never as gradient
-buttons, glowing card stripes, or hover blooms.
+| Role            | Hex        | OKLCH (approx)           | Use |
+|-----------------|------------|--------------------------|-----|
+| `--bg`          | `#0a0a0a`  | `oklch(0.178 0 0)`       | page ground — flat, no aurora |
+| `--surface`     | `#141414`  | `oklch(0.221 0 0)`       | nav, panels |
+| `--card`        | `#1a1a1a`  | `oklch(0.257 0 0)`       | card fill — opaque, no glass |
+| `--card-hover`  | `#222222`  | `oklch(0.293 0 0)`       | card hover fill |
+| `--border`      | `rgba(255,255,255,.06)` | —           | hairlines |
+| `--text`        | `#e8e8f0`  | `oklch(0.930 0.008 286)` | body / names — ~13:1 on bg |
+| `--text-muted`  | `#9a9aac`  | `oklch(0.680 0.014 286)` | secondary — ~5:1 on bg |
+| `--accent`      | `#dc2626`  | `oklch(0.577 0.222 27)`  | THE accent — active, primary, focus, live |
 
-## The de-slop rules (applied 2026-07-07)
+`--text-muted` was lifted from `#8a8a9a` → `#9a9aac` to clear 4.5:1 for body text.
+Every category token (`--piracy-accent`, `--llm-accent`, …) is collapsed to `--accent`
+/ `--accent-glow`. They still exist so downstream rules resolve, but they no longer
+paint a rainbow. **Do not reintroduce per-category hues.**
 
-- **No spinning rainbow ring** on search — `.search-wrap` is a plain bordered field.
-- **No aurora** — `body::before` / `.hero::before` blob layers off.
-- **No gradient text** — hero H1, hero stats, and modal headings render solid `--text`.
-- **One button style** — `.btn-visit` is solid `--accent`; every per-category gradient override
-  is neutralized.
-- **No gradient card top-stripes**, **no per-category hover glows** — flat cards, hairline
-  borders, a single neutral hover shadow.
-- **No emoji icons** — category `icon` fields are stripped in `merge-categories.js`; category
-  headers are clean text. (Real SVG category icons could be added later if desired.)
-- Eyebrows/tags sentence-case, not uppercase-tracked.
+## Type
 
-## Typography
+- **Sans:** Inter (400–900). Site names, descriptions, prose, headings.
+- **Mono:** JetBrains Mono (400/500/700), var `--mono`. Counts, category/section labels,
+  tags, hero badge line, the "N websites" figure. This IS the brand signal.
+- Hero `h1`: solid `--text` (no gradient text), `clamp(2.2rem,5.5vw,3.8rem)`, weight
+  900, `letter-spacing:-0.02em`, `text-wrap:balance`.
+- Prose capped ~68ch. Modest scale (product register) — don't shout.
 
-Inter (already loaded). Headings solid, weight 700–800 is fine for a dense index; keep
-`clamp()` sizing but **no gradient clip**. Body ≥4.5:1.
+## Icon rule (hard)
 
-## Icons
+**Never emoji as icons in shipped UI.** Every category tab, hero stat, and control uses
+an inline `<svg>` line icon: `viewBox="0 0 24 24"`, `fill="none"`,
+`stroke="currentColor"`, `stroke-width="2"`, ~15px. Icons inherit `currentColor`, so
+they follow the one-accent system. Card favicons are real site logos (Google s2) — they
+stay; they are not decorative emoji.
 
-No emoji. If icons return, one line-icon set, `currentColor`, sized to text. The favicon
-thumbnails on each tool card are real and stay.
+## Motion
 
-## Banned here
-
-Rainbow per-category accents · spinning conic "Gemini" ring · aurora blobs · gradient text ·
-per-category gradient buttons · gradient card stripes · per-category hover glows · emoji icons.
+- Purposeful only. 150–250ms, ease-out. State/feedback, not choreography.
+- No aurora, no spinning conic rings, no infinite background animation.
+- The one persistent motion allowed: the small green "live" pulse dot (identity).
+- Every animation needs a `@media (prefers-reduced-motion: reduce)` fallback.
 
 ## Voice
 
-Plain and useful. "1,090 free tools." Describe what each tool does; skip the hype.
+Plain, confident, a little insider. "1,090+ websites that feel illegal to know." Short.
+No marketing throat-clearing. Counts stated flatly, like a catalog: `204 free tools`.
+
+## Banned (match-and-refuse)
+
+neon / glow; gradient text (`background-clip:text` + gradient); glassmorphism as the
+default surface; emoji-as-icons; colored/gradient buttons as the default; per-category
+rainbow color; aurora / full-screen animated background; spinning conic "Gemini" search
+ring; uppercase tracked eyebrows on every section; 01/02/03 numbered scaffolding;
+side-stripe (`border-left/right` >1px) accents; cream/sand/beige body bg.

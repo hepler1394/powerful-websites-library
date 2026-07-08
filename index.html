@@ -66,7 +66,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap">
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZGMyNjI2Ii8+PHBvbHlnb24gcG9pbnRzPSIzNSwyNSA3NSw1MCAzNSw3NSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
   <title>Powerful Free Websites Library</title>
@@ -130,6 +130,9 @@
     /* ===== THEME VARIABLES ===== */
     :root {
       --transition-theme: .4s cubic-bezier(.4, 0, .2, 1);
+      /* Catalog "call-number" monospace — the identity axis. Used for counts,
+         category/section labels, tags, the hero badge line. */
+      --mono: 'JetBrains Mono', ui-monospace, 'SF Mono', 'SFMono-Regular', Menlo, Consolas, monospace;
     }
 
     [data-theme="dark"] {
@@ -141,8 +144,8 @@
       --border: rgba(255, 255, 255, .06);
       --border-hover: rgba(220, 38, 38, .4);
       --text: #e8e8f0;
-      --text-muted: #8a8a9a;
-      --text-dim: #55556a;
+      --text-muted: #9a9aac;
+      --text-dim: #6a6a80;
       --accent: #dc2626;
       --accent-glow: rgba(220, 38, 38, .2);
       --accent2: #ff4444;
@@ -160,28 +163,30 @@
       --hero-bg: linear-gradient(135deg, #0a0a0a 0%, #1a0505 35%, #0a0a0a 65%, #120808 100%);
       --nav-bg: rgba(10, 10, 10, .92);
       --card-gradient: linear-gradient(135deg, rgba(220, 38, 38, .05), rgba(255, 68, 68, .03));
-      --piracy-accent: #ff6b9d;
-      --piracy-glow: rgba(255, 107, 157, .15);
-      --sports-accent: #ffd93d;
-      --sports-glow: rgba(255, 217, 61, .15);
-      --labs-accent: #4285f4;
-      --labs-glow: rgba(66, 133, 244, .2);
-      --agent-accent: #00e5ff;
-      --agent-glow: rgba(0, 229, 255, .15);
-      --vpn-accent: #10b981;
-      --vpn-glow: rgba(16, 185, 129, .15);
-      --llm-accent: #a855f7;
-      --llm-glow: rgba(168, 85, 247, .15);
-      --edu-accent: #f59e0b;
-      --edu-glow: rgba(245, 158, 11, .15);
-      --privacy-accent: #06b6d4;
-      --privacy-glow: rgba(6, 182, 212, .15);
-      --adblock-accent: #ef4444;
-      --adblock-glow: rgba(239, 68, 68, .15);
-      --creator-accent: #ec4899;
-      --creator-glow: rgba(236, 72, 153, .15);
-      --podcast-accent: #8b5cf6;
-      --podcast-glow: rgba(139, 92, 246, .15);
+      /* Rainbow collapsed to the single accent (see theme.md). Category identity is
+         carried by the line icon + mono label, never by color. */
+      --piracy-accent: var(--accent);
+      --piracy-glow: var(--accent-glow);
+      --sports-accent: var(--accent);
+      --sports-glow: var(--accent-glow);
+      --labs-accent: var(--accent);
+      --labs-glow: var(--accent-glow);
+      --agent-accent: var(--accent);
+      --agent-glow: var(--accent-glow);
+      --vpn-accent: var(--accent);
+      --vpn-glow: var(--accent-glow);
+      --llm-accent: var(--accent);
+      --llm-glow: var(--accent-glow);
+      --edu-accent: var(--accent);
+      --edu-glow: var(--accent-glow);
+      --privacy-accent: var(--accent);
+      --privacy-glow: var(--accent-glow);
+      --adblock-accent: var(--accent);
+      --adblock-glow: var(--accent-glow);
+      --creator-accent: var(--accent);
+      --creator-glow: var(--accent-glow);
+      --podcast-accent: var(--accent);
+      --podcast-glow: var(--accent-glow);
       --logo-text: #fff;
     }
 
@@ -213,28 +218,28 @@
       --hero-bg: linear-gradient(135deg, #e8ddf0 0%, #d0c0e8 30%, #e8d8f0 65%, #f0e8f8 100%);
       --nav-bg: rgba(230, 220, 240, .95);
       --card-gradient: linear-gradient(135deg, rgba(180, 30, 30, .05), rgba(200, 50, 50, .03));
-      --piracy-accent: #e84393;
-      --piracy-glow: rgba(232, 67, 147, .1);
-      --sports-accent: #d97706;
-      --sports-glow: rgba(217, 119, 6, .1);
-      --labs-accent: #2563eb;
-      --labs-glow: rgba(37, 99, 235, .12);
-      --agent-accent: #0891b2;
-      --agent-glow: rgba(8, 145, 178, .1);
-      --vpn-accent: #059669;
-      --vpn-glow: rgba(5, 150, 105, .1);
-      --llm-accent: #7c3aed;
-      --llm-glow: rgba(124, 58, 237, .12);
-      --edu-accent: #b45309;
-      --edu-glow: rgba(180, 83, 9, .1);
-      --privacy-accent: #0369a1;
-      --privacy-glow: rgba(3, 105, 161, .1);
-      --adblock-accent: #dc2626;
-      --adblock-glow: rgba(220, 38, 38, .1);
-      --creator-accent: #be185d;
-      --creator-glow: rgba(190, 24, 93, .1);
-      --podcast-accent: #6d28d9;
-      --podcast-glow: rgba(109, 40, 217, .1);
+      --piracy-accent: var(--accent);
+      --piracy-glow: var(--accent-glow);
+      --sports-accent: var(--accent);
+      --sports-glow: var(--accent-glow);
+      --labs-accent: var(--accent);
+      --labs-glow: var(--accent-glow);
+      --agent-accent: var(--accent);
+      --agent-glow: var(--accent-glow);
+      --vpn-accent: var(--accent);
+      --vpn-glow: var(--accent-glow);
+      --llm-accent: var(--accent);
+      --llm-glow: var(--accent-glow);
+      --edu-accent: var(--accent);
+      --edu-glow: var(--accent-glow);
+      --privacy-accent: var(--accent);
+      --privacy-glow: var(--accent-glow);
+      --adblock-accent: var(--accent);
+      --adblock-glow: var(--accent-glow);
+      --creator-accent: var(--accent);
+      --creator-glow: var(--accent-glow);
+      --podcast-accent: var(--accent);
+      --podcast-glow: var(--accent-glow);
       --logo-text: #111122;
     }
 
@@ -273,28 +278,28 @@
       --hero-bg: transparent;
       --nav-bg: rgba(0, 0, 0, 0.4);
       --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-      --piracy-accent: #ff375f;
-      --piracy-glow: rgba(255, 55, 95, 0.2);
-      --sports-accent: #ff9500;
-      --sports-glow: rgba(255, 149, 0, 0.2);
-      --labs-accent: #bc73ff;
-      --labs-glow: rgba(94, 92, 230, 0.2);
-      --agent-accent: #30d158;
-      --agent-glow: rgba(48, 209, 88, 0.2);
-      --vpn-accent: #64d2ff;
-      --vpn-glow: rgba(100, 210, 255, 0.2);
-      --llm-accent: #bf5af2;
-      --llm-glow: rgba(191, 90, 242, 0.2);
-      --edu-accent: #ffd60a;
-      --edu-glow: rgba(255, 214, 10, 0.2);
-      --privacy-accent: #0fbc8c;
-      --privacy-glow: rgba(15, 188, 140, 0.2);
-      --adblock-accent: #ff453a;
-      --adblock-glow: rgba(255, 69, 58, 0.2);
-      --creator-accent: #ff2d55;
-      --creator-glow: rgba(255, 45, 85, 0.2);
-      --podcast-accent: #32ade6;
-      --podcast-glow: rgba(50, 173, 230, 0.2);
+      --piracy-accent: var(--accent);
+      --piracy-glow: var(--accent-glow);
+      --sports-accent: var(--accent);
+      --sports-glow: var(--accent-glow);
+      --labs-accent: var(--accent);
+      --labs-glow: var(--accent-glow);
+      --agent-accent: var(--accent);
+      --agent-glow: var(--accent-glow);
+      --vpn-accent: var(--accent);
+      --vpn-glow: var(--accent-glow);
+      --llm-accent: var(--accent);
+      --llm-glow: var(--accent-glow);
+      --edu-accent: var(--accent);
+      --edu-glow: var(--accent-glow);
+      --privacy-accent: var(--accent);
+      --privacy-glow: var(--accent-glow);
+      --adblock-accent: var(--accent);
+      --adblock-glow: var(--accent-glow);
+      --creator-accent: var(--accent);
+      --creator-glow: var(--accent-glow);
+      --podcast-accent: var(--accent);
+      --podcast-glow: var(--accent-glow);
       --logo-text: #fff;
     }
 
@@ -524,13 +529,10 @@
     .hero::before {
       content: '';
       position: absolute;
-      top: -50%;
-      left: -50%;
-      width: 200%;
-      height: 200%;
-      background: radial-gradient(circle at 30% 50%, rgba(220, 38, 38, .1) 0%, transparent 50%),
-        radial-gradient(circle at 70% 50%, rgba(255, 68, 68, .06) 0%, transparent 50%);
-      animation: heroFloat 20s ease-in-out infinite;
+      inset: 0;
+      /* Single static, restrained wash — no aurora, no animation. */
+      background: radial-gradient(120% 90% at 50% -10%, rgba(220, 38, 38, .07) 0%, transparent 60%);
+      pointer-events: none;
     }
 
     .hero::after {
@@ -613,30 +615,28 @@
 
     .hero-badge {
       display: inline-block;
-      padding: 6px 20px;
-      border-radius: 50px;
+      padding: 6px 16px;
+      border-radius: 6px;
+      font-family: var(--mono);
       font-size: .72rem;
-      font-weight: 700;
-      letter-spacing: 2px;
-      text-transform: uppercase;
-      background: rgba(220, 38, 38, .12);
+      font-weight: 500;
+      letter-spacing: .2px;
+      text-transform: none;
+      background: rgba(220, 38, 38, .1);
       color: var(--accent);
       border: 1px solid rgba(220, 38, 38, .25);
       margin-bottom: 28px;
-      backdrop-filter: blur(10px);
     }
 
     .hero h1 {
       font-size: clamp(2.2rem, 5.5vw, 3.8rem);
       font-weight: 900;
-      background: linear-gradient(135deg, #e8e8f0 0%, #dc2626 50%, #ff4444 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
-      line-height: 1.15;
+      color: var(--text);
+      line-height: 1.12;
       margin-bottom: 20px;
       padding-bottom: 4px;
-      letter-spacing: -1px;
+      letter-spacing: -.02em;
+      text-wrap: balance;
     }
 
     .hero p {
@@ -675,81 +675,51 @@
     .hero-stat .num {
       font-size: 2.2rem;
       font-weight: 900;
-      background: linear-gradient(135deg, #ff4444, #dc2626);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--accent);
+      display: inline-flex;
     }
 
     .hero-stat .label {
-      font-size: .75rem;
+      font-family: var(--mono);
+      font-size: .72rem;
       color: var(--text-muted);
-      text-transform: uppercase;
-      letter-spacing: 1.5px;
-      margin-top: 4px
+      text-transform: none;
+      letter-spacing: .2px;
+      margin-top: 6px
     }
 
-    /* ===== SEARCH — GEMINI-STYLE RING ===== */
-
-    /* Register the animatable angle property */
-    @property --gemini-angle {
-      syntax: '<angle>';
-      initial-value: 0deg;
-      inherits: false;
-    }
-
-    /* Spin the gradient angle */
-    @keyframes geminiSpin {
-      to {
-        --gemini-angle: 360deg;
-      }
-    }
-
-    /* Pulse the outer glow */
-    @keyframes geminiPulse {
-
-      0%,
-      100% {
-        filter: drop-shadow(0 0 4px rgba(0, 212, 200, .5)) drop-shadow(0 0 10px rgba(168, 85, 247, .3));
-      }
-
-      50% {
-        filter: drop-shadow(0 0 8px rgba(0, 255, 180, .9)) drop-shadow(0 0 20px rgba(168, 85, 247, .6)) drop-shadow(0 0 30px rgba(56, 189, 248, .3));
-      }
-    }
+    /* ===== SEARCH — plain bordered field (no spinning ring) ===== */
 
     .search-wrap {
       max-width: 580px;
       margin: 36px auto 0;
       position: relative;
-      padding: 2px;
-      border-radius: 53px;
-      /* Always-on subtle ring */
-      background: conic-gradient(from var(--gemini-angle),
-          #00d4c8 0%,
-          #22c55e 20%,
-          #a855f7 45%,
-          #38bdf8 65%,
-          #00d4c8 100%);
-      animation:
-        geminiSpin 12s linear infinite,
-        geminiPulse 8s ease-in-out infinite;
+      padding: 0;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: var(--card);
+      transition: border-color .2s ease, box-shadow .2s ease;
     }
 
-    /* Ring speed is constant — :focus-within deliberately has no overrides */
+    .search-wrap:focus-within {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px rgba(220, 38, 38, .16);
+    }
+
+    .search-wrap svg {
+      color: var(--text-muted);
+    }
 
     .search-wrap input {
       width: 100%;
-      padding: 16px 20px 16px 52px;
-      border-radius: 50px;
+      padding: 15px 20px 15px 52px;
+      border-radius: 12px;
       border: none;
-      /* !important prevents any external CSS from making it transparent */
-      background: #1a1a1a !important;
+      background: transparent !important;
       color: var(--text);
       font-size: 1rem;
       outline: none;
       transition: color .3s;
-      /* No backdrop-filter — causes bleed-through on glass theme */
     }
 
     /* Light theme: visible light interior */
@@ -818,7 +788,8 @@
     .section-tab {
       white-space: nowrap;
       flex-shrink: 0;
-      padding: 10px 24px;
+      gap: 7px;
+      padding: 10px 18px;
       /* Guarantee a 44px tap target (Apple/Google min) without changing the
          visual height much — content stays vertically centered. */
       min-height: 44px;
@@ -826,119 +797,47 @@
       align-items: center;
       justify-content: center;
       box-sizing: border-box;
-      border-radius: 50px;
-      font-size: .88rem;
-      font-weight: 700;
+      border-radius: 8px;
+      font-family: var(--mono);
+      font-size: .8rem;
+      font-weight: 500;
       border: 1px solid var(--border);
       background: transparent;
-      color: var(--text);
+      color: var(--text-muted);
       cursor: pointer;
-      transition: all .25s;
-      letter-spacing: .3px;
+      transition: color .2s ease, border-color .2s ease, background .2s ease;
+      letter-spacing: 0;
       -webkit-tap-highlight-color: transparent;
       touch-action: manipulation;
     }
 
+    .section-tab svg {
+      width: 15px;
+      height: 15px;
+      flex-shrink: 0;
+      color: var(--text-dim);
+    }
+
     .section-tab:hover {
-      border-color: var(--accent);
+      border-color: var(--border-hover);
       color: var(--text);
-      background: rgba(220, 38, 38, .08)
+      background: rgba(220, 38, 38, .06)
     }
 
+    .section-tab:hover svg {
+      color: var(--accent);
+    }
+
+    /* One accent for every active tab — category identity is the icon + label,
+       not a color. (Rainbow per-tab states removed; see theme.md.) */
     .section-tab.active {
-      color: #fff
-    }
-
-    .section-tab[data-section="top"].active {
-      background: linear-gradient(135deg, #dc2626, #ff4444);
-      border-color: #dc2626;
-      box-shadow: 0 2px 12px rgba(220, 38, 38, .3)
-    }
-
-    .section-tab[data-section="all"].active {
-      background: linear-gradient(135deg, #dc2626, #b91c1c);
-      border-color: #dc2626;
-      box-shadow: 0 2px 12px rgba(220, 38, 38, .3)
-    }
-
-    .section-tab[data-section="free"].active {
       background: var(--accent);
       border-color: var(--accent);
-      box-shadow: 0 2px 12px var(--accent-glow)
-    }
-
-    .section-tab[data-section="piracy"].active {
-      background: var(--piracy-accent);
-      border-color: var(--piracy-accent);
-      box-shadow: 0 2px 12px var(--piracy-glow)
-    }
-
-    .section-tab[data-section="sports"].active {
-      background: var(--sports-accent);
-      border-color: var(--sports-accent);
-      color: #1a1a2e;
-      box-shadow: 0 2px 12px var(--sports-glow)
-    }
-
-    .section-tab[data-section="labs"].active {
-      background: var(--labs-accent);
-      border-color: var(--labs-accent);
-      box-shadow: 0 2px 12px var(--labs-glow)
-    }
-
-    .section-tab[data-section="agent"].active {
-      background: var(--agent-accent);
-      border-color: var(--agent-accent);
-      color: #1a1a2e;
-      box-shadow: 0 2px 12px var(--agent-glow)
-    }
-
-    .section-tab[data-section="llm"].active {
-      background: var(--llm-accent);
-      border-color: var(--llm-accent);
-      box-shadow: 0 2px 12px var(--llm-glow)
-    }
-
-    .section-tab[data-section="vpn"].active {
-      background: var(--vpn-accent);
-      border-color: var(--vpn-accent);
       color: #fff;
-      box-shadow: 0 2px 12px var(--vpn-glow)
     }
 
-    .section-tab[data-section="edu"].active {
-      background: var(--edu-accent);
-      border-color: var(--edu-accent);
-      color: #1a1a2e;
-      box-shadow: 0 2px 12px var(--edu-glow)
-    }
-
-    .section-tab[data-section="privacy"].active {
-      background: var(--privacy-accent);
-      border-color: var(--privacy-accent);
+    .section-tab.active svg {
       color: #fff;
-      box-shadow: 0 2px 12px var(--privacy-glow)
-    }
-
-    .section-tab[data-section="adblock"].active {
-      background: var(--adblock-accent);
-      border-color: var(--adblock-accent);
-      color: #fff;
-      box-shadow: 0 2px 12px var(--adblock-glow)
-    }
-
-    .section-tab[data-section="creator"].active {
-      background: var(--creator-accent);
-      border-color: var(--creator-accent);
-      color: #fff;
-      box-shadow: 0 2px 12px var(--creator-glow)
-    }
-
-    .section-tab[data-section="podcast"].active {
-      background: var(--podcast-accent);
-      border-color: var(--podcast-accent);
-      color: #fff;
-      box-shadow: 0 2px 12px var(--podcast-glow)
     }
 
     /* ===== DISCLAIMER ===== */
@@ -1456,51 +1355,46 @@
     }
 
     .cat-icon {
-      font-size: 1.8rem
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 34px;
+      height: 34px;
+      flex-shrink: 0;
+      border-radius: 8px;
+      background: rgba(220, 38, 38, .1);
+      color: var(--accent);
     }
+
+    .cat-icon svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    .cat-icon:empty { display: none }
 
     .cat-title {
       font-size: 1.5rem;
       font-weight: 800;
-      letter-spacing: -.3px
+      letter-spacing: -.02em
     }
 
-    .cat-count {
-      margin-left: auto;
-      padding: 4px 14px;
-      border-radius: 50px;
-      font-size: .75rem;
-      font-weight: 700;
-    }
-
-    .cat-count.free-count {
-      background: rgba(124, 108, 240, .1);
-      color: var(--accent)
-    }
-
-    .cat-count.piracy-count {
-      background: var(--piracy-glow);
-      color: var(--piracy-accent)
-    }
-
-    .cat-count.sports-count {
-      background: var(--sports-glow);
-      color: var(--sports-accent)
-    }
-
-    .cat-count.labs-count {
-      background: var(--labs-glow);
-      color: var(--labs-accent)
-    }
-
-    .cat-count.agent-count {
-      background: var(--agent-glow);
-      color: var(--agent-accent)
-    }
-
+    /* Count chips are catalog "call numbers" — one neutral mono style for all. */
+    .cat-count,
+    .cat-count.free-count,
+    .cat-count.piracy-count,
+    .cat-count.sports-count,
+    .cat-count.labs-count,
+    .cat-count.agent-count,
     .cat-count.llm-count {
-      background: var(--llm-glow);
-      color: var(--llm-accent)
+      margin-left: auto;
+      padding: 4px 12px;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: .72rem;
+      font-weight: 500;
+      background: rgba(255, 255, 255, .05);
+      color: var(--text-muted);
     }
 
     .cat-desc {
@@ -1536,10 +1430,10 @@
       top: 0;
       left: 0;
       right: 0;
-      height: 3px;
-      background: linear-gradient(90deg, var(--accent), var(--accent2));
+      height: 2px;
+      background: var(--accent);
       opacity: 0;
-      transition: opacity .3s;
+      transition: opacity .25s;
     }
 
     .card:hover {
@@ -1712,14 +1606,15 @@
 
     .card-tag {
       flex-shrink: 0;
-      padding: 3px 10px;
-      border-radius: 50px;
-      font-size: .65rem;
-      font-weight: 700;
-      text-transform: uppercase;
-      letter-spacing: .5px;
-      background: rgba(0, 212, 200, .1);
-      color: var(--accent2);
+      padding: 3px 8px;
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: .66rem;
+      font-weight: 500;
+      text-transform: none;
+      letter-spacing: 0;
+      background: rgba(255, 255, 255, .05);
+      color: var(--text-muted);
     }
 
     .card-desc {
@@ -1814,20 +1709,20 @@
       align-items: center;
       gap: 6px;
       padding: 10px 18px;
-      border-radius: var(--radius-sm);
+      border-radius: 8px;
       font-size: .84rem;
       font-weight: 600;
-      background: linear-gradient(135deg, var(--accent), #b91c1c);
+      background: var(--accent);
       color: #fff;
       border: none;
       cursor: pointer;
-      transition: all .25s;
+      transition: background .2s ease, transform .2s ease;
       text-decoration: none;
     }
 
     .btn-visit:hover {
+      background: #b91c1c;
       transform: translateY(-1px);
-      box-shadow: 0 4px 16px var(--accent-glow);
       color: #fff
     }
 
@@ -2661,10 +2556,8 @@
       font-size: 1.5rem;
       font-weight: 900;
       margin-bottom: 6px;
-      background: linear-gradient(135deg, var(--text) 0%, var(--accent) 100%);
-      -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent;
-      background-clip: text;
+      color: var(--text);
+      letter-spacing: -.01em;
     }
 
     .auth-modal .auth-sub {
@@ -5004,23 +4897,22 @@
       <p class="hero-credit">Proudly built with source data, deep research &amp; <a href="https://manus.ai"
           target="_blank" rel="noopener noreferrer">Manus.AI</a> — Yours truly, CH &nbsp;·&nbsp;
         <button onclick="loadSurpriseMe()"
-          style="background:linear-gradient(135deg,var(--accent),#b91c1c);border:none;color:#fff;padding:4px 14px;border-radius:50px;font-size:.75rem;font-weight:700;cursor:pointer;letter-spacing:.5px;transition:all .2s;"
-          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🎲 Surprise
-          Me</button>
+          style="display:inline-flex;align-items:center;gap:6px;vertical-align:middle;background:transparent;border:1px solid var(--border-hover);color:var(--accent);padding:5px 14px;border-radius:8px;font-family:var(--mono);font-size:.74rem;font-weight:500;cursor:pointer;transition:background .2s,border-color .2s;"
+          onmouseover="this.style.background='rgba(220,38,38,.08)'" onmouseout="this.style.background='transparent'"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01"/></svg>Surprise Me</button>
       </p>
       <!-- quick-links removed: hero-stats below now has all 4 navigation items -->
       <div class="hero-stats" aria-label="Library statistics">
         <div class="hero-stat"><a href="best-practices.html" style="text-decoration:none;color:inherit">
-            <div class="num" style="font-size:1.6rem">🛡</div>
+            <div class="num" style="font-size:1.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="m9 12 2 2 4-4"/></svg></div>
             <div class="label">Best Practices</div>
           </a></div>
         <div class="hero-stat auth-restricted" style="display:none;"><a href="tools.html"
             style="text-decoration:none;color:inherit">
-            <div class="num" style="font-size:1.6rem">🛠️</div>
+            <div class="num" style="font-size:1.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle"><path d="M14.7 6.3a4 4 0 0 0-5.4 5.4L3 18v3h3l6.3-6.3a4 4 0 0 0 5.4-5.4l-2.5 2.5-2.4-.6-.6-2.4z"/></svg></div>
             <div class="label">Site Tools</div>
           </a></div>
         <div class="hero-stat"><a href="faq.html" style="text-decoration:none;color:inherit">
-            <div class="num" style="font-size:1.6rem">❓</div>
+            <div class="num" style="font-size:1.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle"><circle cx="12" cy="12" r="10"/><path d="M9.1 9a3 3 0 0 1 5.8 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg></div>
             <div class="label">FAQ &amp; Help</div>
           </a></div>
         <div class="hero-stat" id="heroFavStat"><a href="javascript:void(0)"
@@ -5039,7 +4931,7 @@
         <div class="hero-stat"><a href="javascript:void(0)"
             onclick="setFilter('all');document.querySelectorAll('.section-tab').forEach(t=>t.classList.toggle('active',t.dataset.section==='all'));activeSectionType='all';applyFilters();setTimeout(()=>{const s=document.querySelector('.category-section');if(s){const o=s.getBoundingClientRect().top+window.scrollY-120;window.scrollTo({top:Math.max(0,o),behavior:'smooth'})}},300)"
             style="text-decoration:none;color:inherit">
-            <div class="num" style="font-size:1.6rem">🗂️</div>
+            <div class="num" style="font-size:1.6rem"><svg viewBox="0 0 24 24" width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" style="vertical-align:middle"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/></svg></div>
             <div class="label">All Categories</div>
           </a></div>
       </div>
@@ -5056,23 +4948,23 @@
 
       <!-- SECTION TYPE TABS -->
       <div class="section-tabs" id="sectionTypeTabs">
-        <button class="section-tab active" tabindex="0" data-section="all" id="tabAll">All <span
+        <button class="section-tab active" tabindex="0" data-section="all" id="tabAll"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/></svg>All <span
             id="tabAllCount">1,000+</span></button>
-        <button class="section-tab" tabindex="0" data-section="favorites">❤️ My Favorites <span class="fav-count-badge"
+        <button class="section-tab" tabindex="0" data-section="favorites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>My Favorites <span class="fav-count-badge"
             id="favTabCount">0</span></button>
-        <button class="section-tab" tabindex="0" data-section="top">⭐ Top Picks</button>
-        <button class="section-tab" tabindex="0" data-section="free">&#x2728; Free Tools (204)</button>
-        <button class="section-tab" tabindex="0" data-section="agent">&#x1F916; Agentic Browsers (20)</button>
-        <button class="section-tab" tabindex="0" data-section="llm">&#x1F4AC; LLMs &amp; AI (29)</button>
-        <button class="section-tab" tabindex="0" data-section="labs">&#x1F9EA; Google Labs (20)</button>
-        <button class="section-tab" tabindex="0" data-section="edu">&#x1F393; Educators (20)</button>
-        <button class="section-tab" tabindex="0" data-section="privacy">&#x1F50F; Privacy (24)</button>
-        <button class="section-tab" tabindex="0" data-section="adblock">&#x1F6AB; Ad Blockers (23)</button>
-        <button class="section-tab" tabindex="0" data-section="creator">&#x1F3A8; Creators (27)</button>
-        <button class="section-tab" tabindex="0" data-section="podcast">&#x1F399; Podcasters (20)</button>
-        <button class="section-tab" tabindex="0" data-section="piracy">🏴‍☠️ Movies & TV (50)</button>
-        <button class="section-tab" tabindex="0" data-section="sports">&#x26BD; Sports Streams (20)</button>
-        <button class="section-tab" tabindex="0" data-section="vpn">&#x1F6E1; VPN Services (21)</button>
+        <button class="section-tab" tabindex="0" data-section="top"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>Top Picks</button>
+        <button class="section-tab" tabindex="0" data-section="free"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.2"/></svg>Free Tools (204)</button>
+        <button class="section-tab" tabindex="0" data-section="agent"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="7" width="16" height="12" rx="2"/><path d="M12 3v4M9 12h.01M15 12h.01M9 16h6"/></svg>Agentic Browsers (20)</button>
+        <button class="section-tab" tabindex="0" data-section="llm"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>LLMs &amp; AI (29)</button>
+        <button class="section-tab" tabindex="0" data-section="labs"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 3h6M10 3v6.5L4.8 19a1.4 1.4 0 0 0 1.2 2h12a1.4 1.4 0 0 0 1.2-2L14 9.5V3"/><path d="M7.5 15h9"/></svg>Google Labs (20)</button>
+        <button class="section-tab" tabindex="0" data-section="edu"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/></svg>Educators (20)</button>
+        <button class="section-tab" tabindex="0" data-section="privacy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17.94 17.94A10.07 10.07 0 0 1 12 20C5 20 1 12 1 12a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/></svg>Privacy (24)</button>
+        <button class="section-tab" tabindex="0" data-section="adblock"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/></svg>Ad Blockers (23)</button>
+        <button class="section-tab" tabindex="0" data-section="creator"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18.37 3.63a2.12 2.12 0 0 1 3 3L8 20l-4 1 1-4z"/><path d="M15 5l3 3"/></svg>Creators (27)</button>
+        <button class="section-tab" tabindex="0" data-section="podcast"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8"/></svg>Podcasters (20)</button>
+        <button class="section-tab" tabindex="0" data-section="piracy"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 4v16M17 4v16M2 9h5M2 15h5M17 9h5M17 15h5"/></svg>Movies &amp; TV (50)</button>
+        <button class="section-tab" tabindex="0" data-section="sports"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 3h12v6a6 6 0 0 1-12 0z"/><path d="M9 21h6M12 15v6"/></svg>Sports Streams (20)</button>
+        <button class="section-tab" tabindex="0" data-section="vpn"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>VPN Services (21)</button>
       </div>
     </div>
   </header>
@@ -6196,6 +6088,29 @@
       // Sort sites within each category alphabetically
       DATA.forEach(cat => { if (cat.sites) cat.sites.sort((a, b) => a.n.localeCompare(b.n)); });
 
+      // Category line-icon set (mirrors the section-tab icons). Emoji are never
+      // rendered as icons — see theme.md. Keyed by cat.type.
+      const CAT_ICON_PATHS = {
+        top: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+        piracy: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="M7 4v16M17 4v16M2 9h5M2 15h5M17 9h5M17 15h5"/>',
+        sports: '<path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M6 3h12v6a6 6 0 0 1-12 0z"/><path d="M9 21h6M12 15v6"/>',
+        labs: '<path d="M9 3h6M10 3v6.5L4.8 19a1.4 1.4 0 0 0 1.2 2h12a1.4 1.4 0 0 0 1.2-2L14 9.5V3"/><path d="M7.5 15h9"/>',
+        agent: '<rect x="4" y="7" width="16" height="12" rx="2"/><path d="M12 3v4M9 12h.01M15 12h.01M9 16h6"/>',
+        llm: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+        vpn: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>',
+        edu: '<path d="M22 10 12 5 2 10l10 5 10-5z"/><path d="M6 12v5c0 1 2.7 3 6 3s6-2 6-3v-5"/>',
+        privacy: '<path d="M17.94 17.94A10.07 10.07 0 0 1 12 20C5 20 1 12 1 12a18.5 18.5 0 0 1 5.06-5.94M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19m-6.72-1.07a3 3 0 1 1-4.24-4.24"/><path d="M1 1l22 22"/>',
+        adblock: '<circle cx="12" cy="12" r="10"/><path d="M4.93 4.93l14.14 14.14"/>',
+        creator: '<path d="M18.37 3.63a2.12 2.12 0 0 1 3 3L8 20l-4 1 1-4z"/><path d="M15 5l3 3"/>',
+        podcast: '<rect x="9" y="2" width="6" height="12" rx="3"/><path d="M19 10v2a7 7 0 0 1-14 0v-2M12 19v3M8 22h8"/>',
+        _default: '<path d="M20.59 13.41 13.42 20.58a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><circle cx="7" cy="7" r="1.2"/>'
+      };
+      const LEADING_EMOJI_RE = /^[\p{Emoji_Presentation}\p{Extended_Pictographic}‍️]+\s*/u;
+      function catIconSvg(type) {
+        const p = CAT_ICON_PATHS[type] || CAT_ICON_PATHS._default;
+        return `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${p}</svg>`;
+      }
+
       // Build nav buttons
       DATA.forEach(cat => {
         const btn = document.createElement('button');
@@ -6213,7 +6128,7 @@
         if (cat.type === 'creator') btn.classList.add('creator-btn');
         if (cat.type === 'podcast') btn.classList.add('podcast-btn');
         btn.dataset.filter = cat.id;
-        btn.textContent = (cat.icon ? cat.icon + ' ' : '') + cat.name;
+        btn.textContent = cat.name.replace(LEADING_EMOJI_RE, '');
         btn.addEventListener('click', () => setFilter(cat.id));
         navEl.appendChild(btn);
       });
@@ -6228,7 +6143,7 @@
         const countClass = cat.type === 'top' ? 'top-count' : cat.type === 'piracy' ? 'piracy-count' : cat.type === 'sports' ? 'sports-count' : cat.type === 'labs' ? 'labs-count' : cat.type === 'agent' ? 'agent-count' : cat.type === 'llm' ? 'llm-count' : cat.type === 'vpn' ? 'vpn-count' : cat.type === 'edu' ? 'edu-count' : cat.type === 'privacy' ? 'privacy-count' : cat.type === 'adblock' ? 'adblock-count' : cat.type === 'creator' ? 'creator-count' : cat.type === 'podcast' ? 'podcast-count' : 'free-count';
         section.innerHTML = `
       <div class="cat-header">
-        <span class="cat-icon">${cat.icon}</span>
+        <span class="cat-icon">${catIconSvg(cat.type)}</span>
         <h2 class="cat-title">${cat.name.replace(/^[\p{Emoji_Presentation}\p{Extended_Pictographic}\u200d\uFE0F]+\s*/u, '')}</h2>
         <span class="cat-count ${countClass}">${cat.sites.length} ${cat.itemLabel || 'sites'}</span>
       </div>
@@ -8295,7 +8210,7 @@
   <!-- F38: Onboarding Checklist -->
   <div id="onboardingChecklist">
     <button id="obCloseBtn" onclick="closeOnboarding()">✕</button>
-    <div class="ob-title">🚀 Quick Start Guide</div>
+    <div class="ob-title">Quick Start Guide</div>
     <div class="ob-item" id="ob1">
       <div class="ob-check">✓</div><span>Browse the library</span>
     </div>
@@ -8320,7 +8235,7 @@
   <div id="leaderboardModal" onclick="if(event.target===this)closeLeaderboard()">
     <div id="leaderboardBox">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
-        <h3 style="font-size:1rem;font-weight:900;color:var(--text)">🏆 Most Upvoted Sites</h3>
+        <h3 style="font-size:1rem;font-weight:900;color:var(--text)">Most Upvoted Sites</h3>
         <button onclick="closeLeaderboard()"
           style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem">✕</button>
       </div>
@@ -8332,7 +8247,7 @@
   <div id="changelogModal" onclick="if(event.target===this)closeChangelog()">
     <div id="changelogBox">
       <div class="cl-header">
-        <span class="cl-title">✨ What's New</span>
+        <span class="cl-title">What's New</span>
         <span class="cl-version">v3.3 &mdash; May 19, 2026</span>
       </div>
       <div id="changelogList">
@@ -8363,7 +8278,7 @@
       </div>
       <button onclick="closeChangelog()"
         style="margin-top:16px;width:100%;padding:12px;background:var(--accent);color:#fff;border:none;border-radius:12px;font-weight:700;cursor:pointer;font-size:0.9rem">Got
-        it! 🎉</button>
+        it</button>
     </div>
   </div>
 
@@ -9327,71 +9242,52 @@
        Scoped to [data-theme="dark"] so the glass/light
        themes and all existing behavior stay intact.
        =========================================== -->
-  <style id="glass-overhaul-v2">
+  <style id="antislop-2026-07">
+    /* ── Anti-slop layer (last in the cascade) ────────────────────────────────
+       Replaces the former "glass-overhaul-v2" block, which re-injected an
+       animated aurora + glassmorphism onto the default dark theme. The catalog
+       is now a flat, opaque, one-accent reference desk. See theme.md. */
+
+    /* Flat ground — no aurora, no animated ::before. */
     [data-theme="dark"] body {
-      background:
-        radial-gradient(1200px 800px at 12% -8%, rgba(220,38,38,.12), transparent 55%),
-        radial-gradient(1000px 700px at 110% 8%, rgba(255,107,157,.10), transparent 55%),
-        radial-gradient(900px 900px at 50% 120%, rgba(0,229,255,.07), transparent 55%),
-        var(--bg) !important;
-      background-attachment: fixed !important;
+      background: var(--bg) !important;
     }
-    [data-theme="dark"] body::before {
-      content: ""; position: fixed; inset: -20%; z-index: -2; pointer-events: none;
-      background:
-        radial-gradient(40% 40% at 20% 30%, rgba(220,38,38,.18), transparent 60%),
-        radial-gradient(45% 45% at 80% 20%, rgba(255,107,157,.14), transparent 60%),
-        radial-gradient(50% 50% at 60% 90%, rgba(0,229,255,.10), transparent 60%);
-      filter: blur(32px) saturate(120%);
-      animation: glassAurora 24s ease-in-out infinite alternate;
-    }
-    @keyframes glassAurora {
-      0%   { transform: translate3d(0,0,0) scale(1); }
-      50%  { transform: translate3d(2%,-2%,0) scale(1.06); }
-      100% { transform: translate3d(-2%,2%,0) scale(1.03); }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      [data-theme="dark"] body::before { animation: none; }
-    }
-    /* Frosted surfaces */
+    [data-theme="dark"] body::before { content: none !important; }
+
+    /* Sticky nav keeps a modest blur (legibility while scrolling, not decoration).
+       Everything else is opaque. */
     [data-theme="dark"] .top-bar,
     [data-theme="dark"] .nav-wrap,
-    [data-theme="dark"] .nav-inner,
-    [data-theme="dark"] .search-wrap,
-    [data-theme="dark"] .search-dropdown,
-    [data-theme="dark"] .modal-overlay > *,
-    [data-theme="dark"] .modal {
-      backdrop-filter: blur(22px) saturate(135%) !important;
-      -webkit-backdrop-filter: blur(22px) saturate(135%) !important;
+    [data-theme="dark"] .nav-inner {
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
     }
     [data-theme="dark"] .search-dropdown,
     [data-theme="dark"] .modal {
-      background: rgba(16,16,20,.72) !important;
-      border: 1px solid rgba(255,255,255,.08) !important;
+      background: var(--surface) !important;
+      border: 1px solid var(--border) !important;
+      backdrop-filter: none !important;
+      -webkit-backdrop-filter: none !important;
     }
-    /* Glass cards (category accent colors preserved) */
+
+    /* Solid cards: hairline border, opaque fill, no blur, no glow. */
     [data-theme="dark"] .card {
-      background: rgba(255,255,255,.045) !important;
-      -webkit-backdrop-filter: blur(14px) saturate(130%);
-      backdrop-filter: blur(14px) saturate(130%);
-      box-shadow: 0 8px 30px rgba(0,0,0,.4), inset 0 1px 0 rgba(255,255,255,.05);
-      transition: transform .32s cubic-bezier(.2,.8,.2,1), box-shadow .32s, border-color .32s !important;
+      background: var(--card) !important;
+      -webkit-backdrop-filter: none;
+      backdrop-filter: none;
+      box-shadow: none;
+      transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
     }
     [data-theme="dark"] .card:hover {
-      transform: translateY(-6px) scale(1.012) !important;
-      border-color: rgba(220,38,38,.55) !important;
-      box-shadow: 0 18px 48px rgba(0,0,0,.55), 0 0 0 1px rgba(220,38,38,.22), 0 0 36px rgba(220,38,38,.16) !important;
+      transform: translateY(-3px) !important;
+      border-color: var(--border-hover) !important;
+      box-shadow: 0 10px 28px rgba(0, 0, 0, .5) !important;
     }
-    [data-theme="dark"] .card-favicon { transition: transform .4s ease; }
-    [data-theme="dark"] .card:hover .card-favicon { transform: scale(1.08) rotate(-2deg); }
-    /* Search focus ring */
-    [data-theme="dark"] .search-wrap:focus-within {
-      box-shadow: 0 0 0 3px rgba(220,38,38,.18), 0 10px 34px rgba(0,0,0,.45) !important;
-      border-color: rgba(220,38,38,.6) !important;
-    }
-    /* Primary visit buttons get a touch of glow on hover */
-    [data-theme="dark"] .btn-visit:hover {
-      box-shadow: 0 8px 26px rgba(220,38,38,.32) !important;
+    [data-theme="dark"] .card-favicon { transition: transform .2s ease; }
+
+    @media (prefers-reduced-motion: reduce) {
+      [data-theme="dark"] .card,
+      [data-theme="dark"] .card:hover { transform: none !important; }
     }
   </style>
 
