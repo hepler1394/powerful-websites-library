@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en" data-theme="dark">
 
 <head>
@@ -4988,7 +4988,7 @@
 
   <!-- HERO -->
   <header class="hero">
-    <div class="hero-content">
+    <div id="main-content" class="hero-content">
       <div class="hero-badge"><span
           style="display:inline-block;width:7px;height:7px;background:#22c55e;border-radius:50%;margin-right:6px;animation:livePulse 1.8s ease-in-out infinite;vertical-align:middle;"></span><span
           id="heroBadgeCount">1,000+</span>
@@ -5109,7 +5109,7 @@
 
     <div id="favoritesGrid" class="category-section" style="display:none;margin-top:20px">
       <div class="cat-header">
-        <span class="cat-icon">❤️</span>
+        <span class="cat-icon"></span>
         <h2 class="cat-title">My Favorites</h2>
         <span class="cat-count piracy-count" id="favGridCount">0 sites</span>
         <button id="exportFavsBtn"
@@ -6213,7 +6213,7 @@
         if (cat.type === 'creator') btn.classList.add('creator-btn');
         if (cat.type === 'podcast') btn.classList.add('podcast-btn');
         btn.dataset.filter = cat.id;
-        btn.textContent = cat.icon + ' ' + cat.name;
+        btn.textContent = (cat.icon ? cat.icon + ' ' : '') + cat.name;
         btn.addEventListener('click', () => setFilter(cat.id));
         navEl.appendChild(btn);
       });
@@ -9393,6 +9393,59 @@
     [data-theme="dark"] .btn-visit:hover {
       box-shadow: 0 8px 26px rgba(220,38,38,.32) !important;
     }
+  </style>
+
+  <!-- ==========================================================================
+       ANTI-SLOP OVERRIDE LAYER — 2026-07-07 (see theme.md)
+       Last stylesheet in the document → wins the cascade. Collapses the rainbow
+       to one red accent and removes the aurora / gemini-ring / gradient-text /
+       gradient-button / card-glow slop. Real favicons + all content untouched.
+       ========================================================================== -->
+  <style id="anti-slop-2026">
+    /* Kill the spinning rainbow "Gemini" ring around search */
+    .search-wrap {
+      background: var(--surface, #141414) !important;
+      animation: none !important;
+      border: 1px solid var(--border, rgba(255,255,255,0.09)) !important;
+    }
+
+    /* No aurora / hero blob layers */
+    body::before, .hero::before, .hero::after { display: none !important; animation: none !important; }
+
+    /* No gradient text — solid headings & stats */
+    .hero h1, .hero-stat .num, .auth-modal h2 {
+      background: none !important;
+      -webkit-background-clip: initial !important; background-clip: initial !important;
+      -webkit-text-fill-color: currentColor !important;
+      color: var(--text, #e8e8f0) !important;
+    }
+
+    /* One button style — solid accent, no per-category gradient, no glow */
+    .btn-visit, [class*="category-"] .btn-visit {
+      background: var(--accent, #dc2626) !important;
+      background-image: none !important;
+      box-shadow: none !important;
+    }
+    [data-theme="dark"] .btn-visit:hover, .btn-visit:hover {
+      box-shadow: 0 6px 18px -6px rgba(0,0,0,0.6) !important;
+      filter: brightness(1.06);
+    }
+
+    /* No gradient card top-stripe, no per-category hover glow — flat cards */
+    .card::before { display: none !important; }
+    .card:hover {
+      box-shadow: 0 10px 30px -12px rgba(0,0,0,0.65) !important;
+      border-color: var(--border-hover, rgba(220,38,38,0.35)) !important;
+    }
+
+    /* Eyebrows / tags: sentence-case, not tracked uppercase */
+    .hero-badge, .card-tag, .hero-stat .label {
+      text-transform: none !important;
+      letter-spacing: normal !important;
+    }
+
+    /* Stripped category icons render an empty span — hide it */
+    .cat-icon:empty { display: none !important; }
   </style>
 
 </body>

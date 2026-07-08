@@ -176,6 +176,11 @@
         }
     });
 
+    // ─── Step 3b: Strip emoji category icons (de-slop 2026-07-07) ───
+    // Emoji-as-icons is the loudest "AI slop" tell. Category headers now read as
+    // clean text. (Real SVG category icons could be re-introduced later.)
+    DATA.forEach(function (cat) { cat.icon = ''; });
+
     // ─── Step 4: Global URL dedup — first occurrence wins ───
     var seenUrls = new Set();
     var dupCount = 0;
