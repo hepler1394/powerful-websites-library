@@ -1446,7 +1446,7 @@
       opacity: 1
     }
 
-    /* 🏴‍☠️ card accent */
+    /*☠️ card accent */
     .card.piracy-card::before {
       background: linear-gradient(90deg, var(--piracy-accent), var(--accent))
     }
@@ -4757,12 +4757,12 @@
           <div class="search-dropdown-section" id="popularSearches">
             <div class="dropdown-title">Trending Tags</div>
             <div class="pop-chips-wrap">
-              <div class="pop-chip" onclick="applySearchTag('movies')">🍿 Movies</div>
+              <div class="pop-chip" onclick="applySearchTag('movies')"> Movies</div>
               <div class="pop-chip" onclick="applySearchTag('sports')">⚽ Sports</div>
-              <div class="pop-chip" onclick="applySearchTag('ai')">🤖 AI Tools</div>
+              <div class="pop-chip" onclick="applySearchTag('ai')"> AI Tools</div>
               <div class="pop-chip" onclick="applySearchTag('download')">⬇️ Downloaders</div>
-              <div class="pop-chip" onclick="applySearchTag('reading')">📚 Reading</div>
-              <div class="pop-chip" onclick="applySearchTag('vpn')">🛡️ VPNs</div>
+              <div class="pop-chip" onclick="applySearchTag('reading')"> Reading</div>
+              <div class="pop-chip" onclick="applySearchTag('vpn')"> VPNs</div>
             </div>
           </div>
         </div>
@@ -4781,9 +4781,9 @@
         </svg>
         <input type="password" id="authPassword" placeholder="Password" autocomplete="current-password">
         <button type="button"
-          onclick="const i=document.getElementById('authPassword');const b=this;i.type=i.type==='password'?'text':'password';b.innerHTML=i.type==='password'?'👁':'🙈';"
+          onclick="const i=document.getElementById('authPassword');const b=this;i.type=i.type==='password'?'text':'password';b.innerHTML=i.type==='password'?'':'';"
           style="position:absolute;right:12px;top:50%;transform:translateY(-50%);background:none;border:none;cursor:pointer;font-size:1rem;padding:4px;color:var(--text-muted);z-index:2;"
-          aria-label="Toggle password">👁</button>
+          aria-label="Toggle password"></button>
       </div>
       <button class="auth-submit" id="authSubmitBtn" onclick="handleAuthSubmit()">Sign In</button>
       <div style="text-align:center;margin-top:8px;">
@@ -4856,13 +4856,13 @@
     aria-modal="true" aria-labelledby="promoTitle">
     <div class="promo-popup" id="promoPopup">
       <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close popup">✕</button>
-      <div class="promo-title" id="promoTitle">💾 Save Your Favorites Forever</div>
+      <div class="promo-title" id="promoTitle"> Save Your Favorites Forever</div>
       <p class="promo-sub">Create a free account to sync your favorites across all your devices.</p>
       <ul class="promo-benefits">
         <li><span class="pb-icon">☁️</span> Sync favorites across all your devices</li>
         <li><span class="pb-icon">✨</span> Get personalized site recommendations</li>
-        <li><span class="pb-icon">🎉</span> Exclusive onboarding with curated picks just for you</li>
-        <li><span class="pb-icon">🔒</span> Your data is private — sign in with Google in one click</li>
+        <li><span class="pb-icon"></span> Exclusive onboarding with curated picks just for you</li>
+        <li><span class="pb-icon"></span> Your data is private — sign in with Google in one click</li>
       </ul>
       <button class="promo-cta" onclick="dismissPromo();openAuthModal(true)">
         <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
@@ -5046,7 +5046,7 @@
           onmouseout="this.style.borderColor='var(--border)'">Browse All</button>
         <button onclick="loadSurpriseMe()"
           style="background:linear-gradient(135deg,var(--accent),#b91c1c);border:none;color:#fff;padding:10px 20px;border-radius:24px;font-weight:700;cursor:pointer;transition:all 0.2s"
-          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">🎲 Surprise
+          onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'"> Surprise
           Me</button>
       </div>
     </div>
@@ -5082,7 +5082,7 @@
         target="_blank" rel="noopener noreferrer">@powerfulwebsites.bsky.social</a>, <a
         href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer">@setupsai</a>, community
       megathreads, and deep web research.</p>
-    <p style="margin-top:8px;">All free-tool sites verified for no-signup access. 🏴‍☠️ &amp; sports sites sourced from
+    <p style="margin-top:8px;">All free-tool sites verified for no-signup access.☠️ &amp; sports sites sourced from
       community recommendations. Last updated <strong>June 15, 2026</strong> — 50 fresh picks added across AI, design, dev, privacy &amp; more.</p>
     <div
       style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
@@ -5097,7 +5097,7 @@
           style="color:#ff4444;font-weight:600;">Crimetimesnacks@gmail.com</a> and we will promptly address your
         request.</p>
       <p style="margin-top:16px;">
-        <a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;">🏠 Go Home</a>
+        <a href="index.html" style="color:#ff4444;font-weight:600;text-decoration:none;"> Go Home</a>
         &nbsp;&bull;&nbsp;
         <a href="javascript:void(0)" onclick="exportLocalData()"
           style="color:var(--text-muted);text-decoration:underline;">Export Data</a> &nbsp;&bull;&nbsp;
@@ -5200,7 +5200,7 @@
         ]
       },
       {
-        id: "ai-tools", name: "AI-Powered Tools", icon: "🤖", type: "free",
+        id: "ai-tools", name: "AI-Powered Tools", icon: "", type: "free",
         desc: "AI tools for writing, image generation, search, and productivity — no signup needed.",
         sites: [
           { n: "TinyWow", u: "https://tinywow.com", d: "200+ free tools for PDFs, images, video, and AI writing — all in your browser.", l: "reCaptcha to download; files deleted after 1 hour", s: "Seen on @setupsai" },
@@ -5226,7 +5226,7 @@
         ]
       },
       {
-        id: "gaming", name: "Gaming & Retro Arcade", icon: "🎮", type: "free",
+        id: "gaming", name: "Gaming & Retro Arcade", icon: "", type: "free",
         desc: "Play classic retro games and browser-based games — no downloads, no accounts.",
         sites: [
           { n: "RetroGames.cc", u: "https://retrogames.cc", d: "Play NES, SNES, Game Boy, GBA, and Genesis games directly in your browser.", l: "Has ads", s: "Found via research" },
@@ -5256,7 +5256,7 @@
         ]
       },
       {
-        id: "streaming", name: "Streaming & Media", icon: "📺", type: "free",
+        id: "streaming", name: "Streaming & Media", icon: "", type: "free",
         desc: "Watch cartoons, movies, documentaries, and listen to radio — completely free.",
         sites: [
           { n: "SuperCartoons", u: "https://www.supercartoons.net", d: "Watch 1,500+ classic cartoons — Mickey Mouse, Tom & Jerry, Looney Tunes, and more.", l: "Has ads", s: "Found via research" },
@@ -5282,7 +5282,7 @@
         ]
       },
       {
-        id: "pdf-file-tools", name: "PDF & File Tools", icon: "📄", type: "free",
+        id: "pdf-file-tools", name: "PDF & File Tools", icon: "", type: "free",
         desc: "Convert, edit, compress, and manage PDFs and files — all in your browser.",
         sites: [
           { n: "iLovePDF", u: "https://www.ilovepdf.com", d: "Merge, split, compress, convert, and edit PDF files online.", l: "File size and batch limits; has ads", s: "Found via research" },
@@ -5308,7 +5308,7 @@
         ]
       },
       {
-        id: "design-creative", name: "Design & Creative", icon: "🎨", type: "free",
+        id: "design-creative", name: "Design & Creative", icon: "", type: "free",
         desc: "Photo editing, design tools, and creative assets — professional quality, zero cost.",
         sites: [
           { n: "Photopea", u: "https://www.photopea.com", d: "Full Photoshop alternative that runs entirely in your browser — supports PSD files.", l: "Has ads", s: "Seen on @setupsai" },
@@ -5334,7 +5334,7 @@
         ]
       },
       {
-        id: "learning", name: "Learning & Education", icon: "📚", type: "free",
+        id: "learning", name: "Learning & Education", icon: "", type: "free",
         desc: "Learn anything from coding to languages to science — all free, all accessible.",
         sites: [
           { n: "Khan Academy", u: "https://www.khanacademy.org", d: "World-class free education in math, science, computing, economics, and more.", l: "Account needed for progress tracking", s: "Found via research" },
@@ -5360,7 +5360,7 @@
         ]
       },
       {
-        id: "developer-tools", name: "Developer & Code Tools", icon: "💻", type: "free",
+        id: "developer-tools", name: "Developer & Code Tools", icon: "", type: "free",
         desc: "Code editors, formatters, playgrounds, and dev utilities — all browser-based.",
         sites: [
           { n: "CodePen", u: "https://codepen.io", d: "Social coding playground — write HTML/CSS/JS and see results instantly.", l: "Free pens are public; saving requires account", s: "Found via research" },
@@ -5412,7 +5412,7 @@
         ]
       },
       {
-        id: "privacy-security", name: "Privacy & Security", icon: "🔒", type: "free",
+        id: "privacy-security", name: "Privacy & Security", icon: "", type: "free",
         desc: "Protect your identity, check for breaches, and stay safe online — no signup needed.",
         sites: [
           { n: "Have I Been Pwned", u: "https://haveibeenpwned.com", d: "Check if your email or password was exposed in any known data breach.", l: "Domain monitoring requires paid tier", s: "Found via research" },
@@ -5438,7 +5438,7 @@
         ]
       },
       {
-        id: "hidden-gems", name: "Hidden Gems & Fun", icon: "💎", type: "free",
+        id: "hidden-gems", name: "Hidden Gems & Fun", icon: "", type: "free",
         desc: "Quirky, surprising, and genuinely useful websites you never knew existed.",
         sites: [
           { n: "Secret Menus", u: "https://secretmenus.com", d: "Discover hidden menu items at Chipotle, Starbucks, McDonald's, and more.", l: "None", s: "Seen on @setupsai" },
@@ -5464,7 +5464,7 @@
         ]
       },
       {
-        id: "piracy-movies", name: "Movies & TV", icon: "🏴‍☠️", type: "piracy",
+        id: "piracy-movies", name: "Movies & TV", icon: "☠️", type: "piracy",
         desc: "Stream and download the newest movies, TV shows, and anime — GOAT-rated sites from r/Piracy and FMHY at the top. Use a VPN and adblocker.",
         sites: [
           { n: "Cineby", u: "https://www.cineby.gd", d: "Netflix-like UI with auto-next episodes, built-in subtitles, and zero pop-up ads. One of the cleanest piracy sites.", l: "Has ads — use adblocker", s: "GOAT on r/Piracy + FMHY starred", vpn: true },
@@ -5500,7 +5500,7 @@
         ]
       },
       {
-        id: "piracy-games", name: "Games & Software", icon: "🏴‍☠️", type: "piracy",
+        id: "piracy-games", name: "Games & Software", icon: "☠️", type: "piracy",
         desc: "Download PC games and software from trusted repackers and torrent sites. Always use a VPN for torrenting.",
         sites: [
           { n: "FitGirl Repacks", u: "https://fitgirl-repacks.site", d: "The most trusted game repacker — highly compressed PC game downloads verified by community.", l: "Slow install times due to heavy compression", s: "GOAT on r/Piracy", vpn: true },
@@ -5552,7 +5552,7 @@
         ]
       },
       {
-        id: "agentic-browsers", name: "Agentic Browsers", icon: "🤖", type: "agent",
+        id: "agentic-browsers", name: "Agentic Browsers", icon: "", type: "agent",
         desc: "AI-powered browsers that can autonomously browse, click, fill forms, and complete multi-step tasks for you.",
         sites: [
           { n: "FlowithOS", u: "https://flowith.io", d: "World's first agentic OS — autonomous task execution, multi-step workflows, runs in browser and desktop.", l: "Free tier with limits", s: "Found via research" },
@@ -5578,7 +5578,7 @@
         ]
       },
       {
-        id: "llm-assistants", name: "LLMs & AI Assistants", icon: "💬", type: "llm",
+        id: "llm-assistants", name: "LLMs & AI Assistants", icon: "", type: "llm",
         desc: "The best AI chatbots and assistants — from autonomous agents to open-source models. Manus leads the pack.",
         sites: [
           { n: "Manus", u: "https://manus.im", d: "\u2b50 THE GOAT. Autonomous general AI agent that executes tasks, automates workflows, and delivers real results — not just answers.", l: "Free tier; Pro for heavy usage", s: "Your bestie" },
@@ -5607,7 +5607,7 @@
         ]
       },
       {
-        id: "vpn-services", name: "VPN Services", icon: "🛡", type: "vpn",
+        id: "vpn-services", name: "VPN Services", icon: "", type: "vpn",
         desc: "Free VPN services to protect your privacy, bypass restrictions, and stay anonymous online.",
         sites: [
           { n: "Private Internet Access", u: "https://www.privateinternetaccess.com", d: "Industry-leading VPN with 35,000+ servers in 91 countries. Open-source, no-logs proven in court twice. WireGuard + split tunneling.", l: "Paid: starts at $2.03/mo. 30-day money-back guarantee.", s: "Top VPN pick" },
@@ -5634,7 +5634,7 @@
         ]
       },
       {
-        id: "google-labs", name: "Google Labs & AI Experiments", icon: "🧪", type: "labs",
+        id: "google-labs", name: "Google Labs & AI Experiments", icon: "", type: "labs",
         desc: "Google's cutting-edge AI experiments and creative tools — free to use, straight from labs.google.",
         itemLabel: "tools",
         sites: [
@@ -5661,7 +5661,7 @@
         ]
       },
       {
-        id: "educator-tools", name: "Tools for Educators", icon: "🎓", type: "edu",
+        id: "educator-tools", name: "Tools for Educators", icon: "", type: "edu",
         desc: "Free tools for teachers — lesson planning, interactive quizzes, open textbooks, AI grading, and classroom management.",
         sites: [
           { n: "Khan Academy", u: "https://khanacademy.org", d: "World-class free education in math, science, computing, economics, and history. Full courses with exercises.", l: "None", s: "Top pick: Education" },
@@ -5687,7 +5687,7 @@
         ]
       },
       {
-        id: "privacy-browsers", name: "Privacy Browsers", icon: "🔏", type: "privacy",
+        id: "privacy-browsers", name: "Privacy Browsers", icon: "", type: "privacy",
         desc: "Privacy-focused browsers with built-in ad blocking, tracker protection, and anti-fingerprinting. No Chrome here.",
         sites: [
           { n: "Brave", u: "https://brave.com", d: "Built-in Shields block ads and trackers by default. Fast Chromium-based engine with optional crypto rewards.", l: "None", s: "Privacy Guides recommended" },
@@ -5713,7 +5713,7 @@
         ]
       },
       {
-        id: "ad-blockers", name: "Ad Blockers", icon: "🚫", type: "adblock",
+        id: "ad-blockers", name: "Ad Blockers", icon: "", type: "adblock",
         desc: "Block ads, trackers, and distractions everywhere — browser extensions, DNS filters, YouTube tools, and system-wide solutions.",
         sites: [
           { n: "uBlock Origin", u: "https://ublockorigin.com", d: "The best free open-source ad blocker. Scores 100/100 on blocking tests. Lightweight and powerful.", l: "Firefox only for full Manifest V2 version", s: "r/Adblock #1 pick" },
@@ -5851,7 +5851,7 @@
         }).filter(Boolean).join('');
         if (!cards) return;
         el.innerHTML = `<div class="fresh-rail-header">
-            <span class="fresh-rail-title"><span class="pulse-dot"></span>🔥 Fresh This Week</span>
+            <span class="fresh-rail-title"><span class="pulse-dot"></span> Fresh This Week</span>
             <span class="fresh-rail-sub">Swipe → see all new picks</span>
           </div>
           <div class="fresh-rail-scroll">${cards}</div>`;
@@ -6002,7 +6002,7 @@
       // Show a quick toast then open in new tab
       const toast = document.createElement('div');
       toast.style.cssText = 'position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);background:linear-gradient(135deg,#dc2626,#ff4444,#fbbf24,#22c55e,#3b82f6);color:#fff;padding:12px 24px;border-radius:50px;font-weight:700;font-size:.9rem;z-index:9999;opacity:0;transition:all .4s;white-space:nowrap;box-shadow:0 4px 20px rgba(220,38,38,.4)';
-      const cat = DATA.find(function (cat) { return (cat.sites || []).includes(site); }); toast.textContent = '🎲 Opening: ' + site.n + (cat ? ' (' + cat.name + ')' : '');
+      const cat = DATA.find(function (cat) { return (cat.sites || []).includes(site); }); toast.textContent = ' Opening: ' + site.n + (cat ? ' (' + cat.name + ')' : '');
       document.body.appendChild(toast);
       requestAnimationFrame(() => { toast.style.opacity = '1'; toast.style.transform = 'translateX(-50%) translateY(0)'; });
       setTimeout(() => { toast.style.opacity = '0'; setTimeout(() => toast.remove(), 400); }, 2500);
@@ -6211,8 +6211,8 @@
       // or a curated Fresh-This-Week pick; TRENDING = explicit flag only.
       const isNew = !!s.new || isFreshPick(s.u);
       const isTrending = !!s.trending && !isNew;
-      const newBadge = isNew ? `<span class="badge badge-new" style="margin-right:6px">🎉 NEW</span>` : '';
-      const trendingBadge = isTrending ? `<span class="badge badge-trending" style="margin-right:6px">🔥 TRENDING</span>` : '';
+      const newBadge = isNew ? `<span class="badge badge-new" style="margin-right:6px"> NEW</span>` : '';
+      const trendingBadge = isTrending ? `<span class="badge badge-trending" style="margin-right:6px"> TRENDING</span>` : '';
 
       return `
     <div class="card ${cardClass}" data-search="${(s.n + ' ' + s.d + ' ' + catName + ' ' + s.s + ' ' + s.u + ' ' + (s.k || '')).toLowerCase()}" data-fav-id="${s.u}" onclick="if(!event.target.closest('button')&&!event.target.closest('a'))window.open('${s.u}','_blank','noopener,noreferrer')" style="cursor:pointer">
@@ -6762,7 +6762,7 @@
       if (navigator.vibrate) navigator.vibrate(10);
       firebase.firestore().collection('upvotes').doc(encodeURIComponent(url)).set({
         url: url, count: firebase.firestore.FieldValue.increment(1), lastUpvote: firebase.firestore.FieldValue.serverTimestamp()
-      }, { merge: true }).then(() => showToast('Upvoted! 🚀')).catch(() => { btn.style.color = ''; btn.style.borderColor = ''; });
+      }, { merge: true }).then(() => showToast('Upvoted!')).catch(() => { btn.style.color = ''; btn.style.borderColor = ''; });
     }
 
     let _sheetNotesDebounce;
@@ -6804,7 +6804,7 @@
         // Haptic feedback on mobile
         if (navigator.vibrate) navigator.vibrate(8);
         if (window._authUser) {
-          showToast('Saved to favorites! 💖');
+          showToast('Saved to favorites!');
         } else {
           showToast('Saved to device! <a href="#" onclick="openAuthModal();return false" style="color:var(--accent);margin-left:8px;font-weight:800;text-decoration:underline;">Sign In to Sync</a>', 'action');
         }
@@ -7188,12 +7188,12 @@
 
       // 1. Greeting
       authHome.innerHTML += `<div class="dash-greeting">
-        <h2>${greeting}, ${name}! 👋</h2>
+        <h2>${greeting}, ${name}!</h2>
         <p style="font-size:.85rem;color:var(--text-muted);margin-top:2px;">Your personalized dashboard</p>
         <div class="dash-stats">
-          <span>🌐 ${totalSites} sites</span>
+          <span> ${totalSites} sites</span>
           <span>❤️ ${favs.length} favorites</span>
-          <span>🕐 ${viewed.length} viewed</span>
+          <span> ${viewed.length} viewed</span>
         </div>
       </div>`;
 
@@ -7247,7 +7247,7 @@
           });
           authHome.innerHTML += `<div class="dash-section">
             <div class="dash-section-header">
-              <h3>🔥 Most Liked</h3>
+              <h3> Most Liked</h3>
             </div>
             <div class="dash-strip">${likedSites.map(dashCard).join('')}</div>
           </div>`;
@@ -7262,14 +7262,14 @@
         });
         authHome.innerHTML += `<div class="dash-section">
           <div class="dash-section-header">
-            <h3>🕐 Recently Viewed</h3>
+            <h3> Recently Viewed</h3>
           </div>
           <div class="dash-strip">${recentSites.map(dashCard).join('')}</div>
         </div>`;
       }
 
       // 6. Browse All button
-      authHome.innerHTML += `<button class="dash-browse-btn" onclick="showCategoriesTab()">📂 Browse All ${totalSites} Sites</button>`;
+      authHome.innerHTML += `<button class="dash-browse-btn" onclick="showCategoriesTab()"> Browse All ${totalSites} Sites</button>`;
 
       // Show dashboard, hide main
       authHome.style.display = 'block';
@@ -7445,7 +7445,7 @@
             .then(cred => {
               cred.user.sendEmailVerification().catch(() => { });
               firebase.auth().signOut();
-              showAuthSuccess('Account created! Check your email to verify before signing in. 📧');
+              showAuthSuccess('Account created! Check your email to verify before signing in.');
               btn.textContent = 'Create Account';
               btn.style.opacity = '1';
             })
@@ -7677,7 +7677,7 @@
       if (navigator.share) {
         navigator.share({ title: title, url: url }).catch(() => { });
       } else {
-        navigator.clipboard.writeText(url).then(() => showToast('Link copied! 📋'));
+        navigator.clipboard.writeText(url).then(() => showToast('Link copied!'));
       }
     }
 
@@ -7805,7 +7805,7 @@
       } else {
         favs.push(_sheetSiteUrl);
         if (navigator.vibrate) navigator.vibrate(8);
-        showToast('Saved to favorites! 💖');
+        showToast('Saved to favorites!');
       }
       saveFavs(favs);
       updateSheetFavBtn();
@@ -7816,7 +7816,7 @@
       if (navigator.share && _sheetSiteUrl) {
         navigator.share({ title: document.getElementById('csName').textContent, url: _sheetSiteUrl });
       } else if (_sheetSiteUrl) {
-        navigator.clipboard.writeText(_sheetSiteUrl).then(() => showToast('Link copied! 📋'));
+        navigator.clipboard.writeText(_sheetSiteUrl).then(() => showToast('Link copied!'));
       }
     }
 
@@ -7904,7 +7904,7 @@
         banner.innerHTML = `
           <div class="avatar-ring">${user.photoURL ? `<img src="${user.photoURL}" style="width:44px;height:44px;border-radius:50%;object-fit:cover">` : initialLetter}</div>
           <div class="greeting-text">
-            <strong>${greeting}, ${name}! 👋</strong>
+            <strong>${greeting}, ${name}!</strong>
             <span>Sports & Movies are pinned for you below.</span>
           </div>`;
         hero.appendChild(banner);
@@ -7967,7 +7967,7 @@
         const topBar = document.querySelector('.top-bar');
         if (topBar) topBar.insertBefore(counterWrap, topBar.querySelector('.theme-switcher'));
       }
-      counterWrap.innerHTML = `🌍 <span style="color:var(--accent);margin-left:5px;">${count} Discoveries</span>`;
+      counterWrap.innerHTML = ` <span style="color:var(--accent);margin-left:5px;">${count} Discoveries</span>`;
     }
 
     window.addEventListener('DOMContentLoaded', () => {
@@ -8189,7 +8189,7 @@
   <div class="multi-select-bar" id="multiSelectBar" style="display:none;">
     <span class="multi-select-count" id="msCount">0 selected</span>
     <button class="ms-btn" onclick="msBatchFavorite()">❤️ Favorite All</button>
-    <button class="ms-btn" onclick="msBatchShare()">📤 Share</button>
+    <button class="ms-btn" onclick="msBatchShare()"> Share</button>
     <button class="ms-btn danger" onclick="exitMultiSelect()">✕ Cancel</button>
   </div>
 
@@ -8198,7 +8198,7 @@
 
   <!-- F62: PWA Install Banner (disabled - let browser handle natively) -->
   <div id="pwaInstallBanner" style="display:none !important">
-    <div class="pwa-icon">🌐</div>
+    <div class="pwa-icon"></div>
     <div class="pwa-text">
       <div class="pwa-title">Add to Home Screen</div>
       <div class="pwa-sub">Instant access, works offline</div>
@@ -8218,7 +8218,7 @@
       <div class="ob-check">✓</div><span>Favorite a site (tap ♡)</span>
     </div>
     <div class="ob-item" id="ob3">
-      <div class="ob-check">✓</div><span>Try voice search (🎤)</span>
+      <div class="ob-check">✓</div><span>Try voice search ()</span>
     </div>
     <div class="ob-item" id="ob4">
       <div class="ob-check">✓</div><span>Create an account</span>
@@ -8328,7 +8328,7 @@
       </div>
     </div>
     <div style="margin-top:20px;text-align:center;font-size:0.72rem;color:var(--text-dim)">
-      Powerful Websites Library v3.3<br>by Cory Hepler UI 🚀
+      Powerful Websites Library v3.3<br>by Cory Hepler UI
     </div>
   </div>
 
@@ -8337,7 +8337,7 @@
 
   <!-- F82: Achievement Popup -->
   <div class="achievement-popup" id="achievementPopup">
-    <div class="achievement-icon" id="achievementIcon">🏅</div>
+    <div class="achievement-icon" id="achievementIcon"></div>
     <div class="achievement-text">
       <div class="ach-title" id="achievementTitle">Achievement Unlocked!</div>
       <div class="ach-sub" id="achievementSub">You earned a new badge</div>
@@ -8365,20 +8365,20 @@
 
     // ─── F1: COMMAND PALETTE ───
     const CMD_ACTIONS = [
-      { icon: '🌙', label: 'Dark Theme', hint: '', action: () => setTheme('dark') },
+      { icon: '', label: 'Dark Theme', hint: '', action: () => setTheme('dark') },
       { icon: '☀️', label: 'Light Theme', hint: '', action: () => setTheme('light') },
       { icon: '✨', label: 'Glass Theme', hint: '', action: () => setTheme('glass') },
-      { icon: '🕹️', label: 'Retro Mode (Easter Egg)', hint: '', action: () => setTheme('retro') },
+      { icon: '', label: 'Retro Mode (Easter Egg)', hint: '', action: () => setTheme('retro') },
       { icon: '❤️', label: 'My Favorites', hint: '', action: () => document.querySelector('[data-section="favorites"]')?.click() },
       { icon: '⭐', label: 'Top Picks', hint: '', action: () => document.querySelector('[data-section="top"]')?.click() },
-      { icon: '🏆', label: 'Leaderboard', hint: 'most upvoted', action: openLeaderboard },
-      { icon: '📋', label: 'Export Favorites CSV', hint: '', action: () => typeof exportFavsCSV === 'function' ? exportFavsCSV() : showToast('Exporting...') },
+      { icon: '', label: 'Leaderboard', hint: 'most upvoted', action: openLeaderboard },
+      { icon: '', label: 'Export Favorites CSV', hint: '', action: () => typeof exportFavsCSV === 'function' ? exportFavsCSV() : showToast('Exporting...') },
       { icon: '⚙️', label: 'Settings', hint: '', action: openSettings },
-      { icon: '🎲', label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
-      { icon: '🔊', label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
-      { icon: '📱', label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
+      { icon: '', label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
+      { icon: '', label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
+      { icon: '', label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
       { icon: '✨', label: "What's New (Changelog)", hint: 'v3.3', action: openChangelog },
-      { icon: '🚀', label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
+      { icon: '', label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
     ];
 
     function openCmdPalette() {
@@ -8405,7 +8405,7 @@
             if (count >= 5) break;
             if ((s.n + s.d).toLowerCase().includes(ql)) {
               html += `<a class="cmd-item" href="${s.u}" target="_blank" rel="noopener" onclick="closeCmdPalette()">
-            <span class="cmd-item-icon">🌐</span>
+            <span class="cmd-item-icon"></span>
             <span class="cmd-item-label">${s.n}</span>
             <span class="cmd-item-hint">${cat.name}</span>
           </a>`;
@@ -8489,7 +8489,7 @@
     function resetXP() {
       localStorage.removeItem(XP_KEY);
       updateXPBar();
-      showToast('XP reset 🔄');
+      showToast('XP reset');
     }
     window.resetXP = resetXP;
     updateXPBar();
@@ -8520,7 +8520,7 @@
         else { streak = 1; }
         localStorage.setItem(STREAK_KEY, streak);
         localStorage.setItem(LAST_VISIT_KEY, today);
-        if (streak > 1) { setTimeout(() => showToast(`🔥 Day ${streak} streak! Keep exploring!`), 3000); }
+        if (streak > 1) { setTimeout(() => showToast(` Day ${streak} streak! Keep exploring!`), 3000); }
       }
       window._streak = streak;
     })();
@@ -8531,7 +8531,7 @@
       const list = document.getElementById('leaderboardList');
       const upvotes = JSON.parse(localStorage.getItem('pwl_upvotes') || '{}');
       const sorted = Object.entries(upvotes).sort((a, b) => b[1] - a[1]).slice(0, 10);
-      const medals = ['🥇', '🥈', '🥉'];
+      const medals = ['', '', ''];
       const rankClass = ['gold', 'silver', 'bronze'];
       list.innerHTML = sorted.length ? sorted.map(([url, v], i) => {
         let name = url; try { name = new URL(url).hostname.replace('www.', ''); } catch (e) { }
@@ -8644,7 +8644,7 @@
             pos = 0;
             setTheme('retro');
             launchConfetti(80, ['#00ff00', '#00cc00', '#003300']);
-            showToast('🕹️ KONAMI CODE! Retro mode unlocked!');
+            showToast(' KONAMI CODE! Retro mode unlocked!');
             if (navigator.vibrate) navigator.vibrate([100, 50, 100, 50, 200]);
           }
         } else { pos = 0; }
@@ -8694,7 +8694,7 @@
       const zoomLabels = { 1: '1 Column', 2: '2 Columns', 3: 'Default Grid', 4: 'Compact Grid' };
       function showZoomToast(lv) {
         if (!toast) return;
-        toast.textContent = '🔍 ' + (zoomLabels[lv] || 'Default');
+        toast.textContent = ' ' + (zoomLabels[lv] || 'Default');
         toast.classList.add('show');
         setTimeout(() => toast.classList.remove('show'), 1200);
       }
@@ -8805,7 +8805,7 @@
     function msBatchShare() {
       const urls = Array.from(_msItems).join('\n');
       if (navigator.share) navigator.share({ text: urls });
-      else navigator.clipboard.writeText(urls).then(() => showToast('Links copied! 📋'));
+      else navigator.clipboard.writeText(urls).then(() => showToast('Links copied!'));
       exitMultiSelect();
     }
     window.enterMultiSelect = enterMultiSelect;
@@ -8848,7 +8848,7 @@
         const fill = document.getElementById('obFill');
         if (fill) fill.style.width = pct + '%';
         if (pct === 100) {
-          setTimeout(() => { document.getElementById('onboardingChecklist')?.classList.remove('show'); showAchievement('🎓', 'Onboarding Complete!', 'You are now a power user'); }, 1000);
+          setTimeout(() => { document.getElementById('onboardingChecklist')?.classList.remove('show'); showAchievement('', 'Onboarding Complete!', 'You are now a power user'); }, 1000);
         }
       }
       setTimeout(checkOb, 6000);
@@ -8896,11 +8896,11 @@
       if (_ambientAudio.paused) {
         _ambientAudio.play().catch(() => { });
         btn?.classList.add('playing');
-        showToast('🎵 Ambient audio on');
+        showToast(' Ambient audio on');
       } else {
         _ambientAudio.pause();
         btn?.classList.remove('playing');
-        showToast('🔇 Audio off');
+        showToast(' Audio off');
       }
     }
     window.toggleAudio = toggleAudio;
@@ -8942,7 +8942,7 @@
         const link = document.querySelector("link[rel='icon']");
         if (!link) return;
         // Just update title to show count alternating
-        document.title = tick ? `${total}+ Sites — Powerful Websites` : '🌐 WebsLib — Browse Free';
+        document.title = tick ? `${total}+ Sites — Powerful Websites` : ' WebsLib — Browse Free';
         tick = !tick;
       }, 4000);
     })();
@@ -8953,7 +8953,7 @@
       if (!favs.length) { showToast('No favorites to share yet!'); return; }
       const encoded = btoa(JSON.stringify(favs.slice(0, 20))).replace(/=/g, '');
       const url = `${location.origin}${location.pathname}#favs=${encoded}`;
-      navigator.clipboard?.writeText(url).then(() => showToast('Share link copied! 🔗'));
+      navigator.clipboard?.writeText(url).then(() => showToast('Share link copied!'));
     };
     // Load shared favs from URL
     (function () {
@@ -8966,7 +8966,7 @@
           const current = typeof getFavs === 'function' ? getFavs() : [];
           const merged = [...new Set([...current, ...favs])];
           if (typeof saveFavs === 'function') saveFavs(merged);
-          showToast(`Imported ${favs.length} shared favorites! 🎉`);
+          showToast(`Imported ${favs.length} shared favorites!`);
           history.replaceState(null, '', location.pathname);
         }
       } catch (e) { }
@@ -9013,7 +9013,7 @@
     window.handleUpvote = function (url, e) {
       if (e) { e.stopPropagation(); e.preventDefault(); }
       if (!window._authUser) {
-        showToast('Sign in to upvote tools! 👍');
+        showToast('Sign in to upvote tools!');
         return;
       }
       if (!window.firebase || !firebase.firestore) return;
@@ -9054,7 +9054,7 @@
           likedBy: firebase.firestore.FieldValue.arrayUnion(uid),
           lastUpdated: firebase.firestore.FieldValue.serverTimestamp()
         }, { merge: true }).catch(() => { });
-        showToast('👍 Upvoted!');
+        showToast(' Upvoted!');
         addXP(2, 'upvote');
       }
     };
@@ -9111,7 +9111,7 @@
         btn.classList.add('copied');
         btn.textContent = '✓ Copied!';
         addXP(1, 'copy link');
-        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = '📋 Copy'; }, 1800);
+        setTimeout(() => { btn.classList.remove('copied'); btn.textContent = ' Copy'; }, 1800);
       });
     }, { passive: true });
 
@@ -9125,8 +9125,8 @@
         addXP(5, 'favorite');
         const favs = typeof getFavs === 'function' ? getFavs() : [];
         if (favs.length === 1) { launchConfetti(); showAchievement('❤️', 'First Favorite Saved!', 'Your journey begins'); }
-        else if (favs.length === 10) { launchConfetti(100); showAchievement('💎', 'Power Collector!', '10 sites favorited'); }
-        else if (favs.length === 50) { launchConfetti(150); showAchievement('👑', 'Library Master!', '50 sites favorited!'); }
+        else if (favs.length === 10) { launchConfetti(100); showAchievement('', 'Power Collector!', '10 sites favorited'); }
+        else if (favs.length === 50) { launchConfetti(150); showAchievement('', 'Library Master!', '50 sites favorited!'); }
       }
     };
 
@@ -9233,7 +9233,7 @@
     });
 
     applySettings();
-    console.log('%c🚀 Powerful Websites Library v3.3 — May 19, 2026 — Fresh Picks Rail + Wave 8!', 'color:#dc2626;font-size:14px;font-weight:900;');
+    console.log('%c Powerful Websites Library v3.3 — May 19, 2026 — Fresh Picks Rail + Wave 8!', 'color:#dc2626;font-size:14px;font-weight:900;');
   </script>
 
   <!-- ===========================================
@@ -9340,8 +9340,9 @@
       letter-spacing: normal !important;
     }
 
-    /* Stripped category icons render an empty span — hide it */
-    .cat-icon:empty { display: none !important; }
+    /* Stripped category / emoji icons leave empty spans — hide them */
+    .cat-icon:empty, .pb-icon:empty, .cmd-item-icon:empty, .ob-check:empty,
+    .pwa-icon:empty, .achievement-icon:empty { display: none !important; }
   </style>
 
 </body>
