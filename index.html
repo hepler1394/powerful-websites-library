@@ -1,25 +1,25 @@
 <!DOCTYPE html>
-<html lang="en" data-theme="dark">
+<html lang="en" data-theme="light" class="desk-loading">
 
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-  <meta name="theme-color" content="#dc2626">
+  <meta name="theme-color" content="#f1efe9">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <meta name="apple-mobile-web-app-title" content="WebsLib">
+  <meta name="apple-mobile-web-app-title" content="Powerful Websites">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <link rel="canonical" href="https://powerful-websites-library.vercel.app/">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="Powerful Free Websites Library">
-  <meta name="twitter:description" content="1,000+ free tools, AI apps, and websites curated for you.">
+  <meta name="twitter:title" content="Powerful Websites — The useful web, indexed">
+  <meta name="twitter:description" content="A human-readable index of useful websites, honest limitations included.">
   <meta name="twitter:image" content="https://powerful-websites-library.vercel.app/assets/hero.png">
   <meta name="twitter:image:alt" content="Powerful Free Websites Library homepage">
   <meta property="og:image:alt" content="Powerful Free Websites Library homepage">
   <meta property="og:locale" content="en_US">
-  <meta property="og:title" content="Powerful Free Websites Library — 1,000+ Tools">
+  <meta property="og:title" content="Powerful Websites — The useful web, indexed">
   <meta property="og:description"
-    content="1,000+ websites that feel illegal to know. Free tools, AI, streaming, gaming, and more.">
+    content="A human-readable index of useful websites. Search precisely or browse the archive when you need it.">
   <meta property="og:type" content="website">
   <meta property="og:url" content="https://powerful-websites-library.vercel.app/">
   <meta property="og:image" content="https://powerful-websites-library.vercel.app/assets/hero.png">
@@ -27,7 +27,7 @@
   <meta property="og:image:height" content="900">
   <meta property="og:site_name" content="Powerful Free Websites Library">
   <meta name="description"
-    content="1,000+ free websites, tools &amp; AI apps that feel illegal to know — AI tools, streaming, gaming, VPNs, and more. Curated & searchable.">
+    content="A human-readable index of useful websites, with direct links, honest limitations, and no sponsored rankings.">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,9 +35,9 @@
       {
         "@type": "WebSite",
         "@id": "https://powerful-websites-library.vercel.app/#website",
-        "name": "Powerful Free Websites Library",
+        "name": "Powerful Websites",
         "url": "https://powerful-websites-library.vercel.app/",
-        "description": "1,000+ free websites, tools & AI apps curated and searchable.",
+        "description": "A human-readable index of useful websites with honest limitations.",
         "potentialAction": {
           "@type": "SearchAction",
           "target": {
@@ -51,9 +51,9 @@
         "@type": "CollectionPage",
         "@id": "https://powerful-websites-library.vercel.app/#collection",
         "url": "https://powerful-websites-library.vercel.app/",
-        "name": "Powerful Free Websites Library — 1,000+ Tools",
+        "name": "Powerful Websites — The useful web, indexed",
         "isPartOf": { "@id": "https://powerful-websites-library.vercel.app/#website" },
-        "about": "A curated, searchable directory of 1,000+ free websites, AI tools, and apps across coding, design, productivity, streaming, privacy, and more."
+        "about": "An independent, searchable index of useful websites across coding, design, productivity, learning, privacy, entertainment, and more."
       }
     ]
   }
@@ -62,7 +62,8 @@
   <link rel="preload" href="mobile.css" as="style">
   <link rel="stylesheet" href="mobile.css">
   <link rel="stylesheet" href="mobile-extra.css">
-  <link rel="stylesheet" href="stack-builder.css">
+  <link rel="stylesheet" href="reference-desk.css?v=1">
+  <script>document.documentElement.classList.add('desk-loading');</script>
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,7 +71,7 @@
     href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap">
   <link rel="icon" type="image/svg+xml"
     href="data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHZpZXdCb3g9IjAgMCAxMDAgMTAwIj48cmVjdCB3aWR0aD0iMTAwIiBoZWlnaHQ9IjEwMCIgcng9IjIwIiBmaWxsPSIjZGMyNjI2Ii8+PHBvbHlnb24gcG9pbnRzPSIzNSwyNSA3NSw1MCAzNSw3NSIgZmlsbD0id2hpdGUiLz48L3N2Zz4=">
-  <title>Powerful Free Websites Library</title>
+  <title>Powerful Websites — The useful web, indexed</title>
   <style>
     *,
     *::before,
@@ -8349,6 +8350,7 @@
 
     // ─── F97: CHANGELOG ───
     function openChangelog() {
+      if (window.__PWL_DESK_READY__) return;
       document.getElementById('changelogModal').classList.add('open');
       if (navigator.vibrate) navigator.vibrate(10);
     }
@@ -8724,6 +8726,10 @@
     (function () {
       let tick = false;
       setInterval(() => {
+        if (window.__PWL_DESK_READY__) {
+          document.title = 'Powerful Websites — The useful web, indexed';
+          return;
+        }
         if (!window.DATA) return;
         const total = window.DATA.reduce((s, c) => s + c.sites.length, 0);
         const favs = typeof getFavs === 'function' ? getFavs().length : 0;
@@ -9008,8 +9014,6 @@
        Scoped to [data-theme="dark"] so the glass/light
        themes and all existing behavior stay intact.
        =========================================== -->
-  <script src="stack-builder.js?v=1"></script>
-
   <style id="antislop-2026-07">
     /* ── Anti-slop layer (last in the cascade) ────────────────────────────────
        Replaces the former "glass-overhaul-v2" block, which re-injected an
@@ -9113,6 +9117,7 @@
     .pwa-icon:empty, .achievement-icon:empty { display: none !important; }
   </style>
 
+  <script src="reference-desk.js?v=1"></script>
 </body>
 
 </html>
