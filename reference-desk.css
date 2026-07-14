@@ -291,8 +291,9 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
 .pw-discovery::before { position: absolute; inset: 0; z-index: -1; content: ""; pointer-events: none; background: radial-gradient(circle at 84% 8%,rgba(127,0,8,.18),transparent 24%),linear-gradient(90deg,transparent 0 49.94%,rgba(255,255,255,.035) 50%,transparent 50.06%); background-size: auto,100% 100%; }
 .pw-ticker { width: 100%; overflow: hidden; border-top: 1px solid #62080d; border-bottom: 1px solid #62080d; background: #b70812; color: #fff; }
 .pw-ticker__track { width: max-content; padding: 13px 0; font: 700 10px/1 var(--pw-mono); letter-spacing: .08em; text-transform: uppercase; white-space: pre; animation: pw-ticker 44s linear infinite; }
-.pw-reveal { opacity: .25; transform: translateY(38px); transition: opacity .9s ease,transform .9s cubic-bezier(.16,1,.3,1); }
+.pw-reveal { opacity: 1; transform: translateY(38px); transition: transform .9s cubic-bezier(.16,1,.3,1); }
 .pw-reveal.is-visible { opacity: 1; transform: none; }
+.pw-directory.pw-reveal { transform: none; }
 .pw-section-code { margin: 0 0 22px; color: #ef2831; font: 700 9px/1 var(--pw-mono); letter-spacing: .13em; text-transform: uppercase; }
 .pw-intro { width: min(1460px,100%); min-height: 76vh; display: grid; grid-template-columns: 1.3fr .7fr; align-items: center; gap: clamp(50px,8vw,140px); margin: 0 auto; padding: clamp(100px,14vw,210px) clamp(22px,5vw,78px); }
 .pw-intro h2,.pw-section-head h2,.pw-closing h2 { margin: 0; font: 800 clamp(54px,7.2vw,116px)/.84 var(--pw-display); letter-spacing: -.08em; text-transform: uppercase; }
