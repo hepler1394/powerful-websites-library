@@ -62,6 +62,7 @@
   <link rel="preload" href="mobile.css" as="style">
   <link rel="stylesheet" href="mobile.css">
   <link rel="stylesheet" href="mobile-extra.css">
+  <link rel="stylesheet" href="stack-builder.css">
   <link rel="apple-touch-icon" href="icon-192.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -248,126 +249,6 @@
       border-color: rgba(192, 57, 43, .25) !important;
     }
 
-    /* ===== iOS 26 LIQUID GLASS THEME ===== */
-    [data-theme="glass"] {
-      --bg: #000;
-      --bg2: rgba(255, 255, 255, 0.02);
-      --surface: rgba(255, 255, 255, 0.05);
-      --card: rgba(255, 255, 255, 0.08);
-      --card-hover: rgba(255, 255, 255, 0.12);
-      --border: rgba(255, 255, 255, 0.15);
-      --border-hover: rgba(255, 255, 255, 0.3);
-      --text: #ffffff;
-      --text-muted: rgba(255, 255, 255, 0.7);
-      --text-dim: rgba(255, 255, 255, 0.5);
-      --accent: #dc2626;
-      --accent-glow: rgba(220, 38, 38, 0.2);
-      --accent2: #ff4444;
-      --accent3: #ff6b9d;
-
-      --red: #ff3b30;
-      --green: #34c759;
-      --yellow: #ffcc00;
-      --orange: #ff9500;
-      --radius: 20px;
-      --radius-sm: 14px;
-      --radius-xs: 8px;
-      --glass: rgba(255, 255, 255, 0.05);
-      --glass-border: rgba(255, 255, 255, 0.15);
-      --shadow: 0 16px 40px rgba(0, 0, 0, 0.5);
-      --hero-bg: transparent;
-      --nav-bg: rgba(0, 0, 0, 0.4);
-      --card-gradient: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
-      --piracy-accent: var(--accent);
-      --piracy-glow: var(--accent-glow);
-      --sports-accent: var(--accent);
-      --sports-glow: var(--accent-glow);
-      --labs-accent: var(--accent);
-      --labs-glow: var(--accent-glow);
-      --agent-accent: var(--accent);
-      --agent-glow: var(--accent-glow);
-      --vpn-accent: var(--accent);
-      --vpn-glow: var(--accent-glow);
-      --llm-accent: var(--accent);
-      --llm-glow: var(--accent-glow);
-      --edu-accent: var(--accent);
-      --edu-glow: var(--accent-glow);
-      --privacy-accent: var(--accent);
-      --privacy-glow: var(--accent-glow);
-      --adblock-accent: var(--accent);
-      --adblock-glow: var(--accent-glow);
-      --creator-accent: var(--accent);
-      --creator-glow: var(--accent-glow);
-      --podcast-accent: var(--accent);
-      --podcast-glow: var(--accent-glow);
-      --logo-text: #fff;
-    }
-
-    [data-theme="glass"] body {
-      background: #0a0a12;
-      background-image:
-        radial-gradient(ellipse at top left, rgba(94, 92, 230, 0.4) 0%, transparent 45%),
-        radial-gradient(ellipse at bottom right, rgba(255, 55, 95, 0.4) 0%, transparent 45%),
-        radial-gradient(ellipse at 80% 20%, rgba(48, 209, 88, 0.25) 0%, transparent 40%),
-        radial-gradient(ellipse at center, rgba(10, 10, 10, 0.95) 0%, #0a0a12 100%);
-      background-attachment: fixed;
-    }
-
-    /* Glass: mobile — reduce gradient intensity & use scroll attachment */
-    @media (max-width: 768px) {
-      [data-theme="glass"] body {
-        background: #0a0a12;
-        background-image:
-          radial-gradient(ellipse at 20% 0%, rgba(94, 92, 230, 0.12) 0%, transparent 50%),
-          radial-gradient(ellipse at 80% 100%, rgba(255, 55, 95, 0.10) 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 20%, rgba(48, 209, 88, 0.06) 0%, transparent 45%);
-        background-attachment: scroll;
-      }
-    }
-
-    [data-theme="glass"] .card,
-    [data-theme="glass"] .search-dropdown,
-    [data-theme="glass"] .auth-modal,
-    [data-theme="glass"] .promo-popup {
-      backdrop-filter: blur(25px) saturate(180%);
-      -webkit-backdrop-filter: blur(25px) saturate(180%);
-      background: var(--surface);
-      border: 1px solid var(--border);
-    }
-
-    /* Glass theme: nav bars need solid dark background so cards don't bleed through */
-    [data-theme="glass"] .bottom-nav {
-      background: rgba(5, 5, 15, 0.92) !important;
-      border-top: 1px solid rgba(255, 255, 255, 0.12) !important;
-      backdrop-filter: blur(30px) saturate(200%) !important;
-      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
-    }
-
-    [data-theme="glass"] .nav-wrapper {
-      background: rgba(0, 0, 0, 0.72) !important;
-      border-bottom: 1px solid rgba(255, 255, 255, 0.12) !important;
-      backdrop-filter: blur(30px) saturate(200%) !important;
-      -webkit-backdrop-filter: blur(30px) saturate(200%) !important;
-    }
-
-    /* Glass theme: search-wrap keeps the Gemini gradient ring — only override the inner input bg */
-    /* (No background/box-shadow override here — let the conic-gradient ring show through) */
-
-    [data-theme="glass"] .search-wrap input {
-      background: rgba(10, 10, 22, 0.95) !important;
-      color: #fff !important;
-    }
-
-
-    /* Glass theme: active section tabs need dark text to be readable on colored backgrounds */
-    [data-theme="glass"] .section-tab.active {
-      color: #fff !important;
-      text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6);
-    }
-
-    [data-theme="glass"] .section-tab[data-section="all"].active {
-      color: #fff !important;
-    }
 
 
     html {
@@ -558,18 +439,6 @@
         animation: none;
       }
 
-      [data-theme="glass"] .hero::before {
-        opacity: 0.08;
-      }
-
-      [data-theme="glass"] body {
-        background: #0a0a12 !important;
-        background-image:
-          radial-gradient(ellipse at 20% 0%, rgba(94, 92, 230, 0.15) 0%, transparent 50%),
-          radial-gradient(ellipse at 80% 100%, rgba(255, 55, 95, 0.12) 0%, transparent 50%),
-          radial-gradient(ellipse at 70% 20%, rgba(48, 209, 88, 0.08) 0%, transparent 45%) !important;
-        background-attachment: scroll !important;
-      }
 
       /* Prevent double scrollbar */
       html {
@@ -733,9 +602,7 @@
       box-shadow: none;
     }
 
-    /* Glass and dark — always solid dark interior */
-    [data-theme="glass"] .search-wrap input,
-    [data-theme="glass"] .search-wrap input:focus,
+    /* Dark theme — always solid dark interior */
     [data-theme="dark"] .search-wrap input,
     [data-theme="dark"] .search-wrap input:focus {
       background: #111 !important;
@@ -1446,7 +1313,7 @@
       opacity: 1
     }
 
-    /*☠️ card accent */
+    /* piracy card accent */
     .card.piracy-card::before {
       background: linear-gradient(90deg, var(--piracy-accent), var(--accent))
     }
@@ -3736,16 +3603,6 @@
       color: #fff !important;
     }
 
-    /* Bottom nav glass theme: better contrast on inactive icons */
-    [data-theme="glass"] .bottom-nav a:not(.active),
-    [data-theme="glass"] .bottom-nav button:not(.active),
-    [data-theme="glass"] #bnHome:not(.active),
-    [data-theme="glass"] #bnFav:not(.active),
-    [data-theme="glass"] #bnGuide:not(.active),
-    [data-theme="glass"] #bnFaq:not(.active),
-    [data-theme="glass"] #bnProfile:not(.active) {
-      color: rgba(255, 255, 255, 0.72) !important;
-    }
 
     /* Bottom nav icon size and touch targets */
     .bottom-nav a,
@@ -3783,17 +3640,6 @@
       font-size: var(--font-base);
     }
 
-    /* Glass theme search: let Gemini gradient ring show through, only override inner input */
-    /* .search-wrap background NOT overridden — conic-gradient ring is visible */
-
-    [data-theme="glass"] .search-wrap input {
-      background: #111 !important;
-      color: #fff !important;
-    }
-
-    [data-theme="glass"] .search-wrap input::placeholder {
-      color: rgba(255, 255, 255, 0.55) !important;
-    }
 
     /* Light theme search inset shadow */
     [data-theme="light"] .search-wrap input {
@@ -3847,49 +3693,6 @@
       background: rgba(192, 57, 43, 0.75);
     }
 
-    /* Glass: card stronger glass effect */
-    [data-theme="glass"] .card {
-      backdrop-filter: blur(24px) saturate(180%) !important;
-      -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
-      background: rgba(255, 255, 255, 0.09) !important;
-      border: 1px solid rgba(255, 255, 255, 0.18) !important;
-    }
-
-    /* Glass: category section titles readable on gradient bg */
-    [data-theme="glass"] .category-section {
-      background: transparent !important;
-    }
-
-    [data-theme="glass"] .cat-header {
-      background: transparent !important;
-    }
-
-    [data-theme="glass"] .cat-title {
-      color: #fff;
-      text-shadow: 0 1px 10px rgba(0, 0, 0, 0.5);
-    }
-
-    [data-theme="glass"] .cat-desc {
-      color: rgba(255, 255, 255, 0.72);
-    }
-
-    /* Glass: section tab on glass */
-    [data-theme="glass"] .section-tab {
-      color: rgba(255, 255, 255, 0.85);
-      border-color: rgba(255, 255, 255, 0.2);
-      background: rgba(255, 255, 255, 0.06);
-    }
-
-    [data-theme="glass"] .section-tab.active {
-      background: rgba(255, 255, 255, 0.2) !important;
-      color: #fff !important;
-      border-color: rgba(255, 255, 255, 0.4) !important;
-    }
-
-    [data-theme="glass"] .nav-btn.active {
-      background: rgba(255, 255, 255, 0.2) !important;
-      color: #fff !important;
-    }
 
     /* ── BATCH 9: ACCESSIBILITY ───────────────────────────────────────── */
 
@@ -4174,10 +3977,6 @@
       align-items: stretch !important;
     }
 
-    /* Glass theme: hero gradient shows through */
-    [data-theme="glass"] .hero {
-      background: transparent !important;
-    }
 
     /* Light theme: bottom nav background */
     [data-theme="light"] .bottom-nav {
@@ -4613,10 +4412,6 @@
   <meta name="color-scheme" content="dark light">
 </head>
 
-<a href="#mainContent" class="skip-link"
-  style="position:fixed;top:-100px;left:16px;z-index:9999;background:var(--accent);color:#fff;padding:8px 16px;border-radius:8px;font-weight:700;transition:top .2s;text-decoration:none;"
-  onfocus="this.style.top='16px'" onblur="this.style.top='-100px'">Skip to main content</a>
-
 <body>
   <a href="#mainContent" class="skip-link">Skip to main content</a>
 
@@ -4634,12 +4429,6 @@
           <path
             d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"
             stroke="currentColor" stroke-width="2" fill="none" />
-        </svg>
-      </button>
-      <button class="theme-btn" data-theme-btn="glass" title="iOS Glass Mode" onclick="setTheme('glass')">
-        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2"
-          stroke-linecap="round" stroke-linejoin="round">
-          <path d="M12 2.69l5.66 5.66a8 8 0 1 1-11.31 0z"></path>
         </svg>
       </button>
     </div>
@@ -4695,7 +4484,7 @@
   <!-- ===== AUTH MODAL ===== -->
   <div class="modal-overlay" id="authModal" onclick="if(event.target===this)closeAuthModal()">
     <div class="auth-modal">
-      <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close">✕</button>
+      <button class="auth-modal-close" onclick="closeAuthModal()" aria-label="Close"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <h2 id="authModalTitle">Welcome back</h2>
       <p class="auth-sub" id="authModalSub">Sign in to sync your favorites across devices</p>
       <div class="auth-error" id="authError"></div>
@@ -4758,9 +4547,9 @@
             <div class="dropdown-title">Trending Tags</div>
             <div class="pop-chips-wrap">
               <div class="pop-chip" onclick="applySearchTag('movies')"> Movies</div>
-              <div class="pop-chip" onclick="applySearchTag('sports')">⚽ Sports</div>
+              <div class="pop-chip" onclick="applySearchTag('sports')"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6M18 9h1.5a2.5 2.5 0 0 0 0-5H18M4 22h16M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22M18 2H6v7a6 6 0 0 0 12 0V2z"/></svg> Sports</div>
               <div class="pop-chip" onclick="applySearchTag('ai')"> AI Tools</div>
-              <div class="pop-chip" onclick="applySearchTag('download')">⬇️ Downloaders</div>
+              <div class="pop-chip" onclick="applySearchTag('download')"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Downloaders</div>
               <div class="pop-chip" onclick="applySearchTag('reading')"> Reading</div>
               <div class="pop-chip" onclick="applySearchTag('vpn')"> VPNs</div>
             </div>
@@ -4798,7 +4587,7 @@
       <div id="adminLinkWrap" style="display:none;text-align:center;margin-top:10px;">
         <a href="admin.html"
           style="background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.8rem;font-weight:700;padding:6px 18px;border-radius:50px;text-decoration:none;display:inline-flex;align-items:center;gap:6px;">
-          ⚙️ Admin Dashboard
+          <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Admin Dashboard
         </a>
       </div>
       <div class="auth-toggle" style="margin-top:8px" id="authLogoutWrap" style="display:none">
@@ -4855,12 +4644,12 @@
   <div class="promo-popup-overlay" id="promoOverlay" onclick="if(event.target===this)dismissPromo()" role="dialog"
     aria-modal="true" aria-labelledby="promoTitle">
     <div class="promo-popup" id="promoPopup">
-      <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close popup">✕</button>
+      <button class="promo-close-x" onclick="dismissPromo()" aria-label="Close popup"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       <div class="promo-title" id="promoTitle"> Save Your Favorites Forever</div>
       <p class="promo-sub">Create a free account to sync your favorites across all your devices.</p>
       <ul class="promo-benefits">
-        <li><span class="pb-icon">☁️</span> Sync favorites across all your devices</li>
-        <li><span class="pb-icon">✨</span> Get personalized site recommendations</li>
+        <li><span class="pb-icon"><svg viewBox="0 0 24 24" width="18px" height="18px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><path d="M18 10h-1.26A8 8 0 1 0 9 20h9a5 5 0 0 0 0-10z"/></svg></span> Sync favorites across all your devices</li>
+        <li><span class="pb-icon"><svg viewBox="0 0 24 24" width="18px" height="18px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><path d="M12 3l1.9 5.8L20 10l-6.1 1.2L12 17l-1.9-5.8L4 10l6.1-1.2L12 3z"/></svg></span> Get personalized site recommendations</li>
         <li><span class="pb-icon"></span> Exclusive onboarding with curated picks just for you</li>
         <li><span class="pb-icon"></span> Your data is private — sign in with Google in one click</li>
       </ul>
@@ -4894,8 +4683,7 @@
           href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer"
           style="color:var(--accent);font-weight:700">@setupsai</a>, community megathreads, and deep web research.
       </p>
-      <p class="hero-credit">Proudly built with source data, deep research &amp; <a href="https://manus.ai"
-          target="_blank" rel="noopener noreferrer">Manus.AI</a> — Yours truly, CH &nbsp;·&nbsp;
+      <p class="hero-credit">Curated from source data, community recommendations, and hands-on research — CH &nbsp;·&nbsp;
         <button onclick="loadSurpriseMe()"
           style="display:inline-flex;align-items:center;gap:6px;vertical-align:middle;background:transparent;border:1px solid var(--border-hover);color:var(--accent);padding:5px 14px;border-radius:8px;font-family:var(--mono);font-size:.74rem;font-weight:500;cursor:pointer;transition:background .2s,border-color .2s;"
           onmouseover="this.style.background='rgba(220,38,38,.08)'" onmouseout="this.style.background='transparent'"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="3"/><path d="M8 8h.01M16 8h.01M12 12h.01M8 16h.01M16 16h.01"/></svg>Surprise Me</button>
@@ -4987,7 +4775,7 @@
   <!-- DISCLAIMER -->
   <div class="main">
     <div class="piracy-warning" id="piracyWarning">
-      <div class="pw-title">&#x26A0;&#xFE0F; Heads Up — Read Before Streaming</div>
+      <div class="pw-title"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M10.29 3.86 1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><path d="M12 9v4M12 17h.01"/></svg> Heads Up — Read Before Streaming</div>
       <p class="pw-text">New to streaming? These sites use pop-ups, redirects, and aggressive ads. <strong>You need a
           VPN and an ad blocker (Brave + uBlock Origin)</strong> before visiting any of these links. Not sure how to set
         that up? Check our guide first.</p>
@@ -5006,7 +4794,7 @@
         <span class="cat-count piracy-count" id="favGridCount">0 sites</span>
         <button id="exportFavsBtn"
           style="margin-left:auto;background:var(--surface);border:1px solid var(--border);border-radius:50px;padding:6px 16px;font-size:.75rem;font-weight:700;color:var(--text-muted);cursor:pointer;transition:all .2s;"
-          onmouseover="this.style.color='var(--accent)';" onmouseout="this.style.color='var(--text-muted)';"> ⬇ Export
+          onmouseover="this.style.color='var(--accent)';" onmouseout="this.style.color='var(--text-muted)';"> <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg> Export
           CSV</button>
       </div>
       <p class="cat-desc">Your personal collection of saved tools and websites.</p>
@@ -5017,7 +4805,7 @@
     <div id="recentlyViewedWrap" style="display:none;padding:16px 20px 0;max-width:1400px;margin:0 auto;">
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;">
         <span
-          style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)">⏱️
+          style="font-size:.72rem;font-weight:800;text-transform:uppercase;letter-spacing:1px;color:var(--text-muted)"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
           Recently Viewed</span>
         <button
           onclick="localStorage.removeItem('recentlyViewed');document.getElementById('recentlyViewedWrap').style.display='none'"
@@ -5035,7 +4823,7 @@
       <p>Try a different search term or category filter.</p>
     </div>
     <div class="no-favorites" id="noFavorites">
-      <div class="nf-heart" style="font-size:3rem;margin-bottom:12px;animation:pulse 2s infinite">❤️</div>
+      <div class="nf-heart" style="font-size:3rem;margin-bottom:12px;animation:pulse 2s infinite"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg></div>
       <h3 style="font-size:1.5rem;font-weight:800;color:var(--text);margin-bottom:8px">No favorites yet</h3>
       <p style="color:var(--text-muted);font-size:0.95rem;max-width:350px;margin:0 auto 20px;line-height:1.5">Tap the
         heart icon on any card to save it here. Your favorites are stored securely on this device.</p>
@@ -5082,7 +4870,7 @@
         target="_blank" rel="noopener noreferrer">@powerfulwebsites.bsky.social</a>, <a
         href="https://instagram.com/setupsai" target="_blank" rel="noopener noreferrer">@setupsai</a>, community
       megathreads, and deep web research.</p>
-    <p style="margin-top:8px;">All free-tool sites verified for no-signup access.☠️ &amp; sports sites sourced from
+    <p style="margin-top:8px;">All free-tool sites verified for no-signup access. Piracy &amp; sports sites sourced from
       community recommendations. Last updated <strong>June 15, 2026</strong> — 50 fresh picks added across AI, design, dev, privacy &amp; more.</p>
     <div
       style="margin-top:24px;padding-top:20px;border-top:1px solid var(--border);font-size:.75rem;color:var(--text-dim);line-height:1.7;max-width:700px;margin-left:auto;margin-right:auto;">
@@ -5176,7 +4964,7 @@
   <script>
     const DATA = [
       {
-        id: "top-picks", name: "Top Picks", icon: "⭐", type: "top",
+        id: "top-picks", name: "Top Picks", icon: "", type: "top",
         desc: "The absolute best website from each category — if you only bookmark a few, make it these.",
         sites: [
           { n: "TinyWow", u: "https://tinywow.com", d: "Best AI Tool — 200+ free tools for PDFs, images, video, and AI writing. Does everything.", l: "reCaptcha to download; files deleted after 1 hour", s: "Top pick: AI Tools" },
@@ -5386,7 +5174,7 @@
         ]
       },
       {
-        id: "productivity", name: "Productivity & Utilities", icon: "⚡", type: "free",
+        id: "productivity", name: "Productivity & Utilities", icon: "", type: "free",
         desc: "Everyday tools that save hours — file management, email, and workflow helpers.",
         sites: [
           { n: "RX Resume", u: "https://rxresu.me", d: "Free, open-source resume builder with beautiful templates.", l: "Requires free account to save", s: "Seen on @setupsai" },
@@ -5464,7 +5252,7 @@
         ]
       },
       {
-        id: "piracy-movies", name: "Movies & TV", icon: "☠️", type: "piracy",
+        id: "piracy-movies", name: "Movies & TV", icon: "", type: "piracy",
         desc: "Stream and download the newest movies, TV shows, and anime — GOAT-rated sites from r/Piracy and FMHY at the top. Use a VPN and adblocker.",
         sites: [
           { n: "Cineby", u: "https://www.cineby.gd", d: "Netflix-like UI with auto-next episodes, built-in subtitles, and zero pop-up ads. One of the cleanest piracy sites.", l: "Has ads — use adblocker", s: "GOAT on r/Piracy + FMHY starred", vpn: true },
@@ -5500,7 +5288,7 @@
         ]
       },
       {
-        id: "piracy-games", name: "Games & Software", icon: "☠️", type: "piracy",
+        id: "piracy-games", name: "Games & Software", icon: "", type: "piracy",
         desc: "Download PC games and software from trusted repackers and torrent sites. Always use a VPN for torrenting.",
         sites: [
           { n: "FitGirl Repacks", u: "https://fitgirl-repacks.site", d: "The most trusted game repacker — highly compressed PC game downloads verified by community.", l: "Slow install times due to heavy compression", s: "GOAT on r/Piracy", vpn: true },
@@ -5526,7 +5314,7 @@
         ]
       },
       {
-        id: "sports-streaming", name: "Sports Streaming", icon: "⚽", type: "sports",
+        id: "sports-streaming", name: "Sports Streaming", icon: "", type: "sports",
         desc: "Watch live NFL, NBA, UFC, soccer, and more — free streams from community-recommended sources.",
         sites: [
           { n: "BuffStream", u: "https://ms.buffstream.io", d: "Free live sports streaming for NFL, NBA, MLB, NHL, UFC, and major sporting events.", l: "Has ads — use adblocker", s: "User favorite", vpn: true },
@@ -5868,6 +5656,9 @@
 
     // Theme toggle Logic
     function setTheme(theme, skipSync = false) {
+      // Glass theme was removed (glassmorphism/aurora slop). Map any stale
+      // saved 'glass' value back to the default flat dark theme.
+      if (theme === 'glass') theme = 'dark';
       // Suppress all transitions so 990+ cards switch instantly (no 300ms crawl)
       document.documentElement.classList.add('theme-switching');
       document.documentElement.setAttribute('data-theme', theme);
@@ -6772,7 +6563,7 @@
       _sheetNotesDebounce = setTimeout(() => {
         firebase.firestore().collection('users').doc(window._authUser.uid).collection('notes').doc(encodeURIComponent(_sheetSiteUrl))
           .set({ note: val, updated: firebase.firestore.FieldValue.serverTimestamp() }, { merge: true })
-          .then(() => showToast('Note saved ☁️'));
+          .then(() => showToast('Note saved'));
       }, 500);
     }
 
@@ -7192,7 +6983,7 @@
         <p style="font-size:.85rem;color:var(--text-muted);margin-top:2px;">Your personalized dashboard</p>
         <div class="dash-stats">
           <span> ${totalSites} sites</span>
-          <span>❤️ ${favs.length} favorites</span>
+          <span><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> ${favs.length} favorites</span>
           <span> ${viewed.length} viewed</span>
         </div>
       </div>`;
@@ -7203,7 +6994,7 @@
         if (favSites.length > 0) {
           authHome.innerHTML += `<div class="dash-section">
             <div class="dash-section-header">
-              <h3>❤️ Your Favorites</h3>
+              <h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> Your Favorites</h3>
               <button class="dash-see-all" onclick="showFavoritesTab()">See All ${favs.length}</button>
             </div>
             <div class="dash-strip">${favSites.map(dashCard).join('')}</div>
@@ -7228,7 +7019,7 @@
       if (recommended.length > 0) {
         authHome.innerHTML += `<div class="dash-section">
           <div class="dash-section-header">
-            <h3>⭐ Recommended For You</h3>
+            <h3><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Recommended For You</h3>
           </div>
           <div class="dash-strip">${recommended.map(dashCard).join('')}</div>
         </div>`;
@@ -7362,7 +7153,7 @@
               const badge = document.createElement('a');
               badge.id = 'adminBadge';
               badge.href = 'admin.html';
-              badge.innerHTML = '⚙️ Admin';
+              badge.innerHTML = '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Admin';
               badge.style.cssText = 'background:linear-gradient(135deg,#dc2626,#b91c1c);color:#fff;font-size:.72rem;font-weight:800;padding:5px 12px;border-radius:50px;text-decoration:none;letter-spacing:.3px;flex-shrink:0;';
               const topBar = document.querySelector('.top-bar');
               if (topBar) topBar.appendChild(badge);
@@ -7692,7 +7483,7 @@
       document.getElementById('csDesc').textContent = siteData.d;
       const limEl = document.getElementById('csLimits');
       if (siteData.l && !siteData.l.startsWith('None')) {
-        limEl.textContent = '⚠️ ' + siteData.l; limEl.style.display = '';
+        limEl.textContent = siteData.l; limEl.style.display = '';
       } else { limEl.style.display = 'none'; }
       document.getElementById('csVisit').href = siteData.u;
 
@@ -8100,14 +7891,6 @@
             backdrop-filter: none !important;
             -webkit-backdrop-filter: none !important;
           }
-          [data-theme="glass"] .card {
-            backdrop-filter: none !important;
-            -webkit-backdrop-filter: none !important;
-            background: rgba(30, 30, 40, 0.85) !important;
-          }
-          [data-theme="glass"] body {
-            background-attachment: scroll !important;
-          }
           .hero::before, .hero::after {
             animation: none !important;
           }
@@ -8176,8 +7959,8 @@
       </div>
       <div id="cmdResults"></div>
       <div id="cmdPaletteKbd">
-        <span><kbd class="cmd-kbd">↑↓</kbd> navigate</span>
-        <span><kbd class="cmd-kbd">↵</kbd> open</span>
+        <span><kbd class="cmd-kbd"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M8 7 12 3l4 4M8 17l4 4 4-4M12 3v18"/></svg></kbd> navigate</span>
+        <span><kbd class="cmd-kbd"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M9 10 4 15l5 5"/><path d="M20 4v7a4 4 0 0 1-4 4H4"/></svg></kbd> open</span>
         <span><kbd class="cmd-kbd">Esc</kbd> close</span>
       </div>
     </div>
@@ -8188,9 +7971,9 @@
   <!-- F12: Multi-Select Bar (hidden until items selected) -->
   <div class="multi-select-bar" id="multiSelectBar" style="display:none;">
     <span class="multi-select-count" id="msCount">0 selected</span>
-    <button class="ms-btn" onclick="msBatchFavorite()">❤️ Favorite All</button>
+    <button class="ms-btn" onclick="msBatchFavorite()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg> Favorite All</button>
     <button class="ms-btn" onclick="msBatchShare()"> Share</button>
-    <button class="ms-btn danger" onclick="exitMultiSelect()">✕ Cancel</button>
+    <button class="ms-btn danger" onclick="exitMultiSelect()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg> Cancel</button>
   </div>
 
   <!-- F5: Pinch Zoom Toast -->
@@ -8204,27 +7987,27 @@
       <div class="pwa-sub">Instant access, works offline</div>
     </div>
     <button class="pwa-install-btn" id="pwaInstallBtn">Install</button>
-    <button class="pwa-dismiss" onclick="dismissPWA()">✕</button>
+    <button class="pwa-dismiss" onclick="dismissPWA()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
   </div>
 
   <!-- F38: Onboarding Checklist -->
   <div id="onboardingChecklist">
-    <button id="obCloseBtn" onclick="closeOnboarding()">✕</button>
+    <button id="obCloseBtn" onclick="closeOnboarding()"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     <div class="ob-title">Quick Start Guide</div>
     <div class="ob-item" id="ob1">
-      <div class="ob-check">✓</div><span>Browse the library</span>
+      <div class="ob-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span>Browse the library</span>
     </div>
     <div class="ob-item" id="ob2">
-      <div class="ob-check">✓</div><span>Favorite a site (tap ♡)</span>
+      <div class="ob-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span>Favorite a site (tap <svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>)</span>
     </div>
     <div class="ob-item" id="ob3">
-      <div class="ob-check">✓</div><span>Try voice search</span>
+      <div class="ob-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span>Try voice search</span>
     </div>
     <div class="ob-item" id="ob4">
-      <div class="ob-check">✓</div><span>Create an account</span>
+      <div class="ob-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span>Create an account</span>
     </div>
     <div class="ob-item" id="ob5">
-      <div class="ob-check">✓</div><span>Try dark/glass theme</span>
+      <div class="ob-check"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg></div><span>Try dark or light theme</span>
     </div>
     <div class="ob-progress">
       <div class="ob-progress-fill" id="obFill" style="width:0%"></div>
@@ -8237,7 +8020,7 @@
       <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
         <h3 style="font-size:1rem;font-weight:900;color:var(--text)">Most Upvoted Sites</h3>
         <button onclick="closeLeaderboard()"
-          style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem">✕</button>
+          style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
       </div>
       <div id="leaderboardList"></div>
     </div>
@@ -8252,27 +8035,27 @@
       </div>
       <div id="changelogList">
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F525;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><path d="M13 2 3 14h9l-1 8 10-12h-9l1-8z"/></svg></div>
           <div class="cl-desc"><strong>Fresh This Week Rail</strong> &mdash; Swipeable strip of the newest picks at the top of the home page</div>
         </div>
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F916;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><path d="M9 1v3M15 1v3M9 20v3M15 20v3M20 9h3M20 14h3M1 9h3M1 14h3"/></svg></div>
           <div class="cl-desc"><strong>Wave 8: 25 New Sites</strong> &mdash; Manus, Sora, Zed, Aider, Genspark, Granola, Flux, Hailuo, Submagic &amp; more</div>
         </div>
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F9F9;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/></svg></div>
           <div class="cl-desc"><strong>Global Duplicate Cleanup</strong> &mdash; Same site no longer appears in multiple categories</div>
         </div>
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F4F1;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 18h.01"/></svg></div>
           <div class="cl-desc"><strong>Mobile Polish</strong> &mdash; Smaller phones (&lt;360px), reduced-motion support, better focus rings, tighter cards</div>
         </div>
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F680;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4M12 16V8"/></svg></div>
           <div class="cl-desc"><strong>Previous: 1,000+ Sites</strong> &mdash; Wave 7: DeepSeek, Suno, ElevenLabs, Gamma, Mistral, Kagi</div>
         </div>
         <div class="cl-item">
-          <div class="cl-emoji">&#x1F3AE;</div>
+          <div class="cl-emoji"><svg viewBox="0 0 24 24" width="20px" height="20px" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M6 8h.01M10 8h.01M14 8h.01M18 8h.01M6 12h.01M10 12h.01M14 12h.01M18 12h.01M7 16h10"/></svg></div>
           <div class="cl-desc"><strong>Power tip</strong> &mdash; Press Ctrl+K anywhere to search everything</div>
         </div>
       </div>
@@ -8286,9 +8069,9 @@
   <div class="settings-overlay" id="settingsOverlay" onclick="closeSettings()"></div>
   <div id="settingsDrawer">
     <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:20px">
-      <div class="settings-title">⚙️ Settings</div>
+      <div class="settings-title"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg> Settings</div>
       <button onclick="closeSettings()"
-        style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem">✕</button>
+        style="background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:1.2rem"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M18 6 6 18M6 6l12 12"/></svg></button>
     </div>
     <div class="settings-section">
       <div class="settings-label">Display</div>
@@ -8364,21 +8147,37 @@
     })();
 
     // ─── F1: COMMAND PALETTE ───
+    // Inline line-style icons (no emoji) — matches the reference-desk identity.
+    const _svg = d => `<svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`;
+    const ICON = {
+      moon: _svg('<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>'),
+      sun: _svg('<circle cx="12" cy="12" r="5"/><path d="M12 1v2M12 21v2M4.22 4.22l1.42 1.42M18.36 18.36l1.42 1.42M1 12h2M21 12h2M4.22 19.78l1.42-1.42M18.36 5.64l1.42-1.42"/>'),
+      monitor: _svg('<rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/>'),
+      heart: _svg('<path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/>'),
+      star: _svg('<path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/>'),
+      bars: _svg('<path d="M18 20V10M12 20V4M6 20v-6"/>'),
+      download: _svg('<path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3"/>'),
+      settings: _svg('<path d="M4 21v-7M4 10V3M12 21v-9M12 8V3M20 21v-5M20 12V3M1 14h6M9 8h6M17 16h6"/>'),
+      shuffle: _svg('<path d="M16 3h5v5M4 20 21 3M21 16v5h-5M15 15l6 6M4 4l5 5"/>'),
+      music: _svg('<path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/>'),
+      install: _svg('<rect x="5" y="2" width="14" height="20" rx="2"/><path d="M12 6v8M9 11l3 3 3-3"/>'),
+      bell: _svg('<path d="M18 8a6 6 0 0 0-12 0c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 0 1-3.46 0"/>'),
+      compass: _svg('<circle cx="12" cy="12" r="10"/><path d="M16.24 7.76l-2.12 6.36-6.36 2.12 2.12-6.36 6.36-2.12z"/>'),
+    };
     const CMD_ACTIONS = [
-      { icon: '', label: 'Dark Theme', hint: '', action: () => setTheme('dark') },
-      { icon: '☀️', label: 'Light Theme', hint: '', action: () => setTheme('light') },
-      { icon: '✨', label: 'Glass Theme', hint: '', action: () => setTheme('glass') },
-      { icon: '', label: 'Retro Mode (Easter Egg)', hint: '', action: () => setTheme('retro') },
-      { icon: '❤️', label: 'My Favorites', hint: '', action: () => document.querySelector('[data-section="favorites"]')?.click() },
-      { icon: '⭐', label: 'Top Picks', hint: '', action: () => document.querySelector('[data-section="top"]')?.click() },
-      { icon: '', label: 'Leaderboard', hint: 'most upvoted', action: openLeaderboard },
-      { icon: '', label: 'Export Favorites CSV', hint: '', action: () => typeof exportFavsCSV === 'function' ? exportFavsCSV() : showToast('Exporting...') },
-      { icon: '⚙️', label: 'Settings', hint: '', action: openSettings },
-      { icon: '', label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
-      { icon: '', label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
-      { icon: '', label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
-      { icon: '✨', label: "What's New (Changelog)", hint: 'v3.3', action: openChangelog },
-      { icon: '', label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
+      { icon: ICON.moon, label: 'Dark Theme', hint: '', action: () => setTheme('dark') },
+      { icon: ICON.sun, label: 'Light Theme', hint: '', action: () => setTheme('light') },
+      { icon: ICON.monitor, label: 'Retro Mode (Easter Egg)', hint: '', action: () => setTheme('retro') },
+      { icon: ICON.heart, label: 'My Favorites', hint: '', action: () => document.querySelector('[data-section="favorites"]')?.click() },
+      { icon: ICON.star, label: 'Top Picks', hint: '', action: () => document.querySelector('[data-section="top"]')?.click() },
+      { icon: ICON.bars, label: 'Leaderboard', hint: 'most upvoted', action: openLeaderboard },
+      { icon: ICON.download, label: 'Export Favorites CSV', hint: '', action: () => typeof exportFavsCSV === 'function' ? exportFavsCSV() : showToast('Exporting...') },
+      { icon: ICON.settings, label: 'Settings', hint: '', action: openSettings },
+      { icon: ICON.shuffle, label: 'Surprise Me', hint: 'random site', action: () => typeof loadSurpriseMe === 'function' ? loadSurpriseMe() : null },
+      { icon: ICON.music, label: 'Toggle Ambient Audio', hint: 'lo-fi beats', action: toggleAudio },
+      { icon: ICON.install, label: 'Install App (PWA)', hint: '', action: () => window._pwaInstall?.() },
+      { icon: ICON.bell, label: "What's New (Changelog)", hint: 'v3.3', action: openChangelog },
+      { icon: ICON.compass, label: 'Onboarding Guide', hint: '', action: () => document.getElementById('onboardingChecklist')?.classList.add('show') },
     ];
 
     function openCmdPalette() {
@@ -8478,7 +8277,7 @@
       const nextLevel = Math.floor(next / XP_PER_LEVEL);
       updateXPBar();
       if (nextLevel > prevLevel) {
-        showAchievement('⬆️', `Level ${nextLevel + 1} Curator!`, `You've earned ${next} XP total`);
+        showAchievement('<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg>', `Level ${nextLevel + 1} Curator!`, `You've earned ${next} XP total`);
       }
     }
     function updateXPBar() {
@@ -8498,7 +8297,7 @@
     function showAchievement(icon, title, sub) {
       const el = document.getElementById('achievementPopup');
       if (!el) return;
-      document.getElementById('achievementIcon').textContent = icon;
+      document.getElementById('achievementIcon').innerHTML = icon;
       document.getElementById('achievementTitle').textContent = title;
       document.getElementById('achievementSub').textContent = sub;
       el.classList.add('show');
@@ -8538,7 +8337,7 @@
         return `<div class="lb-row">
       <div class="lb-rank ${rankClass[i] || ''}">${medals[i] || i + 1}</div>
       <div class="lb-site">${name}</div>
-      <div class="lb-votes">▲ ${v}</div>
+      <div class="lb-votes"><svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="m18 15-6-6-6 6"/></svg> ${v}</div>
     </div>`;
       }).join('') : '<p style="color:var(--text-muted);text-align:center;padding:20px">No upvotes yet — start exploring and upvoting!</p>';
       modal.classList.add('open');
@@ -8651,17 +8450,6 @@
       });
     })();
 
-    // ─── F3: GYRO GLASS PARALLAX ───
-    (function () {
-      if (!window.DeviceOrientationEvent) return;
-      window.addEventListener('deviceorientation', e => {
-        const html = document.documentElement;
-        if (html.dataset.theme !== 'glass') return;
-        const x = (e.gamma || 0) / 90;
-        const y = (e.beta || 0) / 90;
-        document.body.style.backgroundPosition = `${50 + x * 8}% ${50 + y * 8}%`;
-      }, { passive: true });
-    })();
 
     // ─── F44: 3D CARD TILT (Desktop) ───
     (function () {
@@ -8799,7 +8587,7 @@
       if (typeof updateFavCounts === 'function') updateFavCounts();
       addXP(5 * _msItems.size, 'batch favorite');
       launchConfetti(40);
-      showToast(`❤️ ${_msItems.size} sites favorited!`);
+      showToast(`${_msItems.size} sites favorited`);
       exitMultiSelect();
     }
     function msBatchShare() {
@@ -9070,7 +8858,7 @@
         const site = allSites[idx];
         localStorage.setItem('pwl_sotd', JSON.stringify({ date: today, site }));
         if (!stored.date) return; // Don't show on first visit
-        setTimeout(() => showToast(`⭐ Site of the Day: ${site.n}`), 4500);
+        setTimeout(() => showToast(`Site of the Day: ${site.n}`), 4500);
       }
     })();
 
@@ -9109,7 +8897,7 @@
       if (!url) return;
       navigator.clipboard?.writeText(url).then(() => {
         btn.classList.add('copied');
-        btn.textContent = '✓ Copied!';
+        btn.textContent = 'Copied!';
         addXP(1, 'copy link');
         setTimeout(() => { btn.classList.remove('copied'); btn.textContent = ' Copy'; }, 1800);
       });
@@ -9124,33 +8912,11 @@
       if (!isFaved) { // was just added
         addXP(5, 'favorite');
         const favs = typeof getFavs === 'function' ? getFavs() : [];
-        if (favs.length === 1) { launchConfetti(); showAchievement('❤️', 'First Favorite Saved!', 'Your journey begins'); }
+        if (favs.length === 1) { launchConfetti(); showAchievement('<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.15em" aria-hidden="true"><path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 1 0-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 0 0 0-7.78z"/></svg>', 'First Favorite Saved!', 'Your journey begins'); }
         else if (favs.length === 10) { launchConfetti(100); showAchievement('', 'Power Collector!', '10 sites favorited'); }
         else if (favs.length === 50) { launchConfetti(150); showAchievement('', 'Library Master!', '50 sites favorited!'); }
       }
     };
-
-    // ─── F95: SIMULATED LIVE USER COUNT ───
-    (function () {
-      const topBar = document.querySelector('.top-bar');
-      if (!topBar) return;
-      const badge = document.createElement('div');
-      badge.id = 'liveUserCount';
-      badge.innerHTML = '<span class="live-dot"></span><span id="liveCount">--</span> online';
-      badge.style.display = 'none'; // hidden by default on mobile to save space
-      // Show only on desktop
-      if (window.innerWidth > 1024) {
-        badge.style.display = 'inline-flex';
-        topBar.appendChild(badge);
-      }
-      function updateCount() {
-        const base = 87;
-        const noise = Math.floor(Math.random() * 40) - 20;
-        document.getElementById('liveCount').textContent = base + noise;
-      }
-      updateCount();
-      setInterval(updateCount, 8000);
-    })();
 
     // ─── F36: FREE-ONLY FILTER ───
     window.toggleFreeOnly = function () {
@@ -9162,7 +8928,7 @@
         const hasLimits = limits?.classList.contains('has-limits');
         card.style.display = (!on && hasLimits) ? 'none' : '';
       });
-      showToast(on ? 'Showing all sites' : '✓ Free-only mode on');
+      showToast(on ? 'Showing all sites' : 'Free-only mode on');
     };
 
     // ─── F34+F35: SORT CHIPS ───
@@ -9242,6 +9008,8 @@
        Scoped to [data-theme="dark"] so the glass/light
        themes and all existing behavior stay intact.
        =========================================== -->
+  <script src="stack-builder.js?v=1"></script>
+
   <style id="antislop-2026-07">
     /* ── Anti-slop layer (last in the cascade) ────────────────────────────────
        Replaces the former "glass-overhaul-v2" block, which re-injected an
