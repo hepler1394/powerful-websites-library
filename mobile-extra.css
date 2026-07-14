@@ -1335,9 +1335,6 @@ input[type="search"] {
 }
 
 /* ─── FEATURE 3: GYRO GLASS PARALLAX ─── */
-[data-theme="glass"] body {
-    transition: background-position 0.1s ease-out;
-}
 
 /* ─── FEATURE 5: PINCH-TO-ZOOM GRID ─── */
 #mainContent.zoom-1 .card-grid {
@@ -2585,96 +2582,30 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
    ══════════════════════════════════════════════════════ */
 
 /* 1. Buttons — all red, not white */
-[data-theme="glass"] .btn-visit {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    color: #fff !important;
-    box-shadow: 0 4px 20px rgba(220, 38, 38, 0.45) !important;
-    border: none !important;
-}
 
-[data-theme="glass"] .btn-visit:hover {
-    background: linear-gradient(135deg, #b91c1c, #dc2626) !important;
-    transform: translateY(-1px);
-}
 
 /* 2. Nav filter buttons — active state red */
-[data-theme="glass"] .nav-btn.active {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    border-color: #dc2626 !important;
-    color: #fff !important;
-    box-shadow: 0 0 16px rgba(220, 38, 38, 0.4) !important;
-}
 
-[data-theme="glass"] .nav-btn:hover {
-    border-color: rgba(220, 38, 38, 0.6) !important;
-    color: #fff !important;
-}
 
 /* 3. Section tabs — active red */
-[data-theme="glass"] .section-tab.active {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    border-color: #dc2626 !important;
-    color: #fff !important;
-    box-shadow: 0 3px 16px rgba(220, 38, 38, 0.4) !important;
-}
 
 /* 4. Bottom nav — active icon red */
-[data-theme="glass"] .bottom-nav a.active {
-    color: #dc2626 !important;
-}
 
-[data-theme="glass"] .bottom-nav a.active svg {
-    stroke: #dc2626 !important;
-}
 
-[data-theme="glass"] .bottom-nav a.active::before {
-    background: linear-gradient(90deg, #dc2626, #ff4444) !important;
-}
 
 /* 5. All bottom nav icons slightly visible (not pure white dim) */
-[data-theme="glass"] .bottom-nav a {
-    color: rgba(255, 255, 255, 0.6) !important;
-}
 
-[data-theme="glass"] .bottom-nav a svg {
-    stroke: rgba(255, 255, 255, 0.6) !important;
-}
 
 /* 6. Fav button heart — red fill when active */
-[data-theme="glass"] .fav-btn.is-fav svg {
-    fill: #dc2626 !important;
-    stroke: #dc2626 !important;
-}
 
 /* 7. Upvote / copy / share buttons — red tint hover */
-[data-theme="glass"] .btn-upvote:hover,
-[data-theme="glass"] .btn-copy-link:hover,
-[data-theme="glass"] .btn-native-share:hover {
-    color: #dc2626 !important;
-    border-color: rgba(220, 38, 38, .5) !important;
-}
 
 /* 8. Card visit button label in glass — keep gradient */
-[data-theme="glass"] .card-sheet-visit {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-}
 
 /* 9. Hero stats — accent red not white */
-[data-theme="glass"] .hero-stat .num,
-[data-theme="glass"] .hero-stat a {
-    color: #dc2626 !important;
-}
 
 /* 10. General: wherever --accent is white in glass, use red for interactive elements */
-[data-theme="glass"] .badge-verified svg,
-[data-theme="glass"] .badge-new,
-[data-theme="glass"] .badge-trending {
-    color: #dc2626 !important;
-}
 
-[data-theme="glass"] .badge-new {
-    background: rgba(220, 38, 38, .15) !important;
-}
 
 /* ══════════════════════════════════════════════════════
    SEARCH RING — Pulsating thick gradient border
@@ -2783,30 +2714,10 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
    ══════════════════════════════════════════════════════ */
 
 /* Hero h1 gradient: in glass --accent=#fff making it white, force red gradient */
-[data-theme="glass"] .hero h1 {
-    background: linear-gradient(135deg, #ffffff 0%, #dc2626 50%, #ff6b9d 100%) !important;
-    -webkit-background-clip: text !important;
-    -webkit-text-fill-color: transparent !important;
-    background-clip: text !important;
-}
 
 /* Surprise Me button — force red on glass */
-[data-theme="glass"] .btn-surprise,
-[data-theme="glass"] [data-action="surprise"],
-[data-theme="glass"] button[onclick*="surprise"] {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-    border-color: transparent !important;
-}
 
 /* General: any button using var(--accent) text in glass = white → force red */
-[data-theme="glass"] .btn-primary,
-[data-theme="glass"] .btn-accent {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-}
 
 /* ══════════════════════════════════════════════════════
    OFFLINE INDICATOR — Add close button styles
@@ -2853,53 +2764,21 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
    ══════════════════════════════════════════════════════ */
 
 /* Site count "991+" in hero paragraph */
-[data-theme="glass"] #heroSiteCount {
-    color: #dc2626 !important;
-}
 
 /* @bsky and @setupsai links */
-[data-theme="glass"] .hero p a {
-    color: #dc2626 !important;
-}
 
 /* Surprise Me button — inline style uses var(--accent) for bg */
-[data-theme="glass"] button[onclick*="loadSurpriseMe"] {
-    background: linear-gradient(135deg, #dc2626, #b91c1c) !important;
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-}
 
 /* Manus.AI link in credit line */
-[data-theme="glass"] .hero-credit a {
-    color: #dc2626 !important;
-}
 
 /* ══════════════════════════════════════════════════════
    GLASS THEME — Section tabs active state fix
    Active tabs showing as white-on-white → force red
    ══════════════════════════════════════════════════════ */
-[data-theme="glass"] .section-tab.active,
-[data-theme="glass"] .section-tab[data-section="all"].active,
-[data-theme="glass"] .section-tab[data-section="top"].active,
-[data-theme="glass"] .section-tab[data-section="free"].active {
-    background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-    border-color: #dc2626 !important;
-    color: #fff !important;
-    -webkit-text-fill-color: #fff !important;
-    box-shadow: 0 3px 16px rgba(220, 38, 38, 0.5) !important;
-    opacity: 1 !important;
-}
 
 /* Glass theme nav-btn hover text — ensure visible */
-[data-theme="glass"] .nav-btn {
-    color: rgba(255, 255, 255, 0.8) !important;
-    border-color: rgba(255, 255, 255, 0.15) !important;
-}
 
 /* Glass active nav btn indicator line */
-[data-theme="glass"] .bottom-nav a.active::before {
-    background: linear-gradient(90deg, #dc2626, #ff4444) !important;
-}
 
 /* ═══ 25 MOBILE IMPROVEMENTS ═══ */
 
@@ -3153,93 +3032,6 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
    radial-gradient opacities (0.4) are too intense, and heavy
    backdrop-filter on 990+ cards overloads mobile GPU.
    ═══════════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-
-    /* Fix 1: Replace fixed-attachment gradients with scroll-friendly version */
-    [data-theme="glass"] body {
-        background: #0a0a12 !important;
-        background-image:
-            radial-gradient(ellipse at 20% 0%, rgba(94, 92, 230, 0.18) 0%, transparent 50%),
-            radial-gradient(ellipse at 80% 100%, rgba(255, 55, 95, 0.15) 0%, transparent 50%),
-            radial-gradient(ellipse at 70% 20%, rgba(48, 209, 88, 0.10) 0%, transparent 45%) !important;
-        background-attachment: scroll !important;
-        background-size: 100% 100% !important;
-    }
-
-    /* Fix 2: Cards — fallback opaque background instead of heavy blur */
-    [data-theme="glass"] .card {
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        background: rgba(18, 18, 28, 0.88) !important;
-        border: 1px solid rgba(255, 255, 255, 0.10) !important;
-    }
-
-    /* Fix 3: Nav / header — reduce blur intensity */
-    [data-theme="glass"] .nav-wrapper,
-    [data-theme="glass"] .nav-wrap,
-    [data-theme="glass"] .top-bar {
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        background: rgba(5, 5, 12, 0.90) !important;
-    }
-
-    /* Fix 4: Bottom nav — solid dark with subtle blur */
-    [data-theme="glass"] .bottom-nav {
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
-        background: rgba(5, 5, 12, 0.95) !important;
-    }
-
-    /* Fix 5: Auth modal and overlays — ensure visibility */
-    [data-theme="glass"] .auth-modal,
-    [data-theme="glass"] .promo-popup,
-    [data-theme="glass"] .search-dropdown {
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        background: rgba(18, 18, 28, 0.92) !important;
-    }
-
-    /* Fix 6: Hero transparent on glass — let body gradient show */
-    [data-theme="glass"] .hero {
-        background: transparent !important;
-    }
-
-    [data-theme="glass"] .hero::before {
-        opacity: 0.3 !important;
-    }
-
-    /* Fix 7: Section tabs — readable on glass */
-    [data-theme="glass"] .section-tab {
-        background: rgba(18, 18, 28, 0.80) !important;
-        border-color: rgba(255, 255, 255, 0.12) !important;
-    }
-
-    [data-theme="glass"] .section-tab.active {
-        background: linear-gradient(135deg, #dc2626, #ff4444) !important;
-        border-color: #dc2626 !important;
-    }
-
-    /* Fix 8: Category sections — visible on glass */
-    [data-theme="glass"] .category-section {
-        background: rgba(18, 18, 28, 0.60) !important;
-        border: 1px solid rgba(255, 255, 255, 0.08) !important;
-        border-radius: 16px;
-    }
-
-    /* Fix 9: Card sheet (bottom sheet) — solid bg */
-    [data-theme="glass"] .card-sheet {
-        backdrop-filter: blur(16px) !important;
-        -webkit-backdrop-filter: blur(16px) !important;
-        background: rgba(14, 14, 22, 0.96) !important;
-    }
-
-    /* Fix 10: Context menu — solid bg */
-    [data-theme="glass"] #context-menu {
-        backdrop-filter: blur(12px) !important;
-        -webkit-backdrop-filter: blur(12px) !important;
-        background: rgba(18, 18, 28, 0.95) !important;
-    }
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    M26b: HERO PSEUDO-ELEMENT FIX — THE ROOT CAUSE OF RED SCREEN
@@ -3272,15 +3064,9 @@ body.multi-select-mode .card.ms-selected .ms-checkbox {
     }
 
     /* Glass theme: dim the hero pseudo even further */
-    [data-theme="glass"] .hero::before {
-        opacity: 0.1 !important;
-    }
 
     /* Glass theme: ensure hero bg is transparent so body gradient shows */
-    [data-theme="glass"] .hero {
-        background: transparent !important;
     }
-}
 
 /* ═══════════════════════════════════════════════════════════════════
    M27: HORIZONTAL OVERFLOW FIX — MOBILE
