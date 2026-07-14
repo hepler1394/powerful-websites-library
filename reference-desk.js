@@ -278,7 +278,7 @@
 
   if ('IntersectionObserver' in window) {
     var heroObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { visual.inView = entry.isIntersecting; if (!entry.isIntersecting) { cinema.pause(); if (visual.raf) { cancelAnimationFrame(visual.raf); visual.raf = 0; } } else if (!visual.paused) { cinema.play().catch(function () {}); ensureAnimation(); } }); }, { threshold: .08 }); heroObserver.observe(hero);
-    var revealObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .08 }); document.querySelectorAll('.pw-reveal').forEach(function (section) { revealObserver.observe(section); });
+    var revealObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .01 }); document.querySelectorAll('.pw-reveal').forEach(function (section) { revealObserver.observe(section); });
   } else document.querySelectorAll('.pw-reveal').forEach(function (section) { section.classList.add('is-visible'); });
 
   var topButton = document.getElementById('pw-to-top'); function updateScrollProgress() { var max = Math.max(1, document.documentElement.scrollHeight - innerHeight); var ratio = Math.min(1, scrollY / max); topButton.style.setProperty('--pw-progress', (ratio * 360) + 'deg'); topButton.classList.toggle('is-visible', scrollY > Math.max(520, hero.offsetHeight * .65)); }
