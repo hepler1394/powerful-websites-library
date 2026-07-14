@@ -17,6 +17,7 @@
     { id: 'privacy', name: 'Privacy & Security', sites: [] },
     { id: 'files', name: 'Files, PDFs & Documents', sites: [] },
     { id: 'money-career', name: 'Money & Career', sites: [] },
+    { id: 'pirate-library', name: 'Pirate Library', sites: [] },
     { id: 'entertainment', name: 'Games, Movies & Streaming', sites: [] },
     { id: 'more', name: 'Everyday & Unusual', sites: [] }
   ];
@@ -38,6 +39,7 @@
     if (/coding|developer|backend|infra|dev tools|ui components/.test(key)) id = 'developer';
     else if (/privacy|security|vpn|ad blocker/.test(key)) id = 'privacy';
     else if (/pdf|file tool|file conversion|document/.test(key)) id = 'files';
+    else if (category.type === 'piracy' || /piracy|pirate|top pick movies tv|top pick games software/.test(key)) id = 'pirate-library';
     else if (/gaming|game |movies|movie |streaming|sports/.test(key)) id = 'entertainment';
     else if (/money|finance|career|jobs/.test(key)) id = 'money-career';
     else if (/learning|education|educator|books|reading/.test(key)) id = 'learning';
@@ -89,7 +91,7 @@
     '<video class="pw-cinema" id="pw-cinema" autoplay muted loop playsinline preload="metadata" poster="assets/observatory-poster.jpg" aria-hidden="true" tabindex="-1"><source src="assets/observatory-cinema.mp4" type="video/mp4"></video><canvas class="pw-field" id="pw-field" aria-hidden="true"></canvas><div class="pw-vignette"></div><div class="pw-cursor-halo" id="pw-cursor" aria-hidden="true"></div>',
     '<header class="pw-header">',
       '<a class="pw-brand" href="./" aria-label="Powerful Websites home"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a>',
-      '<div class="pw-header__readout"><span id="pw-total">0</span> signals / 13 constellations / 0 sponsors</div>',
+      '<div class="pw-header__readout"><span id="pw-total">0</span> signals / <span id="pw-field-count">0</span> constellations / 0 sponsors</div>',
       '<nav class="pw-nav" aria-label="Primary"><a href="#pw-model-watch">New models</a><a href="#pw-month">Site of month</a><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">All fields</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
     '</header>',
     '<div class="pw-stage" id="pw-main"><div class="pw-stage__content">',
@@ -190,7 +192,7 @@
     var tile = document.createElement('button'); tile.className = 'pw-category-tile'; tile.type = 'button'; var strong = document.createElement('strong'); strong.textContent = category.name; var count = document.createElement('span'); count.textContent = category.sites.length + ' signals'; tile.append(strong, count); tile.addEventListener('click', function () { showCategory(category, rail); }); gridFragment.appendChild(tile);
   });
   document.getElementById('pw-category-rail').appendChild(categoryFragment); categoryGrid.appendChild(gridFragment);
-  document.getElementById('pw-total').textContent = allSites.length.toLocaleString(); updateSavedCount();
+  document.getElementById('pw-total').textContent = allSites.length.toLocaleString(); document.getElementById('pw-field-count').textContent = categories.length; updateSavedCount();
 
   function createSiteCard(site, index, variant) {
     var card = document.createElement('article'); card.className = 'pw-site-card' + (variant ? ' pw-site-card--' + variant : ''); card.style.setProperty('--pw-delay', Math.min(index * 45, 360) + 'ms');
@@ -216,7 +218,7 @@
     categories.forEach(function (category, categoryIndex) {
       var anchor = document.createElement('a'); anchor.href = '#pw-shelf-' + category.id; anchor.textContent = String(categoryIndex + 1).padStart(2, '0') + ' ' + category.name; jump.appendChild(anchor);
       var seen = new Set(); var sites = category.sites.map(function (raw) { return siteByUrl.get(urlKey(raw.u)); }).filter(function (site) { if (!site || seen.has(site.url)) return false; seen.add(site.url); return true; }); var expanded = false;
-      var shelf = document.createElement('section'); shelf.className = 'pw-category-shelf'; shelf.id = 'pw-shelf-' + category.id;
+      var shelf = document.createElement('section'); shelf.className = 'pw-category-shelf pw-category-shelf--' + category.id; shelf.id = 'pw-shelf-' + category.id;
       var head = document.createElement('header'); var code = document.createElement('span'); code.className = 'pw-category-shelf__code'; code.textContent = String(categoryIndex + 1).padStart(2, '0'); var titleWrap = document.createElement('div'); var title = document.createElement('h3'); title.textContent = category.name; var countText = document.createElement('p'); countText.textContent = sites.length + ' websites in this field'; titleWrap.append(title, countText); var open = document.createElement('button'); open.type = 'button'; open.textContent = 'Search this field ↗'; open.addEventListener('click', function () { var rail = document.querySelector('.pw-category:nth-child(' + (categoryIndex + 1) + ')'); showCategory(category, rail); }); head.append(code, titleWrap, open);
       var cards = document.createElement('div'); cards.className = 'pw-category-shelf__grid';
       var toggle = document.createElement('button'); toggle.className = 'pw-category-shelf__more'; toggle.type = 'button'; toggle.addEventListener('click', function () { expanded = !expanded; drawShelf(); if (!expanded) shelf.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); });

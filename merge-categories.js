@@ -90,7 +90,8 @@
         "social-media": "open-source-alts",   // data-extra-2 → Open Source & More
         "data-research": "open-source-alts",   // data-extra-2 → Open Source & More
         "space-science": "open-source-alts",   // data-extra-5 → Open Source & More
-        "piracy-games": "open-source-alts",   // index.html → Open Source & More
+        // Keep piracy-games independent. The cinematic directory files it with
+        // Movies & TV inside a dedicated Pirate Library shelf.
     };
 
     // ─── RENAME MAP ── (applied after merge)
