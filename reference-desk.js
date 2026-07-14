@@ -78,6 +78,7 @@
   function findSite(name) { var key = normalize(name); return allSites.find(function (site) { return normalize(site.name) === key; }); }
   var editorial = ['Photopea', 'Have I Been Pwned', 'NotebookLM', 'CodePen', 'Squoosh', 'Neal.fun'].map(findSite).filter(Boolean);
   if (editorial.length < 6) editorial = editorial.concat(allSites.slice(0, 6 - editorial.length));
+  var modelWatch = ['Sakana Fugu', 'GPT-5.6 Sol', 'GPT-5.6 Terra', 'GPT-5.6 Luna', 'GPT-Live', 'Claude Fable 5'].map(findSite).filter(Boolean);
 
   Array.from(document.body.children).forEach(function (node) { node.classList.add('desk-legacy'); });
   document.body.className = 'desk-body';
@@ -89,7 +90,7 @@
     '<header class="pw-header">',
       '<a class="pw-brand" href="./" aria-label="Powerful Websites home"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a>',
       '<div class="pw-header__readout"><span id="pw-total">0</span> signals / 13 constellations / 0 sponsors</div>',
-      '<nav class="pw-nav" aria-label="Primary"><a href="#pw-month">Site of month</a><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">All fields</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
+      '<nav class="pw-nav" aria-label="Primary"><a href="#pw-model-watch">New models</a><a href="#pw-month">Site of month</a><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">All fields</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
     '</header>',
     '<div class="pw-stage" id="pw-main"><div class="pw-stage__content">',
       '<p class="pw-kicker">The living index of the useful web</p>',
@@ -104,7 +105,9 @@
     '</section>',
     '<main class="pw-discovery" id="pw-discover">',
       '<div class="pw-ticker" aria-hidden="true"><div class="pw-ticker__track" id="pw-ticker-track"></div></div>',
-      '<section class="pw-intro pw-reveal" aria-labelledby="pw-intro-title"><div><p class="pw-section-code">01 / THE HUMAN FILTER</p><h2 id="pw-intro-title">The useful web,<br><em>with taste.</em></h2></div><div class="pw-intro__copy"><p>A thousand links are noise until somebody tells you where to start. These are useful sites with plain-English briefs, real limits, and no paid placement deciding the order.</p><a href="#pw-directory">Explore every category <span aria-hidden="true">↓</span></a></div></section>',
+      '<nav class="pw-page-map" aria-label="Explore this page"><a href="#pw-model-watch"><span>01</span>New model watch</a><a href="#pw-month"><span>02</span>Site of the month</a><a href="#pw-picks-title"><span>03</span>Start here</a><a href="#pw-directory"><span>04</span>Every category</a></nav>',
+      '<section class="pw-intro pw-reveal" aria-labelledby="pw-intro-title"><div><p class="pw-section-code">00 / THE HUMAN FILTER</p><h2 id="pw-intro-title">The useful web,<br><em>with taste.</em></h2></div><div class="pw-intro__copy"><p class="pw-typewriter" id="pw-typewriter" aria-label="A thousand links are noise until somebody tells you where to start. These are useful sites with plain-English briefs, real limits, and no paid placement deciding the order."><span id="pw-typewriter-copy" aria-hidden="true"></span><i aria-hidden="true"></i></p><a href="#pw-directory">Explore every category <span aria-hidden="true">↓</span></a></div></section>',
+      '<section class="pw-model-watch pw-reveal" id="pw-model-watch" aria-labelledby="pw-model-watch-title"><header class="pw-section-head pw-section-head--models"><div><p class="pw-section-code">01 / NEW MODEL WATCH · JULY 2026</p><h2 id="pw-model-watch-title">Six releases.<br><em>Zero rumor mill.</em></h2></div><p>A short, source-checked shelf for what actually shipped. Fugu is an orchestrator, GPT-5.6 comes in three tiers, and live voice just became its own frontier.</p></header><div class="pw-model-grid" id="pw-model-grid"></div></section>',
       '<section class="pw-month pw-reveal" id="pw-month" aria-labelledby="pw-month-title">',
         '<div class="pw-month__beam" aria-hidden="true"></div><div class="pw-month__copy"><p class="pw-section-code">JULY 2026 / SITE OF THE MONTH</p><div class="pw-month__identity"><b class="pw-month__mark" aria-hidden="true">F*</b><span>Originally FckSignups · now NoSignups.net</span></div><h2 id="pw-month-title">F*CK<br>Signups.</h2><p>A sharp directory of open-source tools that work immediately in your browser, now continuing as NoSignups. No account wall. No email capture. Just choose a job and get it done.</p><a class="pw-month__cta" href="https://nosignups.net/" target="_blank" rel="noopener noreferrer"><span>Explore the winner</span><strong>↗</strong></a></div>',
         '<div class="pw-month__visual" aria-hidden="true"><div class="pw-month__seal"><span>PW</span><small>07—26</small></div><p>F*CK</p><p>SIGNUPS</p><div class="pw-month__orbit"><i></i><i></i><i></i></div></div>',
@@ -207,6 +210,7 @@
 
   function renderDiscovery() {
     var ticker = document.getElementById('pw-ticker-track'); var tickerNames = categories.map(function (category) { return category.name + ' · ' + category.sites.length; }); ticker.textContent = tickerNames.concat(tickerNames).join('    ✦    ');
+    var models = document.getElementById('pw-model-grid'); var modelFragment = document.createDocumentFragment(); modelWatch.forEach(function (site, index) { modelFragment.appendChild(createSiteCard(site, index, 'model')); }); models.appendChild(modelFragment);
     var picks = document.getElementById('pw-picks-grid'); var pickFragment = document.createDocumentFragment(); editorial.slice(0, 6).forEach(function (site, index) { pickFragment.appendChild(createSiteCard(site, index, 'pick')); }); picks.appendChild(pickFragment);
     var jump = document.getElementById('pw-jump'); var groups = document.getElementById('pw-directory-groups');
     categories.forEach(function (category, categoryIndex) {
@@ -236,6 +240,18 @@
 
   var hero = document.getElementById('pw-top'); var cinema = document.getElementById('pw-cinema'); var canvas = document.getElementById('pw-field'); var ctx = canvas.getContext('2d', { alpha: true }); var halo = document.getElementById('pw-cursor'); var coord = document.getElementById('pw-coordinate');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var typewriterText = 'A thousand links are noise until somebody tells you where to start. These are useful sites with plain-English briefs, real limits, and no paid placement deciding the order.';
+  var typewriterCopy = document.getElementById('pw-typewriter-copy'); var typewriterStarted = false;
+  function typeIntro() {
+    if (typewriterStarted || !typewriterCopy) return; typewriterStarted = true;
+    if (reduceMotion) { typewriterCopy.textContent = typewriterText; return; }
+    var index = 0;
+    function nextCharacter() {
+      index += 1; typewriterCopy.textContent = typewriterText.slice(0, index);
+      if (index < typewriterText.length) { var character = typewriterText.charAt(index - 1); setTimeout(nextCharacter, /[.!?]/.test(character) ? 190 : /[,;]/.test(character) ? 90 : 18 + Math.random() * 24); }
+    }
+    setTimeout(nextCharacter, 260);
+  }
   var visual = { width: 0, height: 0, dpr: 1, particles: [], ripples: [], pointer: { x: -500, y: -500, tx: -500, ty: -500, active: false }, focusGroup: -1, searchRatio: 0, burst: 0, paused: reduceMotion, inView: true, frame: 0, last: 0, raf: 0 };
   var palette = ['#ff2a2a', '#ff6b3d', '#ffb2b2', '#f3f1e8'];
   function pseudo(index, salt) { var x = Math.sin(index * 12.9898 + salt * 78.233) * 43758.5453; return x - Math.floor(x); }
@@ -279,7 +295,8 @@
   if ('IntersectionObserver' in window) {
     var heroObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { visual.inView = entry.isIntersecting; if (!entry.isIntersecting) { cinema.pause(); if (visual.raf) { cancelAnimationFrame(visual.raf); visual.raf = 0; } } else if (!visual.paused) { cinema.play().catch(function () {}); ensureAnimation(); } }); }, { threshold: .08 }); heroObserver.observe(hero);
     var revealObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { entry.target.classList.add('is-visible'); revealObserver.unobserve(entry.target); } }); }, { rootMargin: '0px 0px -8% 0px', threshold: .01 }); document.querySelectorAll('.pw-reveal').forEach(function (section) { revealObserver.observe(section); });
-  } else document.querySelectorAll('.pw-reveal').forEach(function (section) { section.classList.add('is-visible'); });
+    var typeObserver = new IntersectionObserver(function (entries) { entries.forEach(function (entry) { if (entry.isIntersecting) { typeIntro(); typeObserver.disconnect(); } }); }, { threshold: .25 }); typeObserver.observe(document.querySelector('.pw-intro'));
+  } else { document.querySelectorAll('.pw-reveal').forEach(function (section) { section.classList.add('is-visible'); }); typeIntro(); }
 
   var topButton = document.getElementById('pw-to-top'); function updateScrollProgress() { var max = Math.max(1, document.documentElement.scrollHeight - innerHeight); var ratio = Math.min(1, scrollY / max); topButton.style.setProperty('--pw-progress', (ratio * 360) + 'deg'); topButton.classList.toggle('is-visible', scrollY > Math.max(520, hero.offsetHeight * .65)); }
   addEventListener('scroll', updateScrollProgress, { passive: true }); topButton.addEventListener('click', function () { scrollTo({ top: 0, behavior: reduceMotion ? 'auto' : 'smooth' }); }); updateScrollProgress();
