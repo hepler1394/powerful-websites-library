@@ -1,48 +1,49 @@
-# Powerful Websites — design contract
+# Powerful Websites — living observatory contract
 
-This file governs the homepage shell. Catalog data stays in `DATA` and `data-extra-*.js`.
+The homepage is an instrument for exploring the useful web, not a directory grid and
+not a conventional landing page. Catalog data remains in `DATA` and `data-extra-*.js`.
 
 ## The idea
 
-Powerful Websites is an **internet reference desk**, not an AI-tool marketplace. It
-should feel like a sharp independent publication that happens to contain a large,
-searchable index. The page earns trust through restraint, useful descriptions, and
-honest limitations.
+More than 1,000 distinct sites form a living field. The visitor can disturb it with the pointer,
+compress it by typing, focus a constellation by choosing a category, or pull one
+random signal out of the field. The result should feel like a digital exhibit while
+remaining faster to understand than a normal tool directory.
 
-## First-load rule
+## Non-scroll motion model
 
-The homepage may show only:
+- Spectacle lives in one viewport-sized canvas behind the interface.
+- Motion responds to time, pointer position, taps, search state, and category state.
+- Do not build narrative scroll choreography or parallax sections.
+- Search, navigation, category buttons, and result rows remain stable HTML controls.
+- Never translate or tilt a control on hover. Motion belongs inside or behind it.
+- Pause the canvas in hidden tabs and expose a persistent Motion on/off control.
+- `prefers-reduced-motion` starts with a static field and removes decorative motion.
 
-1. one clear promise and search box;
-2. a short, hand-picked shelf (six entries maximum);
-3. one closed control for the full archive.
+## Visual system
 
-Categories are closed on every clean load. Never render the complete catalog at once.
-Search and category pages reveal 12 entries at a time.
+- Near-black stage, warm white type, acid chartreuse, signal coral, and electric blue.
+- Syne is the display voice; Inter handles utility; JetBrains Mono handles telemetry.
+- Strong outlined typography and hard technical borders. No glass-card grid, neon
+  gradient fog, emoji decoration, stock space imagery, or fake analytics.
+- The constellation is data-shaped: 13 groups, catalog-weighted counts, and visible
+  state changes when search or categories change.
 
-## Visual language
+## Usability rules
 
-- Editorial paper, dark ink, one oxide-red accent.
-- Serif display type for the publication voice; sans serif for utility; mono only for
-  counts and filing metadata.
-- Square edges, hairline rules, and direct typography. No gradients, glass, glows,
-  floating pills, decorative dashboards, emoji icons, or fake activity metrics.
-- Cards are index entries, not animated tiles. Hover may change only color, border, or
-  background. **Never translate, scale, tilt, or chase the pointer.**
-- Use real favicons only when they help identify a destination.
+- The main search is the largest stable control and always works with keyboard `/`.
+- Results open in one focused panel; categories and saved sites use the same pattern.
+- The panel may scroll normally, but opening it is a state transition, not a scroll
+  trick. Escape and backdrop click close it.
+- Favorites remain compatible with `pwl_favorites`.
+- External sites open directly and descriptions show honest limitations.
+- Mobile reduces particle count, keeps a native pointer/touch model, and uses a bottom
+  sheet rather than shrinking the desktop panel.
 
-## Interaction
+## Performance
 
-- Search should understand names, descriptions, categories, limitations, and sources.
-- The archive is opt-in and category-led. Opening it must not open every category.
-- Only one result context is presented at a time: query, category, or saved sites.
-- Favorites remain local-first in `pwl_favorites` and must survive redesigns.
-- External destinations open directly in a new tab. No hover overlays or intermediate
-  card sheets.
-- Keyboard focus, reduced motion, and a 320px viewport are first-class requirements.
-
-## Voice
-
-Plain, specific, and human. Prefer “honest limitations” over hype. Avoid “ultimate,”
-“game-changing,” “unlock,” “supercharge,” and claims that a site feels “illegal.”
-No sponsored rankings or invented urgency.
+- Canvas animation uses `requestAnimationFrame`, delta time, capped device pixel ratio,
+  and a smaller mobile particle budget.
+- DOM animation is limited to `transform` and `opacity` where possible.
+- No per-frame DOM layout reads, no hundreds of animated DOM nodes, and no animation
+  libraries for effects the native platform can render directly.
