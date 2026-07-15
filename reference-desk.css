@@ -359,8 +359,8 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
 .pw-site-card h3 { position: relative; z-index: 1; margin: auto 0 16px; font: 700 clamp(28px,2.4vw,42px)/.96 var(--pw-display); letter-spacing: -.055em; }
 .pw-site-card h3 a { color: #fff; text-decoration: none; }.pw-site-card h3 a:hover { color: #ff4b53; }
 .pw-site-card__brief { position: relative; z-index: 1; display: -webkit-box; min-height: 67px; margin: 0 0 24px; overflow: hidden; color: #bbb5b0; font-size: 14px; line-height: 1.6; -webkit-box-orient: vertical; -webkit-line-clamp: 3; }
-.pw-site-card__bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 18px; border-top: 1px solid rgba(255,255,255,.09); color: #aaa39e; font: 600 10px/1.2 var(--pw-mono); text-transform: uppercase; }
-.pw-site-card__bottom a { color: #fff; text-decoration: none; }.pw-site-card__bottom a:hover { color: #ff2929; }
+.pw-site-card__bottom { position: relative; z-index: 1; display: flex; align-items: center; justify-content: space-between; gap: 15px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,.09); color: #aaa39e; font: 600 12px/1.2 var(--pw-mono); text-transform: uppercase; }
+.pw-site-card__bottom a { color: #fff; text-decoration: none; padding: 14px 12px; margin: -14px -12px; }.pw-site-card__bottom a:hover { color: #ff2929; }
 .pw-site-card--pick { min-height: 390px; }.pw-site-card--pick h3 { font-size: clamp(38px,4vw,68px); }.pw-picks__grid > :nth-child(6) { min-height: 290px; }.pw-picks__grid > :nth-child(6) h3 { font-size: clamp(46px,5vw,82px); }
 
 .pw-section-head--directory { margin-bottom: 50px; }
@@ -409,4 +409,12 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
 }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }.pw-reveal { opacity: 1; transform: none; }.pw-ticker__track,.pw-month__beam,.pw-month__orbit,.pw-month__seal,.pw-month__visual > p:last-of-type,.pw-intro__copy a span,.pw-typewriter i { animation: none !important; }
+}
+
+/* ── 2026-07 mobile audit: legibility + tap-target floor on phones ── */
+@media (max-width: 760px) {
+  .pw-kicker { font-size: 12px; }
+  .pw-trails button { min-height: 44px; padding: 10px 14px; font-size: 12px; }
+  .pw-footer div a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 10px; font-size: 12px; }
+  #pw-motion, #pw-saved { min-height: 40px; font-size: 12px; }
 }
