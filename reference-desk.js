@@ -16,6 +16,8 @@
     { id: 'learning', name: 'Learning & Education', sites: [] },
     { id: 'privacy', name: 'Privacy & Security', sites: [] },
     { id: 'files', name: 'Files, PDFs & Documents', sites: [] },
+    { id: 'free-no-signups', name: 'Free, No Signups', sites: [] },
+    { id: 'free-tools', name: 'Free Tools', sites: [] },
     { id: 'money-career', name: 'Money & Career', sites: [] },
     { id: 'pirate-library', name: 'Pirate Library', sites: [] },
     { id: 'entertainment', name: 'Games, Movies & Streaming', sites: [] },
@@ -36,7 +38,9 @@
   function filingGroupFor(category) {
     var key = normalize((category.id || '') + ' ' + (category.name || ''));
     var id = 'more';
-    if (/coding|developer|backend|infra|dev tools|ui components/.test(key)) id = 'developer';
+    if (category.id === 'free-no-signups') id = 'free-no-signups';
+    else if (category.id === 'free-tools') id = 'free-tools';
+    else if (/coding|developer|backend|infra|dev tools|ui components/.test(key)) id = 'developer';
     else if (/privacy|security|vpn|ad blocker/.test(key)) id = 'privacy';
     else if (/pdf|file tool|file conversion|document/.test(key)) id = 'files';
     else if (category.type === 'piracy' || /piracy|pirate|top pick movies tv|top pick games software/.test(key)) id = 'pirate-library';
@@ -67,6 +71,8 @@
     });
   }
   var categories = filingGroups.filter(function (group) { return group.sites.length; });
+  categories.forEach(function (category) { category.sites.sort(function (a, b) { return String(a.n || '').localeCompare(String(b.n || ''), undefined, { sensitivity: 'base' }); }); });
+  categories.sort(function (a, b) { return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }); });
   categories.forEach(function (category) {
     category.sites.forEach(function (raw) {
       var url = cleanUrl(raw.u); var key = urlKey(url);
@@ -76,6 +82,8 @@
       siteByUrl.set(key, site); allSites.push(site);
     });
   });
+
+  allSites.sort(function (a, b) { return a.name.localeCompare(b.name, undefined, { sensitivity: 'base' }); });
 
   function findSite(name) { var key = normalize(name); return allSites.find(function (site) { return normalize(site.name) === key; }); }
   var editorial = ['Photopea', 'Have I Been Pwned', 'NotebookLM', 'CodePen', 'Squoosh', 'Neal.fun'].map(findSite).filter(Boolean);
