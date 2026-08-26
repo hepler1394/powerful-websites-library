@@ -1,4 +1,4 @@
-﻿const CACHE_NAME = 'webslib-v5';
+﻿const CACHE_NAME = 'webslib-v6';
 const STATIC_ASSETS = [
   '/',
   '/index.html',
