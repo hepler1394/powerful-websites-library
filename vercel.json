@@ -1,4 +1,16 @@
 {
+  "redirects": [
+    {
+      "source": "/admin.html",
+      "destination": "/",
+      "permanent": true
+    },
+    {
+      "source": "/onboarding.html",
+      "destination": "/",
+      "permanent": true
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

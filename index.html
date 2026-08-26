@@ -5595,7 +5595,8 @@
   <script src="data-extra-9.js?v=1"></script>
   <script src="data-extra-10.js?v=1"></script>
   <script src="data-extra-11.js?v=1"></script>
-  <script src="merge-categories.js?v=6"></script>
+  <script src="data-extra-12.js?v=1"></script>
+  <script src="merge-categories.js?v=7"></script>
   <script>
     // DOM Elements
     const navEl = document.getElementById('navFilters');
@@ -6817,54 +6818,14 @@
       document.getElementById('authError').classList.remove('visible');
     }
 
-    // ===== FIREBASE AUTH =====
-    // Firebase config — PlexMovies project
-    const FIREBASE_CONFIG = {
-      apiKey: "AIzaSyCftljTkWcA2-CyojsF40Dpjm9rAiSlKNc",
-      authDomain: "plexmovies-530e4.firebaseapp.com",
-      projectId: "plexmovies-530e4",
-      storageBucket: "plexmovies-530e4.firebasestorage.app",
-      messagingSenderId: "890489788932",
-      appId: "1:890489788932:web:7b606cb4a67ba70b23f351",
-      measurementId: "G-ZBZ7YQ1GYR"
-    };
-
+    // ===== BROWSER-ONLY SAVES =====
+    // The public library no longer loads authentication or cloud-sync services.
+    // Saved links are kept locally in the visitor's browser through localStorage.
     window._authUser = null;
     let _firebaseReady = false;
 
     function loadFirebase() {
-      if (_firebaseReady) return Promise.resolve();
-      return new Promise((resolve) => {
-        const s1 = document.createElement('script');
-        s1.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js';
-        s1.onload = () => {
-          const s2 = document.createElement('script');
-          s2.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js';
-          s2.onload = () => {
-            // Load Firestore for favorites sync
-            const s3 = document.createElement('script');
-            s3.src = 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js';
-            s3.onload = () => {
-              firebase.initializeApp(FIREBASE_CONFIG);
-              _firebaseReady = true;
-              setupAuthListener();
-              setTimeout(loadGlobalLikes, 1500);
-              resolve();
-            };
-            s3.onerror = () => {
-              // Firestore failed, continue without it
-              firebase.initializeApp(FIREBASE_CONFIG);
-              _firebaseReady = true;
-              setupAuthListener();
-              setTimeout(loadGlobalLikes, 1500);
-              resolve();
-            };
-            document.head.appendChild(s3);
-          };
-          document.head.appendChild(s2);
-        };
-        document.head.appendChild(s1);
-      });
+      return Promise.resolve();
     }
 
     const ADMIN_EMAILS = ['coryh2014@gmail.com', 'coryhepler@gmail.com'];
@@ -7359,19 +7320,8 @@
       }
     });
 
-    // Initialize Firebase lazily (on first auth button click)
-    document.getElementById('authBtn').addEventListener('click', () => {
-      if (!_firebaseReady) loadFirebase();
-    }, { once: true });
-
-    // Auto-load Firebase AFTER first paint so the ~300KB of SDK never blocks
-    // initial render. Logged-in sessions still auto-restore, just a beat later;
-    // guests never pay for it on entry. (Lazy auth-button load above still wins
-    // if the user clicks before this fires.)
-    (window.requestIdleCallback || function (cb) { return setTimeout(cb, 1200); })(
-      function () { if (!_firebaseReady) loadFirebase().catch(() => { }); },
-      { timeout: 3000 }
-    );
+    // Authentication and cloud synchronization were retired in August 2026.
+    // The legacy page remains inert behind the public browser-only interface.
 
     // ===== GUEST PROMO BANNER LOGIC =====
     function checkGuestBanner() {

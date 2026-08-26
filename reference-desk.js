@@ -80,9 +80,12 @@
   function findSite(name) { var key = normalize(name); return allSites.find(function (site) { return normalize(site.name) === key; }); }
   var editorial = ['Photopea', 'Have I Been Pwned', 'NotebookLM', 'CodePen', 'Squoosh', 'Neal.fun'].map(findSite).filter(Boolean);
   if (editorial.length < 6) editorial = editorial.concat(allSites.slice(0, 6 - editorial.length));
-  var modelWatch = ['Sakana Fugu', 'GPT-5.6 Sol', 'GPT-5.6 Terra', 'GPT-5.6 Luna', 'GPT-Live', 'Claude Fable 5'].map(findSite).filter(Boolean);
+  var freshSignals = ['DeepWiki', 'Websim', 'WhatFontIs', 'Omatsuri', 'Mobirise AI', 'tldraw'].map(findSite).filter(Boolean);
 
-  Array.from(document.body.children).forEach(function (node) { node.classList.add('desk-legacy'); });
+  // Retire the previous account-era interface entirely. Data is already loaded
+  // on window; removing the old DOM prevents hidden login markup from remaining
+  // in the public page or accessibility tree.
+  Array.from(document.body.children).forEach(function (node) { node.remove(); });
   document.body.className = 'desk-body';
   var root = document.createElement('div'); root.className = 'pw-root';
   root.innerHTML = [
@@ -92,7 +95,7 @@
     '<header class="pw-header">',
       '<a class="pw-brand" href="./" aria-label="Powerful Websites home"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a>',
       '<div class="pw-header__readout"><span id="pw-total">0</span> signals / <span id="pw-field-count">0</span> constellations / 0 sponsors</div>',
-      '<nav class="pw-nav" aria-label="Primary"><a href="#pw-model-watch">New models</a><a href="#pw-month">Site of month</a><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">All fields</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
+      '<nav class="pw-nav" aria-label="Primary"><a href="#pw-model-watch">Fresh signals</a><a href="#pw-month">Site of month</a><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">All fields</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
     '</header>',
     '<div class="pw-stage" id="pw-main"><div class="pw-stage__content">',
       '<p class="pw-kicker">The living index of the useful web</p>',
@@ -107,18 +110,18 @@
     '</section>',
     '<main class="pw-discovery" id="pw-discover">',
       '<div class="pw-ticker" aria-hidden="true"><div class="pw-ticker__track" id="pw-ticker-track"></div></div>',
-      '<nav class="pw-page-map" aria-label="Explore this page"><a href="#pw-model-watch"><span>01</span>New model watch</a><a href="#pw-month"><span>02</span>Site of the month</a><a href="#pw-picks-title"><span>03</span>Start here</a><a href="#pw-directory"><span>04</span>Every category</a></nav>',
+      '<nav class="pw-page-map" aria-label="Explore this page"><a href="#pw-model-watch"><span>01</span>Fresh signals</a><a href="#pw-month"><span>02</span>Site of the month</a><a href="#pw-picks-title"><span>03</span>Start here</a><a href="#pw-directory"><span>04</span>Every category</a></nav>',
       '<section class="pw-intro pw-reveal" aria-labelledby="pw-intro-title"><div><p class="pw-section-code">00 / THE HUMAN FILTER</p><h2 id="pw-intro-title">The useful web,<br><em>with taste.</em></h2></div><div class="pw-intro__copy"><p class="pw-typewriter" id="pw-typewriter" aria-label="A thousand links are noise until somebody tells you where to start. These are useful sites with plain-English briefs, real limits, and no paid placement deciding the order."><span id="pw-typewriter-copy" aria-hidden="true"></span><i aria-hidden="true"></i></p><a href="#pw-directory">Explore every category <span aria-hidden="true">↓</span></a></div></section>',
-      '<section class="pw-model-watch pw-reveal" id="pw-model-watch" aria-labelledby="pw-model-watch-title"><header class="pw-section-head pw-section-head--models"><div><p class="pw-section-code">01 / NEW MODEL WATCH · JULY 2026</p><h2 id="pw-model-watch-title">Six releases.<br><em>Zero rumor mill.</em></h2></div><p>A short, source-checked shelf for what actually shipped. Fugu is an orchestrator, GPT-5.6 comes in three tiers, and live voice just became its own frontier.</p></header><div class="pw-model-grid" id="pw-model-grid"></div></section>',
+      '<section class="pw-model-watch pw-reveal" id="pw-model-watch" aria-labelledby="pw-model-watch-title"><header class="pw-section-head pw-section-head--models"><div><p class="pw-section-code">01 / FRESH SIGNALS · AUGUST 2026</p><h2 id="pw-model-watch-title">Six new tools.<br><em>Zero filler.</em></h2></div><p>A compact, source-checked shelf for things worth opening now: codebase maps, browser utilities, creative experiments, whiteboards, type matching, and quick site building.</p></header><div class="pw-model-grid" id="pw-model-grid"></div></section>',
       '<section class="pw-month pw-reveal" id="pw-month" aria-labelledby="pw-month-title">',
-        '<div class="pw-month__beam" aria-hidden="true"></div><div class="pw-month__copy"><p class="pw-section-code">JULY 2026 / SITE OF THE MONTH</p><div class="pw-month__identity"><b class="pw-month__mark" aria-hidden="true">F*</b><span>Originally FckSignups · now NoSignups.net</span></div><h2 id="pw-month-title">F*CK<br>Signups.</h2><p>A sharp directory of open-source tools that work immediately in your browser, now continuing as NoSignups. No account wall. No email capture. Just choose a job and get it done.</p><a class="pw-month__cta" href="https://nosignups.net/" target="_blank" rel="noopener noreferrer"><span>Explore the winner</span><strong>↗</strong></a></div>',
-        '<div class="pw-month__visual" aria-hidden="true"><div class="pw-month__seal"><span>PW</span><small>07—26</small></div><p>F*CK</p><p>SIGNUPS</p><div class="pw-month__orbit"><i></i><i></i><i></i></div></div>',
-        '<dl class="pw-month__stats"><div><dt>66</dt><dd>tools loaded</dd></div><div><dt>08</dt><dd>categories</dd></div><div><dt>00</dt><dd>signups needed</dd></div></dl>',
+        '<div class="pw-month__beam" aria-hidden="true"></div><div class="pw-month__copy"><p class="pw-section-code">AUGUST 2026 / SITE OF THE MONTH</p><div class="pw-month__identity"><b class="pw-month__mark" aria-hidden="true">DW</b><span>DeepWiki · public repository explorer</span></div><h2 id="pw-month-title">DEEP<br>WIKI.</h2><p>A conversational map for public GitHub repositories. Paste a repository link to explore up-to-date docs, trace the architecture, and make an unfamiliar codebase less intimidating — straight in your browser.</p><a class="pw-month__cta" href="https://deepwiki.com/" target="_blank" rel="noopener noreferrer"><span>Explore DeepWiki</span><strong>↗</strong></a></div>',
+        '<div class="pw-month__visual" aria-hidden="true"><div class="pw-month__seal"><span>PW</span><small>08—26</small></div><p>DEEP</p><p>WIKI</p><div class="pw-month__orbit"><i></i><i></i><i></i></div></div>',
+        '<dl class="pw-month__stats"><div><dt>∞</dt><dd>public repos</dd></div><div><dt>01</dt><dd>link to start</dd></div><div><dt>00</dt><dd>installs needed</dd></div></dl>',
       '</section>',
       '<section class="pw-picks pw-reveal" aria-labelledby="pw-picks-title"><header class="pw-section-head"><div><p class="pw-section-code">02 / START HERE</p><h2 id="pw-picks-title">Six sites worth<br>knowing now.</h2></div><p>Not a popularity contest. A compact shelf of dependable tools selected from the full index.</p></header><div class="pw-picks__grid" id="pw-picks-grid"></div></section>',
       '<section class="pw-directory pw-reveal" id="pw-directory" aria-labelledby="pw-directory-title"><header class="pw-section-head pw-section-head--directory"><div><p class="pw-section-code">03 / THE COMPLETE INDEX</p><h2 id="pw-directory-title">Every field.<br>Nothing buried.</h2></div><p>Open any shelf, skim the quick briefs, save what matters, or pull the complete category into the live search panel.</p></header><nav class="pw-jump" id="pw-jump" aria-label="Jump to a website category"></nav><div class="pw-directory__groups" id="pw-directory-groups"></div></section>',
       '<section class="pw-closing pw-reveal"><p class="pw-section-code">END OF THE VISIBLE FIELD</p><h2>The web is still<br><span>weirder than an app store.</span></h2><button type="button" id="pw-random-bottom">Show me something unexpected <span aria-hidden="true">↗</span></button></section>',
-      '<footer class="pw-footer"><a class="pw-brand" href="#pw-top"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a><p>Useful websites, filed by humans. No sponsored rankings.</p><div><a href="faq.html">Manifesto</a><a href="admin.html">Admin</a><a href="#pw-top">Top ↑</a></div></footer>',
+      '<footer class="pw-footer"><a class="pw-brand" href="#pw-top"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a><p>Useful websites, filed by humans. No sponsored rankings. Saved links stay in this browser.</p><div><a href="faq.html">Manifesto</a><a href="#pw-top">Top ↑</a></div></footer>',
     '</main>',
     '<button class="pw-to-top" id="pw-to-top" type="button" aria-label="Scroll back to the top"><span>TOP</span></button>',
     '<button class="pw-backdrop" id="pw-backdrop" type="button" aria-label="Close results"></button>',
@@ -139,7 +142,7 @@
   function toast(message) { var node = document.getElementById('pw-toast'); node.textContent = message; node.hidden = false; clearTimeout(toastTimer); toastTimer = setTimeout(function () { node.hidden = true; }, 1700); }
   function toggleFavorite(site) {
     var favorites = getFavorites(); var index = favorites.indexOf(site.url);
-    if (index >= 0) { favorites.splice(index, 1); toast('Signal removed'); } else { favorites.push(site.url); toast('Signal saved'); }
+    if (index >= 0) { favorites.splice(index, 1); toast('Removed from this browser'); } else { favorites.push(site.url); toast('Saved in this browser'); }
     localStorage.setItem('pwl_favorites', JSON.stringify(favorites)); updateSavedCount();
     document.querySelectorAll('.pw-save[data-url]').forEach(function (button) { if (button.dataset.url === site.url) { button.setAttribute('aria-pressed', String(index < 0)); button.textContent = index < 0 ? '✓' : '+'; } });
     if (currentMode === 'saved') showSaved();
@@ -183,7 +186,7 @@
     var sites = category.sites.map(function (raw) { return siteByUrl.get(urlKey(raw.u)); }).filter(Boolean); showResults(sites, category.name, 'Constellation ' + String(categories.indexOf(category) + 1).padStart(2, '0'), 'category');
     document.querySelectorAll('.pw-category').forEach(function (button) { button.removeAttribute('aria-current'); }); if (sourceButton) sourceButton.setAttribute('aria-current', 'true'); visual.focusGroup = categories.indexOf(category); visual.searchRatio = 0; visual.burst = 1; if (!options || !options.skipHistory) history.replaceState(null, '', '?category=' + encodeURIComponent(category.id));
   }
-  function showSaved() { var sites = getFavorites().map(function (url) { return siteByUrl.get(urlKey(url)); }).filter(Boolean); showResults(sites, 'Saved signals', 'Your private field', 'saved'); visual.searchRatio = .45; history.replaceState(null, '', '?view=saved'); }
+  function showSaved() { var sites = getFavorites().map(function (url) { return siteByUrl.get(urlKey(url)); }).filter(Boolean); showResults(sites, 'Saved signals', 'Stored only in this browser', 'saved'); visual.searchRatio = .45; history.replaceState(null, '', '?view=saved'); }
   function showBrowse() { currentMode = 'browse'; resultList.hidden = true; empty.hidden = true; more.hidden = true; categoryGrid.hidden = false; panelTitle.textContent = 'All fields'; panelLabel.textContent = 'The whole observable web'; panelMeta.textContent = categories.length + ' constellations / ' + allSites.length.toLocaleString() + ' signals'; openPanel(); history.replaceState(null, '', '?view=fields'); }
 
   var categoryFragment = document.createDocumentFragment(); var gridFragment = document.createDocumentFragment();
@@ -212,7 +215,7 @@
 
   function renderDiscovery() {
     var ticker = document.getElementById('pw-ticker-track'); var tickerNames = categories.map(function (category) { return category.name + ' · ' + category.sites.length; }); ticker.textContent = tickerNames.concat(tickerNames).join('    ✦    ');
-    var models = document.getElementById('pw-model-grid'); var modelFragment = document.createDocumentFragment(); modelWatch.forEach(function (site, index) { modelFragment.appendChild(createSiteCard(site, index, 'model')); }); models.appendChild(modelFragment);
+    var models = document.getElementById('pw-model-grid'); var modelFragment = document.createDocumentFragment(); freshSignals.forEach(function (site, index) { modelFragment.appendChild(createSiteCard(site, index, 'model')); }); models.appendChild(modelFragment);
     var picks = document.getElementById('pw-picks-grid'); var pickFragment = document.createDocumentFragment(); editorial.slice(0, 6).forEach(function (site, index) { pickFragment.appendChild(createSiteCard(site, index, 'pick')); }); picks.appendChild(pickFragment);
     var jump = document.getElementById('pw-jump'); var groups = document.getElementById('pw-directory-groups');
     categories.forEach(function (category, categoryIndex) {
