@@ -449,3 +449,49 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
   .pw-search { margin-top: 19px; }
   .pw-trails { margin-top: 10px; }
 }
+
+/* ── Streamlined directory: one focused destination after the hero ── */
+.pw-directory--primary {
+  padding-top: clamp(76px, 10vw, 150px);
+  padding-bottom: clamp(88px, 11vw, 160px);
+}
+.pw-directory__head {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(260px, 390px);
+  align-items: end;
+  gap: clamp(32px, 7vw, 110px);
+  margin-bottom: clamp(42px, 6vw, 78px);
+}
+.pw-directory__head > * { min-width: 0; }
+.pw-directory__head h2 {
+  margin: 0;
+  color: #f7f2eb;
+  font: 800 clamp(48px, 6.4vw, 96px)/.86 var(--pw-display);
+  letter-spacing: -.075em;
+  text-transform: uppercase;
+}
+.pw-directory__head h2 em {
+  color: transparent;
+  font-style: normal;
+  -webkit-text-stroke: 1.1px #ef2831;
+}
+.pw-directory__head > p {
+  max-width: 390px;
+  margin: 0 0 5px;
+  color: #aaa39e;
+  font-size: 16px;
+  line-height: 1.55;
+}
+.pw-directory--primary .pw-jump { margin-bottom: 0; }
+.pw-category-shelf > header button:disabled {
+  border-color: rgba(255,255,255,.09);
+  color: #76706b;
+  cursor: default;
+}
+
+@media (max-width: 760px) {
+  .pw-directory--primary { padding-top: 72px; padding-bottom: 92px; }
+  .pw-directory__head { grid-template-columns: 1fr; gap: 24px; margin-bottom: 38px; }
+  .pw-directory__head h2 { font-size: clamp(42px, 12.2vw, 62px); }
+  .pw-directory__head > p { font-size: 15px; }
+}
