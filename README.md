@@ -4,7 +4,7 @@ A searchable, installable collection of **useful websites and browser tools** ac
 
 ![Powerful Free Websites Library](assets/hero.png)
 
-**Live:** [powerful-websites-library.vercel.app](https://powerful-websites-library.vercel.app)
+**Live:** [www.ntkwebsites.com](https://www.ntkwebsites.com)
 
 ## Features
 
