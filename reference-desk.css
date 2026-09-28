@@ -556,3 +556,18 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
   .pw-site-card__bottom { grid-area: bottom; align-self: stretch; padding-top: 0; }
   .pw-site-card__bottom a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 12px; margin: 0 -12px 0 0; }
 }
+
+/* ── Safe areas: the page opts into viewport-fit=cover with a translucent status bar,
+   so a home-screen install on iPhone draws under the Dynamic Island and home indicator. ── */
+:root { --pw-sat: env(safe-area-inset-top, 0px); --pw-sab: env(safe-area-inset-bottom, 0px); }
+.pw-header { height: calc(78px + var(--pw-sat)); padding-top: var(--pw-sat); }
+.pw-dock { height: calc(76px + var(--pw-sab)); padding-bottom: var(--pw-sab); }
+.pw-jump { top: 0; padding-top: var(--pw-sat); }
+.pw-category-shelf { scroll-margin-top: calc(54px + var(--pw-sat)); }
+.pw-panel { padding-bottom: var(--pw-sab); }
+.pw-to-top, .pw-toast { margin-bottom: var(--pw-sab); }
+@media (max-width: 760px) {
+  .pw-header { height: calc(64px + var(--pw-sat)); }
+  .pw-dock { height: calc(58px + var(--pw-sab)); }
+  .pw-panel { height: min(calc(86svh + var(--pw-sab)), calc(790px + var(--pw-sab))); }
+}

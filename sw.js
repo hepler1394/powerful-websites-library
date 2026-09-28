@@ -2,7 +2,7 @@ const CACHE_NAME = 'webslib-v8';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
-  '/reference-desk.css?v=8',
+  '/reference-desk.css?v=9',
   '/data-extra.js',
   '/data-extra-2.js?v=2',
   '/data-extra-3.js',
