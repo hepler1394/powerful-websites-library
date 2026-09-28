@@ -1,47 +1,21 @@
-﻿{
-    "name":  "Powerful Free Websites Library",
-    "short_name":  "WebsLib",
-    "description":  "800+ free websites that feel illegal to know — AI tools, streaming, gaming, VPNs, and more.",
-    "start_url":  "/index.html",
-    "display":  "standalone",
-    "background_color":  "#0a0a0a",
-    "theme_color":  "#dc2626",
-    "orientation":  "portrait-primary",
-    "icons":  [
-                  {
-                      "src":  "icon-192.png",
-                      "sizes":  "192x192",
-                      "type":  "image/png",
-                      "purpose":  "any maskable"
-                  },
-                  {
-                      "src":  "icon-512.png",
-                      "sizes":  "512x512",
-                      "type":  "image/png",
-                      "purpose":  "any maskable"
-                  }
-              ],
-    "categories":  [
-                       "utilities",
-                       "reference",
-                       "productivity"
-                   ],
-    "lang":  "en-US",
-    "shortcuts":  [
-                      {
-                          "url":  "/?q=",
-                          "name":  "Search",
-                          "description":  "Search all sites"
-                      },
-                      {
-                          "url":  "/#favorites",
-                          "name":  "Favorites",
-                          "description":  "View my favorites"
-                      },
-                      {
-                          "url":  "/?surprise=1",
-                          "name":  "Surprise Me",
-                          "description":  "Open a random site"
-                      }
-                  ]
+{
+    "name": "Powerful Websites",
+    "short_name": "Powerful Web",
+    "description": "1,100+ useful websites with honest limits. Flip one switch to see the 700+ that work with no login.",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#020202",
+    "theme_color": "#050605",
+    "orientation": "portrait-primary",
+    "icons": [
+        { "src": "icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+        { "src": "icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+    ],
+    "categories": ["utilities", "reference", "productivity"],
+    "lang": "en-US",
+    "shortcuts": [
+        { "url": "/?login=none#pw-directory", "name": "No login needed", "description": "Only sites that work without an account" },
+        { "url": "/?q=pdf", "name": "PDF tools", "description": "Search PDF and document tools" },
+        { "url": "/?view=saved", "name": "Saved", "description": "Sites saved in this browser" }
+    ]
 }

@@ -495,3 +495,64 @@ body.desk-body { overflow-x: hidden; overflow-y: auto; background: #020202; }
   .pw-directory__head h2 { font-size: clamp(42px, 12.2vw, 62px); }
   .pw-directory__head > p { font-size: 15px; }
 }
+
+/* ── September 2026: login access, no-login filter, compact phone cards ── */
+.pw-access { display: inline-flex; align-items: center; gap: 7px; min-height: 22px; padding: 0 7px; border: 1px solid transparent; font: 700 11px/1 var(--pw-mono); letter-spacing: .06em; text-transform: uppercase; white-space: nowrap; }
+.pw-access--open { border-color: #f3f1e8; color: #050505; background: #f3f1e8; }
+.pw-access--optional { border-color: rgba(243,241,232,.62); color: #f3f1e8; }
+.pw-access--account { padding-left: 0; color: #9b958f; }
+.pw-access--account::before { width: 7px; height: 7px; flex: 0 0 7px; content: ""; border: 1px solid currentColor; border-radius: 50%; }
+.pw-access--unknown { padding-left: 0; color: #8f8a84; }
+.pw-result__filing .pw-access { font-size: 10px; }
+.pw-site-card__bottom .pw-access { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.pw-site-card__filing small { font-size: 11px; }
+
+.pw-trails .pw-trail--open { border-color: var(--pw-acid); color: var(--pw-acid); }
+.pw-trails .pw-trail--open::before { background: var(--pw-acid); }
+.pw-trails .pw-trail--open:hover, .pw-trails .pw-trail--open[aria-pressed="true"] { color: var(--pw-bg); }
+.pw-trails .pw-trail--open[aria-pressed="true"]::before { transform: translateX(0); }
+
+.pw-jump { overflow: visible; align-items: stretch; }
+.pw-jump__links { min-width: 0; flex: 1 1 auto; display: flex; overflow-x: auto; scrollbar-width: none; }
+.pw-jump__links::-webkit-scrollbar { display: none; }
+.pw-jump__links a[hidden] { display: none; }
+.pw-access-switch { flex: 0 0 auto; display: inline-flex; align-items: center; gap: 11px; min-height: 52px; padding: 0 18px 0 0; margin-right: 4px; border: 0; border-right: 1px solid #5b070c; color: #e9e4da; background: transparent; font: 700 11px/1 var(--pw-mono); letter-spacing: .06em; text-transform: uppercase; cursor: pointer; }
+.pw-access-switch__track { position: relative; width: 38px; height: 20px; flex: 0 0 38px; border: 1px solid rgba(243,241,232,.55); background: #0b0b0a; transition: background-color .2s ease, border-color .2s ease; }
+.pw-access-switch__track::after { position: absolute; top: 3px; left: 3px; width: 12px; height: 12px; content: ""; background: #bdb8b1; transition: transform .2s ease, background-color .2s ease; }
+.pw-access-switch[aria-checked="true"] { color: var(--pw-acid); }
+.pw-access-switch[aria-checked="true"] .pw-access-switch__track { border-color: var(--pw-acid); background: rgba(216,255,69,.14); }
+.pw-access-switch[aria-checked="true"] .pw-access-switch__track::after { background: var(--pw-acid); transform: translateX(18px); }
+.pw-access-switch:hover .pw-access-switch__track { border-color: #fff; }
+.pw-access-switch:focus-visible { outline: 2px solid var(--pw-acid); outline-offset: -2px; }
+.pw-access-switch--panel { min-height: 40px; margin-top: 12px; padding: 0; border-right: 0; }
+.pw-category-shelf[hidden] { display: none; }
+.pw-category-shelf__more[hidden], .pw-category-shelf header button[hidden] { display: none; }
+.pw-empty strong { display: block; }
+@media (prefers-reduced-motion: reduce) { .pw-access-switch__track, .pw-access-switch__track::after { transition: none; } }
+
+/* Touch devices have no cursor to read out */
+@media (hover: none), (pointer: coarse) { .pw-coordinate, .pw-hint { display: none; } }
+
+@media (max-width: 760px) {
+  .pw-category span { font-size: 11px; color: #8d8a84; }
+  .pw-search__live { font-size: 11px; }
+  .pw-panel__meta { font-size: 12px; }
+  .pw-jump__links a { padding: 18px 14px; font-size: 12px; }
+  .pw-category-shelf header p { font-size: 12px; line-height: 1.35; }
+  .pw-category-shelf__more, .pw-category-shelf header button { font-size: 12px; }
+  .pw-to-top span { font-size: 11px; }
+  .pw-result__num small { display: none; }
+  .pw-access-switch { padding-right: 14px; }
+
+  /* Compact phone cards: logo, name and save share one row; brief clamps to two lines. */
+  .pw-site-card { min-height: 0; display: grid; grid-template-columns: 46px minmax(0,1fr) 44px; grid-template-areas: "logo title save" "logo host save" "brief brief brief" "bottom bottom bottom"; column-gap: 14px; align-items: center; padding: 18px 16px 6px; }
+  .pw-site-card__top, .pw-site-card__identity { display: contents; }
+  .pw-site-card__logo { grid-area: logo; align-self: start; }
+  .pw-site-card__filing { grid-area: host; min-width: 0; }
+  .pw-site-card__save { grid-area: save; width: 44px; height: 44px; justify-self: end; align-self: start; }
+  .pw-site-card h3 { grid-area: title; margin: 0; font-size: 23px; line-height: 1.05; }
+  .pw-site-card h3 a { display: inline-block; padding: 4px 0; }
+  .pw-site-card__brief { grid-area: brief; min-height: 0; margin: 12px 0 10px; font-size: 14px; line-height: 1.5; -webkit-line-clamp: 2; }
+  .pw-site-card__bottom { grid-area: bottom; align-self: stretch; padding-top: 0; }
+  .pw-site-card__bottom a { display: inline-flex; align-items: center; min-height: 48px; padding: 0 12px; margin: 0 -12px 0 0; }
+}
