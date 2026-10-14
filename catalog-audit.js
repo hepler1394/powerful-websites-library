@@ -212,7 +212,27 @@
     'https://www.beehiiv.com': 'Newsletter platform with built-in monetization and referral tools.',
     'https://www.magnific.com': 'AI image upscaler that adds invented detail as it enlarges, so check it on faces.',
     'https://arc.net/search': "The Browser Company's mobile browser that builds a summary page from several sources for each query.",
-    'https://affine.pro': 'Open-source workspace that merges docs, whiteboard and database on one local-first canvas.'
+    'https://affine.pro': 'Open-source workspace that merges docs, whiteboard and database on one local-first canvas.',
+    'https://vimm.net/': "Long-running, ad-free archive of classic console ROMs and emulators.",
+    'https://lofigirl.com/': "The 24/7 lofi hip hop radio stream for studying, playable in the browser.",
+    'https://thepiratebay.org': "The oldest torrent index still running. Expect pop-ups and fake download buttons.",
+    'https://www.torproject.org': "Routes all traffic through the Tor network. The reference tool for anonymous browsing.",
+    'https://one.one.one.one': "Cloudflare's free DNS resolver and WARP VPN app, for phones and desktops.",
+    'https://chat.mistral.ai': "Mistral's free chatbot, fast and multilingual, built on its own open-weight models.",
+    'https://fal.ai/': "Hosted APIs for image and video models such as Flux and SDXL, with a free trial allowance.",
+    'https://apps.qoo-app.com/en': "App store for Japanese and other Asian mobile games not released globally.",
+    'https://www.screen.studio': "Mac screen recorder that adds automatic zooms and smooth cursor motion to tutorials.",
+    'https://zed.dev': "Fast collaborative code editor written in Rust, with multiplayer editing and a built-in AI assistant.",
+    'https://anytype.io': "Local-first, encrypted Notion alternative. Data lives on your device and syncs peer to peer. Open source.",
+    'https://submagic.co': "AI captions for short-form video, animated and synced for TikTok, Reels and Shorts.",
+    'https://www.topazlabs.com': "Desktop AI upscaling and video enhancement: sharpen, denoise, deblur and restore old footage.",
+    'https://t3.chat': "One chat front-end for Claude, GPT, Gemini and others. Switch models mid-conversation.",
+    'https://ui.shadcn.com': "React components you copy into your project and own, rather than install as a dependency.",
+    'https://ui.aceternity.com': "Animated sections and effects for React and Tailwind that you copy into a project.",
+    'https://cheat.sh': "Command-line cheatsheets: curl cheat.sh/tar returns the commands you actually want.",
+    'https://www.perplexity.ai/pages': "Turn a Perplexity research thread into a cited, shareable article page.",
+    'https://typst.app': "A modern alternative to LaTeX with cleaner syntax that compiles in the browser.",
+    'https://linear.app': "Fast, keyboard-first issue tracker for software teams, with roadmaps built in."
   };
   REMOVE_OCT.forEach(function (u) { REMOVE.push(u); });
   Object.keys(UPDATE_OCT).forEach(function (u) { UPDATE[u] = UPDATE_OCT[u]; });

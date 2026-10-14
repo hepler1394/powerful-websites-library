@@ -1,4 +1,4 @@
-const CACHE_NAME = 'webslib-v9';
+const CACHE_NAME = 'webslib-v10';
 const STATIC_ASSETS = [
   '/',
   '/manifest.json',
@@ -19,7 +19,7 @@ const STATIC_ASSETS = [
   '/data-extra-14.js?v=1',
   '/merge-categories.js?v=9',
   '/access-map.js?v=1',
-  '/catalog-audit.js?v=2',
+  '/catalog-audit.js?v=3',
   '/reference-desk.js?v=10',
   '/assets/observatory-poster.jpg',
   '/icon-192.png',
