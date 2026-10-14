@@ -16,8 +16,6 @@
     { id: 'learning', name: 'Learning & Education', sites: [] },
     { id: 'privacy', name: 'Privacy & Security', sites: [] },
     { id: 'files', name: 'Files, PDFs & Documents', sites: [] },
-    { id: 'free-no-signups', name: 'Free, No Signups', sites: [] },
-    { id: 'free-tools', name: 'Free Tools', sites: [] },
     { id: 'money-career', name: 'Money & Career', sites: [] },
     { id: 'pirate-library', name: 'Pirate Library', sites: [] },
     { id: 'entertainment', name: 'Games, Movies & Streaming', sites: [] },
@@ -49,8 +47,8 @@
     var key = normalize((category.id || '') + ' ' + (category.name || ''));
     var id = 'more';
     if (category.group && groupById(category.group)) id = category.group;
-    else if (category.id === 'free-no-signups') id = 'free-no-signups';
-    else if (category.id === 'free-tools') id = 'free-tools';
+    else if (category.id === 'free-no-signups') id = 'design-media';
+    else if (category.id === 'free-tools') id = 'productivity';
     else if (/coding|developer|backend|infra|dev tools|ui components/.test(key)) id = 'developer';
     else if (/privacy|security|vpn|ad blocker/.test(key)) id = 'privacy';
     else if (/pdf|file tool|file conversion|document/.test(key)) id = 'files';
@@ -69,7 +67,12 @@
 
   rawCategories.forEach(function (category) {
     var group = filingGroupFor(category);
-    category.sites.forEach(function (site) { (normalize(site.n) === 'squoosh' ? groupById('design-media') : group).sites.push(site); });
+    category.sites.forEach(function (site) {
+      var name = normalize(site.n); var target = group;
+      if (name === 'squoosh') target = groupById('design-media');
+      else if (name === 'kroki' || name === 'tableconvert') target = groupById('developer');
+      target.sites.push(site);
+    });
   });
   if (topCategory) {
     var filedUrls = new Set();
@@ -113,27 +116,26 @@
     '<video class="pw-cinema" id="pw-cinema" muted loop playsinline preload="none" poster="assets/observatory-poster.jpg" aria-hidden="true" tabindex="-1"><source src="assets/observatory-cinema.mp4" type="video/mp4"></video><canvas class="pw-field" id="pw-field" aria-hidden="true"></canvas><div class="pw-vignette"></div><div class="pw-cursor-halo" id="pw-cursor" aria-hidden="true"></div>',
     '<header class="pw-header">',
       '<a class="pw-brand" href="./" aria-label="Powerful Websites home"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a>',
-      '<div class="pw-header__readout"><span id="pw-total">0</span> sites / <span id="pw-open-count">0</span> with no login / 0 sponsors</div>',
+      '<div class="pw-header__readout"><span id="pw-total">0</span> sites / <span id="pw-open-count">0</span> with no login / no paid placement</div>',
       '<nav class="pw-nav" aria-label="Primary"><a href="#pw-directory">Directory</a><button id="pw-motion" type="button" aria-pressed="false">Motion on</button><button id="pw-browse" type="button">Browse cards</button><button id="pw-saved" type="button">Saved <span class="pw-nav__count" id="pw-saved-count">0</span></button></nav>',
     '</header>',
     '<div class="pw-stage" id="pw-main"><div class="pw-stage__content">',
       '<p class="pw-kicker">The living index of the useful web</p>',
       '<h1 class="pw-title"><span>Don\'t browse.</span><span data-text="Bend the web.">Bend the web.</span></h1>',
-      '<p class="pw-deck">Every point is a useful site. Move through the field, name the job, and pull the right part of the internet toward you.</p>',
-      '<form class="pw-search" id="pw-search" role="search"><div class="pw-search__frame"><span class="pw-search__glyph" aria-hidden="true">⌕</span><input id="pw-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="What do you need the web to do?" aria-label="Search more than one thousand useful websites"><button class="pw-search__submit" type="submit">Find it</button></div><div class="pw-search__under"><span>Press / anywhere to focus</span><span class="pw-search__live" id="pw-search-live" aria-live="polite">Awaiting a signal</span></div>',
+      '<p class="pw-deck">More than 1,200 useful websites, each with a plain description and its real limits. Type the job you need done, or pick a category.</p>',
+      '<form class="pw-search" id="pw-search" role="search"><div class="pw-search__frame"><span class="pw-search__glyph" aria-hidden="true">⌕</span><input id="pw-search-input" type="search" autocomplete="off" spellcheck="false" placeholder="What do you need to do?" aria-label="Search more than one thousand useful websites"><button class="pw-search__submit" type="submit">Find it</button></div><div class="pw-search__under"><span>Press / anywhere to focus</span><span class="pw-search__live" id="pw-search-live" aria-live="polite">Type to search</span></div>',
       '<div class="pw-trails" aria-label="Fast searches"><button type="button" class="pw-trail--open" id="pw-trail-open">No login needed</button><button type="button" data-query="pdf">Repair a PDF</button><button type="button" data-query="image editor">Make an image</button><button type="button" data-query="privacy security">Check privacy</button></div></form>',
     '</div></div>',
     '<aside class="pw-feature" id="pw-feature"><div class="pw-feature__label"><span>No login, just open it</span><span class="pw-feature__index" id="pw-feature-index">01 / 06</span></div><a class="pw-feature__name" id="pw-feature-name" target="_blank" rel="noopener noreferrer"></a><p class="pw-feature__meta" id="pw-feature-meta"></p></aside>',
-    '<div class="pw-coordinate"><strong>Field is live</strong><span id="pw-coordinate">x 000 / y 000</span></div><p class="pw-hint">Move your cursor. The index moves back.</p>',
-    '<footer class="pw-dock"><span class="pw-dock__label">Choose a field</span><div class="pw-category-rail" id="pw-category-rail" aria-label="Website categories"></div><button class="pw-dock__action" id="pw-random" type="button">Random signal</button></footer>',
+    '<footer class="pw-dock"><span class="pw-dock__label">Categories</span><div class="pw-category-rail" id="pw-category-rail" aria-label="Website categories"></div><button class="pw-dock__action" id="pw-random" type="button">Random site</button></footer>',
     '</section>',
     '<main class="pw-discovery" id="pw-discover">',
       '<section class="pw-directory pw-directory--primary pw-reveal" id="pw-directory" aria-labelledby="pw-directory-title"><header class="pw-directory__head"><div><p class="pw-section-code">THE COMPLETE DIRECTORY</p><h2 id="pw-directory-title">Find a site.<br><em>Open a card.</em></h2></div><p>Choose a category above or below. Flip <strong>No login</strong> to hide every site that makes you sign up first.</p></header><div class="pw-jump" id="pw-jump-bar"><button class="pw-access-switch" type="button" role="switch" aria-checked="false" data-access-switch><span class="pw-access-switch__track" aria-hidden="true"></span><span>No login only</span></button><nav class="pw-jump__links" id="pw-jump" aria-label="Jump to a website category"></nav></div><div class="pw-directory__groups" id="pw-directory-groups"></div></section>',
-      '<footer class="pw-footer"><a class="pw-brand" href="#pw-top"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a><p>Useful websites, filed by humans. Saved links stay in this browser.</p><div><a href="faq.html">Manifesto</a><a href="#pw-top">Top ↑</a></div></footer>',
+      '<footer class="pw-footer"><a class="pw-brand" href="#pw-top"><span class="pw-brand__pulse"></span><span class="pw-brand__name">Powerful Websites</span></a><p>Useful websites, filed by hand. No paid placement. Saved links stay in this browser. Catalog checked October 2026.</p><div><a href="tools.html">Site tools</a><a href="faq.html">FAQ</a><a href="best-practices.html">Safety guide</a><a href="https://github.com/hepler1394/powerful-websites-library" rel="noopener noreferrer">GitHub</a><a href="#pw-top">Top ↑</a></div></footer>',
     '</main>',
     '<button class="pw-to-top" id="pw-to-top" type="button" aria-label="Scroll back to the top"><span>TOP</span></button>',
     '<button class="pw-backdrop" id="pw-backdrop" type="button" aria-label="Close results"></button>',
-    '<aside class="pw-panel" id="pw-panel" aria-hidden="true" aria-labelledby="pw-panel-title"><header class="pw-panel__head"><div><p class="pw-panel__eyebrow" id="pw-panel-label">Signal results</p><h2 id="pw-panel-title">The field</h2><p class="pw-panel__meta" id="pw-panel-meta"></p><button class="pw-access-switch pw-access-switch--panel" type="button" role="switch" aria-checked="false" data-access-switch><span class="pw-access-switch__track" aria-hidden="true"></span><span>No login only</span></button></div><button class="pw-close" id="pw-close" type="button" aria-label="Close results">×</button></header><div class="pw-panel__body"><div class="pw-category-grid" id="pw-category-grid" hidden></div><div class="pw-result-list" id="pw-result-list"></div><div class="pw-empty" id="pw-empty" hidden><strong>No signal found.</strong>Try a simpler job or choose a field.</div></div><footer class="pw-panel__foot"><button class="pw-more" id="pw-more" type="button" hidden>Pull in more</button></footer></aside>',
+    '<aside class="pw-panel" id="pw-panel" aria-hidden="true" aria-labelledby="pw-panel-title"><header class="pw-panel__head"><div><p class="pw-panel__eyebrow" id="pw-panel-label">Results</p><h2 id="pw-panel-title">Results</h2><p class="pw-panel__meta" id="pw-panel-meta"></p><button class="pw-access-switch pw-access-switch--panel" type="button" role="switch" aria-checked="false" data-access-switch><span class="pw-access-switch__track" aria-hidden="true"></span><span>No login only</span></button></div><button class="pw-close" id="pw-close" type="button" aria-label="Close results">×</button></header><div class="pw-panel__body"><div class="pw-category-grid" id="pw-category-grid" hidden></div><div class="pw-result-list" id="pw-result-list"></div><div class="pw-empty" id="pw-empty" hidden><strong>No matches.</strong>Try a shorter word, or pick a category below.</div></div><footer class="pw-panel__foot"><button class="pw-more" id="pw-more" type="button" hidden>Show more</button></footer></aside>',
     '<div class="pw-toast" id="pw-toast" role="status" aria-live="polite" hidden></div>'
   ].join('');
   document.body.appendChild(root);
@@ -209,11 +211,11 @@
     currentResults = noLogin ? sites.filter(needsNoLogin) : sites; visibleCount = 10; currentMode = mode; categoryGrid.hidden = true; resultList.hidden = false; panelTitle.textContent = title; panelLabel.textContent = label;
     var hidden = sites.length - currentResults.length;
     panelMeta.textContent = currentResults.length + (currentResults.length === 1 ? ' site found' : ' sites found') + (hidden ? ' / ' + hidden + ' need an account' : '');
-    empty.innerHTML = noLogin && sites.length ? '<strong>Every match needs an account.</strong>Turn off No login only to see them.' : '<strong>No signal found.</strong>Try a simpler job or choose a field.';
+    empty.innerHTML = noLogin && sites.length ? '<strong>Every match needs an account.</strong>Turn off No login only to see them.' : '<strong>No matches.</strong>Try a shorter word, or pick a category below.';
     drawResults(); openPanel();
   }
   function runSearch(query, options) {
-    var value = query.trim(); if (!value) { showBrowse(); return; } var matches = searchSites(value); searchLive.textContent = (noLogin ? matches.filter(needsNoLogin) : matches).length + (noLogin ? ' no-login sites match' : ' sites match'); visual.focusGroup = -1; visual.searchRatio = Math.min(1, matches.length / 120 + .16); visual.burst = 1; showResults(matches, value, 'Search frequency', 'search'); if (!options || !options.skipHistory) history.replaceState(null, '', '?q=' + encodeURIComponent(value));
+    var value = query.trim(); if (!value) { showBrowse(); return; } var matches = searchSites(value); searchLive.textContent = (noLogin ? matches.filter(needsNoLogin) : matches).length + (noLogin ? ' no-login sites match' : ' sites match'); visual.focusGroup = -1; visual.searchRatio = Math.min(1, matches.length / 120 + .16); visual.burst = 1; showResults(matches, value, 'Search', 'search'); if (!options || !options.skipHistory) history.replaceState(null, '', '?q=' + encodeURIComponent(value));
   }
   function showCategory(category, sourceButton, options) {
     closePanel({ keepUrl: true });
@@ -225,7 +227,7 @@
     if (shelf) shelf.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' });
     if (!options || !options.skipHistory) history.replaceState(null, '', '#pw-shelf-' + category.id);
   }
-  function showSaved() { var sites = getFavorites().map(function (url) { return siteByUrl.get(urlKey(url)); }).filter(Boolean); showResults(sites, 'Saved signals', 'Stored only in this browser', 'saved'); visual.searchRatio = .45; history.replaceState(null, '', '?view=saved'); }
+  function showSaved() { var sites = getFavorites().map(function (url) { return siteByUrl.get(urlKey(url)); }).filter(Boolean); showResults(sites, 'Saved sites', 'Kept in this browser only', 'saved'); visual.searchRatio = .45; history.replaceState(null, '', '?view=saved'); }
   function showBrowse() { closePanel({ keepUrl: true }); var directory = document.getElementById('pw-directory'); if (directory) directory.scrollIntoView({ behavior: reduceMotion ? 'auto' : 'smooth', block: 'start' }); history.replaceState(null, '', '#pw-directory'); }
 
   var categoryFragment = document.createDocumentFragment(); var gridFragment = document.createDocumentFragment();
@@ -244,8 +246,9 @@
     var save = document.createElement('button'); save.className = 'pw-save pw-site-card__save'; save.type = 'button'; save.dataset.url = site.url; save.textContent = isFavorite(site.url) ? '✓' : '+'; save.setAttribute('aria-label', 'Save ' + site.name); save.setAttribute('aria-pressed', String(isFavorite(site.url))); save.addEventListener('click', function () { toggleFavorite(site); }); top.append(identity, save);
     var heading = document.createElement('h3'); var link = document.createElement('a'); link.href = site.url; link.target = '_blank'; link.rel = 'noopener noreferrer'; link.textContent = site.name; heading.appendChild(link);
     var description = document.createElement('p'); description.className = 'pw-site-card__brief'; description.textContent = site.description || 'A useful corner of the web, filed for later.';
+    var limitLine = document.createElement('p'); limitLine.className = 'pw-site-card__limit'; limitLine.textContent = !site.limit || /^none\b/i.test(site.limit) ? 'No limits noted' : /^free\b/i.test(site.limit) ? site.limit : 'Limit: ' + site.limit; if (!site.limit || /^none\b/i.test(site.limit)) limitLine.classList.add('is-clear');
     var bottom = document.createElement('div'); bottom.className = 'pw-site-card__bottom'; var category = accessTag(site); var visit = document.createElement('a'); visit.href = site.url; visit.target = '_blank'; visit.rel = 'noopener noreferrer'; visit.setAttribute('aria-label', 'Visit ' + site.name); visit.textContent = 'Visit ↗'; bottom.append(category, visit);
-    card.append(top, heading, description, bottom);
+    card.append(top, heading, description, limitLine, bottom);
     card.addEventListener('pointermove', function (event) { var rect = card.getBoundingClientRect(); card.style.setProperty('--pw-x', (event.clientX - rect.left) + 'px'); card.style.setProperty('--pw-y', (event.clientY - rect.top) + 'px'); });
     card.addEventListener('pointerleave', function () { card.style.removeProperty('--pw-x'); card.style.removeProperty('--pw-y'); });
     return card;
@@ -280,21 +283,21 @@
   showFeature(0); var featureTimer = setInterval(function () { if (!visual.paused && !panel.classList.contains('is-open')) showFeature(featureIndex + 1); }, 4600);
 
   document.getElementById('pw-search').addEventListener('submit', function (event) { event.preventDefault(); runSearch(searchInput.value); });
-  searchInput.addEventListener('input', function () { clearTimeout(searchTimer); var value = searchInput.value.trim(); if (!value) { searchLive.textContent = 'Awaiting a signal'; visual.searchRatio = 0; if (currentMode === 'search') closePanel(); return; } var matches = searchSites(value); searchLive.textContent = (noLogin ? matches.filter(needsNoLogin) : matches).length + (noLogin ? ' no-login sites match' : ' sites match'); visual.searchRatio = Math.min(1, matches.length / 120 + .12); searchTimer = setTimeout(function () { if (value.length > 1) runSearch(value); }, 180); });
+  searchInput.addEventListener('input', function () { clearTimeout(searchTimer); var value = searchInput.value.trim(); if (!value) { searchLive.textContent = 'Type to search'; visual.searchRatio = 0; if (currentMode === 'search') closePanel(); return; } var matches = searchSites(value); searchLive.textContent = (noLogin ? matches.filter(needsNoLogin) : matches).length + (noLogin ? ' no-login sites match' : ' sites match'); visual.searchRatio = Math.min(1, matches.length / 120 + .12); searchTimer = setTimeout(function () { if (value.length > 1) runSearch(value); }, 180); });
   document.querySelectorAll('[data-query]').forEach(function (button) { button.addEventListener('click', function () { searchInput.value = button.dataset.query; runSearch(button.dataset.query); }); });
   document.getElementById('pw-browse').addEventListener('click', showBrowse); document.getElementById('pw-saved').addEventListener('click', showSaved); document.getElementById('pw-close').addEventListener('click', closePanel); backdrop.addEventListener('click', closePanel);
   more.addEventListener('click', function () { visibleCount += 10; drawResults(); });
   function showRandomSignal() {
     var pool = noLogin ? allSites.filter(function (site) { return needsNoLogin(site) && site.categoryId !== 'pirate-library'; }) : allSites;
-    var site = pool[Math.floor(Math.random() * pool.length)]; visual.burst = 2; showResults([site], 'A random site', noLogin ? 'No login needed' : 'Field transmission', 'random');
+    var site = pool[Math.floor(Math.random() * pool.length)]; visual.burst = 2; showResults([site], 'A random site', noLogin ? 'No login needed' : 'Picked at random', 'random');
   }
   document.querySelectorAll('[data-access-switch]').forEach(function (button) { button.addEventListener('click', function () { setNoLogin(!noLogin); }); });
   document.getElementById('pw-trail-open').addEventListener('click', function () { if (!noLogin) setNoLogin(true, { quiet: true }); toast('Showing only sites that work without a login'); showBrowse(); });
   syncAccessSwitches();
   document.getElementById('pw-random').addEventListener('click', showRandomSignal); var randomBottom = document.getElementById('pw-random-bottom'); if (randomBottom) randomBottom.addEventListener('click', showRandomSignal);
-  document.addEventListener('keydown', function (event) { if (event.key === '/' && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); } if (event.key === 'Escape') { if (panel.classList.contains('is-open')) closePanel(); else { searchInput.value = ''; searchLive.textContent = 'Awaiting a signal'; searchInput.blur(); visual.searchRatio = 0; } } });
+  document.addEventListener('keydown', function (event) { if (event.key === '/' && document.activeElement !== searchInput) { event.preventDefault(); searchInput.focus(); } if (event.key === 'Escape') { if (panel.classList.contains('is-open')) closePanel(); else { searchInput.value = ''; searchLive.textContent = 'Type to search'; searchInput.blur(); visual.searchRatio = 0; } } });
 
-  var hero = document.getElementById('pw-top'); var cinema = document.getElementById('pw-cinema'); var canvas = document.getElementById('pw-field'); var ctx = canvas.getContext('2d', { alpha: true }); var halo = document.getElementById('pw-cursor'); var coord = document.getElementById('pw-coordinate');
+  var hero = document.getElementById('pw-top'); var cinema = document.getElementById('pw-cinema'); var canvas = document.getElementById('pw-field'); var ctx = canvas.getContext('2d', { alpha: true }); var halo = document.getElementById('pw-cursor');
   var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   // Phones and Save-Data connections keep the still poster instead of streaming the 1.7 MB loop.
   var allowCinema = window.matchMedia('(min-width: 761px)').matches && !(navigator.connection && navigator.connection.saveData);
@@ -341,11 +344,11 @@
       var activeAlpha = center.active ? point.alpha : point.alpha * .09; if (index % 6 === 0 && center.active) { ctx.strokeStyle = 'rgba(243,241,232,' + activeAlpha * .08 + ')'; ctx.beginPath(); ctx.moveTo(point.x, point.y); ctx.lineTo(center.x, center.y); ctx.stroke(); }
       ctx.fillStyle = palette[point.group % palette.length]; ctx.globalAlpha = activeAlpha; ctx.beginPath(); ctx.arc(point.x, point.y, point.size * (center.active ? 1 : .7), 0, Math.PI * 2); ctx.fill();
     }); ctx.globalAlpha = 1; visual.burst *= .92; if (visual.burst < .01) visual.burst = 0;
-    visual.ripples = visual.ripples.filter(function (ripple) { ripple.life += dt; var progress = ripple.life / 900; if (progress >= 1) return false; ctx.strokeStyle = 'rgba(216,255,69,' + (1 - progress) * .5 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(ripple.x, ripple.y, progress * 140, 0, Math.PI * 2); ctx.stroke(); return true; });
+    visual.ripples = visual.ripples.filter(function (ripple) { ripple.life += dt; var progress = ripple.life / 900; if (progress >= 1) return false; ctx.strokeStyle = 'rgba(255,41,41,' + (1 - progress) * .5 + ')'; ctx.lineWidth = 1; ctx.beginPath(); ctx.arc(ripple.x, ripple.y, progress * 140, 0, Math.PI * 2); ctx.stroke(); return true; });
     if (!visual.paused && visual.inView && !once && !document.hidden) visual.raf = requestAnimationFrame(drawField);
   }
   function ensureAnimation() { if (!visual.raf && !visual.paused && visual.inView) visual.raf = requestAnimationFrame(drawField); }
-  hero.addEventListener('pointermove', function (event) { visual.pointer.tx = event.clientX; visual.pointer.ty = event.clientY; visual.pointer.active = true; coord.textContent = 'x ' + String(Math.round(event.clientX)).padStart(3, '0') + ' / y ' + String(Math.round(event.clientY)).padStart(3, '0'); ensureAnimation(); });
+  hero.addEventListener('pointermove', function (event) { visual.pointer.tx = event.clientX; visual.pointer.ty = event.clientY; visual.pointer.active = true; ensureAnimation(); });
   hero.addEventListener('pointerleave', function () { visual.pointer.active = false; });
   canvas.addEventListener('pointerdown', function (event) { visual.ripples.push({ x: event.clientX, y: event.clientY, life: 0 }); visual.burst = .7; ensureAnimation(); });
   window.addEventListener('resize', resizeField); document.addEventListener('visibilitychange', function () { if (document.hidden) cinema.pause(); else { if (!visual.paused && visual.inView) playCinema(); ensureAnimation(); } });
@@ -371,5 +374,5 @@
   else if (categoryId) { var initial = categories.find(function (category) { return category.id === categoryId; }); if (initial) showCategory(initial, document.querySelector('.pw-category:nth-child(' + (categories.indexOf(initial) + 1) + ')'), { skipHistory: true }); }
 
   document.documentElement.classList.remove('desk-loading'); document.documentElement.setAttribute('data-theme', 'dark'); window.__PWL_DESK_READY__ = true;
-  console.log('[living-index] Ready: ' + allSites.length + ' signals, ' + categories.length + ' constellations');
+  console.log('[directory] Ready: ' + allSites.length + ' sites in ' + categories.length + ' categories');
 })();

@@ -1,25 +1,42 @@
-# Powerful Free Websites Library
+# Powerful Websites
 
-A searchable, installable collection of **useful websites and browser tools** across AI, design, development, learning, privacy, entertainment, and more. The directory prioritizes clear descriptions, visible limitations, and direct links rather than sponsored rankings.
+A searchable, installable directory of useful websites and browser tools across AI, design, development, learning, privacy, files, money, entertainment and more. Every entry has a plain description, its real limits, and a direct link. Nothing is sponsored and nothing is ranked by payment.
 
-![Powerful Free Websites Library](assets/hero.png)
+![Powerful Websites homepage](assets/hero.png)
 
 **Live:** [www.ntkwebsites.com](https://www.ntkwebsites.com)
 
-## Features
+## What it does
 
-- Fast full-catalog search with curated categories and quick search trails.
-- **No login filter.** Every site is marked No login, Login optional, or Account required. One switch (in the directory bar, the search panel, or the "No login needed" shortcut) hides everything that makes you sign up first. Link to it with `/?login=none`.
-- Browser-only saved links using `localStorage`; no account, sign-in, cloud sync, or tracking profile is required.
-- Dark, cinematic, mobile-responsive interface with compact phone cards, touch-friendly controls and a reduced-motion mode.
+- Full-catalog search with categories and quick search chips.
+- **No login filter.** Every site is marked No login, Login optional, or Account required. One switch hides everything that makes you sign up first. Link to it with `/?login=none`.
+- Limits shown on every card, not just in search results.
+- Saved links stay in `localStorage`. No account, no sync, no tracking profile.
+- Dark interface, phone layout with compact cards, reduced-motion mode, a Motion on/off control.
 - Installable PWA with offline support.
+- Three secondary pages on the same design system: in-browser site tools, an FAQ, and a safety guide for pop-ups, ad blocking and VPNs.
 
-## September 2026 audit
+## October 2026 update
 
-- Every catalogued URL was fetched. `catalog-audit.js` removes 84 sites that shut down, lost their domain, or were hijacked (one former AI tool domain now redirects to a gambling site), and moves 82 sites to their new addresses or names.
-- `access-map.js` records whether each site needs a login; uncertain ones were checked on the site itself.
-- `data-extra-14.js` adds 90 free sites, 79 of them usable with no login (PairDrop, cobalt, BentoPDF, SwissTransfer, Duck.ai, Lumo, Mermaid Live, Lichess and more).
-- The homepage shell dropped from 406 KB to 106 KB by removing the retired account-era interface. On a mid-range Android phone first paint went from 4.0 s to 2.2 s.
+- Every URL in the catalog was fetched again. `catalog-audit.js` now also removes 14 sites that lost their domain, went offline, or redirect to ad pages, and moves 12 to their new addresses (NotebookLM, Flow, Flow Music, GitHub.dev, Zoom and others).
+- `data-extra-15.js` adds 171 new sites, 139 of them usable with no login: Vectorpea, Vert, Jitsi Meet, Kagi FastGPT, Pollinations, IT Tools, Python Tutor, OpenResume, Internet Arcade, Radio Garden, Just the Recipe and more. Total is now 1,252 sites, 883 of them open without an account.
+- The two catch-all shelves ("Free Tools", "Free, No Signups") were merged into their real topics.
+- Superlative copy ("best", "insane", "stunning") was rewritten across 70 entries to say what the site does and what it costs you.
+- The homepage dropped its sci-fi labels ("signals", "field transmission", cursor coordinates) in favour of plain words, fixed a leftover lime accent, made the results sheet opaque, and raised every label under 10px.
+- The tools, FAQ and safety-guide pages were moved onto the directory's design system through `pages.css` and lost 142 emoji.
+- Dead files were removed: the old account-era homepage backup, admin and onboarding pages, Firebase config, unused stylesheets, and a tracked `node_modules` folder.
+
+## Previous audit (September 2026)
+
+- 84 sites removed for shutting down, losing their domain, or being hijacked; 82 moved to new addresses.
+- `access-map.js` records whether each site needs a login.
+- `data-extra-14.js` added 90 free sites.
+- Homepage shell cut from 406 KB to 106 KB.
+
+## Adding sites
+
+Add a new `data-extra-N.js` with one category per filing group (`group:` picks the shelf) and give every site `n`, `u`, `d`, `l`, `a` (open / optional / account) and `k` search keywords. Fetch each URL before you commit it. Load the file in `index.html` and `sw.js`.
+
 ## Tech
 
-Static HTML5, CSS3, and JavaScript with service-worker PWA support and Vercel static deployment.
+Static HTML, CSS and JavaScript. Service worker for offline use. Deployed on Vercel.

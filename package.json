@@ -1,24 +1,14 @@
 {
   "name": "powerful-websites-library",
-  "version": "1.0.0",
-  "description": "",
-  "main": "data-extra-2.js",
+  "version": "2.0.0",
+  "description": "A searchable directory of useful websites. Static HTML, CSS and JavaScript.",
+  "private": true,
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "npx --yes serve -l 5599 ."
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/hepler1394/powerful-websites-library.git"
   },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/hepler1394/powerful-websites-library/issues"
-  },
-  "homepage": "https://github.com/hepler1394/powerful-websites-library#readme",
-  "dependencies": {
-    "firebase": "^12.9.0"
-  }
+  "license": "ISC"
 }

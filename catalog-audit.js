@@ -127,8 +127,100 @@
     'https://recall.ai': { u: 'https://www.recall.it', n: 'Recall' }
   };
 
+  // ---- October 13, 2026 re-check. Every URL fetched again; DNS and TLS failures
+  // confirmed twice and cross-checked against a browser-like client.
+  var REMOVE_OCT = [
+    'https://methstreams.com', 'https://apkcombo.com/', 'https://smalldev.tools',      // domains no longer resolve
+    'https://sportsbay.run',                                                             // now redirects to an ad-tracking parking page
+    'https://currenzy.app',                                                              // certificate expired, site abandoned
+    'https://thetvapp.to', 'https://watch.vidora.su', 'https://myflixer.to', 'https://vumoo.to',
+    'https://crackstreams.dev', 'https://sflix.to', 'https://hurawatchz.to',             // mirrors offline for weeks
+    'https://skybox.blockadelabs.com',                                                   // returns a server error on every request
+    'https://notebooklm.google'                                                          // duplicate of the NotebookLM entry
+  ];
+  var UPDATE_OCT = {
+    'https://notebooklm.google.com': { u: 'https://notebook.google.com', n: 'NotebookLM (Gemini Notebook)' },
+    'https://glassmorphism.com': { u: 'https://hype4.academy/tools/glassmorphism-generator' },
+    'https://github.dev': { u: 'https://vscode.dev/github/' },
+    'https://1.1.1.1': { u: 'https://one.one.one.one' },
+    'https://totalsporteki.is': { u: 'https://totalsporteke.is' },
+    'https://stream2watch.ws': { u: 'https://wheresports.com', n: 'WhereSports (formerly Stream2Watch)' },
+    'https://nbabitez.is': { u: 'https://nbabitez.com' },
+    'https://vipleague.me': { u: 'https://vipleague.vg', n: 'VIPLeague' },
+    'https://labs.google/fx/tools/flow': { u: 'https://flow.google.com' },
+    'https://labs.google/fx/tools/music-fx': { u: 'https://www.flowmusic.app', n: 'Flow Music (formerly MusicFX)' },
+    'https://zoom.us': { u: 'https://www.zoom.com' },
+    'https://perplexity.com': { u: 'https://www.perplexity.ai/comet' }
+  };
+  // Access flags that were still missing after the September pass.
+  var ACCESS_OCT = {
+    'https://lostgamer.io': 'open', 'https://www.bensound.com': 'optional', 'https://learn-anything.xyz': 'open',
+    'https://www.relume.ai': 'account', 'https://library.relume.io': 'account', 'https://www.google.com/earth/versions/#earth-pro': 'open',
+    'https://www.screen.studio': 'account', 'https://explorer.globe.engineer': 'open'
+  };
+  // Description rewrites: superlatives and sales copy replaced with what the site does and what it costs you.
+  var REWRITE = {
+    'https://anythingllm.com': 'Private desktop assistant that chats with your own documents using a local or hosted model.',
+    'https://www.granola.ai': 'Meeting notes app that transcribes in the background and tidies your own notes afterwards.',
+    'https://www.midjourney.com': 'Image generator known for painterly, photoreal output, now usable in the browser as well as Discord.',
+    'https://www.krea.ai': 'Sketch on a canvas and watch an AI image update in real time as you draw.',
+    'https://www.retroarch.com/': 'Frontend that bundles emulators for dozens of consoles under one interface. Runs on almost everything.',
+    'https://www.ppsspp.org/': 'PSP emulator that upscales games to HD on PC, Android and iOS.',
+    'https://suno.com/': 'Generate complete songs with vocals from a text prompt.',
+    'https://www.udio.com/': 'Song generator with fine control over structure and tags, a close rival to Suno.',
+    'https://everynoise.com/': 'A scatter plot of every music genre Spotify knows about, each one playable. Good for finding obscure scenes.',
+    'https://bandcamp.com/': 'Buy and stream music directly from independent artists, who keep most of the money.',
+    'https://smallpdf.com': 'PDF toolkit for compressing, converting, merging, editing and signing.',
+    'https://www.capcut.com/': 'Video editor for short-form clips with transitions, captions and effects, on web, desktop and phone.',
+    'https://handbrake.fr/': 'Open-source video transcoder for shrinking large files and converting formats.',
+    'https://async.com': 'Record, edit, transcribe and clean up podcast audio in one place.',
+    'https://learn-anything.xyz': 'Knowledge maps that lay out a sensible order to learn a topic.',
+    'https://apps.ankiweb.net': 'Spaced-repetition flashcards. Study anything and let the schedule decide when to review.',
+    'https://thecrashcourse.com': 'Free educational video series on history, science, literature, psychology and coding.',
+    'https://app.thestorygraph.com/': 'Book tracker with mood-based recommendations, charts and half-star ratings. A Goodreads alternative.',
+    'https://www.notion.com': 'Workspace for notes, docs, wikis and project tracking. Free for personal use.',
+    'https://10minutemail.com': 'Disposable email address that expires after ten minutes.',
+    'https://bitwarden.com': 'Open-source password manager with unlimited passwords and cross-device sync on the free plan.',
+    'https://authy.com': 'Two-factor authenticator app with encrypted cloud backup of your codes.',
+    'https://mullvad.net/en/browser': 'Tor Browser without the Tor network: strong anti-fingerprinting defaults, built with the Tor Project.',
+    'https://ublockorigin.com': 'Open-source ad and tracker blocker. Lightweight and widely recommended.',
+    'https://flighty.com': 'Flight tracker with alerts for delays and gate changes, often before the airline announces them.',
+    'https://hydrahd.ws': 'Aggregates several streaming sources per movie and auto-tests them before playing.',
+    'https://moviemaze.cc': 'Filters by year, genre, rating and country make it easier to browse than most pirate sites.',
+    'https://www.stremio.com': 'Desktop app that streams torrents in real time. With the Torrentio add-on it behaves like a streaming service.',
+    'https://bingeflix.tv': 'Movies, TV, anime, a manga reader and live channels in a single interface.',
+    'https://podcast.adobe.com/enhance': "Adobe's AI mic filter. Makes a laptop recording sound like a studio mic.",
+    'https://www.canva.com/presentations': 'Generate a slide deck from a topic prompt, then edit it in Canva.',
+    'https://github.com/features/copilot': 'AI pair programmer in VS Code, JetBrains and Neovim. The free tier gives 2,000 completions a month.',
+    'https://www.framer.com/ai': 'Describe a site and Framer builds and publishes a draft you can edit.',
+    'https://www.reddit.com/r/personalfinance/wiki/index': 'Step-by-step personal finance guide written and maintained by the community.',
+    'https://www.coupert.com': 'Browser extension that tries coupon codes at checkout automatically.',
+    'https://neetcode.io': 'Curated LeetCode roadmap with video solutions for interview prep.',
+    'https://godotengine.org': 'Free, open-source 2D and 3D game engine with its own scripting language and a large community.',
+    'https://nomads.com': 'Crowdsourced data on cities for remote workers: cost, internet, weather, safety.',
+    'https://www.skyscanner.com': 'Compare flights, hotels and car hire across many booking sites.',
+    'https://www.allrecipes.com/': 'Huge crowdsourced recipe site. The reviews tell you how people actually changed the dish.',
+    'https://www.halfbakedharvest.com/': 'Comfort-food recipes with heavy photography. Long pages; skip to the recipe card.',
+    'https://www.hevyapp.com/': 'Workout tracker for weightlifting with a clean log for sets, reps and personal records.',
+    'https://www.appbrain.com/': 'Android app discovery and market statistics.',
+    'https://www.coingecko.com/': 'Independent cryptocurrency price and market data aggregator.',
+    'https://defillama.com/': 'Tracks total value locked and yields across DeFi protocols.',
+    'https://imgur.com/': 'Image host with direct links, the default for sharing on Reddit and forums.',
+    'https://archive.ph/': 'Take a snapshot of a web page that stays up after the original changes or disappears.',
+    'https://www.gapminder.org/': 'Interactive charts that correct common misconceptions about global health and wealth.',
+    'https://earth.nullschool.net': 'Animated global map of wind, ocean currents and air quality from forecast models.',
+    'https://www.beehiiv.com': 'Newsletter platform with built-in monetization and referral tools.',
+    'https://www.magnific.com': 'AI image upscaler that adds invented detail as it enlarges, so check it on faces.',
+    'https://arc.net/search': "The Browser Company's mobile browser that builds a summary page from several sources for each query.",
+    'https://affine.pro': 'Open-source workspace that merges docs, whiteboard and database on one local-first canvas.'
+  };
+  REMOVE_OCT.forEach(function (u) { REMOVE.push(u); });
+  Object.keys(UPDATE_OCT).forEach(function (u) { UPDATE[u] = UPDATE_OCT[u]; });
+
   var removeSet = new Set(REMOVE.map(key));
   var updates = new Map(Object.keys(UPDATE).map(function (u) { return [key(u), UPDATE[u]]; }));
+  var rewrites = new Map(Object.keys(REWRITE).map(function (u) { return [key(u), REWRITE[u]]; }));
+  var accessFix = new Map(Object.keys(ACCESS_OCT).map(function (u) { return [key(u), ACCESS_OCT[u]]; }));
   var access = window.PWL_ACCESS || {};
   var removed = 0, moved = 0, seen = new Set();
 
@@ -138,6 +230,8 @@
       var k = key(site.u);
       if (removeSet.has(k)) { removed++; return false; }
       if (!site.a && access[k]) site.a = access[k];
+      if (!site.a && accessFix.has(k)) site.a = accessFix.get(k);
+      if (rewrites.has(k)) site.d = rewrites.get(k);
       var change = updates.get(k);
       if (change) { Object.keys(change).forEach(function (f) { site[f] = change[f]; }); moved++; }
       var nk = key(site.u);
